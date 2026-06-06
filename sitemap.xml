@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://louisswebstudio.com/index.html</loc>
+    <loc>https://louisswebstudio.com/</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,25 +10,25 @@
 
   <!-- Portfolio / project pages -->
   <url>
-    <loc>https://louisswebstudio.com/adventure-keys.html</loc>
+    <loc>https://louisswebstudio.com/adventure-keys</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://louisswebstudio.com/agadir-transfer.html</loc>
+    <loc>https://louisswebstudio.com/agadir-transfer</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://louisswebstudio.com/digiseo.html</loc>
+    <loc>https://louisswebstudio.com/digiseo</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://louisswebstudio.com/supreme-toiture.html</loc>
+    <loc>https://louisswebstudio.com/supreme-toiture</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
