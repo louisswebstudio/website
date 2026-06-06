@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>WEBSTUDIO — Atlas &amp; Co. Case Study</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="styles.css"/>
+
+<!-- ── Main site nav / footer styles (override case study CSS where needed) ── -->
+<style>
+/* ── NAV (floating pill — same as index.html) ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: transparent;
+  padding-top: 16px;
+  display: flex !important; justify-content: center;
+  pointer-events: none;
+  height: auto !important;
+}
+.nav-inner {
+  display: flex !important; align-items: center;
+  background: rgba(18,18,18,0.90) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 50px !important;
+  padding: 10px 14px 10px 28px !important;
+  gap: 0;
+  width: fit-content;
+  min-width: 780px;
+  max-width: calc(100vw - 48px);
+  pointer-events: all;
+  height: auto !important;
+  justify-content: flex-start !important;
+}
+nav .logo {
+  display: flex; align-items: center; gap: 4px;
+  text-decoration: none; white-space: nowrap;
+  font-weight: inherit; font-size: inherit; letter-spacing: inherit;
+}
+.nav-links {
+  display: flex !important; gap: 36px; align-items: center;
+  padding: 0; margin-left: 56px;
+}
+.nav-link {
+  color: rgba(255,255,255,0.55) !important; font-size: 14px;
+  text-decoration: none; transition: color .2s; white-space: nowrap; font-weight: 500;
+}
+.nav-link:hover { color: rgba(255,255,255,0.90) !important; }
+.nav-right { display: flex; align-items: center; gap: 16px; margin-left: 56px; }
+
+/* Language switcher */
+.lang-switcher { position: relative; }
+.lang-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 20px;
+  border: none; background: transparent;
+  cursor: pointer; user-select: none; transition: background .2s;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.08); }
+.lang-flag {
+  width: 22px !important; height: 22px !important; border-radius: 50% !important;
+  overflow: hidden; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent !important; border: none !important;
+}
+.lang-code { font-size: 14px; font-weight: 500; color: #d4d4d4; letter-spacing: .04em; }
+.lang-chevron { color: #a3a3a3; transition: transform .25s; display: flex; align-items: center; }
+.lang-switcher.open .lang-chevron { transform: rotate(180deg); }
+.lang-dropdown {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; overflow: hidden; min-width: 140px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  opacity: 0; transform: translateY(-8px) scale(.97);
+  pointer-events: none;
+  transition: opacity .22s cubic-bezier(.16,1,.3,1), transform .22s cubic-bezier(.16,1,.3,1);
+  z-index: 200;
+}
+.lang-switcher.open .lang-dropdown {
+  opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
+}
+.lang-option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; cursor: pointer;
+  font-size: 14px; font-weight: 500; color: #d4d4d4; transition: background .15s;
+}
+.lang-option:hover { background: rgba(255,255,255,0.07); }
+.lang-option.active { color: #3b82f6; }
+.lang-option.active .lang-opt-code::after { content: ' ✓'; }
+.lang-opt-flag {
+  width: 22px; height: 22px; border-radius: 50%;
+  overflow: hidden; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.lang-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0 12px; }
+
+/* Nav CTA button */
+nav .btn-primary {
+  display: inline-flex !important; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+  padding: 12px 24px !important; border-radius: 9999px !important;
+  font-size: 14px !important; font-weight: 600 !important; line-height: 1;
+  min-height: 44px !important; height: auto !important;
+  text-decoration: none; border: none !important; cursor: pointer;
+  box-shadow: 0 0 20px rgba(37,99,235,0.25) !important;
+  transition: opacity .2s, transform .15s, box-shadow .2s;
+  white-space: nowrap; letter-spacing: normal;
+}
+nav .btn-primary:hover {
+  opacity: 0.9; transform: translateY(-2px) !important;
+  box-shadow: 0 4px 24px rgba(37,99,235,0.4) !important;
+}
+
+/* Hamburger */
+.hamburger-btn {
+  display: none; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent; cursor: pointer;
+  flex-direction: column; gap: 4.5px;
+}
+.hamburger-btn:hover { background: rgba(255,255,255,0.1); }
+.hamburger-bar {
+  width: 16px; height: 1.5px; background: #fff; border-radius: 2px;
+  transition: transform .25s cubic-bezier(.16,1,.3,1), opacity .2s, transform .25s;
+}
+.hamburger-btn.open .hamburger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger-btn.open .hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger-btn.open .hamburger-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-menu-overlay {
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(0,0,0,0.5);
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.mobile-menu-overlay.open { opacity: 1; pointer-events: all; }
+.mobile-menu {
+  position: fixed; top: 0; right: -100%; z-index: 160;
+  width: min(360px, 85vw); height: 100%;
+  background: #0f0f0f; border-left: 1px solid rgba(255,255,255,0.08);
+  display: none; flex-direction: column; padding: 24px;
+  transition: right .35s cubic-bezier(.16,1,.3,1);
+}
+.mobile-menu.open { right: 0; }
+.menu-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+}
+.mob-overlay-logo { display: flex; align-items: center; }
+.mobile-menu-close {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12); background: transparent;
+  color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.mobile-menu-close:hover { background: rgba(255,255,255,0.1); }
+.menu-center { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.mobile-menu-link {
+  font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.65);
+  padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-decoration: none;
+  opacity: 0; transform: translateX(20px);
+  transition: color .2s, opacity .3s, transform .3s;
+}
+.mobile-menu-link:hover { color: #fff; }
+.mobile-menu.open .menu-center .mobile-menu-link:nth-child(1) { opacity:1; transform:none; transition-delay:.09s; }
+.mobile-menu.open .menu-center .mobile-menu-link:nth-child(2) { opacity:1; transform:none; transition-delay:.14s; }
+.mobile-menu.open .menu-center .mobile-menu-link:nth-child(3) { opacity:1; transform:none; transition-delay:.19s; }
+.menu-bottom { padding-top: 24px; }
+.mobile-menu-cta {
+  display: block; width: 100%; text-align: center;
+  padding: 16px; border-radius: 9999px;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #fff; font-weight: 600; font-size: 15px;
+  text-decoration: none;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .3s .31s, transform .3s .31s;
+}
+.mobile-menu.open .mobile-menu-cta { opacity: 1; transform: none; }
+.mobile-menu-cta:hover { opacity: .88; }
+
+@media (max-width: 768px) {
+  .hamburger-btn { display: flex !important; }
+  .mobile-menu { display: flex; }
+  .nav-links { display: none !important; }
+  nav .btn-primary { display: none !important; }
+  .nav-inner { min-width: unset !important; padding: 8px 8px 8px 16px !important; }
+}
+
+/* ── FOOTER (main site style) ── */
+footer.footer-section {
+  background: rgba(3,3,3,0.3); padding: 96px 0 0;
+  position: relative; overflow: hidden;
+}
+footer.footer-section::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: rgba(6,6,7,0.2); pointer-events: none;
+}
+footer.footer-section > * { position: relative; z-index: 1; }
+.footer-top {
+  border-bottom: 1px solid rgba(38,38,38,0.6) !important;
+  padding-bottom: 40px !important; margin-bottom: 48px !important;
+  display: flex !important; align-items: center !important;
+  justify-content: space-between !important; position: relative;
+}
+.footer-cta-small { font-size: 36px; font-weight: 500; color: #737373; letter-spacing: -0.9px; }
+.footer-ctas { display: flex; gap: 8px; }
+footer.footer-section .btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+  padding: 14px 28px; border-radius: 9999px;
+  font-size: 15px; font-weight: 600; line-height: 1;
+  min-height: 48px; height: auto;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 0 20px rgba(37,99,235,0.25);
+  transition: opacity .2s, transform .15s, box-shadow .2s;
+  white-space: nowrap;
+}
+footer.footer-section .btn-primary:hover {
+  opacity: 0.9; transform: translateY(-2px);
+  box-shadow: 0 4px 24px rgba(37,99,235,0.4);
+}
+.footer-mid {
+  display: flex !important; align-items: center !important;
+  justify-content: space-between !important; padding: 0 0 40px !important;
+}
+.footer-socials { display: flex !important; gap: 12px !important; }
+.footer-social { color: #fff; text-decoration: none; transition: color .2s; }
+.footer-social:hover { color: #2563eb; }
+.footer-bottom {
+  border-top: 1px solid rgba(38,38,38,.6) !important;
+  padding: 24px 0 32px !important;
+  display: flex !important; align-items: center !important;
+  justify-content: space-between !important;
+}
+.footer-copy { font-size: 16px; color: #737373; }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 16px; color: #737373; text-decoration: none; transition: color .2s; }
+.footer-legal a:hover { color: #fff; }
+
+/* Container for footer (avoids conflict with case study's .shell) */
+.main-container {
+  max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%;
+}
+
+/* Reveal animations for footer */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1 !important; transform: translateY(0) !important; }
+
+/* Hero: ensure padding-top clears the floating nav */
+.hero { padding-top: 120px !important; }
+
+@media (max-width: 1200px) { .main-container { padding: 0 48px; } }
+@media (max-width: 900px) {
+  .footer-top { flex-direction: column; align-items: flex-start !important; gap: 28px; }
+  .footer-mid { flex-direction: column !important; gap: 20px; }
+  .footer-bottom { flex-direction: column !important; gap: 12px; align-items: flex-start !important; }
+  .footer-cta-small { font-size: 28px; }
+}
+@media (max-width: 480px) { .main-container { padding: 0 20px; } footer.footer-section { padding-top: 56px; } }
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo"><img src="../logo.png" alt="LS WebStudio" style="height:32px;width:auto;display:block;"></a>
+
+    <div class="nav-links">
+      <a href="../index.html#work" class="nav-link" data-en="Portfolio" data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
+      <a href="../index.html#process" class="nav-link" data-en="Process" data-fr="Processus" data-ar="مراحل العمل">Process</a>
+      <a href="../index.html#pricing" class="nav-link" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+    </div>
+
+    <div class="nav-right">
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <div class="lang-btn" onclick="toggleLang()">
+          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <span class="lang-code" id="activeLangCode">EN</span>
+          <span class="lang-chevron">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#a3a3a3" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <div class="lang-dropdown">
+          <div class="lang-option active" id="opt-en" onclick="setLang('en')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">English</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-fr" onclick="setLang('fr')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">Français</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-ar" onclick="setLang('ar')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/ma.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">العربية</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <a href="https://wa.me/212697366797?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MOBILE MENU ════ -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <div class="menu-top">
+    <a href="../index.html" class="mob-overlay-logo" aria-label="Home">
+      <img src="../logo.png" alt="Logo" height="20" width="auto">
+    </a>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <div class="menu-center">
+    <a href="../index.html#work"      class="mobile-menu-link" data-en="Portfolio" data-fr="Portfolio"  data-ar="أعمالنا">Portfolio</a>
+    <a href="../index.html#process"   class="mobile-menu-link" data-en="Process"   data-fr="Processus" data-ar="مراحل العمل">Process</a>
+    <a href="../index.html#pricing"   class="mobile-menu-link" data-en="Pricing"   data-fr="Tarifs"    data-ar="الأسعار">Pricing</a>
+  </div>
+  <div class="menu-bottom">
+    <a href="https://wa.me/212697366797?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F"
+       class="mobile-menu-cta"
+       data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
+  </div>
+</div>
+
+<!-- ════ REACT CONTENT ════ -->
+<div id="root"></div>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer-section">
+  <div class="main-container">
+
+    <div class="footer-top reveal">
+      <div class="footer-cta-small" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
+      <div class="footer-ctas">
+        <a href="https://wa.me/212697366797?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+      </div>
+    </div>
+
+    <div class="footer-mid reveal">
+      <a href="../index.html" class="logo"><img src="../logo.png" alt="LS WebStudio" style="height:32px;width:auto;display:block;"></a>
+      <div class="footer-socials">
+        <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+        </a>
+        <a href="#" class="footer-social" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom reveal">
+      <p class="footer-copy" data-en="© 2026 LS Web Studio. All rights reserved." data-fr="© 2026 LS Web Studio. Tous droits réservés." data-ar="© 2026 LS Web Studio. جميع الحقوق محفوظة.">© 2026 LS Web Studio. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="../privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
+        <a href="../terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ════ REACT RUNTIME ════ -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+// ── tweaks-panel ─────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;height:22px;
+    border-radius:6px;cursor:default;padding:0}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((key, val) => {
+    setValues((prev) => ({ ...prev, [key]: val }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  }, []);
+  return { values, set: setTweak };
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel"
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ title, children }) {
+  return (
+    <>
+      <div className="twk-sect">{title}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+// ── app ───────────────────────────────────────────────────────────────────────
+
+const { useState, useEffect } = React;
+
+const TWEAK_DEFAULTS = {
+  "accent": "moroccan-blue",
+  "heroLayout": "split",
+  "showFloatingTags": true,
+  "showMetrics": true,
+};
+
+const ACCENTS = {
+  "moroccan-blue":   { c: "#2563eb", c2: "#3b82f6", glow: "rgba(37,99,235,0.45)" },
+  "electric-cyan":   { c: "#06b6d4", c2: "#22d3ee", glow: "rgba(6,182,212,0.45)" },
+  "lime":            { c: "#84cc16", c2: "#a3e635", glow: "rgba(132,204,22,0.45)" },
+  "violet":          { c: "#7c3aed", c2: "#a78bfa", glow: "rgba(124,58,237,0.45)" },
+  "amber":           { c: "#f59e0b", c2: "#fbbf24", glow: "rgba(245,158,11,0.45)" },
+};
+
+const Icon = {
+  arrow: (s = 16) => (
+    <svg width={s} height={s} viewBox="0 0 16 16" fill="none">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  x: (s = 16) => (
+    <svg width={s} height={s} viewBox="0 0 16 16" fill="none">
+      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+};
+
+function LaptopMockSite() {
+  return (
+    <div style={{ width: "100%", height: "100%", background: "#fafafa", color: "#0a0a0a", display: "flex", flexDirection: "column", fontFamily: "Inter, sans-serif" }}>
+      <div style={{ height: 32, borderBottom: "1px solid #e4e4e7", display: "flex", alignItems: "center", padding: "0 16px", gap: 18, background: "#fff" }}>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: "-0.01em" }}>ATLAS &amp; CO.</div>
+        <div style={{ display: "flex", gap: 14, flex: 1 }}>
+          {["Work","Studio","Journal","Contact"].map(l => <span key={l} style={{ fontSize: 8, color: "#71717a", fontWeight: 600 }}>{l}</span>)}
+        </div>
+        <div style={{ fontSize: 8, fontWeight: 700, color: "#fff", background: "var(--accent)", padding: "3px 8px", borderRadius: 999 }}>Book Call</div>
+      </div>
+      <div style={{ padding: "20px 24px 0", flex: 1, display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 20 }}>
+        <div>
+          <div style={{ fontSize: 9, color: "#52525b", fontWeight: 600, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.1em" }}>— A heritage hotel reborn</div>
+          <div style={{ fontSize: 26, fontWeight: 700, lineHeight: 1.0, letterSpacing: "-0.025em", marginBottom: 8 }}>
+            Stay at the<br/><em style={{ fontFamily: "Georgia, serif", fontStyle: "italic", color: "var(--accent)", fontWeight: 500 }}>edge of the Atlas.</em>
+          </div>
+          <div style={{ fontSize: 8, color: "#52525b", lineHeight: 1.45, marginBottom: 12 }}>
+            Twelve suites carved into a hillside,<br/>thirty minutes from Marrakech.
+          </div>
+          <div style={{ display: "inline-flex", gap: 6 }}>
+            <div style={{ fontSize: 8, fontWeight: 700, color: "#fff", background: "#0a0a0a", padding: "5px 12px", borderRadius: 999 }}>Reserve a stay</div>
+            <div style={{ fontSize: 8, fontWeight: 600, color: "#0a0a0a", padding: "5px 12px", borderRadius: 999, border: "1px solid #d4d4d8" }}>Take a tour</div>
+          </div>
+        </div>
+        <div style={{ borderRadius: 6, height: 130, background: "linear-gradient(135deg, #f5d8a8 0%, #c97f4a 60%, #6b3a1a 100%)", boxShadow: "inset 0 -20px 30px rgba(0,0,0,0.2)", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", bottom: 8, left: 8, fontSize: 8, color: "#fff", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Suite — 03</div>
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, padding: "16px 24px 18px" }}>
+        {[{ k: "Suites", v: "12" }, { k: "Avg rate", v: "€480" }, { k: "Rating", v: "4.9" }, { k: "Booked", v: "92%" }].map((s, i) => (
+          <div key={i} style={{ borderTop: "1px solid #e4e4e7", paddingTop: 6 }}>
+            <div style={{ fontSize: 7, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600 }}>{s.k}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: "-0.02em" }}>{s.v}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockSite() {
+  return (
+    <div style={{ width: "100%", height: "100%", background: "#fafafa", display: "flex", flexDirection: "column", paddingTop: 30, fontFamily: "Inter" }}>
+      <div style={{ padding: "0 14px 8px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ fontSize: 8, fontWeight: 800 }}>ATLAS</div>
+        <div style={{ width: 14, height: 14, borderRadius: 4, background: "#0a0a0a" }}></div>
+      </div>
+      <div style={{ padding: "16px 14px 12px" }}>
+        <div style={{ fontSize: 6, color: "#52525b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>Heritage stay</div>
+        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.0, margin: "4px 0 6px" }}>
+          Stay at the <em style={{ fontFamily: "Georgia", color: "var(--accent)", fontWeight: 500 }}>edge.</em>
+        </div>
+      </div>
+      <div style={{ margin: "0 14px", height: 130, borderRadius: 8, background: "linear-gradient(160deg, #f5d8a8 0%, #c97f4a 60%, #6b3a1a 100%)", position: "relative" }}>
+        <div style={{ position: "absolute", bottom: 8, left: 8, right: 8, display: "flex", justifyContent: "space-between", alignItems: "end" }}>
+          <div style={{ fontSize: 7, color: "#fff", fontWeight: 600 }}>Suite 03</div>
+          <div style={{ fontSize: 7, color: "#fff", fontWeight: 700 }}>€480 / nt</div>
+        </div>
+      </div>
+      <div style={{ padding: "12px 14px 0", display: "flex", flexDirection: "column", gap: 6 }}>
+        {["Sahara Sky", "Cedar Ridge", "Atlas Edge"].map((t, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 8px", background: "#fff", border: "1px solid #e4e4e7", borderRadius: 6 }}>
+            <div>
+              <div style={{ fontSize: 8, fontWeight: 700 }}>{t}</div>
+              <div style={{ fontSize: 6, color: "#71717a" }}>2 guests · suite</div>
+            </div>
+            <div style={{ fontSize: 7, fontWeight: 700, color: "var(--accent)" }}>Book →</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: "auto", padding: "10px 14px", background: "#0a0a0a", color: "#fff", margin: "10px 14px 14px", borderRadius: 999, fontSize: 8, fontWeight: 700, textAlign: "center" }}>
+        Reserve a stay
+      </div>
+    </div>
+  );
+}
+
+function DeviceStage({ showTags }) {
+  return (
+    <div className="hero-stage">
+      <div className="stage-floor"></div>
+      <div className="laptop">
+        <div className="laptop-screen">
+          <div className="laptop-display"><LaptopMockSite /></div>
+        </div>
+        <div className="laptop-base"></div>
+      </div>
+      <div className="phone">
+        <div className="phone-frame">
+          <div className="phone-notch"></div>
+          <div className="phone-display"><PhoneMockSite /></div>
+        </div>
+      </div>
+      {showTags && (
+        <>
+          <div className="float-tag t1"><span className="pill"></span> 98 Lighthouse</div>
+          <div className="float-tag t2"><span className="pill" style={{ background: "#22d3ee", boxShadow: "0 0 0 3px rgba(34,211,238,0.20)" }}></span> +312% leads</div>
+          <div className="float-tag t3"><span className="pill" style={{ background: "#fbbf24", boxShadow: "0 0 0 3px rgba(251,191,36,0.20)" }}></span> 0.8s LCP</div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function Hero({ heroLayout, showFloatingTags }) {
+  return (
+    <section className="hero" data-layout={heroLayout}>
+      <div className="hero-bg">
+        <div className="grid"></div>
+        <div className="glow-1"></div>
+        <div className="glow-2"></div>
+      </div>
+      <div className="shell hero-grid">
+        <div>
+          <span className="eyebrow">
+            <span className="dot"></span>
+            Case Study · Hospitality
+          </span>
+          <h1>
+            How a heritage hotel <span className="accent-blue">tripled</span> direct bookings <span className="accent">in 90 days.</span>
+          </h1>
+          <p className="hero-sub">
+            Atlas &amp; Co., a twelve-suite riad outside Marrakech, was losing 80% of inbound traffic to a clunky third-party booking widget. We rebuilt the brand experience end-to-end — and the numbers followed.
+          </p>
+          <div className="hero-meta">
+            <div className="item"><span className="label">Client</span><span className="val">Atlas &amp; Co.</span></div>
+            <div className="item"><span className="label">Industry</span><span className="val">Hospitality</span></div>
+            <div className="item"><span className="label">Timeline</span><span className="val">90 days</span></div>
+            <div className="item"><span className="label">Scope</span><span className="val">Brand · Web · CMS</span></div>
+            <div className="item"><span className="label">Year</span><span className="val">2025</span></div>
+          </div>
+          <div className="hero-cta">
+            <a href="#cta" className="btn btn-primary btn-lg">Start your project <span className="arrow">{Icon.arrow(15)}</span></a>
+            <a href="#approach" className="btn btn-ghost btn-lg">Read the breakdown</a>
+          </div>
+        </div>
+        <DeviceStage showTags={showFloatingTags} />
+      </div>
+    </section>
+  );
+}
+
+function Metrics() {
+  const metrics = [
+    { v: "312", u: "%", l: "Increase in direct bookings" },
+    { v: "0.8", u: "s", l: "Largest contentful paint" },
+    { v: "98", u: "/100", l: "Lighthouse performance" },
+    { v: "4.2", u: "×", l: "Return on investment" },
+  ];
+  return (
+    <section className="metrics">
+      <div className="shell">
+        <div className="metrics-grid">
+          {metrics.map((m, i) => (
+            <div key={i} className="metric">
+              <div className="num">{m.v}<span className="unit">{m.u}</span></div>
+              <div className="lbl">{m.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Problem() {
+  const items = [
+    { t: "A booking widget that fought users", d: "Embedded iframe, mismatched typography, four steps before a date picker. 78% of users dropped off before reaching availability." },
+    { t: "Brand that didn't match the room", d: "The riad felt timeless and editorial. The site felt like a 2014 OTA template — saturated reds, exclamation marks, banner ads above the fold." },
+    { t: "Mobile was an afterthought", d: "Hero image cropped to a sliver. CTA below the fold on every device under 768px. 71% of traffic was mobile." },
+    { t: "No story, only inventory", d: "Twelve identical suite cards in a grid. No editorial. No reason to scroll past the first screen." },
+  ];
+  return (
+    <section className="section problem" id="problem">
+      <div className="shell">
+        <div className="section-tag">Chapter 01</div>
+        <div className="section-head">
+          <div className="section-num">01</div>
+          <h2>The site was beautiful in person — and <em>broken</em> on every screen.</h2>
+        </div>
+        <div className="problem-grid">
+          <div className="problem-list">
+            {items.map((it, i) => (
+              <div key={i} className="problem-item">
+                <span className="icon">{Icon.x(14)}</span>
+                <div>
+                  <h4>{it.t}</h4>
+                  <p>{it.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="before-card">
+            <div className="header">
+              <div className="label"><span className="ring"></span> Before</div>
+              <div className="url">atlasandco.ma — March 2025</div>
+            </div>
+            <div className="before-mock">
+              <div className="top"></div>
+              <div className="strip"></div>
+              <div className="body">
+                <div className="blk lng">[ slow hero carousel ]</div>
+                <div className="blk alt">★ DEAL</div>
+                <div className="blk">img</div>
+                <div className="blk alt">⏰ 2HR</div>
+                <div className="blk">img</div>
+                <div className="blk">img</div>
+                <div className="blk alt">CALL</div>
+              </div>
+              <div className="footer">
+                <span className="lk">Booking iframe v3</span>
+                <span className="lk">Tripadvisor badge</span>
+                <span className="lk">Newsletter popup</span>
+                <span className="lk">Cookie banner</span>
+                <span className="lk">Live chat bubble</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Approach() {
+  const steps = [
+    { n: "i.", t: "Re-anchor the brand", d: "Six in-person interviews with the founder and head of housekeeping. We rewrote the voice — quieter, more confident, more specific. Then redrew the wordmark and a custom serif italic to carry it.", tags: ["Brand voice", "Wordmark", "Custom italic"] },
+    { n: "ii.", t: "Rebuild the booking flow", d: "Killed the iframe. Designed a native availability calendar with rate-aware date selection, suite previews on hover, and a one-screen confirm. Direct API integration with the PMS.", tags: ["Custom UI", "PMS API", "Wireframes"] },
+    { n: "iii.", t: "Editorial home page", d: "Treated the home as a magazine cover, not a catalog. Long-form sections per suite, room-by-room photography, in-room Spotify playlists. Twelve scroll-stops, not twelve cards.", tags: ["Editorial", "Photography", "Motion"] },
+  ];
+  return (
+    <section className="section approach" id="approach">
+      <div className="shell">
+        <div className="section-tag">Chapter 02</div>
+        <div className="section-head">
+          <div className="section-num">02</div>
+          <h2>Three moves, in <em>order</em>.</h2>
+        </div>
+        <div className="approach-grid">
+          {steps.map((s, i) => (
+            <div key={i} className="approach-card">
+              <div className="step">{s.n}</div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+              <div className="tags">
+                {s.tags.map((t, j) => <span key={j} className="tag">{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Result() {
+  const items = [
+    { meta: "Direct bookings", t: "+312% within 90 days", v: "312", u: "%" },
+    { meta: "Average session", t: "From 0:42 to 3:18", v: "4.7", u: "×" },
+    { meta: "Mobile conversion", t: "From 0.6% to 4.1%", v: "6.8", u: "×" },
+    { meta: "Revenue per visitor", t: "From €1.20 to €5.04", v: "320", u: "%" },
+  ];
+  return (
+    <section className="section result" id="result">
+      <div className="shell">
+        <div className="section-tag">Chapter 03</div>
+        <div className="section-head">
+          <div className="section-num">03</div>
+          <h2>The result, in <em>numbers</em> the founder cares about.</h2>
+        </div>
+        <div className="result-grid">
+          <div className="after-card">
+            <div className="header">
+              <div className="label"><span className="ring"></span> After</div>
+              <div className="url">atlasandco.ma — June 2025</div>
+            </div>
+            <div className="after-mock">
+              <div className="nav">
+                <div className="brand">ATLAS &amp; CO.</div>
+                <div className="lks"><span>Suites</span><span>Studio</span><span>Journal</span></div>
+                <div className="pill">Reserve</div>
+              </div>
+              <div className="hero">
+                <div className="h">Stay at the <em>edge of the Atlas.</em></div>
+                <div className="sub">Twelve suites carved into a hillside, thirty minutes from Marrakech.</div>
+                <div className="cta">Reserve a stay →</div>
+              </div>
+              <div className="grid">
+                <div className="card feat">Suite 03</div>
+                <div className="card">Sahara Sky</div>
+                <div className="card">Cedar Ridge</div>
+              </div>
+            </div>
+          </div>
+          <div className="result-list">
+            {items.map((it, i) => (
+              <div key={i} className="result-item">
+                <div>
+                  <div className="meta">{it.meta}</div>
+                  <h4>{it.t}</h4>
+                </div>
+                <div className="delta"><span className="dir">↑</span>{it.v}{it.u}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonial() {
+  return (
+    <section className="testimonial" id="testimonial">
+      <div className="shell">
+        <div className="testimonial-card">
+          <div className="stars">★ ★ ★ ★ ★</div>
+          <p className="quote">
+            "We spent two years convinced our problem was marketing. It was the website. Six weeks after launch we were <em>turning rooms away in low season.</em>"
+          </p>
+          <div className="meta">
+            <div className="avatar">YA</div>
+            <div>
+              <div className="name">Yasmine Alaoui</div>
+              <div className="role">Founder &amp; Owner · Atlas &amp; Co.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FinalCTA() {
+  return (
+    <section className="cta-strip" id="cta">
+      <div className="shell">
+        <div className="cta-card">
+          <h2>Have a project<br/><em>worth getting right?</em></h2>
+          <p>We take on six clients per year. We'll spend the first hour on the phone making sure we're the right fit — no slides, no pitch deck.</p>
+          <div className="actions">
+            <a href="https://wa.me/212697366797" className="btn btn-primary btn-xl">Book a discovery call <span className="arrow">{Icon.arrow(16)}</span></a>
+            <a href="../index.html#work" className="btn btn-ghost btn-xl">← Back to portfolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const { values, set } = useTweaks(TWEAK_DEFAULTS);
+
+  useEffect(() => {
+    const a = ACCENTS[values.accent] || ACCENTS["moroccan-blue"];
+    const r = document.documentElement;
+    r.style.setProperty("--accent", a.c);
+    r.style.setProperty("--accent-2", a.c2);
+    r.style.setProperty("--accent-glow", a.glow);
+  }, [values.accent]);
+
+  return (
+    <>
+      <main>
+        <Hero heroLayout={values.heroLayout} showFloatingTags={values.showFloatingTags} />
+        {values.showMetrics && <Metrics />}
+        <Problem />
+        <Approach />
+        <Result />
+        <Testimonial />
+        <FinalCTA />
+      </main>
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Accent palette">
+          <TweakRadio
+            value={values.accent}
+            onChange={(v) => set("accent", v)}
+            options={[
+              { label: "Moroccan blue", value: "moroccan-blue" },
+              { label: "Electric cyan", value: "electric-cyan" },
+              { label: "Lime",          value: "lime" },
+              { label: "Violet",        value: "violet" },
+              { label: "Amber",         value: "amber" },
+            ]}
+          />
+        </TweakSection>
+        <TweakSection title="Hero layout">
+          <TweakRadio
+            value={values.heroLayout}
+            onChange={(v) => set("heroLayout", v)}
+            options={[
+              { label: "Split (default)", value: "split" },
+              { label: "Centered",        value: "centered" },
+            ]}
+          />
+        </TweakSection>
+        <TweakSection title="Floating tags">
+          <TweakToggle
+            label="Show in hero"
+            value={values.showFloatingTags}
+            onChange={(v) => set("showFloatingTags", v)}
+          />
+        </TweakSection>
+        <TweakSection title="Metrics strip">
+          <TweakToggle
+            label="Show below hero"
+            value={values.showMetrics}
+            onChange={(v) => set("showMetrics", v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+<!-- ════ PLAIN JS: nav, lang switcher, reveal ════ -->
+<script>
+// ── Hamburger / Mobile menu ──
+const hamburgerBtn      = document.getElementById('hamburgerBtn');
+const mobileMenu        = document.getElementById('mobileMenu');
+const mobileClose       = document.getElementById('mobileMenuClose');
+const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+function openMobileMenu() {
+  mobileMenu.classList.add('open');
+  mobileMenuOverlay.classList.add('open');
+  hamburgerBtn.classList.add('open');
+  hamburgerBtn.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  mobileMenuOverlay.classList.remove('open');
+  hamburgerBtn.classList.remove('open');
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+if (hamburgerBtn) hamburgerBtn.addEventListener('click', () => {
+  mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+});
+if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+document.querySelectorAll('.mobile-menu-link, .mobile-menu-cta').forEach(el => {
+  el.addEventListener('click', closeMobileMenu);
+});
+
+// ── Language switcher ──
+const _translations = {
+  en: { flagSrc: 'https://flagcdn.com/w40/gb.png', code: 'EN' },
+  fr: { flagSrc: 'https://flagcdn.com/w40/fr.png', code: 'FR' },
+  ar: { flagSrc: 'https://flagcdn.com/w40/ma.png', code: 'AR' },
+};
+
+function toggleLang() {
+  document.getElementById('langSwitcher').classList.toggle('open');
+}
+document.addEventListener('click', (e) => {
+  const sw = document.getElementById('langSwitcher');
+  if (sw && !sw.contains(e.target)) sw.classList.remove('open');
+});
+
+function setLang(lang) {
+  localStorage.setItem('ls_lang', lang);
+  document.getElementById('activeFlagImg').src = _translations[lang].flagSrc;
+  document.getElementById('activeLangCode').textContent = _translations[lang].code;
+  document.getElementById('opt-en').classList.toggle('active', lang === 'en');
+  document.getElementById('opt-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('opt-ar').classList.toggle('active', lang === 'ar');
+  document.getElementById('langSwitcher').classList.remove('open');
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val === null) return;
+    if (val.includes('<')) el.innerHTML = val;
+    else if (el.children.length === 0) el.textContent = val;
+    else el.innerHTML = val;
+  });
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+}
+
+// ── Reveal animations (footer only) ──
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.05 });
+revealEls.forEach(el => revealObs.observe(el));
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+}, 2500);
+
+// ── Init language from localStorage ──
+(function() {
+  const saved = localStorage.getItem('ls_lang') || 'en';
+  setLang(saved);
+})();
+</script>
+</body>
+</html>

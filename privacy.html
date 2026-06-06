@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Privacy Policy — LS Web Studio" data-fr="Politique de Confidentialité — LS Web Studio" data-ar="سياسة الخصوصية — LS Web Studio">Privacy Policy — LS Web Studio</title>
+<meta name="description" content="Privacy Policy for LS Web Studio — how we collect, use, and protect your information.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://louisswebstudio.com/privacy.html">
+<link rel="icon" type="image/png" href="logo.png">
+<meta name="theme-color" content="#060607">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .legal-wrap { max-width: 820px; margin: 0 auto; padding: 150px 24px 96px; position: relative; z-index: 1; }
+  .legal-wrap h1 { color: #fff; font-size: 38px; font-weight: 600; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 8px; }
+  .legal-wrap .updated { font-size: 13px; color: var(--muted); margin-bottom: 36px; }
+  .legal-wrap h2 { color: #fff; font-size: 19px; font-weight: 600; margin: 36px 0 12px; }
+  .legal-wrap p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: #d4d4d8; }
+  .legal-wrap ul { margin: 0 0 14px 20px; font-size: 15px; line-height: 1.75; color: #d4d4d8; }
+  .legal-wrap li { margin-bottom: 8px; }
+  .legal-wrap a { color: var(--blue); }
+  html[dir="rtl"] .legal-wrap { text-align: right; }
+  html[dir="rtl"] .legal-wrap ul { margin: 0 20px 14px 0; }
+  @media (max-width: 700px) {
+    .legal-wrap { padding-top: 120px; }
+    .legal-wrap h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════ GALACTIC STARFIELD BACKGROUND ════ -->
+<canvas id="global-starfield" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block;"></canvas>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><img src="logo.png" alt="LS WebStudio" style="height:32px;width:auto;display:block;"></a>
+
+    <div class="nav-links">
+      <a href="index.html#work" class="nav-link" data-en="Portfolio" data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
+      <a href="index.html#process" class="nav-link" data-en="Process" data-fr="Processus" data-ar="مراحل العمل">Process</a>
+      <a href="index.html#pricing" class="nav-link" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+    </div>
+
+    <div class="nav-right">
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <div class="lang-btn" onclick="toggleLang()">
+          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <span class="lang-code" id="activeLangCode">EN</span>
+          <span class="lang-chevron">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#a3a3a3" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <div class="lang-dropdown">
+          <div class="lang-option active" id="opt-en" onclick="setLang('en')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">English</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-fr" onclick="setLang('fr')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">Français</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-ar" onclick="setLang('ar')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/ma.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">العربية</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <a href="https://wa.me/212697366797?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MOBILE MENU ════ -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <div class="menu-top">
+    <a href="index.html" class="mob-overlay-logo" aria-label="Home">
+      <img src="logo.png" alt="Logo" height="20" width="auto">
+    </a>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <div class="menu-center">
+    <a href="index.html#work"         class="mobile-menu-link" data-en="Portfolio"  data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
+    <a href="index.html#process"      class="mobile-menu-link" data-en="Process"    data-fr="Processus" data-ar="مراحل العمل">Process</a>
+    <a href="index.html#pricing"      class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+    <a href="index.html#testimonials" class="mobile-menu-link" data-en="Reviews"    data-fr="Avis" data-ar="آراء العملاء">Reviews</a>
+  </div>
+  <div class="menu-bottom">
+    <a href="https://wa.me/212697366797?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F"
+       data-wa-type="generic" class="mobile-menu-cta"
+       data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
+  </div>
+</div>
+
+<!-- ════ CONTENT ════ -->
+<main class="legal-wrap">
+  <h1 data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</h1>
+  <p class="updated" data-en="Last updated: June 3, 2026" data-fr="Dernière mise à jour : 3 juin 2026" data-ar="آخر تحديث: 3 يونيو 2026">Last updated: June 3, 2026</p>
+
+  <p data-en="This Privacy Policy explains how LS Web Studio (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, uses, and protects information when you visit our website or contact us about our services."
+     data-fr="La présente Politique de Confidentialité explique comment LS Web Studio (« nous ») collecte, utilise et protège vos informations lorsque vous visitez notre site ou nous contactez au sujet de nos services."
+     data-ar="توضح سياسة الخصوصية هذه كيف يقوم LS Web Studio (« نحن ») بجمع معلوماتك واستخدامها وحمايتها عند زيارتك لموقعنا أو تواصلك معنا بشأن خدماتنا.">This Privacy Policy explains how LS Web Studio ("we", "us", "our") collects, uses, and protects information when you visit our website or contact us about our services.</p>
+
+  <h2 data-en="1. Information We Collect" data-fr="1. Informations que nous collectons" data-ar="1. المعلومات التي نجمعها">1. Information We Collect</h2>
+  <p data-en="We only collect information you choose to share with us, such as:"
+     data-fr="Nous ne collectons que les informations que vous choisissez de nous communiquer, telles que :"
+     data-ar="نجمع فقط المعلومات التي تختار مشاركتها معنا، مثل:">We only collect information you choose to share with us, such as:</p>
+  <ul>
+    <li data-en="Your name and contact details (e.g. phone number, email) when you reach out via WhatsApp or our contact links;"
+        data-fr="Votre nom et vos coordonnées (téléphone, e-mail) lorsque vous nous contactez via WhatsApp ou nos liens de contact ;"
+        data-ar="اسمك وبيانات الاتصال الخاصة بك (مثل رقم الهاتف والبريد الإلكتروني) عند تواصلك عبر واتساب أو روابط الاتصال؛">Your name and contact details (e.g. phone number, email) when you reach out via WhatsApp or our contact links;</li>
+    <li data-en="Information you provide about your business and project;"
+        data-fr="Les informations que vous fournissez sur votre activité et votre projet ;"
+        data-ar="المعلومات التي تقدمها حول نشاطك ومشروعك؛">Information you provide about your business and project;</li>
+    <li data-en="Basic, anonymous usage data (such as pages visited) to help us improve the site."
+        data-fr="Des données d'usage anonymes (comme les pages visitées) afin d'améliorer le site."
+        data-ar="بيانات استخدام مجهولة المصدر (مثل الصفحات التي تمت زيارتها) لمساعدتنا في تحسين الموقع.">Basic, anonymous usage data (such as pages visited) to help us improve the site.</li>
+  </ul>
+
+  <h2 data-en="2. How We Use Your Information" data-fr="2. Utilisation de vos informations" data-ar="2. كيف نستخدم معلوماتك">2. How We Use Your Information</h2>
+  <p data-en="We use your information to respond to your inquiries, prepare quotes, deliver our services, and communicate with you about your project. We do not sell your personal data to third parties."
+     data-fr="Nous utilisons vos informations pour répondre à vos demandes, préparer des devis, fournir nos services et communiquer avec vous au sujet de votre projet. Nous ne vendons pas vos données personnelles à des tiers."
+     data-ar="نستخدم معلوماتك للرد على استفساراتك وإعداد عروض الأسعار وتقديم خدماتنا والتواصل معك بشأن مشروعك. لا نبيع بياناتك الشخصية لأطراف ثالثة.">We use your information to respond to your inquiries, prepare quotes, deliver our services, and communicate with you about your project. We do not sell your personal data to third parties.</p>
+
+  <h2 data-en="3. WhatsApp &amp; Third-Party Services" data-fr="3. WhatsApp &amp; services tiers" data-ar="3. واتساب والخدمات الخارجية">3. WhatsApp &amp; Third-Party Services</h2>
+  <p data-en="Our calls-to-action open conversations on WhatsApp. When you contact us through WhatsApp, your communication is also subject to WhatsApp's own privacy policy. We may use fonts and assets served by third parties (e.g. Google Fonts) that may process technical data such as your IP address."
+     data-fr="Nos boutons d'appel à l'action ouvrent une conversation sur WhatsApp. Lorsque vous nous contactez via WhatsApp, votre communication est également soumise à la politique de confidentialité de WhatsApp. Nous pouvons utiliser des polices et ressources fournies par des tiers (par ex. Google Fonts) susceptibles de traiter des données techniques comme votre adresse IP."
+     data-ar="تفتح أزرار الدعوة إلى الإجراء لدينا محادثة على واتساب. عند تواصلك معنا عبر واتساب، تخضع مراسلاتك أيضاً لسياسة الخصوصية الخاصة بواتساب. قد نستخدم خطوطاً وموارد مقدّمة من أطراف ثالثة (مثل Google Fonts) قد تعالج بيانات تقنية مثل عنوان IP الخاص بك.">Our calls-to-action open conversations on WhatsApp. When you contact us through WhatsApp, your communication is also subject to WhatsApp's own privacy policy. We may use fonts and assets served by third parties (e.g. Google Fonts) that may process technical data such as your IP address.</p>
+
+  <h2 data-en="4. Cookies" data-fr="4. Cookies" data-ar="4. ملفات تعريف الارتباط">4. Cookies</h2>
+  <p data-en="This site uses minimal cookies or local storage, for example to remember your preferred language. You can disable cookies in your browser settings."
+     data-fr="Ce site utilise un minimum de cookies ou de stockage local, par exemple pour mémoriser votre langue préférée. Vous pouvez désactiver les cookies dans les paramètres de votre navigateur."
+     data-ar="يستخدم هذا الموقع حداً أدنى من ملفات تعريف الارتباط أو التخزين المحلي، على سبيل المثال لتذكّر لغتك المفضلة. يمكنك تعطيلها من إعدادات متصفحك.">This site uses minimal cookies or local storage, for example to remember your preferred language. You can disable cookies in your browser settings.</p>
+
+  <h2 data-en="5. Data Retention" data-fr="5. Conservation des données" data-ar="5. الاحتفاظ بالبيانات">5. Data Retention</h2>
+  <p data-en="We keep your information only as long as needed to provide our services and meet legal obligations, after which it is deleted or anonymized."
+     data-fr="Nous conservons vos informations uniquement le temps nécessaire à la fourniture de nos services et au respect de nos obligations légales, après quoi elles sont supprimées ou anonymisées."
+     data-ar="نحتفظ بمعلوماتك فقط للمدة اللازمة لتقديم خدماتنا والوفاء بالتزاماتنا القانونية، وبعد ذلك يتم حذفها أو جعلها مجهولة المصدر.">We keep your information only as long as needed to provide our services and meet legal obligations, after which it is deleted or anonymized.</p>
+
+  <h2 data-en="6. Your Rights" data-fr="6. Vos droits" data-ar="6. حقوقك">6. Your Rights</h2>
+  <p data-en="You may request access to, correction of, or deletion of the personal information we hold about you. To do so, contact us using the details below."
+     data-fr="Vous pouvez demander l'accès, la rectification ou la suppression des données personnelles que nous détenons à votre sujet. Pour cela, contactez-nous via les coordonnées ci-dessous."
+     data-ar="يمكنك طلب الوصول إلى بياناتك الشخصية التي نحتفظ بها أو تصحيحها أو حذفها. للقيام بذلك، تواصل معنا عبر البيانات أدناه.">You may request access to, correction of, or deletion of the personal information we hold about you. To do so, contact us using the details below.</p>
+
+  <h2 data-en="7. Contact" data-fr="7. Contact" data-ar="7. التواصل">7. Contact</h2>
+  <p data-en="For any question about this policy, contact us on &lt;a href=&quot;https://wa.me/212697366797&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;WhatsApp&lt;/a&gt;."
+     data-fr="Pour toute question concernant cette politique, contactez-nous sur &lt;a href=&quot;https://wa.me/212697366797&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;WhatsApp&lt;/a&gt;."
+     data-ar="لأي سؤال حول هذه السياسة، تواصل معنا عبر &lt;a href=&quot;https://wa.me/212697366797&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;واتساب&lt;/a&gt;.">For any question about this policy, contact us on <a href="https://wa.me/212697366797" target="_blank" rel="noopener">WhatsApp</a>.</p>
+</main>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer-section">
+  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="container">
+
+    <!-- Top: Contact CTA -->
+    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
+      <div style="font-size:clamp(24px,4vw,36px); font-weight:600; color:#fff; letter-spacing:-0.9px; line-height:1.2;"
+        data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
+      <a href="https://wa.me/212697366797?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+    </div>
+
+    <!-- Middle: Logo + Socials -->
+    <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
+      <a href="index.html" class="logo"><img src="logo.png" alt="LS WebStudio" style="height:32px;width:auto;display:block;"></a>
+      <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
+        <div class="footer-socials" style="display:flex; gap:12px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Legal -->
+    <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
+      <p class="footer-copy" data-en="© 2026 LS Web Studio. All rights reserved." data-fr="© 2026 LS Web Studio. Tous droits réservés." data-ar="© 2026 LS Web Studio. جميع الحقوق محفوظة.">© 2026 LS Web Studio. All rights reserved.</p>
+      <div class="footer-legal" style="display:flex; gap:24px;">
+        <a href="privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
+        <a href="terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script src="assets/site-chrome.js"></script>
+<script src="assets/starfield.js"></script>
+</body>
+</html>
