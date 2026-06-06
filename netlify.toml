@@ -1,0 +1,20 @@
+# Netlify configuration — security headers applied to every page.
+# Docs: https://docs.netlify.com/routing/headers/
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Content-Security-Policy
+    #   'unsafe-inline' is intentional for now — every page ships inline <style>/<script> blocks.
+    #   'unsafe-eval' is required by @babel/standalone, which transforms the case-study JSX at runtime.
+    #   Beyond self + Google Fonts + Unsplash + flagcdn, the site also loads:
+    #     - api/cdn.fontshare.com  → the Satoshi display font
+    #     - unpkg.com              → React + ReactDOM + Babel on the case-study page
+    #     - esm.sh + *.sanity.io   → the Sanity CMS client and its content/images
+    #   wa.me CTAs are plain <a> link navigations and are not governed by CSP fetch directives.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com; img-src 'self' data: https://images.unsplash.com https://flagcdn.com https://cdn.sanity.io; connect-src 'self' https://esm.sh https://*.sanity.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"

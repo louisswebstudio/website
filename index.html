@@ -1713,6 +1713,9 @@ function setupBlurHeadings(delay) {
   })
 
   // ── FETCH PROJECTS → inject into bento grid ──
+  // Wrapped in try/catch so a CMS/network failure leaves the static fallback
+  // markup in place instead of throwing an uncaught error to the console.
+  try {
   const projects = await client.fetch(
     `*[_type == "project"] | order(order asc)[0...4] {
       title, slug, clientName, tags, liveUrl, featured,
@@ -1751,8 +1754,12 @@ function setupBlurHeadings(delay) {
     }).join('')
     if (window.initGlowCards) window.initGlowCards();
   }
+  } catch (err) {
+    console.warn('Projects could not be loaded from the CMS; keeping static content.', err)
+  }
 
   // ── FETCH TESTIMONIALS → inject into static grid ──
+  try {
   const testimonials = await client.fetch(
     `*[_type == "testimonial"] | order(_createdAt asc) {
       clientName, clientRole, quote, rating,
@@ -1777,6 +1784,9 @@ function setupBlurHeadings(delay) {
       if (lang !== 'en') applyTranslations(lang)
       if (window.initGlowCards) window.initGlowCards();
     }
+  }
+  } catch (err) {
+    console.warn('Testimonials could not be loaded from the CMS; keeping static content.', err)
   }
 </script>
 </body>
