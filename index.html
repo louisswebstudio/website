@@ -26,7 +26,17 @@
 <meta name="twitter:title" content="LS Web Studio — We Build Websites that Bring You Clients">
 <meta name="twitter:description" content="Fast, modern, conversion-focused websites for businesses in Morocco — from Figma to live in under 7 days.">
 <meta name="twitter:image" content="https://louisswebstudio.com/logo.png">
+<!-- Preconnect to font + asset origins so the handshake (DNS/TCP/TLS) happens early -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<!-- Lower-priority third-party origins: resolve DNS early without holding a full connection -->
+<link rel="dns-prefetch" href="https://flagcdn.com">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<link rel="dns-prefetch" href="https://esm.sh">
+<link rel="dns-prefetch" href="https://cdn.sanity.io">
+<!-- Preload the first above-the-fold hero mockup so it starts downloading immediately -->
+<link rel="preload" as="image" href="./assets/images/card-1.png" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
@@ -40,8 +50,8 @@
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo"><img src="logo.png" alt="LS WebStudio" style="height:32px;width:auto;display:block;"></a>
-    
+    <a href="#" class="logo"><img src="logo.png" alt="LS WebStudio" width="3560" height="653" style="height:32px;width:auto;display:block;"></a>
+
     <div class="nav-links">
       <a href="#work" class="nav-link" data-en="Portfolio" data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
       <a href="#process" class="nav-link" data-en="Process" data-fr="Processus" data-ar="مراحل العمل">Process</a>
@@ -53,7 +63,7 @@
       <!-- Language Switcher -->
       <div class="lang-switcher" id="langSwitcher">
         <div class="lang-btn" onclick="toggleLang()">
-          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/gb.png" alt="EN" width="40" height="30" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
           <span class="lang-code" id="activeLangCode">EN</span>
           <span class="lang-chevron">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#a3a3a3" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -61,17 +71,17 @@
         </div>
         <div class="lang-dropdown">
           <div class="lang-option active" id="opt-en" onclick="setLang('en')">
-            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" width="40" height="30" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <span class="lang-opt-code">English</span>
           </div>
           <div class="lang-divider"></div>
           <div class="lang-option" id="opt-fr" onclick="setLang('fr')">
-            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" width="40" height="30" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <span class="lang-opt-code">Français</span>
           </div>
           <div class="lang-divider"></div>
           <div class="lang-option" id="opt-ar" onclick="setLang('ar')">
-            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/ma.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/ma.png" alt="AR" width="40" height="30" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <span class="lang-opt-code">العربية</span>
           </div>
         </div>
@@ -94,7 +104,7 @@
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
     <a href="#" class="mob-overlay-logo" aria-label="Home">
-      <img src="logo.png" alt="Logo" height="20" width="auto">
+      <img src="logo.png" alt="Logo" width="109" height="20" loading="lazy" style="width:auto;height:20px;">
     </a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
@@ -272,18 +282,18 @@ html[lang="fr"] .hero .hero-h1 {
   <!-- Hero image strip — outside container, full viewport width -->
   <div class="hero-bottom-mockups">
     <div class="hero-bmock-track">
-      <div class="hero-bmock-item"><img src="./assets/images/card-1.png" alt=""></div>
-      <div class="hero-bmock-item"><img src="./assets/images/card-2.png" alt=""></div>
-      <div class="hero-bmock-item"><img src="./assets/images/card-3.png" alt=""></div>
-      <div class="hero-bmock-item"><img src="./assets/images/card-4.png" alt=""></div>
-      <div class="hero-bmock-item"><img src="./assets/images/card-5.png" alt=""></div>
-      <div class="hero-bmock-item"><img src="./assets/images/card-7.png" alt=""></div>
-      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-1.png" alt=""></div>
-      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-2.png" alt=""></div>
-      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-3.png" alt=""></div>
-      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-4.png" alt=""></div>
-      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-5.png" alt=""></div>
-      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-7.png" alt=""></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card-1.png" alt="" width="650" height="368" fetchpriority="high"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card-2.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card-3.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card-4.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card-5.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card-7.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-1.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-2.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-3.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-4.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-5.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-7.png" alt="" width="650" height="368" loading="lazy"></div>
     </div>
   </div>
 
@@ -307,8 +317,8 @@ html[lang="fr"] .hero .hero-h1 {
     <!-- Card 1: Adventure Keys — col 6–12, row 1 -->
     <a href="./adventure-keys.html" class="bento-card bento-card-1 glow-card" data-hover-img="./assets/images/hover adventure keys.png">
       <div class="bento-thumb">
-        <img src="./assets/images/figma-adventure.png" alt="Adventure Keys" style="left:166.67px;top:36px;">
-        <img class="bento-hover-img" src="./assets/images/hover adventure keys.png" alt="" loading="lazy">
+        <img src="./assets/images/figma-adventure.png" alt="Adventure Keys" width="541" height="742" loading="lazy" style="left:166.67px;top:36px;">
+        <img class="bento-hover-img" src="./assets/images/hover adventure keys.png" alt="" width="500" height="548" loading="lazy">
       </div>
       <div class="bento-info">
         <div>
@@ -326,8 +336,8 @@ html[lang="fr"] .hero .hero-h1 {
     <!-- Card 2: Supreme Toiture — col 8–12, row 2 -->
     <a href="./supreme-toiture.html" class="bento-card bento-card-2 glow-card" data-hover-img="./assets/images/hover sup toiture.png">
       <div class="bento-thumb">
-        <img src="./assets/images/figma-roofing.png" alt="Supreme Toiture" style="left:61.33px;top:46px;">
-        <img class="bento-hover-img" src="./assets/images/hover sup toiture.png" alt="" loading="lazy">
+        <img src="./assets/images/figma-roofing.png" alt="Supreme Toiture" width="896" height="4096" loading="lazy" style="left:61.33px;top:46px;">
+        <img class="bento-hover-img" src="./assets/images/hover sup toiture.png" alt="" width="500" height="548" loading="lazy">
       </div>
       <div class="bento-info">
         <div>
@@ -345,8 +355,8 @@ html[lang="fr"] .hero .hero-h1 {
     <!-- Card 3: Agadir Transfer — col 1–5, row 1 -->
     <a href="./agadir-transfer.html" class="bento-card bento-card-3 dark2 glow-card" data-hover-img="./assets/images/hover aga trans.png">
       <div class="bento-thumb">
-        <img src="./assets/images/figma-agadir.png" alt="Agadir Transfer" style="left:62px;top:35px;">
-        <img class="bento-hover-img" src="./assets/images/hover aga trans.png" alt="" loading="lazy">
+        <img src="./assets/images/figma-agadir.png" alt="Agadir Transfer" width="1440" height="4000" loading="lazy" style="left:62px;top:35px;">
+        <img class="bento-hover-img" src="./assets/images/hover aga trans.png" alt="" width="500" height="548" loading="lazy">
       </div>
       <div class="bento-info">
         <div>
@@ -364,8 +374,8 @@ html[lang="fr"] .hero .hero-h1 {
     <!-- Card 4: Digiseo — col 1–7, row 2 -->
     <a href="./digiseo.html" class="bento-card bento-card-4 dark2 glow-card" data-hover-img="./assets/images/hover digiseo.png">
       <div class="bento-thumb">
-        <img src="./assets/images/figma-digiseo.png" alt="Digiseo" style="left:166px;top:39px;">
-        <img class="bento-hover-img" src="./assets/images/hover digiseo.png" alt="" loading="lazy">
+        <img src="./assets/images/figma-digiseo.png" alt="Digiseo" width="814" height="4096" loading="lazy" style="left:166px;top:39px;">
+        <img class="bento-hover-img" src="./assets/images/hover digiseo.png" alt="" width="500" height="548" loading="lazy">
       </div>
       <div class="bento-info">
         <div>
@@ -447,10 +457,10 @@ html[lang="fr"] .hero .hero-h1 {
     <!-- Before/After swipe comparison — mobile only -->
     <div class="ba-slider-wrap" id="baSlider">
       <div class="ba-before">
-        <img src="./assets/images/new-comarison.png" alt="Avant">
+        <img src="./assets/images/new-comarison.png" alt="Avant" width="494" height="278" loading="lazy">
       </div>
       <div class="ba-after" id="baAfter">
-        <img src="./assets/images/old-comarison.png" alt="Après">
+        <img src="./assets/images/old-comarison.png" alt="Après" width="494" height="278" loading="lazy">
       </div>
       <div class="ba-handle" id="baHandle">
         <div class="ba-handle-line"></div>
@@ -535,7 +545,7 @@ html[lang="fr"] .hero .hero-h1 {
         <div class="t-card-visual">
           <div class="t-mock-frame old">
             <span class="t-mock-label label-before" data-en="Before" data-fr="Avant" data-ar="قبل">Avant</span>
-            <img src="./assets/images/old-comarison.png" style="position:absolute;width:100%;height:100%;object-fit:cover;object-position:top center;top:0;left:0;" alt="">
+            <img src="./assets/images/old-comarison.png" width="494" height="278" loading="lazy" style="position:absolute;width:100%;height:100%;object-fit:cover;object-position:top center;top:0;left:0;" alt="">
           </div>
         </div>
         <div class="t-list">
@@ -575,7 +585,7 @@ html[lang="fr"] .hero .hero-h1 {
         <div class="t-card-visual">
           <div class="t-mock-frame new">
             <span class="t-mock-label label-after" data-en="After" data-fr="Après" data-ar="بعد">Après</span>
-            <img src="./assets/images/new-comarison.png" style="position:absolute;width:100%;height:100%;object-fit:cover;object-position:top center;top:0;left:0;" alt="">
+            <img src="./assets/images/new-comarison.png" width="494" height="278" loading="lazy" style="position:absolute;width:100%;height:100%;object-fit:cover;object-position:top center;top:0;left:0;" alt="">
           </div>
         </div>
         <div class="t-list">
@@ -633,22 +643,22 @@ html[lang="fr"] .hero .hero-h1 {
 
       <!-- Slide 0 — Discovery: strategy / whiteboard meeting -->
       <div class="process-img-slide active" id="proc-slide-0">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop" alt="Discovery — Strategy session" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop" alt="Discovery — Strategy session" width="800" height="600" loading="lazy">
       </div>
 
       <!-- Slide 1 — Ideas & Design: designer at Figma -->
       <div class="process-img-slide" id="proc-slide-1">
-        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80&auto=format&fit=crop" alt="Design — UI design work" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80&auto=format&fit=crop" alt="Design — UI design work" width="800" height="600" loading="lazy">
       </div>
 
       <!-- Slide 2 — Development: coding on laptop -->
       <div class="process-img-slide" id="proc-slide-2">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop" alt="Development — Coding" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop" alt="Development — Coding" width="800" height="600" loading="lazy">
       </div>
 
       <!-- Slide 3 — Launch: rocket / celebration -->
       <div class="process-img-slide" id="proc-slide-3">
-        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&auto=format&fit=crop" alt="Launch — Going live" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&auto=format&fit=crop" alt="Launch — Going live" width="800" height="600" loading="lazy">
       </div>
 
     </div><!-- /process-image-panel -->
@@ -945,7 +955,7 @@ html[lang="fr"] .hero .hero-h1 {
 
     <!-- Middle: Logo + Nav + Socials -->
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="#" class="logo"><img src="logo.png" alt="LS WebStudio" style="height:32px;width:auto;display:block;"></a>
+      <a href="#" class="logo"><img src="logo.png" alt="LS WebStudio" width="3560" height="653" loading="lazy" style="height:32px;width:auto;display:block;"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
 <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -1146,7 +1156,7 @@ html[lang="fr"] .hero .hero-h1 {
             <div class="step-num-circle">0${i+1}</div>
             <div class="step-title">${s.title}</div>
           </div>
-          <img class="step-card-img" src="${stepImages[i]}" alt="${s.title}" loading="lazy">
+          <img class="step-card-img" src="${stepImages[i]}" alt="${s.title}" width="800" height="600" loading="lazy">
           <p class="step-body">${s.body}</p>
           <div class="step-progress-bar">
             <div class="step-progress-fill" id="stepProgressFill"></div>
@@ -1238,7 +1248,7 @@ html[lang="fr"] .hero .hero-h1 {
     const allCards = testiData.flatMap(p => p.cards);
     return allCards.map(c => {
       const avatar = c.img
-        ? `<img src="${c.img}" alt="${c.name_en || c.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">`
+        ? `<img src="${c.img}" alt="${c.name_en || c.name}" width="96" height="96" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">`
         : (c.name_en || c.name).split(' ').map(w=>w[0]).join('').slice(0,2);
       const textEn = c.text_en || c.text;
       const textFr = c.text_fr || textEn;
@@ -1722,7 +1732,7 @@ function setupBlurHeadings(delay) {
       return `
         <a ${href} class="bento-card ${tag2} glow-card" target="_blank" rel="noopener">
           <div class="bento-thumb">
-            ${p.coverUrl ? `<img class="bento-hover-img" src="${p.coverUrl}" alt="${p.title}" loading="lazy" style="opacity:1;transform:none;">` : ''}
+            ${p.coverUrl ? `<img class="bento-hover-img" src="${p.coverUrl}" alt="${p.title}" width="500" height="548" loading="lazy" style="opacity:1;transform:none;">` : ''}
           </div>
           <div class="bento-info">
             <div>
