@@ -400,7 +400,7 @@ html[lang="fr"] .faq-title { font-size: 34px; max-width: none; text-wrap: unset;
 .work-heading {
   display: block;
   text-align: center;
-  max-width: 760px;
+  max-width: min(100%, 920px);
   margin: 0 auto;
   text-wrap: balance;
 }
@@ -408,7 +408,7 @@ html[lang="fr"] .faq-title { font-size: 34px; max-width: none; text-wrap: unset;
   display: inline;
 }
 .work-h-see   { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; }
-.work-h-accent { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.work-h-accent { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; margin-inline-start: 0.25em; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .work-desc {
   font-size: 18px; color: #d4d4d8; line-height: 29.25px; max-width: 520px;
 }
