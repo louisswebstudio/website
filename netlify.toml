@@ -1,6 +1,15 @@
 # Netlify configuration — security headers applied to every page.
 # Docs: https://docs.netlify.com/routing/headers/
 
+# ── Site-wide security headers + baseline CSP ────────────────────────────────
+# This relaxed CSP still allows inline <style>/<script> and eval. It governs the
+# pages that have NOT yet been refactored to remove inline code:
+#   - the project pages (adventure-keys/agadir-transfer/digiseo/supreme-toiture)
+#   - privacy.html / terms.html
+#   - casestudy/* — which REQUIRES 'unsafe-eval': @babel/standalone compiles the
+#     case-study JSX at runtime, so it cannot run under a CSP without eval until
+#     that JSX is precompiled to plain JS.
+# index.html is hardened separately below with a strict, no-unsafe-inline policy.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -9,12 +18,25 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    # Content-Security-Policy
-    #   'unsafe-inline' is intentional for now — every page ships inline <style>/<script> blocks.
-    #   'unsafe-eval' is required by @babel/standalone, which transforms the case-study JSX at runtime.
-    #   Beyond self + Google Fonts + Unsplash + flagcdn, the site also loads:
-    #     - api/cdn.fontshare.com  → the Satoshi display font
-    #     - unpkg.com              → React + ReactDOM + Babel on the case-study page
-    #     - esm.sh + *.sanity.io   → the Sanity CMS client and its content/images
-    #   wa.me CTAs are plain <a> link navigations and are not governed by CSP fetch directives.
+    # Beyond self + Google Fonts + Unsplash + flagcdn, the site also loads:
+    #   - api/cdn.fontshare.com  → the Satoshi display font
+    #   - unpkg.com              → React + ReactDOM + Babel on the case-study page
+    #   - esm.sh + *.sanity.io   → the Sanity CMS client and its content/images
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com; img-src 'self' data: https://images.unsplash.com https://flagcdn.com https://cdn.sanity.io; connect-src 'self' https://esm.sh https://*.sanity.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+# ── Strict CSP for the hardened home page ────────────────────────────────────
+# index.html now ships ZERO inline scripts/styles/handlers — every script lives
+# in assets/*.js and every style in assets/site.css — so it runs WITHOUT
+# 'unsafe-inline' or 'unsafe-eval'. esm.sh is still allowed for the Sanity client
+# import in assets/index-cms.js (that fetch is wrapped in try/catch and falls
+# back to the static markup, so even a CSP/network failure degrades gracefully).
+# Applied to both "/" (the served root) and "/index.html".
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://esm.sh; style-src 'self' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com; img-src 'self' data: https://images.unsplash.com https://flagcdn.com https://cdn.sanity.io; connect-src 'self' https://esm.sh https://*.sanity.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://esm.sh; style-src 'self' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com; img-src 'self' data: https://images.unsplash.com https://flagcdn.com https://cdn.sanity.io; connect-src 'self' https://esm.sh https://*.sanity.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
