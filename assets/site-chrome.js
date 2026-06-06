@@ -60,7 +60,7 @@
 
     document.querySelectorAll('[data-wa-type]').forEach(function (el) {
       const msgs = waMessages[el.getAttribute('data-wa-type')] || waMessages.generic;
-      el.setAttribute('href', 'https://wa.me/212697366797?text=' + encodeURIComponent(msgs[lang] || msgs.en));
+      el.setAttribute('href', 'https://wa.me/212716490397?text=' + encodeURIComponent(msgs[lang] || msgs.en));
     });
 
     document.documentElement.lang = lang;
