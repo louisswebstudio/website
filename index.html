@@ -41,6 +41,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<!-- Structured data: tells Google this domain IS the "Louiss Web Studio" brand,
+     links the Instagram profile as the same entity (sameAs), and exposes the
+     business name/logo/area served for branded search + knowledge panel. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://louisswebstudio.com/#business",
+      "name": "Louiss Web Studio",
+      "alternateName": "Louiss Web Studio Tanger",
+      "url": "https://louisswebstudio.com/",
+      "logo": "https://louisswebstudio.com/logo.png",
+      "image": "https://louisswebstudio.com/logo.png",
+      "description": "Louiss Web Studio builds fast, modern, conversion-focused websites for businesses in Morocco — from Figma to live in under 7 days.",
+      "telephone": "+212716490397",
+      "priceRange": "$$",
+      "areaServed": [
+        { "@type": "City", "name": "Tanger" },
+        { "@type": "Country", "name": "Morocco" }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tanger",
+        "addressCountry": "MA"
+      },
+      "sameAs": [
+        "https://www.instagram.com/louiss.webstudio/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://louisswebstudio.com/#website",
+      "url": "https://louisswebstudio.com/",
+      "name": "Louiss Web Studio",
+      "publisher": { "@id": "https://louisswebstudio.com/#business" },
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
