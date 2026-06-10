@@ -234,24 +234,24 @@ html[lang="fr"] .process-h { font-size: 52px; text-wrap: unset; max-width: 800px
 /* Pricing: FR line 1 ("Choisissez le bon site web") is longer — widen + disable balance */
 html[lang="fr"] .pricing-h { max-width: 900px; text-wrap: unset; }
 /* FAQ: 34px is the max that fits "On vous répond clairement." in the 600px left column */
-html[lang="fr"] .faq-title { font-size: 34px; max-width: none; text-wrap: unset; }
+html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unset; }
 
 @media (max-width: 1100px) {
   html[lang="fr"] .transformation-h { white-space: normal; }
   html[lang="fr"] .process-h { font-size: 38px; line-height: 44px; }
-  html[lang="fr"] .faq-title { font-size: 30px; }
+  html[lang="fr"] .faq-title { font-size: 38px; line-height: 44px; }
 }
 @media (max-width: 768px) {
   html[lang="fr"] .process-h { font-size: 36px; line-height: 42px; }
-  html[lang="fr"] .faq-title { font-size: 30px; }
+  html[lang="fr"] .faq-title { font-size: 36px; line-height: 42px; }
 }
 @media (max-width: 480px) {
   html[lang="fr"] .process-h { font-size: 30px; line-height: 36px; }
-  html[lang="fr"] .faq-title { font-size: 24px; line-height: 34px; }
+  html[lang="fr"] .faq-title { font-size: 30px; line-height: 36px; }
 }
 @media (max-width: 400px) {
   html[lang="fr"] .process-h { font-size: 26px; line-height: 32px; }
-  html[lang="fr"] .faq-title { font-size: 22px; }
+  html[lang="fr"] .faq-title { font-size: 26px; line-height: 32px; }
 }
 
 /* Right side: ~48% of container width (Figma: 662.09/1376) */
@@ -406,6 +406,7 @@ html[lang="fr"] .faq-title { font-size: 34px; max-width: none; text-wrap: unset;
   max-width: min(100%, 920px);
   margin: 0 auto;
   text-wrap: balance;
+  white-space: nowrap;   /* keep the title on a single line */
 }
 .work-h-line1 {
   display: inline;
@@ -552,7 +553,10 @@ html[lang="fr"] .faq-title { font-size: 34px; max-width: none; text-wrap: unset;
   background: #171c29;
   border: 1px solid #2563eb;
 }
-.t-mock-frame img {
+/* legacy two-image layout (img-left/img-right) — no longer used in markup,
+   scoped so it doesn't shrink the single full-bleed .compare-img */
+.t-mock-frame img.img-left,
+.t-mock-frame img.img-right {
   position: absolute;
   width: 55%;
   height: auto;
@@ -616,15 +620,49 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
   text-wrap: balance;
 }
 .testimonials-heading em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.testimonials-sub { font-size: 18px; color: #a1a1aa; line-height: 28px; text-align: center; margin: 0 auto 100px; }
-.testimonial-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+.testimonials-sub { font-size: 18px; color: #a1a1aa; line-height: 28px; text-align: center; margin: 0 auto 40px; }
+
+/* carousel nav — arrows sit at the top-right, above the cards */
+.testi-nav {
+  display: flex; justify-content: flex-end; align-items: center;
+  gap: 12px; margin-bottom: 28px;
 }
+.testi-arrow {
+  width: 44px; height: 44px; border-radius: 9999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: #fff; cursor: pointer;
+  transition: background .25s, border-color .25s, opacity .25s, transform .15s;
+}
+.testi-arrow svg { width: 20px; height: 20px; }
+.testi-arrow:hover:not(:disabled) { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.4); }
+.testi-arrow:active:not(:disabled) { transform: scale(0.94); }
+.testi-arrow:disabled { opacity: 0.35; cursor: default; }
+html[dir="rtl"] .testi-nav { justify-content: flex-start; }
+
+/* horizontal scroller: shows 3 cards, swipes/arrows reveal the rest */
+.testimonial-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 48px) / 3);
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-block: 40px;
+  margin-block: -40px;
+}
+.testimonial-grid::-webkit-scrollbar { display: none; }
+.testimonial-card { scroll-snap-align: start; }
 @media (max-width: 768px) {
-  .testimonial-grid { grid-template-columns: 1fr 1fr; }
+  .testimonial-grid { grid-auto-columns: calc((100% - 16px) / 2); }
 }
 @media (max-width: 640px) {
-  .testimonial-grid { grid-template-columns: 1fr; }
+  .testimonial-grid { grid-auto-columns: 88%; }
 }
 .testimonial-card {
   background: #111; border: 1px solid var(--border);
@@ -801,11 +839,13 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
   pointer-events: none;
 }
 .faq-section > * { position: relative; z-index: 1; }
+/* Centered, stacked layout to match the other section headers (process,
+   pricing): centered header on top, accordion below — not the old 2-col split. */
 .faq-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 48px;
 }
 /* LEFT col */
 .faq-left {
@@ -1042,9 +1082,15 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
 .process-img-slide.active img { transform: scale(1); }
 
 /* ── FAQ (second definition, merged) ── */
-.faq-left { position: sticky; top: 120px; }
+/* Centered header, full width — mirrors .process-header / .pricing-header */
+.faq-left {
+  position: static;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  width: 100%;
+}
 .faq-label {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
   font-size: 14px; font-weight: 500; color: var(--blue);
   margin-bottom: 24px;
 }
@@ -1052,8 +1098,9 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
 .faq-title {
   font-family: 'Poppins', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
-  letter-spacing: -1.2px; line-height: 1.1;
-  margin-bottom: 24px; max-width: 480px;
+  letter-spacing: -1.2px; line-height: 1.15;
+  margin: 0 auto 20px; max-width: 1000px;
+  text-align: center; text-wrap: balance;
 }
 .faq-title em {
   font-family: 'Poppins', sans-serif;
@@ -1064,9 +1111,14 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
 }
 .faq-subtitle {
   font-size: 17px; color: var(--muted);
-  line-height: 1.7; margin-bottom: 40px;
-  max-width: 360px;
+  line-height: 1.7; margin: 0 auto;
+  max-width: 560px; text-align: center;
 }
+/* accordion sits centered below the header, constrained like a content column */
+.faq-list { width: 100%; max-width: 760px; margin: 0 auto; }
+/* CTA always sits centered below the accordion (header CTA hidden) */
+.faq-left .faq-cta { display: none; }
+.faq-mobile-cta-wrap { display: flex; justify-content: center; margin-top: 40px; }
 /* faq-cta styles defined above */
 
 /* counter badge */
@@ -1654,7 +1706,11 @@ footer > * { position: relative; z-index: 1; }
   --edge-sensitivity: 30;
   --color-sensitivity: 50;
   --cone-spread: 25;
-  --glow-padding: 40px;
+  /* keep the cursor glow on the card — a positive padding pushed the outer
+     ring up to 40px beyond every edge, so it bled into the gaps between cards
+     (esp. the 24px portfolio column gap) and read as a glitchy glow in the
+     empty space. 0 keeps the ring on the card's own border. */
+  --glow-padding: 0px;
 
   /* brand blue ≈ #3b82f6 → hsl(217 91% 62%) */
   --glow-color:    hsl(217deg 91% 62% / 100%);
@@ -1745,12 +1801,22 @@ footer > * { position: relative; z-index: 1; }
     inset 0 0 15px 0 var(--glow-color-30),
     inset 0 0 25px 2px var(--glow-color-20),
     inset 0 0 50px 2px var(--glow-color-10),
+    /* outer glow kept tight (≤6px) so it hugs the card edge and can't bleed
+       across the inter-card gap onto a neighbour — the wide 15/25/50px outer
+       layers were what spilled into the padding between cards. */
     0 0 1px 0 var(--glow-color-60),
     0 0 3px 0 var(--glow-color-50),
-    0 0 6px 0 var(--glow-color-40),
-    0 0 15px 0 var(--glow-color-30),
-    0 0 25px 2px var(--glow-color-20),
-    0 0 50px 2px var(--glow-color-10);
+    0 0 6px 0 var(--glow-color-40);
+}
+/* pricing cards: dial the cursor glow down a bit — it was too shiny */
+.pricing-card.glow-card {
+  --glow-color:    hsl(217deg 91% 62% / 55%);
+  --glow-color-60: hsl(217deg 91% 62% / 34%);
+  --glow-color-50: hsl(217deg 91% 62% / 28%);
+  --glow-color-40: hsl(217deg 91% 62% / 22%);
+  --glow-color-30: hsl(217deg 91% 62% / 16%);
+  --glow-color-20: hsl(217deg 91% 62% / 11%);
+  --glow-color-10: hsl(217deg 91% 62% / 5%);
 }
 .pricing-badge {
   display: inline-flex; align-items: center;
@@ -3142,8 +3208,8 @@ html[dir="rtl"] .hero-bmock-track {
 }
 
 /* ─── 8. FAQ ─── */
-/* Mobile CTA (after questions) — hidden on desktop */
-.faq-mobile-cta-wrap { display: none; }
+/* CTA sits centered below the accordion at all sizes (centered header layout) */
+.faq-mobile-cta-wrap { display: flex; justify-content: center; }
 
 @media (max-width: 768px) {
   /* Hide the CTA inside faq-left on mobile */
@@ -3347,11 +3413,11 @@ html[lang="ar"] .hero-h1-divider { display: none; }
 
 /* ---- AR SECTION HEADING OVERRIDES ---- */
 html[lang="ar"] .process-h { font-size: 52px; text-wrap: unset; max-width: 800px; }
-html[lang="ar"] .faq-title  { font-size: 34px; max-width: none; text-wrap: unset; }
+html[lang="ar"] .faq-title  { font-size: 52px; max-width: 800px; text-wrap: unset; }
 
 @media (max-width: 1100px) {
   html[lang="ar"] .process-h { font-size: 38px; line-height: 44px; }
-  html[lang="ar"] .faq-title  { font-size: 30px; }
+  html[lang="ar"] .faq-title  { font-size: 38px; line-height: 44px; }
 }
 @media (max-width: 768px) {
   html[lang="ar"] .hero-h1-line1  { font-size: 56px; line-height: 62px; }
@@ -3359,7 +3425,7 @@ html[lang="ar"] .faq-title  { font-size: 34px; max-width: none; text-wrap: unset
   html[lang="ar"] .hero-h1-that   { font-size: 56px; line-height: 62px; }
   html[lang="ar"] .hero-h1-line3  { font-size: 50px; line-height: 58px; }
   html[lang="ar"] .process-h { font-size: 36px; line-height: 42px; }
-  html[lang="ar"] .faq-title  { font-size: 30px; }
+  html[lang="ar"] .faq-title  { font-size: 36px; line-height: 42px; }
 }
 @media (max-width: 480px) {
   html[lang="ar"] .hero-h1-line1  { font-size: 44px; line-height: 50px; }
@@ -3367,11 +3433,11 @@ html[lang="ar"] .faq-title  { font-size: 34px; max-width: none; text-wrap: unset
   html[lang="ar"] .hero-h1-that   { font-size: 44px; line-height: 50px; }
   html[lang="ar"] .hero-h1-line3  { font-size: 40px; line-height: 48px; }
   html[lang="ar"] .process-h { font-size: 30px; line-height: 36px; }
-  html[lang="ar"] .faq-title  { font-size: 24px; line-height: 34px; }
+  html[lang="ar"] .faq-title  { font-size: 30px; line-height: 36px; }
 }
 @media (max-width: 400px) {
   html[lang="ar"] .process-h { font-size: 26px; line-height: 32px; }
-  html[lang="ar"] .faq-title  { font-size: 22px; }
+  html[lang="ar"] .faq-title  { font-size: 26px; line-height: 32px; }
 }
 
 /* ---- RTL LAYOUT OVERRIDES ---- */
@@ -3395,8 +3461,9 @@ html[dir="rtl"] .hero-trust     { flex-direction: row-reverse; }
 html[dir="rtl"] .hero-trust-avatars { flex-direction: row-reverse; }
 html[dir="rtl"] .section-cta-bar    { flex-direction: row-reverse; }
 html[dir="rtl"] .tmt-block { text-align: right; }
-html[dir="rtl"] .faq-inner { flex-direction: row-reverse; }
-html[dir="rtl"] .faq-left  { text-align: right; }
+/* centered stacked layout: keep the column direction & centered header in RTL too */
+html[dir="rtl"] .faq-inner { flex-direction: column; }
+html[dir="rtl"] .faq-left  { text-align: center; }
 html[dir="rtl"] .faq-label { flex-direction: row-reverse; }
 html[dir="rtl"] .faq-cta   { flex-direction: row-reverse; }
 html[dir="rtl"] .faq-question { flex-direction: row-reverse; }
