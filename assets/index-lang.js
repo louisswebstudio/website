@@ -115,10 +115,23 @@ function animateHeroTitle(delay) {
   delay = delay || 90; // ms between words
   const state = { i: 0 };
   Array.from(h1.children).forEach(line => buildBlurWords(line, state, delay));
-  // Kick off on the next frame so the freshly-inserted spans reliably animate
+  revealBlurWords(h1);
+}
+
+// Add the `.animate` class on the next frame so the freshly-inserted spans
+// reliably play the blur-in. Failsafe: if that frame is dropped or the
+// animation never runs (slow device, tab loaded in the background, gradient
+// word mis-painting on mobile), reveal the words outright so the headline is
+// never left invisible. 1600ms clears the longest legit run (desktop stagger).
+function revealBlurWords(scope) {
   requestAnimationFrame(function () {
-    h1.querySelectorAll('.blur-word').forEach(w => w.classList.add('animate'));
+    scope.querySelectorAll('.blur-word').forEach(function (w) { w.classList.add('animate'); });
   });
+  setTimeout(function () {
+    scope.querySelectorAll('.blur-word').forEach(function (w) {
+      if (parseFloat(getComputedStyle(w).opacity) < 0.99) w.classList.add('shown');
+    });
+  }, 1600);
 }
 
 function buildBlurWords(el, state, delay) {
@@ -156,9 +169,7 @@ var BLUR_HEADING_SELECTOR =
 var blurHeadingObs = null;
 
 function animateBlurWords(el) {
-  requestAnimationFrame(function () {
-    el.querySelectorAll('.blur-word').forEach(function (w) { w.classList.add('animate'); });
-  });
+  revealBlurWords(el);
 }
 
 function setupBlurHeadings(delay) {

@@ -3558,6 +3558,17 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 .blur-word.animate {
   animation: blurTextIn 0.6s cubic-bezier(.2, .65, .3, 1) forwards;
 }
+/* Failsafe: guarantee blur-in words can never stay invisible if the JS-driven
+   `.animate` class / requestAnimationFrame is delayed or dropped, the animation
+   timeline is paused (tab loaded in the background), or a gradient-clipped word
+   (e.g. the blue "Clients") mis-paints under the blur filter on mobile. JS adds
+   `.shown` as a static reveal — no animation, so it survives a frozen timeline. */
+.blur-word.shown {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+  animation: none !important;
+}
 @keyframes blurTextIn {
   0%   { filter: blur(10px); opacity: 0;   transform: translateY(-32px); }
   50%  { filter: blur(5px);  opacity: 0.5; transform: translateY(4px); }
