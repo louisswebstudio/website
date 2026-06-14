@@ -1,11 +1,26 @@
-  import { createClient } from 'https://esm.sh/@sanity/client'
-
-  const client = createClient({
+  // ── Minimal Sanity read client ──
+  // Previously this imported the full '@sanity/client' SDK from esm.sh, which
+  // pulled in ~200 transitive module requests (rxjs, get-it, node polyfills…)
+  // just to run two read-only GROQ queries — the single biggest source of
+  // network requests on the page. Both queries are plain GETs against Sanity's
+  // public query API (apicdn.sanity.io, the same CDN-backed endpoint useCdn:true
+  // used), so we hit it directly with fetch() and ship zero third-party JS.
+  const SANITY = {
     projectId: 'jlkob3wz',
     dataset: 'production',
     apiVersion: '2024-05-01',
-    useCdn: true,
-  })
+  }
+
+  const client = {
+    async fetch(query) {
+      const url = `https://${SANITY.projectId}.apicdn.sanity.io/v${SANITY.apiVersion}`
+        + `/data/query/${SANITY.dataset}?query=${encodeURIComponent(query)}`
+      const res = await fetch(url)
+      if (!res.ok) throw new Error(`Sanity query failed: ${res.status}`)
+      const { result } = await res.json()
+      return result
+    },
+  }
 
   // ── FETCH PROJECTS → inject into bento grid ──
   // Wrapped in try/catch so a CMS/network failure leaves the static fallback

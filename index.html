@@ -37,9 +37,18 @@
 <link rel="dns-prefetch" href="https://cdn.sanity.io">
 <!-- Preload the first above-the-fold hero mockup so it starts downloading immediately -->
 <link rel="preload" as="image" href="./assets/images/card-1.webp" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+<!-- Fonts load without blocking first paint: each sheet is fetched as media="print"
+     (non-blocking) and activated by assets/fonts.js once loaded. <noscript> keeps
+     them working when JS is disabled. -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+</noscript>
+<script defer src="assets/fonts.js"></script>
 <link rel="stylesheet" href="assets/site.css">
 <!-- Structured data: tells Google this domain IS the "Louiss Web Studio" brand,
      links the Instagram profile as the same entity (sameAs), and exposes the
@@ -925,8 +934,8 @@
   </div>
 </footer>
 
-<script src="assets/index-main.js"></script>
-<script src="assets/index-lang.js"></script>
+<script defer src="assets/index-main.js"></script>
+<script defer src="assets/index-lang.js"></script>
 
 <!-- ── FLOATING WHATSAPP BUTTON ── -->
 <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="hero" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
@@ -940,7 +949,7 @@
 </a>
 
 
-<script src="assets/starfield.js"></script>
+<script defer src="assets/starfield.js"></script>
 
 <script type="module" src="assets/index-cms.js"></script>
 </body>
