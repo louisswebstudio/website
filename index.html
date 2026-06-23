@@ -49,6 +49,7 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
+
 <link rel="stylesheet" href="assets/site.css">
 <!-- Structured data: tells Google this domain IS the "Louiss Web Studio" brand,
      links the Instagram profile as the same entity (sameAs), and exposes the
@@ -65,16 +66,17 @@
       "url": "https://louisswebstudio.com/",
       "logo": "https://louisswebstudio.com/logo.png",
       "image": "https://louisswebstudio.com/logo.png",
-      "description": "Louiss Web Studio builds fast, modern, conversion-focused websites for businesses in Morocco — from Figma to live in under 7 days.",
+      "description": "Studio de web design à Tanger — sites web modernes, rapides et sur-mesure pour les entreprises au Maroc.",
       "telephone": "+212716490397",
       "priceRange": "$$",
       "areaServed": [
         { "@type": "City", "name": "Tanger" },
-        { "@type": "Country", "name": "Morocco" }
+        { "@type": "Country", "name": "Maroc" }
       ],
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Tanger",
+        "addressRegion": "Tanger-Tétouan-Al Hoceïma",
         "addressCountry": "MA"
       },
       "sameAs": [
@@ -92,29 +94,6 @@
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Louiss Web Studio",
-  "url": "https://louisswebstudio.com",
-  "logo": "https://louisswebstudio.com/assets/logo.png",
-  "description": "Studio de design et développement web à Tanger, spécialisé pour les PME marocaines.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Tanger",
-    "addressCountry": "MA"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "availableLanguage": ["French", "Arabic", "English"]
-  },
-  "sameAs": [
-    "https://www.instagram.com/louiss.webstudio"
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -127,9 +106,9 @@
     <a href="#" class="logo"><img src="logo.png" alt="Louiss Web Studio" width="3560" height="653"></a>
 
     <div class="nav-links">
-      <a href="#work" class="nav-link" data-en="Portfolio" data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
-      <a href="#process" class="nav-link" data-en="Process" data-fr="Processus" data-ar="مراحل العمل">Process</a>
-      <a href="#pricing" class="nav-link" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+      <a href="./projects.html" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+      <a href="./tarifs.html" class="nav-link" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+      <a href="./contact.html" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
     </div>
 
     <div class="nav-right">
@@ -168,7 +147,7 @@
         <span class="hamburger-bar"></span>
       </button>
 
-      <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+      <a href="./contact.html" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -183,10 +162,9 @@
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="#work"         class="mobile-menu-link" data-en="Portfolio"  data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
-    <a href="#process"      class="mobile-menu-link" data-en="Process"    data-fr="Processus" data-ar="مراحل العمل">Process</a>
-    <a href="#pricing"      class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
-    <a href="#testimonials" class="mobile-menu-link" data-en="Reviews"    data-fr="Avis" data-ar="آراء العملاء">Reviews</a>
+    <a href="./projects.html" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+    <a href="./tarifs.html"      class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+    <a href="./contact.html"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
   </div>
   <div class="menu-bottom">
     <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F"
@@ -233,12 +211,16 @@
       <div class="hero-bmock-item"><img src="./assets/images/card-3.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item"><img src="./assets/images/card-4.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item"><img src="./assets/images/card-5.webp" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card 6.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item"><img src="./assets/images/card 8.png" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item"><img src="./assets/images/card-7.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-1.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-2.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-3.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-4.webp" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-5.webp" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card 6.png" alt="" width="650" height="368" loading="lazy"></div>
+      <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card 8.png" alt="" width="650" height="368" loading="lazy"></div>
       <div class="hero-bmock-item" aria-hidden="true"><img src="./assets/images/card-7.webp" alt="" width="650" height="368" loading="lazy"></div>
     </div>
   </div>
@@ -273,8 +255,8 @@
           <div class="bento-result">Site vitrine plus clair et plus crédible</div>
         </div>
         <div class="bento-btn-expand">
+          <span>View project</span>
           <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span>See it live</span>
         </div>
       </div>
     </a>
@@ -292,8 +274,8 @@
           <div class="bento-result">Structure pensée pour générer des demandes</div>
         </div>
         <div class="bento-btn-expand">
+          <span>View project</span>
           <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span>See it live</span>
         </div>
       </div>
     </a>
@@ -311,8 +293,8 @@
           <div class="bento-result">Meilleure présentation de l'offre</div>
         </div>
         <div class="bento-btn-expand">
+          <span>View project</span>
           <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span>See it live</span>
         </div>
       </div>
     </a>
@@ -330,8 +312,8 @@
           <div class="bento-result">Expérience plus fluide pour convertir</div>
         </div>
         <div class="bento-btn-expand">
+          <span>View project</span>
           <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span>See it live</span>
         </div>
       </div>
     </a>
@@ -397,7 +379,7 @@
         <span data-en="Results" data-fr="Résultats" data-ar="النتائج">Results</span>
       </div>
       <h2 class="transformation-h" data-en="See the <em>transformation</em>" data-fr="Voyez la <em>transformation</em>" data-ar="شاهد <em>التحول</em>">See the <em>transformation</em></h2>
-      <p class="transformation-sub" data-en="From a confusing website — to a clear booking experience" data-fr="Avant : peu de demandes. Après : un site pensé pour convertir." data-ar="من موقع مُربك — إلى تجربة حجز واضحة">From a confusing website — to a clear booking experience</p>
+      <p class="transformation-sub" data-en="From a confusing website — to a clear booking experience" data-fr="D'un site confus — à une expérience de réservation claire" data-ar="من موقع مربك — إلى تجربة حجز واضحة">From a confusing website — to a clear booking experience</p>
     </div>
 
     <!-- Before/After swipe comparison — mobile only -->
@@ -491,7 +473,7 @@
         <div class="t-card-visual">
           <div class="t-mock-frame old">
             <span class="t-mock-label label-before" data-en="Before" data-fr="Avant" data-ar="قبل">Avant</span>
-            <img src="./assets/images/old-comarison.webp" width="494" height="278" loading="lazy" class="compare-img" alt="">
+            <img src="./assets/images/old.png" width="494" height="278" loading="lazy" class="compare-img" alt="" data-en="Agadir property rental website — earlier design" data-fr="Site de location à Agadir — design précédent" data-ar="موقع كراء العقارات بأكادير — التصميم السابق">
           </div>
         </div>
         <div class="t-list">
@@ -531,7 +513,7 @@
         <div class="t-card-visual">
           <div class="t-mock-frame new">
             <span class="t-mock-label label-after" data-en="After" data-fr="Après" data-ar="بعد">Après</span>
-            <img src="./assets/images/new-comarison.webp" width="494" height="278" loading="lazy" class="compare-img" alt="">
+            <img src="./assets/images/new.png" width="494" height="278" loading="lazy" class="compare-img" alt="" data-en="Agadir property rental website — redesigned" data-fr="Site de location à Agadir — nouveau design" data-ar="موقع كراء العقارات بأكادير — التصميم الجديد">
           </div>
         </div>
         <div class="t-list">
@@ -904,7 +886,7 @@
     <div class="footer-top reveal">
       <div class="footer-cta-h"
         data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
-      <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+      <a href="contact.html#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
     </div>
 
     <!-- Middle: Logo + Nav + Socials -->
@@ -925,6 +907,7 @@
     <!-- Bottom: Legal -->
     <div class="footer-bottom reveal">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
+      <p class="footer-copy" data-en="Web design studio based in Tangier, Morocco." data-fr="Studio de web design basé à Tanger, Maroc." data-ar="استوديو تصميم مواقع في طنجة، المغرب.">Web design studio based in Tangier, Morocco.</p>
       <div class="footer-legal">
         <a href="privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
         <a href="terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>

@@ -2213,15 +2213,15 @@ footer > * { position: relative; z-index: 1; }
 .hero-bmock-track {
   display: flex;
   width: max-content;
-  animation: hero-strip 36s linear infinite;
+  animation: hero-strip 48s linear infinite;
 }
-/* 5 cards × (648 + 24) = 3360px per set; 2 sets total → animate by 1 set */
+/* 8 cards × (648 + 24) = 5376px per set; 2 sets total → animate by 1 set */
 @keyframes hero-strip {
   from { transform: translateX(0); }
-  to   { transform: translateX(-3360px); }
+  to   { transform: translateX(-5376px); }
 }
 @keyframes hero-strip-rtl {
-  from { transform: translateX(-3360px); }
+  from { transform: translateX(-5376px); }
   to   { transform: translateX(0); }
 }
 html[dir="rtl"] .hero-bottom-mockups {

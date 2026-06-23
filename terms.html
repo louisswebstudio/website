@@ -20,6 +20,7 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
+
 <link rel="stylesheet" href="assets/site.css">
 <style>
   .legal-wrap { max-width: 820px; margin: 0 auto; padding: 150px 24px 96px; position: relative; z-index: 1; }
@@ -37,6 +38,31 @@
     .legal-wrap h1 { font-size: 30px; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Louiss Web Studio",
+  "image": "https://louisswebstudio.com/logo.png",
+  "url": "https://louisswebstudio.com",
+  "telephone": "+212716490397",
+  "description": "Studio de web design à Tanger — sites web modernes, rapides et sur-mesure pour les entreprises au Maroc.",
+  "areaServed": [
+    { "@type": "City", "name": "Tanger" },
+    { "@type": "Country", "name": "Maroc" }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Tanger",
+    "addressRegion": "Tanger-Tétouan-Al Hoceïma",
+    "addressCountry": "MA"
+  },
+  "sameAs": [
+    "https://www.instagram.com/louiss.webstudio/"
+  ],
+  "priceRange": "$$"
+}
+</script>
 </head>
 <body>
 
@@ -49,9 +75,9 @@
     <a href="index.html" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
 
     <div class="nav-links">
-      <a href="index.html#work" class="nav-link" data-en="Portfolio" data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
-      <a href="index.html#process" class="nav-link" data-en="Process" data-fr="Processus" data-ar="مراحل العمل">Process</a>
-      <a href="index.html#pricing" class="nav-link" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+      <a href="./projects.html" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+      <a href="./tarifs.html" class="nav-link" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+      <a href="./contact.html" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
     </div>
 
     <div class="nav-right">
@@ -89,7 +115,7 @@
         <span class="hamburger-bar"></span>
       </button>
 
-      <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+      <a href="./contact.html" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -104,10 +130,9 @@
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="index.html#work"         class="mobile-menu-link" data-en="Portfolio"  data-fr="Portfolio" data-ar="أعمالنا">Portfolio</a>
-    <a href="index.html#process"      class="mobile-menu-link" data-en="Process"    data-fr="Processus" data-ar="مراحل العمل">Process</a>
-    <a href="index.html#pricing"      class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
-    <a href="index.html#testimonials" class="mobile-menu-link" data-en="Reviews"    data-fr="Avis" data-ar="آراء العملاء">Reviews</a>
+    <a href="./projects.html"      class="mobile-menu-link" data-en="Projects"    data-fr="Projets" data-ar="المشاريع">Projects</a>
+    <a href="./tarifs.html"      class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+    <a href="./contact.html"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
   </div>
   <div class="menu-bottom">
     <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F"
@@ -180,7 +205,7 @@
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
       <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;"
         data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
-      <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+      <a href="contact.html#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
     </div>
 
     <!-- Middle: Logo + Socials -->
@@ -201,6 +226,7 @@
     <!-- Bottom: Legal -->
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
+      <p class="footer-copy" data-en="Web design studio based in Tangier, Morocco." data-fr="Studio de web design basé à Tanger, Maroc." data-ar="استوديو تصميم مواقع في طنجة، المغرب.">Web design studio based in Tangier, Morocco.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
         <a href="terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
