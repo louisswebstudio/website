@@ -3018,7 +3018,7 @@ html[dir="rtl"] .hero-bmock-track {
     object-position: top center;
     display: block;
   }
-  .ba-before img { filter: saturate(0.55) brightness(0.93); }
+  .ba-after img { filter: saturate(0.55) brightness(0.93); }
   .ba-after { clip-path: inset(0 50% 0 0); transition: clip-path 0s; }
   .ba-handle {
     position: absolute;
@@ -3637,6 +3637,7 @@ html[lang="fr"] .hero .hero-h1 {
 .bento-pos-2 { left: 61.33px;  top: 46px; }
 .bento-pos-3 { left: 62px;     top: 35px; }
 .bento-pos-4 { left: 166px;    top: 39px; }
+.bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 .glow-tl-soft  { opacity: 0.12; filter: blur(180px); }
 .glow-c-soft   { opacity: 0.15; filter: blur(150px); }
 .glow-c-footer { opacity: 0.13; filter: blur(200px); width: 800px; height: 800px; }
