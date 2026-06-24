@@ -3569,6 +3569,12 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
   transform: none !important;
   animation: none !important;
 }
+/* The gradient-clipped accent word ("Clients") renders blank while a blur()
+   filter is applied to -webkit-background-clip:text on iOS in-app browsers
+   (Instagram/Facebook), so it only appeared after the 1600ms failsafe. Drop
+   the blur for this word — it still fades + slides in via blurTextIn's opacity
+   and transform keyframes — so it paints right away. */
+.hero .hero-h1 .hero-h1-blue.blur-word { filter: none !important; }
 @keyframes blurTextIn {
   0%   { filter: blur(10px); opacity: 0;   transform: translateY(-32px); }
   50%  { filter: blur(5px);  opacity: 0.5; transform: translateY(4px); }
