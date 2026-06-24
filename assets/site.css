@@ -2720,7 +2720,7 @@ html[dir="rtl"] .hero-bmock-track {
   .nav-right { margin-left: auto; gap: 16px; }
 
   /* Logo */
-  .logo img { height: 16px; width: auto; }
+  .logo img { height: 24px; width: auto; }
 
   /* Language switcher */
   .lang-btn { font-size: 12px; padding: 4px 8px; gap: 4px; }
