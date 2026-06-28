@@ -26,6 +26,18 @@
     #     (embed.js script, the booking iframe, its API calls and avatar images)
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://esm.sh https://app.cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com; img-src 'self' data: https://images.unsplash.com https://flagcdn.com https://cdn.sanity.io https://cal.com https://*.cal.com; connect-src 'self' https://esm.sh https://*.sanity.io https://cal.com https://*.cal.com; frame-src https://cal.com https://*.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
 
+# ── Long-lived caching for static assets ─────────────────────────────────────
+# Netlify already compresses every response (Brotli/gzip) and revalidates via
+# ETag, so the win here is letting repeat visitors skip the request entirely.
+# Images rarely change, so cache them for 30 days with a grace window where a
+# stale copy can be served while a fresh one is fetched in the background.
+# JS/CSS are intentionally NOT long-cached (their filenames aren't fingerprinted)
+# so a deploy's fixes reach users immediately via Netlify's ETag revalidation.
+[[headers]]
+  for = "/assets/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
 # ── Strict CSP for the hardened home page ────────────────────────────────────
 # index.html now ships ZERO inline scripts/styles/handlers — every script lives
 # in assets/*.js and every style in assets/site.css — so it runs WITHOUT
