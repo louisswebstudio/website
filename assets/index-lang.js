@@ -4,7 +4,7 @@ let currentLang = localStorage.getItem('ls_lang') || 'en';
 const translations = {
   en: { flagSrc: 'https://flagcdn.com/w40/gb.png', code: 'EN' },
   fr: { flagSrc: 'https://flagcdn.com/w40/fr.png', code: 'FR' },
-  ar: { flagSrc: 'https://flagcdn.com/w40/ma.png', code: 'AR' }
+  ar: { flagSrc: 'https://flagcdn.com/w40/sa.png', code: 'AR' }
 };
 
 function toggleLang() {
