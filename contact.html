@@ -17,6 +17,10 @@
 <meta name="twitter:description" content="Contactez Louiss Web Studio pour démarrer votre projet web. Discutez avec nous sur WhatsApp, par email, ou remplissez le formulaire — nous répondons rapidement.">
 <meta name="twitter:image" content="https://louisswebstudio.com/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- Cal.com booking embed: open the DNS/TCP/TLS connections during page load so
+     the heavy third-party iframe + availability API don't pay that cost cold. -->
+<link rel="preconnect" href="https://app.cal.com">
+<link rel="preconnect" href="https://cal.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
@@ -40,11 +44,38 @@
     hideEventTypeDetails: false,
     layout: "month_view"
   });
+  // Hide the loading skeleton once the Cal iframe is interactive (or on failure).
+  var hideCalLoader = function () {
+    var el = document.getElementById("cal-loading");
+    if (el) el.classList.add("hidden");
+  };
+  Cal.ns.contact("on", { action: "linkReady", callback: hideCalLoader });
+  Cal.ns.contact("on", { action: "linkFailed", callback: hideCalLoader });
+  // Fallback: never leave the skeleton up indefinitely if the event misfires.
+  window.addEventListener("load", function () { setTimeout(hideCalLoader, 12000); });
 </script>
 <style>
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+
+/* ─── Cal.com booking embed: loading skeleton ───────────── */
+.cal-wrap { position: relative; width: 100%; min-height: 600px; }
+#cal-loading {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; background: #060607;
+  transition: opacity .45s ease; z-index: 2;
+}
+#cal-loading.hidden { opacity: 0; pointer-events: none; }
+.cal-spinner {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.12); border-top-color: #00C9A7;
+  animation: cal-spin .8s linear infinite;
+}
+.cal-loading-text { color: #8a8a8a; font-size: .95rem; letter-spacing: .2px; }
+@keyframes cal-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .cal-spinner { animation-duration: 2s; } }
 body {
   background: #060607;
   color: #fff;
@@ -649,7 +680,13 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
 <!-- ════ CAL.COM INLINE BOOKING ════ -->
 <section style="padding:0; position:relative; z-index:1;">
   <div class="container">
-    <div id="cal-embed" style="width:100%;min-height:600px;"></div>
+    <div class="cal-wrap">
+      <div id="cal-embed" style="width:100%;min-height:600px;"></div>
+      <div id="cal-loading">
+        <div class="cal-spinner" aria-hidden="true"></div>
+        <p class="cal-loading-text" data-en="Loading the booking calendar…" data-fr="Chargement du calendrier de réservation…" data-ar="جارٍ تحميل تقويم الحجز…">Loading the booking calendar…</p>
+      </div>
+    </div>
   </div>
 </section>
 
