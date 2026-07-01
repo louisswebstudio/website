@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager (externalized for strict CSP — see assets/gtm-init.js) -->
-<script src="assets/gtm-init.js"></script>
+<!-- Google Tag Manager (externalized for strict CSP; deferred + loads gtm.js on
+     first interaction so it never blocks rendering — see assets/gtm-init.js) -->
+<script src="assets/gtm-init.js" defer></script>
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +39,7 @@
 <!-- Lower-priority third-party origins: resolve DNS early without holding a full connection -->
 <link rel="dns-prefetch" href="https://flagcdn.com">
 <link rel="dns-prefetch" href="https://images.unsplash.com">
-<link rel="dns-prefetch" href="https://esm.sh">
+<link rel="dns-prefetch" href="https://jlkob3wz.apicdn.sanity.io">
 <link rel="dns-prefetch" href="https://cdn.sanity.io">
 <!-- Preload the first above-the-fold hero mockup so it starts downloading immediately -->
 <link rel="preload" as="image" href="./assets/images/card-1.webp" fetchpriority="high">
