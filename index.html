@@ -56,7 +56,12 @@
 </noscript>
 <script defer src="assets/fonts.js"></script>
 
-<link rel="stylesheet" href="assets/site.css">
+<!-- Critical above-the-fold CSS (nav, hero, mobile menu hidden state) blocks
+     render but is small; the full site.css loads without blocking first paint
+     via the same media="print" swap used for fonts (see assets/fonts.js). -->
+<link rel="stylesheet" href="assets/site-critical.css">
+<link rel="stylesheet" href="assets/site.css" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="assets/site.css"></noscript>
 <!-- Structured data: tells Google this domain IS the "Louiss Web Studio" brand,
      links the Instagram profile as the same entity (sameAs), and exposes the
      business name/logo/area served for branded search + knowledge panel. -->
