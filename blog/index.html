@@ -11,23 +11,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Nos Tarifs — Louiss Web Studio</title>
-<link rel="canonical" href="https://louisswebstudio.com/tarifs">
-<meta name="description" content="Découvrez nos offres de création de sites web — des tarifs clairs et adaptés à chaque projet.">
+<title>Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio</title>
+<link rel="canonical" href="https://louisswebstudio.com/blog">
+<meta name="description" content="Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Louiss Web Studio">
-<meta property="og:url" content="https://louisswebstudio.com/tarifs">
-<meta property="og:title" content="Nos Tarifs — Louiss Web Studio">
-<meta property="og:description" content="Découvrez nos offres de création de sites web — des tarifs clairs et adaptés à chaque projet.">
+<meta property="og:url" content="https://louisswebstudio.com/blog">
+<meta property="og:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta property="og:description" content="Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.">
 <meta property="og:image" content="https://louisswebstudio.com/logo.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Nos Tarifs — Louiss Web Studio">
-<meta name="twitter:description" content="Découvrez nos offres de création de sites web — des tarifs clairs et adaptés à chaque projet.">
+<meta name="twitter:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta name="twitter:description" content="Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc.">
 <meta name="twitter:image" content="https://louisswebstudio.com/logo.png">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="shortcut icon" href="favicon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="../favicon-512.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="shortcut icon" href="../favicon-192.png">
 <meta name="theme-color" content="#060607">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
-<script defer src="assets/fonts.js"></script>
+<script defer src="../assets/fonts.js"></script>
 
 <style>
 /* ─── RESET ─────────────────────────────────────────── */
@@ -259,145 +259,146 @@ nav {
   margin: 0 auto;
 }
 
-/* ─── SECTION LABEL ─────────────────────────────────── */
-.section-label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--blue); margin-bottom: 24px; }
-.section-label-dot { width: 6px; height: 6px; background: var(--blue); border-radius: 9999px; flex-shrink: 0; }
-.section-label.section-label--center { justify-content: center; }
-
-/* ─── PRICING SECTION ───────────────────────────────── */
-.pricing-section {
-  background: rgba(3,3,3,0.22);
+/* ─── WORK SECTION ───────────────────────────────────── */
+.work-section {
+  background: transparent;
   padding: 64px 0 96px;
   position: relative; overflow: hidden;
 }
-.pricing-section::before {
-  content: '';
-  position: absolute; inset: 0; z-index: 0;
-  background: rgba(6,6,7,0.15);
-  pointer-events: none;
-}
-.pricing-section > *:not(.pricing-glow) { position: relative; z-index: 1; }
-.pricing-glow {
-  position: absolute; left: 50%; top: 40%;
-  transform: translate(-50%, -50%);
-  width: 800px; height: 600px;
-  border-radius: 50%;
-  background: #2563eb;
-  filter: blur(160px);
-  opacity: 0.15;
-  pointer-events: none;
-  z-index: 0;
-}
-.pricing-header {
-  text-align: center;
-  margin-bottom: 64px;
-}
-.pricing-h {
-  font-family: 'Poppins', 'Inter', sans-serif;
-  font-size: 60px; font-weight: 600; color: #fff;
-  letter-spacing: -1.2px; line-height: 1.1;
-  margin: 0 auto 16px;
-  max-width: 760px; text-wrap: balance;
-}
-.pricing-h em {
-  font-family: 'Poppins', 'Inter', sans-serif;
-  font-style: normal; font-weight: 600;
-  background: linear-gradient(to right, #2563eb, #3b82f6);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.pricing-sub {
-  font-size: 18px; color: var(--muted); line-height: 1.6;
-}
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  align-items: start;
-}
-.pricing-card {
-  background: rgba(9,9,11,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px;
-  padding: 33px;
-  display: flex; flex-direction: column; gap: 0;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  transition: border-color .3s, transform .3s;
-}
-.pricing-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); }
-.pricing-card.featured {
-  background: rgba(9,9,11,0.9);
-  border-color: #2563eb;
-  box-shadow: 0 0 40px -15px rgba(6,182,212,0.3);
-}
-.pricing-badge {
-  position: absolute; top: 16px; right: 16px;
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
-  color: #fff; font-size: 12px; font-weight: 600;
-  padding: 5px 14px; border-radius: 9999px;
-  letter-spacing: 0.04em;
-}
-.pricing-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 24px; font-weight: 600; color: #fff;
-  letter-spacing: -0.5px; margin-bottom: 8px;
-}
-.pricing-tag {
-  font-size: 13px; color: var(--muted); margin-bottom: 12px;
-}
-.pricing-desc {
-  font-size: 15px; color: var(--muted); line-height: 1.6;
-  margin-bottom: 24px;
-}
-.pricing-price {
-  display: flex; align-items: baseline; gap: 4px;
-  margin-bottom: 24px;
-}
-.pricing-amount {
-  font-family: 'Inter', sans-serif;
-  font-size: 52px; font-weight: 700; color: #fff;
-  letter-spacing: -2px; line-height: 1;
-}
-.pricing-currency { font-size: 18px; color: var(--muted); font-weight: 500; }
-.pricing-currency.pc-unit { font-size: 0.6em; opacity: 0.7; }
-.pricing-from { font-size: 14px; color: var(--muted); font-weight: 400; }
-.pricing-divider {
-  height: 1px; background: rgba(255,255,255,0.07);
-  margin-bottom: 20px;
-}
-.pricing-features-label {
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  margin-bottom: 16px;
-}
-.pricing-features {
-  display: flex; flex-direction: column; gap: 12px;
-  margin-bottom: 28px;
-}
-.pricing-feature {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 14px; color: #d4d4d4;
-}
-.pricing-feature-icon {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: rgba(59,130,246,0.1);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.pricing-feature-icon svg { color: var(--blue); }
-.btn-primary.btn-block { width: 100%; justify-content: center; }
-html[lang="fr"] .pricing-h { max-width: 900px; text-wrap: unset; }
+.work-section > *:not(.glow-circle) { position: relative; z-index: 1; }
 
-/* Glow card system */
-.glow-card {
-  --edge-proximity: 0;
-  --cursor-angle: 45deg;
-  position: relative;
+/* ── PORTFOLIO BENTO GRID ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 548px 548px 548px;
+  gap: 80px 24px;
+  width: 100%;
 }
-.glow-card > .edge-light {
+.bento-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 24px;
+  padding: 17px;
+  display: flex; flex-direction: column; gap: 24px;
+  text-decoration: none;
+  transition: border-color .3s;
+  overflow: hidden;
+}
+.bento-card:hover { border-color: rgba(59,130,246,0.2); }
+.bento-card.dark2 { background: #141414; }
+.bento-card-1 { grid-column: 6 / span 7; grid-row: 1; align-self: start; }
+.bento-card-2 { grid-column: 8 / span 5; grid-row: 2; align-self: start; }
+.bento-card-3 { grid-column: 1 / span 5; grid-row: 1; align-self: start; }
+.bento-card-4 { grid-column: 1 / span 7; grid-row: 2; align-self: start; }
+.bento-card-5 { grid-column: 1 / span 5; grid-row: 3; align-self: start; }
+.bento-card-6 { grid-column: 6 / span 7; grid-row: 3; align-self: start; }
+.bento-thumb {
+  background: #1a1f2e;
+  border-radius: 16px;
+  height: 420px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+}
+.bento-thumb img {
+  position: absolute;
+  width: 342px;
+  height: auto;
+  pointer-events: none;
+  display: block;
+}
+.bento-thumb .bento-hover-img {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.38s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+.bento-card:hover .bento-hover-img {
+  opacity: 1;
+  transform: scale(1);
+}
+.bento-card.glow-card::before {
   display: none;
+}
+.bento-info {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 8px 8px; flex-shrink: 0;
+}
+.bento-cat { font-size: 16px; color: #a3a3a3; line-height: 24px; margin-bottom: 6px; }
+.bento-title { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 24px; color: #fff; letter-spacing: -0.6px; line-height: 32px; }
+.bento-result {
+  font-size: 12px; color: #6b6b6f; font-weight: 400;
+  letter-spacing: 0.1px; line-height: 1.4; margin-top: 3px;
+}
+/* Expand-on-hover button */
+.bento-btn-expand {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  height: 44px; border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; overflow: hidden;
+  width: 44px;
+  gap: 0;
+  transition: width 0.35s cubic-bezier(0.16,1,0.3,1), gap 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 0 15px -3px rgba(37,99,235,0.15);
+}
+.bento-btn-expand span {
+  white-space: nowrap;
+  font-size: 15px; font-weight: 600; color: #fff;
+  max-width: 0; overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease;
+}
+.bento-card:hover .bento-btn-expand {
+  width: 148px; gap: 8px;
+}
+.bento-card:hover .bento-btn-expand span {
+  max-width: 120px; opacity: 1;
+}
+.bento-card.coming-soon { pointer-events: none; }
+.bento-card.coming-soon .bento-thumb { opacity: 0.55; }
+.bento-coming-badge {
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted2); border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 16px; border-radius: 9999px; white-space: nowrap;
+}
+/* Bento thumbnail positions */
+.bento-pos-1 { left: 166.67px; top: 36px; }
+.bento-pos-2 { left: 61.33px;  top: 46px; }
+.bento-pos-3 { left: 62px;     top: 35px; }
+.bento-pos-4 { left: 166px;    top: 39px; }
+.bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100%; object-fit: cover; object-position: top; }
+.bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100%; object-fit: cover; object-position: top; }
+
+/* Placeholder thumbnail styling */
+.bento-thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── SECTION CTA BAR ── */
+.section-cta-bar {
+  text-align: center;
+  margin-top: 56px;
+}
+.section-cta-bar .urgency-line {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 20px;
+  letter-spacing: .04em;
 }
 
 /* ─── FOOTER ─────────────────────────────────────────── */
@@ -427,16 +428,37 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
+  .bento-grid { gap: 16px; }
   .projects-page-title { font-size: 48px; }
-  .pricing-grid { gap: 16px; }
-  .pricing-h { font-size: 38px; }
-  .pricing-amount { font-size: 44px; }
 }
 @media (max-width: 900px) {
   .container { padding: 0 28px; }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-  .pricing-card.featured { order: -1; }
-  .pricing-section { padding: 72px 0; }
+  .bento-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .bento-card-1 { grid-column: 1 / 3; grid-row: auto; }
+  .bento-card-2 { grid-column: 1 / 2; }
+  .bento-card-3 { grid-column: 2 / 3; }
+  .bento-card-4 { grid-column: 1 / 3; }
+  .bento-card-5 { grid-column: 1 / 2; }
+  .bento-card-6 { grid-column: 2 / 3; }
+  /* translateZ(0) forces a compositing layer so the rounded corners reliably
+     clip the absolutely-positioned image (iOS Safari otherwise ignores
+     overflow:hidden + border-radius for absolute children). */
+  .bento-thumb  { height: 200px; transform: translateZ(0); }
+  /* Mobile: every card's preview image fills its fixed-height, overflow-hidden
+     thumb identically (cover, top-aligned), overriding the desktop floating-
+     screenshot offsets (.bento-pos-1..4) so all cards size consistently. */
+  .bento-thumb img:not(.bento-hover-img) {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 16px;
+  }
   .footer-top { flex-direction: column; align-items: flex-start; gap: 28px; }
   .footer-mid { flex-direction: column; gap: 20px; }
   .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
@@ -445,13 +467,21 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
 }
 @media (max-width: 700px) {
   .container { padding: 0 20px; }
-  .pricing-h { font-size: 30px; }
-  .pricing-section { padding: 64px 0; }
-  .pricing-card { padding: 24px 20px; }
-  .pricing-grid { gap: 20px; }
-  .pricing-amount { font-size: 40px; }
-  .pricing-desc { font-size: 14px; }
-  .pricing-features { gap: 10px; margin-bottom: 24px; }
+  .work-section { padding: 48px 0 96px; }
+  .bento-grid { grid-template-columns: 1fr; gap: 12px; }
+  .bento-card-1,
+  .bento-card-2,
+  .bento-card-3,
+  .bento-card-4,
+  .bento-card-5,
+  .bento-card-6 { grid-column: 1; grid-row: auto; }
+  /* Mobile: El Majdoub leads the list; Movexa ("Coming Soon") is hidden for now. */
+  .bento-card-1 { order: -1; }
+  .bento-card-5 { display: none; }
+  .bento-thumb { height: 220px; }
+  .bento-info  { padding: 14px 16px; }
+  .bento-title { font-size: 15px; }
+  .bento-cat   { font-size: 11px; }
   .btn-primary { font-size: 14px; padding: 12px 20px; }
   .projects-page-title { font-size: 30px; line-height: 36px; }
   .projects-page-sub { font-size: 15px; }
@@ -461,6 +491,11 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
   .wa-float-label { display: none; }
   .wa-float-btn { width: 52px; height: 52px; }
   .footer-bottom { flex-direction: column; gap: 8px; }
+  .section-cta-bar { margin-top: 48px; }
+}
+@media (max-width: 480px) {
+  .bento-grid { gap: 20px; }
+  .bento-card { padding: 20px; gap: 18px; }
 }
 
 /* ─── STARFIELD CANVAS ────────────────────────────────── */
@@ -605,6 +640,7 @@ html[lang="ar"] .faq-title { font-size: 52px; max-width: 800px; text-wrap: unset
 }
 
 /* RTL adjustments */
+html[dir="rtl"] .section-cta-bar { flex-direction: row-reverse; }
 html[dir="rtl"] .faq-inner { flex-direction: column; }
 html[dir="rtl"] .faq-left { text-align: center; }
 html[dir="rtl"] .faq-label { flex-direction: row-reverse; }
@@ -613,12 +649,58 @@ html[dir="rtl"] .faq-question { flex-direction: row-reverse; }
 html[dir="rtl"] .faq-q-text,
 html[dir="rtl"] .faq-answer-inner,
 html[dir="rtl"] .faq-subtitle { text-align: right; }
-html[dir="rtl"] .section-label { flex-direction: row-reverse; }
-html[dir="rtl"] .pricing-sub { text-align: center; }
-html[dir="rtl"] .pricing-card { text-align: right; }
-html[dir="rtl"] .pricing-feature { flex-direction: row; text-align: right; }
-html[dir="rtl"] .pricing-features-label { text-align: right; }
-html[dir="rtl"] .pricing-tag { font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+/* ─── BLOG GRID ──────────────────────────────────────── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+/* Reuses the .bento-card shell (bg, border, radius, hover) with a text layout. */
+.blog-card {
+  padding: 28px;
+  gap: 18px;
+  justify-content: flex-start;
+  align-self: stretch;
+}
+.blog-pill {
+  align-self: flex-start;
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted2); border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 16px; border-radius: 9999px; white-space: nowrap;
+}
+.blog-card-title {
+  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 22px;
+  color: #fff; letter-spacing: -0.6px; line-height: 1.32;
+}
+.blog-excerpt {
+  font-size: 15px; color: var(--muted); line-height: 1.7;
+}
+.blog-card-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 8px; gap: 12px;
+}
+.blog-date { font-size: 13px; color: var(--muted2); }
+.blog-read {
+  font-size: 14px; font-weight: 600; color: var(--blue);
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  transition: gap .25s cubic-bezier(.16,1,.3,1);
+}
+.blog-card:hover .blog-read { gap: 10px; }
+
+html[dir="rtl"] .blog-card { text-align: right; }
+html[dir="rtl"] .blog-pill { align-self: flex-end; }
+html[dir="rtl"] .blog-card-foot { flex-direction: row-reverse; }
+
+@media (max-width: 900px) {
+  .blog-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card { padding: 24px; }
+  .blog-card-title { font-size: 19px; }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -659,8 +741,8 @@ html[dir="rtl"] .pricing-tag { font-size: 13.5px; line-height: 1.6; color: var(-
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Tarifs",
-      "item": "https://louisswebstudio.com/tarifs"
+      "name": "Blog",
+      "item": "https://louisswebstudio.com/blog"
     }
   ]
 }
@@ -678,12 +760,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="./index.html" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="../index.html" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
     <div class="nav-links">
-      <a href="./projects.html"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
-      <a href="./tarifs.html"        class="nav-link" data-en="Pricing"  data-fr="Tarifs" data-ar="الأسعار" style="color:rgba(255,255,255,0.90);">Pricing</a>
-      <a href="/blog/" class="nav-link" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
-      <a href="./contact.html" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+      <a href="../projects.html"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+      <a href="../tarifs.html" class="nav-link" data-en="Pricing"  data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+      <a href="/blog/" class="nav-link" data-en="Blog" data-fr="Blog" data-ar="المدونة" style="color:rgba(255,255,255,0.90);">Blog</a>
+      <a href="../contact.html" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
     </div>
     <div class="nav-right">
       <div class="lang-switcher" id="langSwitcher">
@@ -705,7 +787,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
       </button>
-      <a href="./contact.html" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+      <a href="../contact.html" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -714,17 +796,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="./index.html" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="../index.html" class="mob-overlay-logo" aria-label="Home"><img src="../logo.png" alt="Logo" height="20" width="auto"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="./projects.html"           class="mobile-menu-link" data-en="Projects"   data-fr="Projets" data-ar="المشاريع">Projects</a>
-    <a href="./tarifs.html"             class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
-    <a href="/blog/" class="mobile-menu-link" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
-    <a href="./contact.html"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+    <a href="../projects.html"           class="mobile-menu-link" data-en="Projects"   data-fr="Projets" data-ar="المشاريع">Projects</a>
+    <a href="../tarifs.html"      class="mobile-menu-link" data-en="Pricing"    data-fr="Tarifs" data-ar="الأسعار">Pricing</a>
+    <a href="/blog/"      class="mobile-menu-link" data-en="Blog"    data-fr="Blog" data-ar="المدونة">Blog</a>
+    <a href="../contact.html"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
   </div>
   <div class="menu-bottom">
-    <a href="./contact.html#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
+    <a href="../contact.html#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
   </div>
 </div>
 
@@ -732,273 +814,115 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="projects-hero">
   <div class="container">
     <h1 class="projects-page-title reveal"
-      data-en="Our <span class='accent'>Pricing</span>"
-      data-fr="Nos <span class='accent'>Tarifs</span>"
-      data-ar="<span class='accent'>أسعارنا</span>">Nos <span class="accent">Tarifs</span></h1>
+      data-en="Blog"
+      data-fr="Blog"
+      data-ar="المدونة">Blog</h1>
     <p class="projects-page-sub reveal"
-      data-en="Simple, fast, and built to help you get clients."
-      data-fr="Des offres simples, claires et pensées pour vous aider à attirer plus de clients."
-      data-ar="بسيط وسريع ومصمم لمساعدتك في الحصول على عملاء.">Des offres simples, claires et pensées pour vous aider à attirer plus de clients.</p>
+      data-en="Web tips for businesses in Morocco."
+      data-fr="Conseils web pour les entreprises au Maroc."
+      data-ar="نصائح ويب للشركات في المغرب.">Conseils web pour les entreprises au Maroc.</p>
   </div>
 </section>
 
-<!-- ════ PRICING ════ -->
-<section class="pricing-section" id="pricing">
-  <div class="pricing-glow"></div>
+<!-- ════ WORK / PORTFOLIO ════ -->
+<section class="work-section" id="work">
+  <div class="glow-circle glow-c"></div>
   <div class="container">
 
-    <div class="pricing-grid reveal">
+  <!-- Blog cards grid — reuses the project card shell (.bento-card) -->
+  <div class="blog-grid">
 
-      <!-- Card 1: Starter Website -->
-      <div class="pricing-card glow-card">
-        <span class="edge-light" aria-hidden="true"></span>
-        <p class="pricing-tag" data-en="Best for: small businesses starting online" data-fr="Idéal pour : les petites entreprises qui démarrent en ligne" data-ar="الأفضل لـ: الشركات الصغيرة التي تبدأ عبر الإنترنت">Best for: small businesses starting online</p>
-        <div class="pricing-name" data-en="Starter Website" data-fr="Site Vitrine" data-ar="موقع مبتدئ">Starter Website</div>
-        <p class="pricing-desc" data-en="A focused, high-converting page designed to start getting leads fast." data-fr="Une page ciblée et hautement convertissante conçue pour commencer à obtenir des prospects rapidement." data-ar="صفحة مركزة وعالية التحويل مصممة للبدء في جلب العملاء بسرعة.">A focused, high-converting page designed to start getting leads fast.</p>
-        <div class="pricing-price">
-          <span class="pricing-amount">1400</span>
-          <span class="pricing-currency pc-unit">DH</span>
-        </div>
-        <div class="pricing-divider"></div>
-        <div class="pricing-features-label" data-en="What's included" data-fr="Ce qui est inclus" data-ar="ما يتضمنه">What's included</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="1 high-converting page" data-fr="1 page hautement convertissante" data-ar="صفحة واحدة عالية التحويل">1 high-converting page</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Modern design" data-fr="Design moderne" data-ar="تصميم عصري">Modern design</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Mobile optimized" data-fr="Optimisé mobile" data-ar="محسّن للجوال">Mobile optimized</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="WhatsApp integration" data-fr="Intégration WhatsApp" data-ar="تكامل مع WhatsApp">WhatsApp integration</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Hosting included" data-fr="Hébergement inclus" data-ar="الاستضافة مشمولة">Hosting included</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Delivered in 3–5 days" data-fr="Livré en 3–5 jours" data-ar="التسليم في 3-5 أيام">Delivered in 3–5 days</span>
-          </div>
-        </div>
-        <a href="https://wa.me/212716490397?text=Hi%2C%20I%27m%20interested%20in%20the%20Starter%20Website%20package." data-wa-type="starter" class="btn-primary btn-block" data-en="Get Started" data-fr="Commencer" data-ar="ابدأ الآن">Get Started</a>
+    <!-- Article 1: Pricing -->
+    <a href="#" class="bento-card blog-card glow-card reveal">
+      <span class="blog-pill" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Pricing</span>
+      <h2 class="blog-card-title"
+        data-en="How much does a website cost in Morocco in 2026?"
+        data-fr="Combien coûte un site web au Maroc en 2026 ?"
+        data-ar="كم يكلف موقع إلكتروني في المغرب عام 2026؟">Combien coûte un site web au Maroc en 2026 ?</h2>
+      <p class="blog-excerpt"
+        data-en="Freelancer, agency, WordPress template prices — we compare everything so you know exactly what to expect."
+        data-fr="Prix freelance, agence, template WordPress — on compare tout pour que vous sachiez exactement à quoi vous attendre."
+        data-ar="أسعار المستقلين والوكالات وقوالب ووردبريس — نقارن كل شيء لتعرف بالضبط ما تتوقعه.">Prix freelance, agence, template WordPress — on compare tout pour que vous sachiez exactement à quoi vous attendre.</p>
+      <div class="blog-card-foot">
+        <span class="blog-date" data-en="June 2026" data-fr="Juin 2026" data-ar="يونيو 2026">Juin 2026</span>
+        <span class="blog-read" data-en="Read article →" data-fr="Lire l'article →" data-ar="اقرأ المقال ←">Lire l'article →</span>
       </div>
+    </a>
 
-      <!-- Card 2: Business Website (featured / Most Popular) -->
-      <div class="pricing-card featured glow-card">
-        <span class="edge-light" aria-hidden="true"></span>
-        <div class="pricing-badge" data-en="Most Popular" data-fr="Le plus populaire" data-ar="الأكثر شيوعاً">Most Popular</div>
-        <p class="pricing-tag" data-en="Best for: businesses that want more clients" data-fr="Idéal pour : les entreprises qui veulent plus de clients" data-ar="الأفضل لـ: الشركات التي تريد عملاء أكثر">Best for: businesses that want more clients</p>
-        <div class="pricing-name" data-en="Business Website" data-fr="Site Business" data-ar="موقع الأعمال">Business Website</div>
-        <p class="pricing-desc" data-en="A complete website designed to present your business and generate clients." data-fr="Un site complet conçu pour présenter votre activité et générer des clients." data-ar="موقع كامل مصمم لتقديم عملك وجلب العملاء.">A complete website designed to present your business and generate clients.</p>
-        <div class="pricing-price">
-          <span class="pricing-amount">2500</span>
-          <span class="pricing-currency pc-unit">DH</span>
-        </div>
-        <div class="pricing-divider"></div>
-        <div class="pricing-features-label" data-en="What's included" data-fr="Ce qui est inclus" data-ar="ما يتضمنه">What's included</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Up to 5 pages" data-fr="Jusqu'à 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Custom design (Figma → build)" data-fr="Design sur mesure (Figma → build)" data-ar="تصميم مخصص (Figma → بناء)">Custom design (Figma → build)</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Conversion-focused structure" data-fr="Structure axée sur la conversion" data-ar="هيكل موجه نحو التحويل">Conversion-focused structure</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="WhatsApp lead integration" data-fr="Intégration lead WhatsApp" data-ar="تكامل استفسارات WhatsApp">WhatsApp lead integration</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Mobile optimized" data-fr="Optimisé mobile" data-ar="محسّن للجوال">Mobile optimized</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Hosting included" data-fr="Hébergement inclus" data-ar="الاستضافة مشمولة">Hosting included</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Delivered in 5–7 days" data-fr="Livré en 5–7 jours" data-ar="التسليم في 5-7 أيام">Delivered in 5–7 days</span>
-          </div>
-        </div>
-        <a href="https://wa.me/212716490397?text=Hi%2C%20I%27m%20interested%20in%20the%20Business%20Website%20package." data-wa-type="business" class="btn-primary btn-block" data-en="Start Your Project" data-fr="Démarrer Votre Projet" data-ar="ابدأ مشروعك">Start Your Project</a>
+    <!-- Article 2: Local Business -->
+    <a href="#" class="bento-card blog-card glow-card reveal">
+      <span class="blog-pill" data-en="Local Business" data-fr="Entreprise locale" data-ar="الأعمال المحلية">Local Business</span>
+      <h2 class="blog-card-title"
+        data-en="Why your Tangier restaurant needs a website (not just Instagram)"
+        data-fr="Pourquoi votre restaurant à Tanger a besoin d'un site web (et pas seulement Instagram)"
+        data-ar="لماذا يحتاج مطعمك في طنجة إلى موقع إلكتروني (وليس فقط إنستغرام)">Pourquoi votre restaurant à Tanger a besoin d'un site web (et pas seulement Instagram)</h2>
+      <p class="blog-excerpt"
+        data-en="Instagram doesn't show up on Google. Here's why restaurants with a website capture customers others never see."
+        data-fr="Instagram disparaît des résultats Google. Voici pourquoi les restaurants avec un site web captent des clients que les autres ne voient jamais."
+        data-ar="إنستغرام لا يظهر في نتائج جوجل. إليك لماذا تجذب المطاعم التي تملك موقعاً عملاء لا يراهم الآخرون أبداً.">Instagram disparaît des résultats Google. Voici pourquoi les restaurants avec un site web captent des clients que les autres ne voient jamais.</p>
+      <div class="blog-card-foot">
+        <span class="blog-date" data-en="June 2026" data-fr="Juin 2026" data-ar="يونيو 2026">Juin 2026</span>
+        <span class="blog-read" data-en="Read article →" data-fr="Lire l'article →" data-ar="اقرأ المقال ←">Lire l'article →</span>
       </div>
+    </a>
 
-      <!-- Card 3: Premium Website -->
-      <div class="pricing-card glow-card">
-        <span class="edge-light" aria-hidden="true"></span>
-        <p class="pricing-tag" data-en="Best for: serious businesses ready to scale" data-fr="Idéal pour : les entreprises sérieuses prêtes à évoluer" data-ar="الأفضل لـ: الشركات الجادة المستعدة للنمو">Best for: serious businesses ready to scale</p>
-        <div class="pricing-name" data-en="Premium Website" data-fr="Site Premium" data-ar="موقع مميز">Premium Website</div>
-        <p class="pricing-desc" data-en="A scalable website tailored to your business needs." data-fr="Un site évolutif adapté aux besoins de votre activité." data-ar="موقع قابل للتطوير مصمم خصيصاً لاحتياجات عملك.">A scalable website tailored to your business needs.</p>
-        <div class="pricing-price">
-          <span class="pricing-from" data-en="from" data-fr="à partir de" data-ar="ابتداءً من">from</span>
-          <span class="pricing-amount">5000</span>
-          <span class="pricing-currency pc-unit">DH</span>
-        </div>
-        <div class="pricing-divider"></div>
-        <div class="pricing-features-label" data-en="What's included" data-fr="Ce qui est inclus" data-ar="ما يتضمنه">What's included</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Fully custom website" data-fr="Site entièrement sur mesure" data-ar="موقع مخصص بالكامل">Fully custom website</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Advanced UX structure" data-fr="Structure UX avancée" data-ar="هيكل UX متقدم">Advanced UX structure</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="More pages &amp; flexibility" data-fr="Plus de pages &amp; flexibilité" data-ar="المزيد من الصفحات والمرونة">More pages &amp; flexibility</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Performance optimization" data-fr="Optimisation des performances" data-ar="تحسين الأداء">Performance optimization</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Scalable architecture" data-fr="Architecture évolutive" data-ar="هيكل قابل للتطوير">Scalable architecture</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Hosting included" data-fr="Hébergement inclus" data-ar="الاستضافة مشمولة">Hosting included</span>
-          </div>
-          <div class="pricing-feature">
-            <div class="pricing-feature-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span data-en="Priority support" data-fr="Support prioritaire" data-ar="دعم ذو أولوية">Priority support</span>
-          </div>
-        </div>
-        <a href="https://wa.me/212716490397?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20premium%20website%20project." data-wa-type="premium" class="btn-primary btn-block" data-en="Request Quote" data-fr="Demander un Devis" data-ar="طلب عرض سعر">Request Quote</a>
+    <!-- Article 3: Web Design -->
+    <a href="#" class="bento-card blog-card glow-card reveal">
+      <span class="blog-pill" data-en="Web Design" data-fr="Web Design" data-ar="تصميم الويب">Web Design</span>
+      <h2 class="blog-card-title"
+        data-en="5 signs your website is driving customers away"
+        data-fr="5 signes que votre site web fait fuir vos clients"
+        data-ar="5 علامات تدل على أن موقعك يطرد عملاءك">5 signes que votre site web fait fuir vos clients</h2>
+      <p class="blog-excerpt"
+        data-en="A slow site, unreadable on mobile or with no clear call to action, can do more harm than having no site at all."
+        data-fr="Un site lent, illisible sur mobile ou sans appel à l'action clair peut faire plus de mal que l'absence totale de site."
+        data-ar="موقع بطيء أو غير مقروء على الهاتف أو بلا دعوة واضحة للعمل قد يضر أكثر من عدم وجود موقع إطلاقاً.">Un site lent, illisible sur mobile ou sans appel à l'action clair peut faire plus de mal que l'absence totale de site.</p>
+      <div class="blog-card-foot">
+        <span class="blog-date" data-en="July 2026" data-fr="Juillet 2026" data-ar="يوليو 2026">Juillet 2026</span>
+        <span class="blog-read" data-en="Read article →" data-fr="Lire l'article →" data-ar="اقرأ المقال ←">Lire l'article →</span>
       </div>
+    </a>
 
-    </div><!-- /pricing-grid -->
+    <!-- Article 4: Strategy -->
+    <a href="#" class="bento-card blog-card glow-card reveal">
+      <span class="blog-pill" data-en="Strategy" data-fr="Stratégie" data-ar="استراتيجية">Strategy</span>
+      <h2 class="blog-card-title"
+        data-en="Website vs Instagram page: what small businesses in Morocco really miss"
+        data-fr="Site web vs page Instagram : ce que les petites entreprises au Maroc ratent vraiment"
+        data-ar="الموقع الإلكتروني مقابل صفحة إنستغرام: ما تفوته الشركات الصغيرة في المغرب فعلاً">Site web vs page Instagram : ce que les petites entreprises au Maroc ratent vraiment</h2>
+      <p class="blog-excerpt"
+        data-en="Many entrepreneurs think Instagram replaces a website. The reality is more nuanced — and potentially costly."
+        data-fr="Beaucoup d'entrepreneurs pensent qu'Instagram remplace un site web. La réalité est plus nuancée — et potentiellement coûteuse."
+        data-ar="يعتقد كثير من رواد الأعمال أن إنستغرام يغني عن الموقع. الحقيقة أكثر تعقيداً — وقد تكون مكلفة.">Beaucoup d'entrepreneurs pensent qu'Instagram remplace un site web. La réalité est plus nuancée — et potentiellement coûteuse.</p>
+      <div class="blog-card-foot">
+        <span class="blog-date" data-en="July 2026" data-fr="Juillet 2026" data-ar="يوليو 2026">Juillet 2026</span>
+        <span class="blog-read" data-en="Read article →" data-fr="Lire l'article →" data-ar="اقرأ المقال ←">Lire l'article →</span>
+      </div>
+    </a>
 
-  </div><!-- /container -->
-</section>
+    <!-- Article 5: Case Study -->
+    <a href="#" class="bento-card blog-card glow-card reveal">
+      <span class="blog-pill" data-en="Case Study" data-fr="Étude de cas" data-ar="دراسة حالة">Case Study</span>
+      <h2 class="blog-card-title"
+        data-en="How a website transformed bookings for a car rental agency"
+        data-fr="Comment un site web a transformé les réservations d'une agence de location de voiture"
+        data-ar="كيف غيّر موقع إلكتروني حجوزات وكالة تأجير سيارات">Comment un site web a transformé les réservations d'une agence de location de voiture</h2>
+      <p class="blog-excerpt"
+        data-en="A concrete case study: before and after redesigning a Tangier rental agency's website."
+        data-fr="Une étude de cas concrète : avant et après la refonte du site d'une agence de location à Tanger."
+        data-ar="دراسة حالة ملموسة: قبل وبعد إعادة تصميم موقع وكالة تأجير في طنجة.">Une étude de cas concrète : avant et après la refonte du site d'une agence de location à Tanger.</p>
+      <div class="blog-card-foot">
+        <span class="blog-date" data-en="August 2026" data-fr="Août 2026" data-ar="أغسطس 2026">Août 2026</span>
+        <span class="blog-read" data-en="Read article →" data-fr="Lire l'article →" data-ar="اقرأ المقال ←">Lire l'article →</span>
+      </div>
+    </a>
 
-<!-- ════ FAQ ════ -->
-<section class="faq-section" id="faq">
-  <div class="container">
-  <div class="faq-inner">
+  </div><!-- /blog-grid -->
 
-    <!-- LEFT: label + title + subtitle -->
-    <div class="faq-left reveal">
-      <div class="faq-label"><span class="faq-label-dot"></span> <span data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</span></div>
-      <h2 class="faq-title" data-en="Got <em>Questions?</em><br>We Have Answers." data-fr="Des questions&nbsp;?<br>On vous répond <em>clairement.</em>" data-ar="لديك <em>أسئلة؟</em><br>لدينا الإجابات.">Got <em>Questions?</em><br>We Have Answers.</h2>
-      <p class="faq-subtitle" data-en="Everything you need to know before starting your project with us." data-fr="Tout ce qu'il faut savoir avant de lancer votre projet avec nous." data-ar="كل ما تحتاج معرفته قبل بدء مشروعك معنا.">Everything you need to know before starting your project with us.</p>
-    </div>
-
-    <!-- Accordion questions -->
-    <div class="faq-list reveal" id="faqList">
-      <div class="faq-item open">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="How long does it take to build a website?"
-            data-fr="Combien de temps faut-il pour créer mon site web ?" data-ar="كم من الوقت يستغرق بناء الموقع؟">How long does it take to build a website?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="Most projects go from Figma design to live website in 5 to 7 days. More complex projects (e-commerce, booking systems) take 10 to 14 days. We always give you a precise deadline before starting."
-            data-fr="Nous livrons la plupart des sites en 5 à 7 jours, selon la complexité du projet. Vous pourrez bien sûr valider et demander des modifications avant la mise en ligne." data-ar="معظم المشاريع تنتقل من التصميم إلى الموقع المباشر في 5 إلى 7 أيام. المشاريع الأكثر تعقيداً تستغرق 10 إلى 14 يوماً. نحدد دائماً موعداً دقيقاً قبل البدء.">Most projects go from Figma design to live website in 5 to 7 days. More complex projects (e-commerce, booking systems) take 10 to 14 days. We always give you a precise deadline before starting.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="How do I get started?"
-            data-fr="Comment démarrer ?" data-ar="كيف أبدأ؟">How do I get started?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="Just reach out to us on WhatsApp. We analyse your needs and propose a solution quickly — no lengthy forms or calls required."
-            data-fr="C'est simple — il suffit de nous envoyer un message sur WhatsApp. Nous analysons votre besoin et vous proposons une solution rapidement." data-ar="فقط تواصل معنا عبر WhatsApp. نحلل احتياجاتك ونقترح حلاً بسرعة — دون نماذج معقدة أو مكالمات طويلة.">Just reach out to us on WhatsApp. We analyse your needs and propose a solution quickly — no lengthy forms or calls required.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="Can I update the site myself after launch?"
-            data-fr="Est-ce que je peux modifier mon site moi-même ?" data-ar="هل يمكنني تحديث الموقع بنفسي بعد الإطلاق؟">Can I update the site myself after launch?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="Yes. Your site is designed to be easy to manage — you can update text, images and content without any technical skills."
-            data-fr="Oui. Votre site est conçu pour être facile à gérer, vous pourrez modifier les textes, images et contenus sans compétences techniques." data-ar="نعم. موقعك مصمم ليكون سهل الإدارة — يمكنك تحديث النصوص والصور والمحتوى دون أي مهارات تقنية.">Yes. Your site is designed to be easy to manage — you can update text, images and content without any technical skills.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="Do you offer revisions?"
-            data-fr="Proposez-vous des modifications ?" data-ar="هل تقدمون مراجعات؟">Do you offer revisions?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="Yes — every project includes 2 rounds of revisions so we can fine-tune the site to your exact needs before going live."
-            data-fr="Oui — votre projet inclut 2 séries de révisions afin d'ajuster le site selon vos besoins." data-ar="نعم — كل مشروع يشمل جولتين من المراجعات لضبط الموقع وفق احتياجاتك الدقيقة قبل الإطلاق.">Yes — every project includes 2 rounds of revisions so we can fine-tune the site to your exact needs before going live.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="What types of websites do you build?"
-            data-fr="Quels types de sites proposez-vous ?" data-ar="ما أنواع المواقع التي تبنونها؟">What types of websites do you build?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="We build fully custom websites — coded from scratch for performance, speed, and a design that stands out. No templates, no page builders. Every site is tailored to your business goals and built to convert."
-            data-fr="Nous créons des sites entièrement sur mesure — codés de zéro pour la performance, la rapidité et un design qui se démarque. Pas de templates, pas de constructeurs de pages. Chaque site est adapté à vos objectifs et conçu pour convertir." data-ar="نبني مواقع مخصصة بالكامل — مبرمجة من الصفر لتحقيق الأداء والسرعة وتصميم يتميز عن الآخرين. بلا قوالب، بلا محررات صفحات. كل موقع مصمم خصيصاً لأهداف عملك وبني ليحول الزوار إلى عملاء.">We build fully custom websites — coded from scratch for performance, speed, and a design that stands out. No templates, no page builders. Every site is tailored to your business goals and built to convert.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="Will my website help me get more clients?"
-            data-fr="Est-ce que vous m'aidez à obtenir des clients ?" data-ar="هل سيساعدني موقعي في جلب عملاء؟">Will my website help me get more clients?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="Yes. Our sites are built for conversion — with a clear structure, strong calls to action, and WhatsApp integration to turn visitors into clients from day one."
-            data-fr="Oui. Nos sites sont pensés pour la conversion, avec une structure claire, des appels à l'action efficaces et une intégration WhatsApp pour transformer vos visiteurs en clients." data-ar="نعم. مواقعنا مبنية للتحويل — بهيكل واضح ودعوات قوية للعمل وتكامل مع WhatsApp لتحويل الزوار إلى عملاء من اليوم الأول.">Yes. Our sites are built for conversion — with a clear structure, strong calls to action, and WhatsApp integration to turn visitors into clients from day one.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-q-text"
-            data-en="What happens after the site is delivered?"
-            data-fr="Que se passe-t-il après la livraison du site ?" data-ar="ماذا يحدث بعد تسليم الموقع؟">What happens after the site is delivered?</span>
-          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-answer">
-          <p class="faq-answer-inner"
-            data-en="Once your site is live, you have full access. We also offer a monthly maintenance package to handle updates, modifications, and ongoing support."
-            data-fr="Une fois le site en ligne, vous avez un accès complet. Nous proposons également une offre de maintenance mensuelle pour gérer les mises à jour, modifications et support." data-ar="بمجرد نشر الموقع، يكون لديك وصول كامل إليه. نقدم أيضاً باقة صيانة شهرية لإدارة التحديثات والتعديلات والدعم المستمر.">Once your site is live, you have full access. We also offer a monthly maintenance package to handle updates, modifications, and ongoing support.</p>
-        </div>
-      </div>
-
-    </div><!-- /faq-list -->
-  </div><!-- /faq-inner -->
-
-  <!-- Mobile-only CTA — appears after all questions on mobile -->
-  <div class="faq-mobile-cta-wrap">
-    <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="faq-cta" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+  <!-- Section CTA -->
+  <div class="section-cta-bar reveal">
+    <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="generic" class="btn-primary" data-en="Start Your Project" data-fr="Démarrer Votre Projet" data-ar="احصل على عملاء أكثر مع موقعك">Start Your Project</a>
+    <p class="urgency-line" data-en="⚡ Currently booking projects for this week — only a few spots available" data-fr="⚡ Projets en cours pour cette semaine — quelques places disponibles" data-ar="⚡ حجز المشاريع لهذا الأسبوع — أماكن محدودة متاحة">⚡ Currently booking projects for this week — only a few spots available</p>
   </div>
   </div><!-- /container -->
 </section>
@@ -1010,11 +934,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
       <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <a href="contact.html#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+        <a href="../contact.html#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="./index.html" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="../index.html" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -1030,8 +954,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <p class="footer-copy" data-en="Web design studio based in Tangier, Morocco." data-fr="Studio de web design basé à Tanger, Maroc." data-ar="استوديو تصميم مواقع في طنجة، المغرب.">Web design studio based in Tangier, Morocco.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
-        <a href="privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
-        <a href="terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
+        <a href="../privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
+        <a href="../terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -1099,10 +1023,7 @@ document.addEventListener('click', function(e) {
 });
 
 var waMessages = {
-  generic:  { en: 'Hi, I want to start a project.', fr: 'Bonjour, je souhaite démarrer un projet.', ar: 'مرحباً، أريد البدء في مشروع.' },
-  starter:  { en: "Hi, I'm interested in the Starter Website package.", fr: "Bonjour, je suis intéressé par l'offre Site Vitrine.", ar: 'مرحباً، أنا مهتم بباقة الموقع المبتدئ.' },
-  business: { en: "Hi, I'm interested in the Business Website package.", fr: "Bonjour, je suis intéressé par l'offre Site Business.", ar: 'مرحباً، أنا مهتم بباقة موقع الأعمال.' },
-  premium:  { en: "Hi, I'd like to discuss a premium website project.", fr: "Bonjour, j'aimerais discuter d'un projet de site premium.", ar: 'مرحباً، أود مناقشة مشروع موقع مميز.' }
+  generic: { en: 'Hi, I want to start a project.', fr: 'Bonjour, je souhaite démarrer un projet.', ar: 'مرحباً، أريد البدء في مشروع.' }
 };
 
 function setLang(lang) {
@@ -1145,11 +1066,11 @@ function applyTranslations(lang) {
   document.documentElement.lang = lang;
 
   if (lang === 'ar') {
-    document.title = 'أسعارنا — Louiss Web Studio';
+    document.title = 'المدونة — Louiss Web Studio';
   } else if (lang === 'fr') {
-    document.title = 'Nos Tarifs — Louiss Web Studio';
+    document.title = 'Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio';
   } else {
-    document.title = 'Our Pricing — Louiss Web Studio';
+    document.title = 'Blog — Web Tips for Businesses in Morocco · Louiss Web Studio';
   }
 }
 
@@ -1168,19 +1089,9 @@ function applyTranslations(lang) {
   currentLang = saved;
   setLang(currentLang);
 })();
-
-/* ══ FAQ accordion ══ */
-document.querySelectorAll('.faq-question').forEach(function(q) {
-  q.addEventListener('click', function() {
-    var item = q.parentElement;
-    var isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
-    if (!isOpen) { item.classList.add('open'); }
-  });
-});
 </script>
 
-<script defer src="assets/starfield.js"></script>
+<script defer src="../assets/starfield.js"></script>
 
 </body>
 </html>
