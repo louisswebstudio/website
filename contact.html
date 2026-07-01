@@ -59,6 +59,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   };
   Cal.ns.contact("on", { action: "linkReady", callback: hideCalLoader });
   Cal.ns.contact("on", { action: "linkFailed", callback: hideCalLoader });
+  // Conversion signal: push a (PII-free) dataLayer event when a call is actually
+  // booked, so GTM can fire a GA4 "generate_lead" key event. No attendee data is
+  // forwarded — only the fact that a booking succeeded.
+  Cal.ns.contact("on", { action: "bookingSuccessful", callback: function () {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "cal_booking", lead_method: "cal_booking" });
+  } });
   // Fallback: never leave the skeleton up indefinitely if the event misfires.
   window.addEventListener("load", function () { setTimeout(hideCalLoader, 12000); });
 </script>
