@@ -107,16 +107,15 @@ function applyTranslations(lang) {
     : 'Louiss Web Studio — We Build Websites that Bring You Clients';
 }
 
-// ── Hero title blur-in animation (vanilla port of React Bits <BlurText/>) ──
-// Wraps each word of the hero <h1> in a span and staggers a blur/fade/slide-in.
-function animateHeroTitle(delay) {
-  const h1 = document.querySelector('.hero .hero-h1');
-  if (!h1) return;
-  delay = delay || 90; // ms between words
-  const state = { i: 0 };
-  Array.from(h1.children).forEach(line => buildBlurWords(line, state, delay));
-  revealBlurWords(h1);
-}
+// ── Hero title reveal ──
+// The hero <h1> is the LCP element, so its reveal is pure CSS (the `heroTitleIn`
+// keyframes in site.css) which auto-play at render time. Previously this wrapped
+// each word in an opacity:0 span and revealed it via requestAnimationFrame — but
+// it only ran AFTER the deferred bundle executed, so under CPU throttling the
+// hero stayed hidden and LCP landed ~7s out. Kept as a no-op because
+// applyTranslations() still calls it on every language switch; the <h1> text is
+// updated in place by applyTranslations and needs no per-word animation.
+function animateHeroTitle() { /* hero reveal is CSS-only now — see site.css */ }
 
 // Add the `.animate` class on the next frame so the freshly-inserted spans
 // reliably play the blur-in. Failsafe: if that frame is dropped or the

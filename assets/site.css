@@ -3540,6 +3540,20 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
   margin: 0 auto;
   display: block;
   gap: 0;
+  /* Hero reveal is pure CSS so it can never delay LCP: this animation auto-plays
+     at render time (no JS, no requestAnimationFrame), unlike the old per-word
+     blur that only fired after the deferred bundle ran. Chrome records LCP when
+     the element first crosses opacity 0, i.e. at the first animation frame — so
+     the headline counts as painted right at first render. No blur() here: it
+     would blank the gradient-clipped "Clients" word on iOS in-app browsers. */
+  animation: heroTitleIn 0.6s cubic-bezier(.2, .65, .3, 1) both;
+}
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-h1 { animation: none; }
 }
 .hero .hero-h1 .hero-h1-line1,
 .hero .hero-h1 .hero-h1-line3,
