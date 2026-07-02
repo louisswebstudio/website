@@ -265,11 +265,6 @@ html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unse
   align-items: flex-end;
   justify-content: flex-end;
 }
-
-  object-fit: cover;
-  object-position: top;
-  display: block;
-}
 .hero-desc {
   font-size: 18px; font-weight: 400;
   color: #f0f0f0;

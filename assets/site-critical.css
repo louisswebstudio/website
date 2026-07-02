@@ -228,10 +228,6 @@ html[lang="fr"] .faq-title { font-size: 26px; line-height: 32px; }
   align-items: flex-end;
   justify-content: flex-end;
 }
-object-fit: cover;
-  object-position: top;
-  display: block;
-}
 .hero-desc {
   font-size: 18px; font-weight: 400;
   color: #f0f0f0;
