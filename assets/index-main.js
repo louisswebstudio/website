@@ -373,3 +373,17 @@
     stepsContainer.addEventListener('mouseenter', pauseAuto);
     stepsContainer.addEventListener('mouseleave', resumeAuto);
   }
+
+  // ── Start the hero mockup strip after load ──
+  // The strip is held paused by CSS (html:not(.strip-go) rule) so it doesn't
+  // scroll the lazy card images into view during the LCP/Speed-Index window.
+  // Kick it off once the page has loaded and the main thread is idle.
+  (function startHeroStrip() {
+    var go = function () { document.documentElement.classList.add('strip-go'); };
+    var kick = function () {
+      if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2500 });
+      else setTimeout(go, 1200);
+    };
+    if (document.readyState === 'complete') kick();
+    else window.addEventListener('load', kick, { once: true });
+  })();

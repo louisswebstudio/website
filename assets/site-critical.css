@@ -506,6 +506,13 @@ nav { padding: 0; }
   width: max-content;
   animation: hero-strip 48s linear infinite;
 }
+/* Hold the mockup strip still until after load. While it scrolls it drags the
+   lazy card images into view, forcing ~140 KB of image loads during the LCP/SI
+   window. JS adds html.strip-go after load + idle to let it drift. The
+   !important + html-scoped selector wins over the animation shorthand in both
+   the critical sheet and the async site.css, so no other rule needs touching.
+   If JS never runs, the strip simply stays static — an acceptable fallback. */
+html:not(.strip-go) .hero-bmock-track { animation-play-state: paused !important; }
 html[dir="rtl"] .hero-bottom-mockups {
   direction: ltr;          /* prevent RTL overflow from anchoring content at right edge */
 }
