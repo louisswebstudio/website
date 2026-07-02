@@ -25,9 +25,11 @@
 
   /* ── Stars ── */
   const MOBILE = W < 640;
-  /* Mobile bumped from 250 → 500 so the starfield reads clearly on phones,
-     close to the desktop 600 while staying lighter for performance. */
-  const COUNT  = MOBILE ? 500 : 600;
+  /* Star count kept modest on mobile: every star is a trig + canvas stroke per
+     frame, so this is the dominant per-frame cost. 320 reads clearly on phones
+     while keeping each frame well under the 50 ms long-task threshold when the
+     CPU is throttled (Lighthouse mobile). */
+  const COUNT  = MOBILE ? 320 : 600;
 
   function newStar(s) {
     s = s || {};
@@ -84,8 +86,19 @@
   }
 
   /* ── Main loop ── */
-  function animate() {
-    if (!W) { requestAnimationFrame(animate); return; }
+  // On mobile, cap the field at ~30fps: the drift is slow and decorative, so
+  // halving the frame rate halves the per-frame main-thread cost with no visible
+  // difference — and keeps frames from stacking into long tasks under throttling.
+  var frameInterval = MOBILE ? 1000 / 30 : 0;
+  var lastFrame = 0;
+  var running = false;
+
+  function animate(now) {
+    if (!running) return;
+    requestAnimationFrame(animate);
+    if (!W) return;
+    if (frameInterval && now - lastFrame < frameInterval) return;
+    lastFrame = now || 0;
 
     // Lighter clear on mobile → trails persist longer, so the field reads more clearly.
     ctx.fillStyle = MOBILE ? 'rgba(6,6,7,0.16)' : 'rgba(6,6,7,0.22)';
@@ -127,13 +140,35 @@
       ctx.lineTo(sx, sy);
       ctx.stroke();
     }
+  }
 
+  function start() {
+    if (running || reducedMotion) return;
+    running = true;
+    lastFrame = 0;
     requestAnimationFrame(animate);
   }
+  function stop() { running = false; }
+
+  // Pause while the tab is hidden so the loop never burns CPU in the background.
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop();
+    else start();
+  });
 
   if (reducedMotion) {
     drawStatic();
   } else {
-    requestAnimationFrame(animate);
+    // Paint one static frame immediately so the background isn't empty, then
+    // defer the animation until AFTER load + idle. During the critical loading
+    // window (where FCP/LCP/TBT are measured) the main thread stays free — the
+    // field simply begins drifting a moment later, which is imperceptible.
+    drawStatic();
+    var kick = function () {
+      if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 2500 });
+      else setTimeout(start, 1200);
+    };
+    if (document.readyState === 'complete') kick();
+    else window.addEventListener('load', kick, { once: true });
   }
 })();
