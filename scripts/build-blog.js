@@ -1,41 +1,99 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<script src="../assets/gtm-init.js" defer></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-<title>Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio</title>
-<link rel="canonical" href="https://louisswebstudio.com/blog/">
-<meta name="description" content="Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Louiss Web Studio">
-<meta property="og:url" content="https://louisswebstudio.com/blog/">
-<meta property="og:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
-<meta property="og:description" content="Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.">
-<meta property="og:image" content="https://louisswebstudio.com/logo.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
-<meta name="twitter:description" content="Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.">
-<meta name="twitter:image" content="https://louisswebstudio.com/logo.png">
+#!/usr/bin/env node
+/**
+ * build-blog.js — Static blog generator for Louiss Web Studio.
+ *
+ * Pulls "post" documents from Sanity (project 72a3cb7n / dataset production,
+ * public read — no token) and writes:
+ *   - blog/index.html            → article listing (cards)
+ *   - blog/{slug}/index.html     → one static page per post
+ * then refreshes the /blog URLs in sitemap.xml.
+ *
+ * The generated markup reuses the exact header/nav/footer/fonts/CSS design
+ * system from the existing site pages (see SHELL_CSS + nav/footer below), so
+ * the blog is visually consistent with the rest of the studio site.
+ *
+ * There is no bundler / Tailwind step in this project (pages ship inline CSS),
+ * so this script is the whole "build". Run with: npm run build:blog
+ */
 
-<link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="../favicon-512.png">
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="shortcut icon" href="../favicon-192.png">
-<meta name="theme-color" content="#060607">
+import { createClient } from '@sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
+import { toHTML } from '@portabletext/to-html';
+import { writeFile, mkdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
-<noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
-</noscript>
-<script defer src="../assets/fonts.js"></script>
-<style>
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, '..');
+const SITE = 'https://louisswebstudio.com';
+const ORG = 'Louiss Web Studio';
+const LOGO_URL = `${SITE}/logo.png`;
+
+const client = createClient({
+  projectId: '72a3cb7n',
+  dataset: 'production',
+  apiVersion: '2024-01-01',
+  useCdn: true,
+});
+const builder = imageUrlBuilder(client);
+const urlFor = (src) => builder.image(src);
+
+/* ── helpers ───────────────────────────────────────────────────────────── */
+const esc = (s = '') =>
+  String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+const attr = (s = '') => esc(s).replace(/'/g, '&#39;');
+
+// French long-form date, e.g. "2 juillet 2026"
+const frDate = (iso) => {
+  if (!iso) return '';
+  try {
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(iso));
+  } catch {
+    return '';
+  }
+};
+
+/* ── Portable Text → HTML ──────────────────────────────────────────────── */
+const ptComponents = {
+  types: {
+    image: ({ value }) => {
+      if (!value?.asset) return '';
+      const src = urlFor(value).width(1200).fit('max').auto('format').url();
+      return `<img src="${esc(src)}" alt="${attr(value.alt || '')}" loading="lazy" />`;
+    },
+  },
+  block: {
+    blockquote: ({ children }) => `<blockquote>${children}</blockquote>`,
+  },
+  marks: {
+    link: ({ children, value }) => {
+      const href = value?.href || '#';
+      const ext = /^https?:\/\//i.test(href);
+      const rel = ext ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${attr(href)}"${rel}>${children}</a>`;
+    },
+  },
+};
+
+const renderBody = (body) =>
+  Array.isArray(body) && body.length
+    ? toHTML(body, { components: ptComponents })
+    : '';
+
+/* ── Shared design system (verbatim from the existing site pages) ──────── */
+/* $R is replaced with the relative path back to site root:
+   "../" for /blog/index.html, "../../" for /blog/{slug}/index.html          */
+
+const SHELL_CSS = `
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -236,36 +294,44 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   .footer-bottom { flex-direction: column; gap: 8px; }
   .section-cta-bar { margin-top: 48px; }
 }
-</style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "Blog Louiss Web Studio",
-  "url": "https://louisswebstudio.com/blog/",
-  "description": "Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.",
-  "publisher": { "@type": "Organization", "name": "Louiss Web Studio", "logo": { "@type": "ImageObject", "url": "https://louisswebstudio.com/logo.png" } }
-}
-</script>
-</head>
-<body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<canvas id="global-starfield" aria-hidden="true"></canvas>
+`;
 
+const gtmHead = (R) => `<script src="${R}assets/gtm-init.js" defer></script>`;
+
+const fontsHead = (R) => `
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+</noscript>
+<script defer src="${R}assets/fonts.js"></script>`;
+
+const favicons = (R) => `
+<link rel="icon" type="image/png" sizes="192x192" href="${R}favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="${R}favicon-512.png">
+<link rel="apple-touch-icon" href="${R}apple-touch-icon.png">
+<link rel="shortcut icon" href="${R}favicon-192.png">
+<meta name="theme-color" content="#060607">`;
+
+const navHtml = (R) => `
 <nav>
   <div class="nav-inner">
-    <a href="../index.html" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="${R}index.html" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
     <div class="nav-links">
-      <a href="../projects.html" class="nav-link">Projets</a>
-      <a href="../tarifs.html" class="nav-link">Tarifs</a>
+      <a href="${R}projects.html" class="nav-link">Projets</a>
+      <a href="${R}tarifs.html" class="nav-link">Tarifs</a>
       <a href="/blog/" class="nav-link" style="color:rgba(255,255,255,0.90);">Blog</a>
-      <a href="../contact.html" class="nav-link">Contact</a>
+      <a href="${R}contact.html" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
         <span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span>
       </button>
-      <a href="../contact.html" class="btn-primary">Réserver un Appel</a>
+      <a href="${R}contact.html" class="btn-primary">Réserver un Appel</a>
     </div>
   </div>
 </nav>
@@ -273,50 +339,32 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="../index.html" class="mob-overlay-logo" aria-label="Accueil"><img src="../logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="${R}index.html" class="mob-overlay-logo" aria-label="Accueil"><img src="${R}logo.png" alt="Logo" height="20" width="auto"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fermer le menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="../projects.html" class="mobile-menu-link">Projets</a>
-    <a href="../tarifs.html" class="mobile-menu-link">Tarifs</a>
+    <a href="${R}projects.html" class="mobile-menu-link">Projets</a>
+    <a href="${R}tarifs.html" class="mobile-menu-link">Tarifs</a>
     <a href="/blog/" class="mobile-menu-link">Blog</a>
-    <a href="../contact.html" class="mobile-menu-link">Contact</a>
+    <a href="${R}contact.html" class="mobile-menu-link">Contact</a>
   </div>
   <div class="menu-bottom">
-    <a href="../contact.html#cal-embed" class="mobile-menu-cta">Démarrer un Projet</a>
+    <a href="${R}contact.html#cal-embed" class="mobile-menu-cta">Démarrer un Projet</a>
   </div>
-</div>
+</div>`;
 
-<section class="projects-hero">
-  <div class="container">
-    <h1 class="projects-page-title reveal">Blog</h1>
-    <p class="projects-page-sub reveal">Conseils web pour les entreprises au Maroc.</p>
-  </div>
-</section>
-
-<section class="work-section">
-  <div class="glow-circle glow-c"></div>
-  <div class="container">
-    <p class="blog-empty">Nos premiers articles arrivent bientôt. Revenez vite pour des conseils pratiques sur la création de sites web au Maroc.</p>
-    <div class="section-cta-bar reveal">
-      <a href="https://wa.me/212716490397?text=Bonjour%2C%20je%20souhaite%20un%20site%20web%20qui%20attire%20des%20clients." class="btn-primary">Démarrer Votre Projet</a>
-      <p class="urgency-line">⚡ Projets en cours pour cette semaine — quelques places disponibles</p>
-    </div>
-  </div>
-</section>
-
-
+const footerHtml = (R) => `
 <footer class="footer-section">
   <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
       <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <a href="../contact.html#cal-embed" class="btn-primary">Nous Contacter</a>
+        <a href="${R}contact.html#cal-embed" class="btn-primary">Nous Contacter</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="../index.html" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="${R}index.html" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -332,20 +380,22 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
       <p class="footer-copy">© 2026 Louiss Web Studio. Tous droits réservés.</p>
       <p class="footer-copy">Studio de web design basé à Tanger, Maroc.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
-        <a href="../privacy.html">Politique de Confidentialité</a>
-        <a href="../terms.html">Conditions d'Utilisation</a>
+        <a href="${R}privacy.html">Politique de Confidentialité</a>
+        <a href="${R}terms.html">Conditions d'Utilisation</a>
       </div>
     </div>
   </div>
-</footer>
+</footer>`;
 
-<a href="https://wa.me/212716490397?text=Bonjour%2C%20je%20souhaite%20d%C3%A9marrer%20un%20projet." class="wa-float" target="_blank" rel="noopener" aria-label="Discuter sur WhatsApp">
+const waFloat = () => `
+<a href="https://wa.me/212716490397?text=${encodeURIComponent('Bonjour, je souhaite démarrer un projet.')}" class="wa-float" target="_blank" rel="noopener" aria-label="Discuter sur WhatsApp">
   <span class="wa-float-label">Devis Gratuit</span>
   <div class="wa-float-btn">
     <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.1 1.519 5.832L0 24l6.335-1.493A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.359-.214-3.72.876.893-3.619-.234-.372A9.818 9.818 0 1112 21.818z"/></svg>
   </div>
-</a>
+</a>`;
 
+const pageScripts = (R) => `
 <script>
 /* Scroll reveal */
 (function(){
@@ -366,6 +416,286 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   document.querySelectorAll('.mobile-menu-link').forEach(function(l){ l.addEventListener('click', close); });
 })();
 </script>
-<script defer src="../assets/starfield.js"></script>
+<script defer src="${R}assets/starfield.js"></script>`;
+
+/* ── Page templates ────────────────────────────────────────────────────── */
+
+export function listingPage(posts) {
+  const R = '../';
+  const cards = posts
+    .map((p) => {
+      const href = `/blog/${p.slug}/`;
+      const img = p.mainImage?.asset
+        ? `<div class="blog-thumb"><img src="${esc(
+            urlFor(p.mainImage).width(800).height(500).fit('crop').auto('format').url()
+          )}" alt="${attr(p.mainImage.alt || p.title || '')}" loading="lazy"></div>`
+        : `<div class="blog-thumb"></div>`;
+      const cat = p.category?.title
+        ? `<span class="blog-pill">${esc(p.category.title)}</span>`
+        : '';
+      return `
+    <a href="${href}" class="bento-card blog-card reveal">
+      ${img}
+      <div class="blog-body">
+        ${cat}
+        <h2 class="blog-card-title">${esc(p.title || '')}</h2>
+        <p class="blog-excerpt">${esc(p.excerpt || '')}</p>
+        <div class="blog-card-foot">
+          <span class="blog-date">${esc(frDate(p.publishedAt))}</span>
+          <span class="blog-read">Lire l'article →</span>
+        </div>
+      </div>
+    </a>`;
+    })
+    .join('\n');
+
+  const grid = posts.length
+    ? `<div class="blog-grid">\n${cards}\n  </div>`
+    : `<p class="blog-empty">Nos premiers articles arrivent bientôt. Revenez vite pour des conseils pratiques sur la création de sites web au Maroc.</p>`;
+
+  const desc =
+    'Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.';
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+${gtmHead(R)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio</title>
+<link rel="canonical" href="${SITE}/blog/">
+<meta name="description" content="${attr(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Louiss Web Studio">
+<meta property="og:url" content="${SITE}/blog/">
+<meta property="og:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta property="og:description" content="${attr(desc)}">
+<meta property="og:image" content="${LOGO_URL}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta name="twitter:description" content="${attr(desc)}">
+<meta name="twitter:image" content="${LOGO_URL}">
+${favicons(R)}
+${fontsHead(R)}
+<style>${SHELL_CSS}</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Louiss Web Studio",
+  "url": "${SITE}/blog/",
+  "description": ${JSON.stringify(desc)},
+  "publisher": { "@type": "Organization", "name": "${ORG}", "logo": { "@type": "ImageObject", "url": "${LOGO_URL}" } }
+}
+</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<canvas id="global-starfield" aria-hidden="true"></canvas>
+${navHtml(R)}
+
+<section class="projects-hero">
+  <div class="container">
+    <h1 class="projects-page-title reveal">Blog</h1>
+    <p class="projects-page-sub reveal">Conseils web pour les entreprises au Maroc.</p>
+  </div>
+</section>
+
+<section class="work-section">
+  <div class="glow-circle glow-c"></div>
+  <div class="container">
+    ${grid}
+    <div class="section-cta-bar reveal">
+      <a href="https://wa.me/212716490397?text=${encodeURIComponent('Bonjour, je souhaite un site web qui attire des clients.')}" class="btn-primary">Démarrer Votre Projet</a>
+      <p class="urgency-line">⚡ Projets en cours pour cette semaine — quelques places disponibles</p>
+    </div>
+  </div>
+</section>
+
+${footerHtml(R)}
+${waFloat()}
+${pageScripts(R)}
 </body>
 </html>
+`;
+}
+
+export function postPage(p) {
+  const R = '../../';
+  const url = `${SITE}/blog/${p.slug}/`;
+  const title = p.seoTitle || p.title || '';
+  const desc = p.metaDescription || p.excerpt || '';
+  const ogImage = p.mainImage?.asset
+    ? urlFor(p.mainImage).width(1200).height(630).fit('crop').auto('format').url()
+    : LOGO_URL;
+  const heroImg = p.mainImage?.asset
+    ? `<img class="article-hero-img" src="${esc(
+        urlFor(p.mainImage).width(1200).fit('max').auto('format').url()
+      )}" alt="${attr(p.mainImage.alt || p.title || '')}" fetchpriority="high">`
+    : '';
+  const cat = p.category?.title
+    ? `<span class="article-cat-badge">${esc(p.category.title)}</span>`
+    : '';
+  const bodyHtml = renderBody(p.body);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: p.title || '',
+    description: desc,
+    image: [ogImage],
+    datePublished: p.publishedAt || undefined,
+    dateModified: p._updatedAt || p.publishedAt || undefined,
+    author: { '@type': 'Organization', name: ORG, url: SITE },
+    publisher: {
+      '@type': 'Organization',
+      name: ORG,
+      logo: { '@type': 'ImageObject', url: LOGO_URL },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  };
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+${gtmHead(R)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>${esc(title)}</title>
+<link rel="canonical" href="${url}">
+<meta name="description" content="${attr(desc)}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Louiss Web Studio">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${attr(p.title || title)}">
+<meta property="og:description" content="${attr(desc)}">
+<meta property="og:image" content="${esc(ogImage)}">
+<meta property="article:published_time" content="${attr(p.publishedAt || '')}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${attr(p.title || title)}">
+<meta name="twitter:description" content="${attr(desc)}">
+<meta name="twitter:image" content="${esc(ogImage)}">
+${favicons(R)}
+${fontsHead(R)}
+<style>${SHELL_CSS}</style>
+<script type="application/ld+json">
+${JSON.stringify(jsonLd, null, 2)}
+</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<canvas id="global-starfield" aria-hidden="true"></canvas>
+${navHtml(R)}
+
+<article class="projects-hero">
+  <div class="container">
+    <div class="article-wrap">
+      <div class="article-head reveal">
+        ${cat}
+        <h1 class="article-title">${esc(p.title || '')}</h1>
+        <div class="article-meta">${esc(frDate(p.publishedAt))}${p.category?.title ? ' · ' + esc(p.category.title) : ''}</div>
+      </div>
+      ${heroImg}
+      <div class="article-body reveal">
+${bodyHtml}
+      </div>
+    </div>
+
+    <div class="article-cta reveal">
+      <div class="glow-circle glow-c" style="opacity:0.10;"></div>
+      <h2>Besoin d'un site web professionnel ?</h2>
+      <p>On conçoit des sites rapides, modernes et pensés pour convertir vos visiteurs en clients. Parlons de votre projet.</p>
+      <a href="${R}contact.html#cal-embed" class="btn-primary">Nous Contacter</a>
+    </div>
+  </div>
+</article>
+
+<div style="height:64px;"></div>
+${footerHtml(R)}
+${waFloat()}
+${pageScripts(R)}
+</body>
+</html>
+`;
+}
+
+/* ── sitemap.xml refresh ───────────────────────────────────────────────── */
+const BLOG_START = '  <!-- BLOG:START (generated by scripts/build-blog.js) -->';
+const BLOG_END = '  <!-- BLOG:END -->';
+
+async function updateSitemap(posts) {
+  const file = path.join(ROOT, 'sitemap.xml');
+  let xml = await readFile(file, 'utf8');
+  const today = new Date().toISOString().slice(0, 10);
+
+  const entries = [];
+  entries.push(
+    `  <url>\n    <loc>${SITE}/blog/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`
+  );
+  for (const p of posts) {
+    const lastmod = (p._updatedAt || p.publishedAt || today).slice(0, 10);
+    entries.push(
+      `  <url>\n    <loc>${SITE}/blog/${p.slug}/</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`
+    );
+  }
+  const block = `${BLOG_START}\n${entries.join('\n')}\n${BLOG_END}`;
+
+  const re = new RegExp(
+    `[ \\t]*${BLOG_START.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?${BLOG_END.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\n?`
+  );
+  if (re.test(xml)) {
+    xml = xml.replace(re, `${block}\n`);
+  } else {
+    xml = xml.replace('</urlset>', `${block}\n</urlset>`);
+  }
+  await writeFile(file, xml, 'utf8');
+}
+
+/* ── main ──────────────────────────────────────────────────────────────── */
+async function main() {
+  const query = `*[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc){
+    _id, _updatedAt, title, "slug": slug.current, excerpt, publishedAt, seoTitle, metaDescription,
+    mainImage, "category": category->{title, "slug": slug.current}, body
+  }`;
+
+  let posts = [];
+  try {
+    posts = await client.fetch(query);
+  } catch (err) {
+    console.error('✖ Failed to fetch posts from Sanity:', err.message);
+    throw err;
+  }
+  console.log(`→ Fetched ${posts.length} published post(s) from Sanity.`);
+
+  const blogDir = path.join(ROOT, 'blog');
+  await mkdir(blogDir, { recursive: true });
+
+  // Listing page
+  await writeFile(path.join(blogDir, 'index.html'), listingPage(posts), 'utf8');
+  console.log('✓ Wrote blog/index.html');
+
+  // Post pages
+  for (const p of posts) {
+    if (!p.slug) continue;
+    const dir = path.join(blogDir, p.slug);
+    await mkdir(dir, { recursive: true });
+    await writeFile(path.join(dir, 'index.html'), postPage(p), 'utf8');
+    console.log(`✓ Wrote blog/${p.slug}/index.html`);
+  }
+
+  // Sitemap
+  await updateSitemap(posts);
+  console.log('✓ Updated sitemap.xml');
+
+  console.log('Done.');
+}
+
+// Run only when invoked directly (not when imported for testing).
+if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('build-blog.js')) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
