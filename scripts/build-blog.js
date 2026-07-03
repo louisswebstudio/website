@@ -324,7 +324,6 @@ const navHtml = (R) => `
     <div class="nav-links">
       <a href="${R}projects.html" class="nav-link">Projets</a>
       <a href="${R}tarifs.html" class="nav-link">Tarifs</a>
-      <a href="/blog/" class="nav-link" style="color:rgba(255,255,255,0.90);">Blog</a>
       <a href="${R}contact.html" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
@@ -345,7 +344,6 @@ const navHtml = (R) => `
   <div class="menu-center">
     <a href="${R}projects.html" class="mobile-menu-link">Projets</a>
     <a href="${R}tarifs.html" class="mobile-menu-link">Tarifs</a>
-    <a href="/blog/" class="mobile-menu-link">Blog</a>
     <a href="${R}contact.html" class="mobile-menu-link">Contact</a>
   </div>
   <div class="menu-bottom">
@@ -380,6 +378,7 @@ const footerHtml = (R) => `
       <p class="footer-copy">© 2026 Louiss Web Studio. Tous droits réservés.</p>
       <p class="footer-copy">Studio de web design basé à Tanger, Maroc.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
+        <a href="/blog/">Blog</a>
         <a href="${R}privacy.html">Politique de Confidentialité</a>
         <a href="${R}terms.html">Conditions d'Utilisation</a>
       </div>
