@@ -1,4 +1,33 @@
+# robots.txt — Louiss Web Studio
+# All standard crawlers are welcome.
 User-agent: *
+Allow: /
+
+# ── AI / LLM crawlers explicitly allowed ──
+# We want Louiss Web Studio to be discoverable and citable by AI search
+# engines and assistants. See /llms.txt for a plain-text company summary.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://louisswebstudio.com/sitemap.xml
