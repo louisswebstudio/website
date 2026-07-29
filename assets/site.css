@@ -3648,6 +3648,7 @@ html[lang="fr"] .hero .hero-h1 {
 .bento-pos-2 { left: 61.33px;  top: 46px; }
 .bento-pos-3 { left: 62px;     top: 35px; }
 .bento-pos-4 { left: 166px;    top: 39px; }
+.bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 .bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 .glow-tl-soft  { opacity: 0.12; filter: blur(180px); }
 .glow-c-soft   { opacity: 0.15; filter: blur(150px); }

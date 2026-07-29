@@ -370,8 +370,13 @@ nav {
 .bento-pos-2 { left: 61.33px;  top: 46px; }
 .bento-pos-3 { left: 62px;     top: 35px; }
 .bento-pos-4 { left: 166px;    top: 39px; }
-.bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100%; object-fit: cover; object-position: top; }
-.bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100%; object-fit: cover; object-position: top; }
+/* Full-bleed thumbnails. `height` needs !important the same way `width` does:
+   `.bento-thumb img` (0,1,1) outranks a bare `.bento-pos-N` (0,1,0), so its
+   `height: auto` would otherwise win and let a landscape screenshot shrink to
+   its own aspect ratio, leaving dead space under it. With both forced, any
+   source image fills the fixed-height thumb and crops from the top instead. */
+.bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
+.bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 
 /* Placeholder thumbnail styling */
 .bento-thumb-placeholder {
@@ -471,9 +476,8 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
   .bento-card-4,
   .bento-card-5,
   .bento-card-6 { grid-column: 1; grid-row: auto; }
-  /* Mobile: El Majdoub leads the list; Movexa ("Coming Soon") is hidden for now. */
+  /* Mobile: El Majdoub leads the list. */
   .bento-card-1 { order: -1; }
-  .bento-card-5 { display: none; }
   .bento-thumb { height: 220px; }
   .bento-info  { padding: 14px 16px; }
   .bento-title { font-size: 15px; }
@@ -876,17 +880,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </a>
 
-    <!-- Card 3: Agadir Transfer — col 1–5, row 1 -->
-    <a href="./agadir-transfer.html" class="bento-card bento-card-3 dark2 glow-card" data-hover-img="./assets/images/hover aga trans.webp">
+    <!-- Card 3 slot: Maison Monchef — col 1–5, row 1 -->
+    <a href="./maison-monchef.html" class="bento-card bento-card-3 dark2 glow-card" data-hover-img="./assets/images/hover maison monchef.webp">
       <div class="bento-thumb">
-        <img src="./assets/images/figma-agadir.webp" alt="Agadir Transfer" width="720" height="1100" loading="lazy" class="bento-pos-3">
-        <img class="bento-hover-img" src="./assets/images/hover aga trans.webp" alt="" width="500" height="548" loading="lazy">
+        <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef" width="932" height="640" loading="lazy" class="bento-pos-5">
+        <img class="bento-hover-img" src="./assets/images/hover maison monchef.webp" alt="" width="466" height="420" loading="lazy">
       </div>
       <div class="bento-info">
         <div>
-          <div class="bento-cat">Transport · Booking</div>
-          <div class="bento-title">Agadir Transfer</div>
-          <div class="bento-result">Meilleure présentation de l'offre</div>
+          <div class="bento-cat">Immobilier · Multilingue</div>
+          <div class="bento-title">Maison Monchef</div>
+          <div class="bento-result">Plateforme immobilière en trois langues</div>
         </div>
         <div class="bento-btn-expand">
           <span>View project</span>
@@ -914,27 +918,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </a>
 
-    <!-- Card 5: Movexa — col 1–5, row 3 -->
-    <div class="bento-card bento-card-5 dark2 glow-card coming-soon">
+    <!-- Card 5 slot: Agadir Transfer — col 1–5, row 3 -->
+    <a href="./agadir-transfer.html" class="bento-card bento-card-5 dark2 glow-card" data-hover-img="./assets/images/hover aga trans.webp">
       <div class="bento-thumb">
-        <img src="./assets/images/movexa project.webp" alt="Movexa" width="720" height="1100" loading="lazy" class="bento-pos-5">
+        <img src="./assets/images/figma-agadir.webp" alt="Agadir Transfer" width="720" height="1100" loading="lazy" class="bento-pos-3">
+        <img class="bento-hover-img" src="./assets/images/hover aga trans.webp" alt="" width="500" height="548" loading="lazy">
       </div>
       <div class="bento-info">
         <div>
-          <div class="bento-cat">Déménagement · Services</div>
-          <div class="bento-title">Movexa</div>
-          <div class="bento-result">Image professionnelle qui inspire confiance</div>
+          <div class="bento-cat">Transport · Booking</div>
+          <div class="bento-title">Agadir Transfer</div>
+          <div class="bento-result">Meilleure présentation de l'offre</div>
         </div>
-        <div class="bento-coming-badge" data-en="Coming Soon" data-fr="Bientôt" data-ar="قريباً">Coming Soon</div>
+        <div class="bento-btn-expand">
+          <span>View project</span>
+          <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
       </div>
-    </div>
+    </a>
 
     <!-- Card 1 slot: El Majdoub Immobilier — col 6–12, row 1 -->
     <a href="./el-majdoub.html" class="bento-card bento-card-1 glow-card" data-hover-img="./assets/images/majdoiub project hover.webp">
       <div class="bento-thumb">
         <picture>
           <source media="(max-width: 700px)" srcset="./assets/images/majdoub-thumb.webp">
-          <img src="./assets/images/majdoub project.webp" alt="Majdoub Immobilier" width="541" height="742" loading="lazy" class="bento-pos-6">
+          <img src="./assets/images/majdoub project.webp" alt="Majdoub Immobilier" width="675" height="420" loading="lazy" class="bento-pos-6">
         </picture>
         <!-- TODO: replace hover image when provided -->
         <img class="bento-hover-img" src="./assets/images/majdoiub project hover.webp" alt="" width="500" height="548" loading="lazy">

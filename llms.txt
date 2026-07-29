@@ -59,7 +59,7 @@
 - Supreme Toiture — roofing company lead-generation website
 - Digiseo — SEO and digital marketing website
 - El Majdoub Immobilier — real estate rental platform in Agadir
-- Movexa — moving company website
+- Maison Monchef — multilingual real estate platform for a Dubai-based client (Next.js + Sanity)
 
 ## Contact
 
