@@ -225,7 +225,7 @@ function Hero({ heroLayout, showFloatingTags }) {
             How a heritage hotel <span className="accent-blue">tripled</span> direct bookings <span className="accent">in 90 days.</span>
           </h1>
           <p className="hero-sub">
-            Atlas &amp; Co., a twelve-suite riad outside Marrakech, was losing 80% of inbound traffic to a clunky third-party booking widget. We rebuilt the brand experience end-to-end — and the numbers followed.
+            Atlas &amp; Co., a twelve-suite riad outside Marrakech, was losing 80% of inbound traffic to a clunky third-party booking widget. We rebuilt the brand experience end-to-end, and the numbers followed.
           </p>
           <div className="hero-meta">
             <div className="item"><span className="label">Client</span><span className="val">Atlas &amp; Co.</span></div>
@@ -277,7 +277,7 @@ function Metrics() {
 function Problem() {
   const items = [
     { t: "A booking widget that fought users", d: "Embedded iframe, mismatched typography, four steps before a date picker. 78% of users dropped off before reaching availability." },
-    { t: "Brand that didn't match the room", d: "The riad felt timeless and editorial. The site felt like a 2014 OTA template — saturated reds, exclamation marks, banner ads above the fold." },
+    { t: "Brand that didn't match the room", d: "The riad felt timeless and editorial. The site felt like a 2014 OTA template, saturated reds, exclamation marks, banner ads above the fold." },
     { t: "Mobile was an afterthought", d: "Hero image cropped to a sliver. CTA below the fold on every device under 768px. 71% of traffic was mobile." },
     { t: "No story, only inventory", d: "Twelve identical suite cards in a grid. No editorial. No reason to scroll past the first screen." },
   ];
@@ -287,7 +287,7 @@ function Problem() {
         <div className="section-tag">Chapter 01</div>
         <div className="section-head">
           <div className="section-num">01</div>
-          <h2>The site was beautiful in person — and <em>broken</em> on every screen.</h2>
+          <h2>The site was beautiful in person, and <em>broken</em> on every screen.</h2>
         </div>
         <div className="problem-grid">
           <div className="problem-list">
@@ -341,7 +341,7 @@ function Approach() {
     {
       n: "i.",
       t: "Re-anchor the brand",
-      d: "Six in-person interviews with the founder and head of housekeeping. We rewrote the voice — quieter, more confident, more specific. Then redrew the wordmark and a custom serif italic to carry it.",
+      d: "Six in-person interviews with the founder and head of housekeeping. We rewrote the voice, quieter, more confident, more specific. Then redrew the wordmark and a custom serif italic to carry it.",
       tags: ["Brand voice", "Wordmark", "Custom italic"],
     },
     {
@@ -480,7 +480,7 @@ function FinalCTA() {
             Have a project<br/>
             <em>worth getting right?</em>
           </h2>
-          <p>We take on six clients per year. We'll spend the first hour on the phone making sure we're the right fit — no slides, no pitch deck.</p>
+          <p>We take on six clients per year. We'll spend the first hour on the phone making sure we're the right fit. No slides, no pitch deck.</p>
           <div className="actions">
             <a href="#" className="btn btn-primary btn-xl">Book a discovery call <span className="arrow">{Icon.arrow(16)}</span></a>
             <a href="#" className="btn btn-ghost btn-xl">View more case studies</a>

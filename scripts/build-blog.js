@@ -453,7 +453,7 @@ export function listingPage(posts) {
     : `<p class="blog-empty">Nos premiers articles arrivent bientôt. Revenez vite pour des conseils pratiques sur la création de sites web au Maroc.</p>`;
 
   const desc =
-    'Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion — par Louiss Web Studio à Tanger.';
+    'Conseils pratiques sur la création de sites web pour les petites entreprises au Maroc. Design, SEO, conversion, par Louiss Web Studio à Tanger.';
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -507,7 +507,7 @@ ${navHtml(R)}
     ${grid}
     <div class="section-cta-bar reveal">
       <a href="https://wa.me/212716490397?text=${encodeURIComponent('Bonjour, je souhaite un site web qui attire des clients.')}" class="btn-primary">Démarrer Votre Projet</a>
-      <p class="urgency-line">⚡ Projets en cours pour cette semaine — quelques places disponibles</p>
+      <p class="urgency-line">⚡ Projets en cours pour cette semaine. Quelques places disponibles</p>
     </div>
   </div>
 </section>
