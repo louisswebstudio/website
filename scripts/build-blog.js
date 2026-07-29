@@ -323,7 +323,7 @@ const navHtml = (R) => `
     <a href="${R}index.html" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
     <div class="nav-links">
       <a href="${R}projects.html" class="nav-link">Projets</a>
-      <a href="${R}tarifs.html" class="nav-link">Tarifs</a>
+      <a href="/#faq" class="nav-link">FAQ</a>
       <a href="${R}contact.html" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
@@ -343,7 +343,7 @@ const navHtml = (R) => `
   </div>
   <div class="menu-center">
     <a href="${R}projects.html" class="mobile-menu-link">Projets</a>
-    <a href="${R}tarifs.html" class="mobile-menu-link">Tarifs</a>
+    <a href="/#faq" class="mobile-menu-link">FAQ</a>
     <a href="${R}contact.html" class="mobile-menu-link">Contact</a>
   </div>
   <div class="menu-bottom">
