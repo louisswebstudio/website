@@ -357,6 +357,12 @@ nav {
 .cs-proj-card-img .cs-proj-hover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.06); transition: opacity 0.38s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); z-index: 2; }
 .cs-proj-card:hover .cs-proj-card-img .cs-proj-hover-img { opacity: 1; transform: scale(1); }
 .cs-other .cs-proj-card-img img:not(.cs-proj-hover-img) { position: absolute; width: 80%; height: auto; left: 10%; top: 6%; object-fit: unset; object-position: unset; }
+/* Opt-out for landscape source images: the floating 80%-width/height:auto
+   treatment above is sized for portrait screenshot mockups (Adventure Keys,
+   Agadir Transfer). A landscape source shrinks to its own aspect ratio under
+   that rule and leaves dead space below it, so this restores full-bleed
+   cover for cards whose thumbnail is landscape (e.g. El Majdoub). */
+.cs-other .cs-proj-card-img img.cs-proj-img-cover:not(.cs-proj-hover-img) { position: absolute; inset: 0; width: 100% !important; height: 100% !important; left: 0; top: 0; object-fit: cover; object-position: top; }
 html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
 /* ══════════════════════════════════════════════════════
    FAQ
@@ -694,7 +700,7 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
       "name": "What type of websites do you build?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries — not just look good."
+        "text": "We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries, not just look good."
       }
     },
     {
@@ -702,7 +708,7 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
       "name": "Can you build a multilingual website?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. We build fully localized sites in French, English, and Arabic — including native right-to-left layouts for Arabic, not just translated text. Content is structured per-language in the CMS so your team can publish in each language independently."
+        "text": "Yes. We build fully localized sites in French, English, and Arabic, including native right-to-left layouts for Arabic, not just translated text. Content is structured per-language in the CMS so your team can publish in each language independently."
       }
     },
     {
@@ -726,7 +732,7 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
       "name": "Do you handle SEO and post-launch support?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes."
+        "text": "Yes, every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes."
       }
     },
     {
@@ -734,7 +740,7 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
       "name": "What happens after launch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages — or you can manage the site independently. We hand over full access to everything."
+        "text": "You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages, or you can manage the site independently. We hand over full access to everything."
       }
     }
   ]
@@ -872,15 +878,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         data-fr="Une Architecture Multilingue, Pensée pour l'International"
         data-ar="بنية متعددة اللغات مصممة للانتشار العالمي">Multilingual Architecture, Built for Global Reach</h2>
       <div style="color:#A3A3A3; font-size:16px; line-height:1.85; max-width:748px; margin:0 auto; text-align:center;"
-        data-en="&lt;p&gt;Maison Monchef needed to serve three distinct audiences — French, English, and Arabic speakers — without compromising design quality in any one language. I built the entire platform on Next.js with a localized content model in Sanity CMS, using a structured name.en / name.fr / name.ar pattern so every property listing, page, and UI string ships correctly localized, including full right-to-left layout support for Arabic.&lt;/p&gt;"
-        data-fr="&lt;p&gt;Maison Monchef devait s'adresser à trois publics distincts — francophone, anglophone et arabophone — sans compromettre la qualité du design dans aucune de ces langues. J'ai construit l'ensemble de la plateforme sur Next.js avec un modèle de contenu localisé dans Sanity CMS, suivant une structure name.en / name.fr / name.ar afin que chaque annonce, page et libellé d'interface soit correctement localisé, avec un support complet de la mise en page de droite à gauche pour l'arabe.&lt;/p&gt;"
-        data-ar="&lt;p&gt;كانت ميزون مونشيف بحاجة لخدمة ثلاث جماهير مختلفة — الناطقين بالفرنسية والإنجليزية والعربية — دون التضحية بجودة التصميم في أي منها. بنيت المنصة بالكامل على Next.js مع نموذج محتوى مترجم في Sanity CMS، باستخدام بنية name.en / name.fr / name.ar بحيث يصل كل إعلان عقاري وكل صفحة وكل نص واجهة مترجماً بشكل صحيح، مع دعم كامل لتخطيط الكتابة من اليمين إلى اليسار للغة العربية.&lt;/p&gt;">
-        <p>Maison Monchef needed to serve three distinct audiences — French, English, and Arabic speakers — without compromising design quality in any one language. I built the entire platform on Next.js with a localized content model in Sanity CMS, using a structured name.en / name.fr / name.ar pattern so every property listing, page, and UI string ships correctly localized, including full right-to-left layout support for Arabic.</p>
+        data-en="&lt;p&gt;Maison Monchef needed to serve three distinct audiences: French, English, and Arabic speakers, without compromising design quality in any one language. I built the entire platform on Next.js with a localized content model in Sanity CMS, using a structured name.en / name.fr / name.ar pattern so every property listing, page, and UI string ships correctly localized, including full right-to-left layout support for Arabic.&lt;/p&gt;"
+        data-fr="&lt;p&gt;Maison Monchef devait s'adresser à trois publics distincts : francophone, anglophone et arabophone, sans compromettre la qualité du design dans aucune de ces langues. J'ai construit l'ensemble de la plateforme sur Next.js avec un modèle de contenu localisé dans Sanity CMS, suivant une structure name.en / name.fr / name.ar afin que chaque annonce, page et libellé d'interface soit correctement localisé, avec un support complet de la mise en page de droite à gauche pour l'arabe.&lt;/p&gt;"
+        data-ar="&lt;p&gt;كانت ميزون مونشيف بحاجة لخدمة ثلاث جماهير مختلفة: الناطقين بالفرنسية والإنجليزية والعربية، دون التضحية بجودة التصميم في أي منها. بنيت المنصة بالكامل على Next.js مع نموذج محتوى مترجم في Sanity CMS، باستخدام بنية name.en / name.fr / name.ar بحيث يصل كل إعلان عقاري وكل صفحة وكل نص واجهة مترجماً بشكل صحيح، مع دعم كامل لتخطيط الكتابة من اليمين إلى اليسار للغة العربية.&lt;/p&gt;">
+        <p>Maison Monchef needed to serve three distinct audiences: French, English, and Arabic speakers, without compromising design quality in any one language. I built the entire platform on Next.js with a localized content model in Sanity CMS, using a structured name.en / name.fr / name.ar pattern so every property listing, page, and UI string ships correctly localized, including full right-to-left layout support for Arabic.</p>
       </div>
     </div>
     <div class="reveal" style="display:flex; justify-content:center;">
       <div style="background:linear-gradient(107deg,#0A1628,#142847,#0A1628); border-radius:20px; width:932px; aspect-ratio:16/9; overflow:hidden; position:relative; max-width:100%;">
-        <img src="assets/images/projects/maison-monchef/2.webp" alt="Maison Monchef — Multilingual Architecture" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+        <img src="assets/images/projects/maison-monchef/2.webp" alt="Maison Monchef multilingual architecture" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
       </div>
     </div>
   </div>
@@ -896,15 +902,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         data-fr="Un CMS Conçu pour des Mises à Jour Sans Technique"
         data-ar="نظام إدارة محتوى مصمم للتحديثات دون خبرة تقنية">A CMS Built for Non-Technical Content Updates</h2>
       <div style="color:#A3A3A3; font-size:16px; line-height:1.85; max-width:748px; margin:0 auto; text-align:center;"
-        data-en="&lt;p&gt;The client needed to manage property listings independently after launch — new listings, price changes, photo updates — without touching code. I structured the Sanity schema so the entire content model (properties, locations, amenities, media) is editable through a clean studio interface, letting the Maison Monchef team publish and update listings in any of the three languages without developer involvement.&lt;/p&gt;"
-        data-fr="&lt;p&gt;Le client devait pouvoir gérer ses annonces de façon autonome après le lancement — nouvelles annonces, changements de prix, mises à jour des photos — sans toucher au code. J'ai structuré le schéma Sanity de sorte que l'ensemble du modèle de contenu (biens, localisations, prestations, médias) soit modifiable via une interface studio épurée, permettant à l'équipe Maison Monchef de publier et mettre à jour ses annonces dans les trois langues sans intervention d'un développeur.&lt;/p&gt;"
-        data-ar="&lt;p&gt;احتاج العميل إلى إدارة إعلانات العقارات بشكل مستقل بعد الإطلاق — إعلانات جديدة وتغييرات في الأسعار وتحديثات للصور — دون المساس بالكود. هيكلت مخطط Sanity بحيث يكون نموذج المحتوى بالكامل (العقارات والمواقع والمرافق والوسائط) قابلاً للتحرير عبر واجهة استوديو نظيفة، مما يتيح لفريق ميزون مونشيف نشر وتحديث الإعلانات بأي من اللغات الثلاث دون تدخل مطوّر.&lt;/p&gt;">
-        <p>The client needed to manage property listings independently after launch — new listings, price changes, photo updates — without touching code. I structured the Sanity schema so the entire content model (properties, locations, amenities, media) is editable through a clean studio interface, letting the Maison Monchef team publish and update listings in any of the three languages without developer involvement.</p>
+        data-en="&lt;p&gt;The client needed to manage property listings independently after launch: new listings, price changes, photo updates, all without touching code. I structured the Sanity schema so the entire content model (properties, locations, amenities, media) is editable through a clean studio interface, letting the Maison Monchef team publish and update listings in any of the three languages without developer involvement.&lt;/p&gt;"
+        data-fr="&lt;p&gt;Le client devait pouvoir gérer ses annonces de façon autonome après le lancement : nouvelles annonces, changements de prix, mises à jour des photos, sans jamais toucher au code. J'ai structuré le schéma Sanity de sorte que l'ensemble du modèle de contenu (biens, localisations, prestations, médias) soit modifiable via une interface studio épurée, permettant à l'équipe Maison Monchef de publier et mettre à jour ses annonces dans les trois langues sans intervention d'un développeur.&lt;/p&gt;"
+        data-ar="&lt;p&gt;احتاج العميل إلى إدارة إعلانات العقارات بشكل مستقل بعد الإطلاق: إعلانات جديدة وتغييرات في الأسعار وتحديثات للصور، دون المساس بالكود. هيكلت مخطط Sanity بحيث يكون نموذج المحتوى بالكامل (العقارات والمواقع والمرافق والوسائط) قابلاً للتحرير عبر واجهة استوديو نظيفة، مما يتيح لفريق ميزون مونشيف نشر وتحديث الإعلانات بأي من اللغات الثلاث دون تدخل مطوّر.&lt;/p&gt;">
+        <p>The client needed to manage property listings independently after launch: new listings, price changes, photo updates, all without touching code. I structured the Sanity schema so the entire content model (properties, locations, amenities, media) is editable through a clean studio interface, letting the Maison Monchef team publish and update listings in any of the three languages without developer involvement.</p>
       </div>
     </div>
     <div class="reveal" style="display:flex; justify-content:center;">
       <div style="background:linear-gradient(107deg,#0A1628,#142847,#0A1628); border-radius:20px; width:932px; aspect-ratio:16/9; overflow:hidden; position:relative; max-width:100%;">
-        <img src="assets/images/projects/maison-monchef/4.webp" alt="Maison Monchef — Sanity CMS localized content editing" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+        <img src="assets/images/projects/maison-monchef/4.webp" alt="Maison Monchef Sanity CMS localized content editing" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
       </div>
     </div>
   </div>
@@ -919,15 +925,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         data-fr="Une Infrastructure de Production"
         data-ar="بنية تحتية بمستوى الإنتاج">Production-Grade Infrastructure</h2>
       <div style="color:#A3A3A3; font-size:16px; line-height:1.85; max-width:748px; margin:0 auto; text-align:center;"
-        data-en="&lt;p&gt;The platform is deployed on Vercel Pro with custom domain and email routing fully configured for maisonmonchef.ae — DNS, mail routing, and SSL handled end-to-end for a production launch with zero downtime migration from the client's prior setup.&lt;/p&gt;"
-        data-fr="&lt;p&gt;La plateforme est déployée sur Vercel Pro avec un domaine personnalisé et un routage e-mail entièrement configurés pour maisonmonchef.ae — DNS, acheminement du courrier et SSL pris en charge de bout en bout, pour un lancement en production avec une migration sans interruption depuis l'ancienne configuration du client.&lt;/p&gt;"
-        data-ar="&lt;p&gt;المنصة منشورة على Vercel Pro مع نطاق مخصص وتوجيه بريد إلكتروني مهيّأ بالكامل لـ maisonmonchef.ae — إدارة DNS وتوجيه البريد وشهادات SSL من البداية إلى النهاية، لإطلاق إنتاجي مع ترحيل دون أي انقطاع من إعداد العميل السابق.&lt;/p&gt;">
-        <p>The platform is deployed on Vercel Pro with custom domain and email routing fully configured for maisonmonchef.ae — DNS, mail routing, and SSL handled end-to-end for a production launch with zero downtime migration from the client's prior setup.</p>
+        data-en="&lt;p&gt;The platform is deployed on Vercel Pro with custom domain and email routing fully configured for maisonmonchef.ae: DNS, mail routing, and SSL handled end-to-end for a production launch with zero downtime migration from the client's prior setup.&lt;/p&gt;"
+        data-fr="&lt;p&gt;La plateforme est déployée sur Vercel Pro avec un domaine personnalisé et un routage e-mail entièrement configurés pour maisonmonchef.ae : DNS, acheminement du courrier et SSL pris en charge de bout en bout, pour un lancement en production avec une migration sans interruption depuis l'ancienne configuration du client.&lt;/p&gt;"
+        data-ar="&lt;p&gt;المنصة منشورة على Vercel Pro مع نطاق مخصص وتوجيه بريد إلكتروني مهيّأ بالكامل لـ maisonmonchef.ae: إدارة DNS وتوجيه البريد وشهادات SSL من البداية إلى النهاية، لإطلاق إنتاجي مع ترحيل دون أي انقطاع من إعداد العميل السابق.&lt;/p&gt;">
+        <p>The platform is deployed on Vercel Pro with custom domain and email routing fully configured for maisonmonchef.ae: DNS, mail routing, and SSL handled end-to-end for a production launch with zero downtime migration from the client's prior setup.</p>
       </div>
     </div>
     <div class="reveal" style="display:flex; justify-content:center; margin-top:52px;">
       <div style="background:linear-gradient(107deg,#0A1628,#142847,#0A1628); border-radius:20px; width:932px; aspect-ratio:16/9; overflow:hidden; position:relative; max-width:100%;">
-        <img src="assets/images/projects/maison-monchef/3.webp" alt="Maison Monchef — Production infrastructure" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+        <img src="assets/images/projects/maison-monchef/3.webp" alt="Maison Monchef production infrastructure" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
       </div>
     </div>
   </div>
@@ -973,7 +979,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </a>
       <a href="./el-majdoub.html" class="cs-proj-card reveal" style="transition-delay:.08s">
         <div class="cs-proj-card-img">
-          <img src="./assets/images/majdoub project.webp" alt="El Majdoub Immobilier" loading="lazy">
+          <img src="./assets/images/majdoub project.webp" alt="El Majdoub Immobilier" loading="lazy" class="cs-proj-img-cover">
           <img class="cs-proj-hover-img" src="./assets/images/majdoiub project hover.webp" alt="" loading="lazy">
         </div>
         <div class="cs-proj-card-info">
@@ -1023,14 +1029,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span data-en="What type of websites do you build?" data-fr="Quel type de sites web construisez-vous ?" data-ar="ما نوع المواقع التي تبنونها؟">What type of websites do you build?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries — not just look good." data-fr="Nous créons des sites vitrines axés conversion et des plateformes de réservation pour les entreprises de services, les opérateurs touristiques et les marques locales. Chaque site est conçu sur mesure, mobile-first, et construit pour générer de vraies demandes — pas juste faire joli." data-ar="نبني مواقع عرض موجهة نحو التحويل ومنصات حجز للأعمال الخدمية ومشغلي السياحة والعلامات التجارية المحلية. كل موقع مصمم بشكل مخصص، متوافق مع الجوال أولاً، ومبني لتوليد استفسارات حقيقية — ليس مجرد مظهر جميل.">We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries — not just look good.</div>
+        <div class="cs-faq-a" data-en="We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries, not just look good." data-fr="Nous créons des sites vitrines axés conversion et des plateformes de réservation pour les entreprises de services, les opérateurs touristiques et les marques locales. Chaque site est conçu sur mesure, mobile-first, et construit pour générer de vraies demandes, pas juste pour faire joli." data-ar="نبني مواقع عرض موجهة نحو التحويل ومنصات حجز للأعمال الخدمية ومشغلي السياحة والعلامات التجارية المحلية. كل موقع مصمم بشكل مخصص، متوافق مع الجوال أولاً، ومبني لتوليد استفسارات حقيقية، وليس مجرد مظهر جميل.">We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries, not just look good.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
           <span data-en="Can you build a multilingual website?" data-fr="Pouvez-vous créer un site multilingue ?" data-ar="هل يمكنكم بناء موقع متعدد اللغات؟">Can you build a multilingual website?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="Yes. We build fully localized sites in French, English, and Arabic — including native right-to-left layouts for Arabic, not just translated text. Content is structured per-language in the CMS so your team can publish in each language independently." data-fr="Oui. Nous créons des sites entièrement localisés en français, anglais et arabe — y compris des mises en page natives de droite à gauche pour l'arabe, et pas seulement du texte traduit. Le contenu est structuré par langue dans le CMS pour que votre équipe publie dans chaque langue de façon autonome." data-ar="نعم. نبني مواقع مترجمة بالكامل بالفرنسية والإنجليزية والعربية — بما في ذلك تخطيطات أصيلة من اليمين إلى اليسار للعربية، وليس مجرد نص مترجم. المحتوى منظم لكل لغة في نظام إدارة المحتوى بحيث ينشر فريقك بكل لغة بشكل مستقل.">Yes. We build fully localized sites in French, English, and Arabic — including native right-to-left layouts for Arabic, not just translated text. Content is structured per-language in the CMS so your team can publish in each language independently.</div>
+        <div class="cs-faq-a" data-en="Yes. We build fully localized sites in French, English, and Arabic, including native right-to-left layouts for Arabic, not just translated text. Content is structured per-language in the CMS so your team can publish in each language independently." data-fr="Oui. Nous créons des sites entièrement localisés en français, anglais et arabe, y compris des mises en page natives de droite à gauche pour l'arabe, et pas seulement du texte traduit. Le contenu est structuré par langue dans le CMS pour que votre équipe publie dans chaque langue de façon autonome." data-ar="نعم. نبني مواقع مترجمة بالكامل بالفرنسية والإنجليزية والعربية، بما في ذلك تخطيطات أصيلة من اليمين إلى اليسار للعربية، وليس مجرد نص مترجم. المحتوى منظم لكل لغة في نظام إدارة المحتوى بحيث ينشر فريقك بكل لغة بشكل مستقل.">Yes. We build fully localized sites in French, English, and Arabic, including native right-to-left layouts for Arabic, not just translated text. Content is structured per-language in the CMS so your team can publish in each language independently.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
@@ -1051,14 +1057,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span data-en="Do you handle SEO and post-launch support?" data-fr="Gérez-vous le SEO et le support après lancement ?" data-ar="هل تتعاملون مع تحسين محركات البحث والدعم بعد الإطلاق؟">Do you handle SEO and post-launch support?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="Yes — every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes." data-fr="Oui — chaque site est livré avec les bases du SEO on-page : titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap. Nous proposons des forfaits de support continu pour les clients souhaitant des mises à jour mensuelles et des corrections prioritaires." data-ar="نعم — كل موقع يُسلَّم مع أساسيات تحسين محركات البحث على الصفحة: عناوين منظمة وبيانات وصفية وOpen Graph وتحسين سرعة الصفحة وخريطة الموقع. نقدم حزم دعم مستمر للعملاء الراغبين في تحديثات شهرية وإصلاحات ذات أولوية.">Yes — every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes.</div>
+        <div class="cs-faq-a" data-en="Yes, every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes." data-fr="Oui, chaque site est livré avec les bases du SEO on-page : titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap. Nous proposons des forfaits de support continu pour les clients souhaitant des mises à jour mensuelles et des corrections prioritaires." data-ar="نعم، كل موقع يُسلَّم مع أساسيات تحسين محركات البحث على الصفحة: عناوين منظمة وبيانات وصفية وOpen Graph وتحسين سرعة الصفحة وخريطة الموقع. نقدم حزم دعم مستمر للعملاء الراغبين في تحديثات شهرية وإصلاحات ذات أولوية.">Yes, every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
           <span data-en="What happens after launch?" data-fr="Que se passe-t-il après le lancement ?" data-ar="ماذا يحدث بعد الإطلاق؟">What happens after launch?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages — or you can manage the site independently. We hand over full access to everything." data-fr="Vous bénéficiez de 30 jours de support gratuit après le lancement pour les corrections de bugs et ajustements mineurs. Ensuite, nous proposons des forfaits flexibles — ou vous pouvez gérer le site de manière autonome. Nous vous transmettons l'accès complet à tout." data-ar="تحصل على 30 يوماً من الدعم المجاني بعد الإطلاق لإصلاح الأخطاء والتعديلات الطفيفة. بعد ذلك نقدم حزم استبقاء مرنة — أو يمكنك إدارة الموقع بشكل مستقل. نسلمك وصولاً كاملاً لكل شيء.">You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages — or you can manage the site independently. We hand over full access to everything.</div>
+        <div class="cs-faq-a" data-en="You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages, or you can manage the site independently. We hand over full access to everything." data-fr="Vous bénéficiez de 30 jours de support gratuit après le lancement pour les corrections de bugs et ajustements mineurs. Ensuite, nous proposons des forfaits flexibles, ou vous pouvez gérer le site de manière autonome. Nous vous transmettons l'accès complet à tout." data-ar="تحصل على 30 يوماً من الدعم المجاني بعد الإطلاق لإصلاح الأخطاء والتعديلات الطفيفة. بعد ذلك نقدم حزم استبقاء مرنة، أو يمكنك إدارة الموقع بشكل مستقل. نسلمك وصولاً كاملاً لكل شيء.">You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages, or you can manage the site independently. We hand over full access to everything.</div>
       </div>
     </div>
   </div>
