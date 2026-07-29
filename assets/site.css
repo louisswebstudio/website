@@ -3288,7 +3288,10 @@ html[dir="rtl"] .hero-bmock-track {
   }
   /* Override desktop absolute+fixed-width image: inset on the navy   */
   /* panel (navy frame on all sides) and crop to the top section.     */
-  .bento-thumb img:not(.bento-hover-img) {
+  /* Full-bleed cards (.bento-pos-5/-6) are excluded: they already fill  */
+  /* the thumb edge-to-edge, so this inset would show dead navy padding  */
+  /* around them instead of the intended full-bleed screenshot. */
+  .bento-thumb img:not(.bento-hover-img):not(.bento-pos-5):not(.bento-pos-6) {
     position: absolute !important;
     top: 14px !important;
     left: 14px !important;
@@ -3297,6 +3300,10 @@ html[dir="rtl"] .hero-bmock-track {
     object-fit: cover !important;
     object-position: top center !important;
     border-radius: 8px;
+  }
+  .bento-pos-5,
+  .bento-pos-6 {
+    border-radius: 16px;
   }
   /* Standardise card radius to match thumb */
   .bento-card { border-radius: 16px !important; }
