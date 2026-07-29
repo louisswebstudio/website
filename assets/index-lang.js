@@ -202,12 +202,12 @@ document.querySelector('.lang-btn')?.addEventListener('click', toggleLang);
   document.getElementById('opt-' + l)?.addEventListener('click', function () { setLang(l); });
 });
 
-// Apply on page load (detect browser language; fallback to FR)
+// Apply on page load (English is the primary language; only switch for AR/FR browsers)
 (function init() {
   let saved = localStorage.getItem('ls_lang');
   if (!saved) {
-    const bl = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
-    saved = bl.startsWith('ar') ? 'ar' : bl.startsWith('en') ? 'en' : 'fr';
+    const bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    saved = bl.startsWith('ar') ? 'ar' : bl.startsWith('fr') ? 'fr' : 'en';
   }
   currentLang = saved;
   setLang(currentLang);
