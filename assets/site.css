@@ -3178,11 +3178,6 @@ html[dir="rtl"] .hero-bmock-track {
   }
 
   /* FR heading: clamp size so "créer un site" stays on same line, max 2 lines */
-  html[lang="fr"] .process-h {
-    font-size: clamp(22px, 5.5vw, 32px) !important;
-    line-height: 1.25 !important;
-    text-wrap: balance;
-  }
 
   /* CTA: clear separation from step 4 */
   .process-cta-wrap { margin-top: 32px !important; }

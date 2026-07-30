@@ -1,0 +1,54 @@
+/* ══════════════════════════════════════════════════════════════
+   UNIFIED SECTION-HEADING SCALE
+   ──────────────────────────────────────────────────────────────
+   One size for every h2-level section title across the site, taken
+   from .testimonials-heading ("Trusted by businesses like yours"):
+
+     desktop  60px / 66px
+     ≤1100px  48px / 53px
+     ≤900px   48px / 53px
+     ≤700px   34px / 40px
+     ≤480px   28px / 34px
+
+   Selectors are prefixed with `html[lang] body` so this file wins
+   over the per-page rules and the html[lang="fr"] / html[lang="ar"]
+   variants without needing !important.
+
+   Deliberately NOT included (different type tiers, left as-is):
+     .hero-h1-*            hero display type
+     .projects-page-title  page <h1>
+     .cs-hero-title        case study page <h1>
+     .footer-cta-h         footer display line
+     .cs-other-title, .cs-faq-title, .cs-mid-cta-title
+                           Satoshi case-study tier (clamp 28–52px)
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --h-section: 60px;
+  --h-section-lh: 66px;
+}
+@media (max-width: 1100px) { :root { --h-section: 48px; --h-section-lh: 53px; } }
+@media (max-width: 900px)  { :root { --h-section: 48px; --h-section-lh: 53px; } }
+@media (max-width: 700px)  { :root { --h-section: 34px; --h-section-lh: 40px; } }
+@media (max-width: 480px)  { :root { --h-section: 28px; --h-section-lh: 34px; } }
+
+html[lang] body .testimonials-heading,
+html[lang] body .work-h-see,
+html[lang] body .work-h-accent,
+html[lang] body .transformation-h,
+html[lang] body .process-h,
+html[lang] body .faq-title,
+html[lang] body .pricing-h,
+html[lang] body .svc-band-title {
+  font-size: var(--h-section);
+  line-height: var(--h-section-lh);
+  letter-spacing: -1.2px;
+  text-wrap: balance;
+}
+
+/* The work heading is two inline spans on one line — keep them locked
+   together so the accent half never renders at a different size. */
+html[lang] body .work-h-see,
+html[lang] body .work-h-accent {
+  text-wrap: unset;
+}
