@@ -1,70 +1,48 @@
 # Louiss Web Studio
 
-> Louiss Web Studio is a web design and development studio based in Tangier, Morocco.
-> It builds fast, modern, custom-coded websites for businesses across Morocco, with a
-> focus on turning visitors into clients. Sites go from Figma design to live in under
-> 7 days and are delivered in French, Arabic, and English.
+> Web design and development studio based in Morocco, building custom websites
+> for businesses in Morocco and international clients abroad.
 
-## What we do
+## About
 
-- Louiss Web Studio designs and develops custom websites for small and medium businesses in Morocco.
-- Every website is custom-coded from scratch — no templates and no page builders.
-- Websites are mobile-first and performance-optimized (target Google PageSpeed score 90+).
-- Sites are built to convert: clear structure, strong calls to action, and WhatsApp integration on every page.
-- Websites are multilingual (French, Arabic, English) with right-to-left support for Arabic.
+Louiss Web Studio designs and builds custom, conversion-focused websites.
+Full-stack development using Next.js, Tailwind, Sanity CMS, and vanilla
+HTML/CSS/JS, deployed on Vercel or Netlify. Design work done in Figma.
 
-## Services offered
+## Services
 
-- Website design (web design)
-- Custom website development
-- E-commerce websites
-- Online booking / reservation systems
-- On-page SEO (structured headings, meta tags, Open Graph, sitemap, page-speed optimization)
-- Ongoing website maintenance and support
+- Custom website design and development for small and medium businesses in Morocco
+- Full-stack web development for direct clients abroad (multilingual sites,
+  headless CMS, custom booking/e-commerce flows)
+- Figma-to-code development for design agencies that need execution capacity
+- Local SEO and Google Business Profile setup for Moroccan businesses
 
-## Location and service area
+## Industries served
 
-- Based in Tangier (Tanger), Morocco.
-- Serves clients across Morocco, including Tangier, Marrakech, Agadir, Casablanca, Fès, and Essaouira.
+Restaurants, hospitality (riads, guesthouses), dental and medical clinics,
+car rental agencies, real estate, e-commerce, travel and tourism.
 
-## Target clients / niches
+## Notable projects
 
-- Restaurants and cafés
-- Riads, hotels, and tourism operators
-- Car rental agencies
-- Dental practices and clinics (cabinets dentaires)
-- Real estate and property rental businesses
-- Local service businesses (roofing, moving companies, transfers, and similar)
+- Maison Monchef: multilingual (French/English/Arabic, RTL) real estate
+  platform for a Dubai-based client, built with Next.js and Sanity CMS
+- El Majdoub Immobilier: short-term rental platform in Agadir, Morocco
+- Adventure Keys: travel and tourism booking website
+- Kosmeticas: e-commerce design for a Moroccan perfumery
 
-## Pricing model
+## Pages
 
-- Fixed-price packages quoted in Moroccan dirham (MAD / DH), not hourly billing.
-- Three main packages: Starter Website, Business Website, and Premium Website.
-- Entry-level websites start around 2,500 MAD; larger multi-page and custom booking projects are priced higher.
-- A free personalized demo of the future website is provided before any payment or commitment.
+- Homepage: https://www.louisswebstudio.com
+- Services (agencies and direct clients abroad): https://www.louisswebstudio.com/services.html
+- Pricing: https://www.louisswebstudio.com/tarifs.html
+- Projects: https://www.louisswebstudio.com/projects.html
+- Blog: https://www.louisswebstudio.com/blog/
+- Contact: https://www.louisswebstudio.com/contact.html
 
-## Key differentiators
+## Location
 
-- From Figma design to live website in under 7 days for standard projects.
-- 100% custom-coded websites — no templates, no page builders.
-- Free personalized demo before the client pays anything.
-- 2 rounds of revisions included on every project.
-- 30 days of free post-launch support, with optional monthly maintenance packages.
-- Built-in WhatsApp contact for fast lead conversion.
-
-## Selected work
-
-- Adventure Keys — travel and tourism website
-- Agadir Transfer — airport transfer booking website
-- Supreme Toiture — roofing company lead-generation website
-- Digiseo — SEO and digital marketing website
-- El Majdoub Immobilier — real estate rental platform in Agadir
-- Maison Monchef — multilingual real estate platform for a Dubai-based client (Next.js + Sanity)
+Morocco. Serves clients across Morocco and international clients remotely.
 
 ## Contact
 
-- Website: https://louisswebstudio.com
-- WhatsApp / phone: +212 716490397
-- Email: contact@louisswebstudio.com
-- Instagram: https://www.instagram.com/louiss.webstudio/
-- Blog (web advice for Moroccan businesses): https://louisswebstudio.com/blog/
+WhatsApp and contact form available at https://www.louisswebstudio.com/contact.html
