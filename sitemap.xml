@@ -34,6 +34,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- City landing pages -->
+  <url>
+    <loc>https://www.louisswebstudio.com/creation-site-web-casablanca</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Case study / project pages -->
   <url>
     <loc>https://louisswebstudio.com/adventure-keys</loc>

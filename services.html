@@ -529,6 +529,19 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
 .footer-legal { display: flex; gap: 24px; }
 .footer-legal a { font-size: 16px; color: var(--muted2); text-decoration: none; transition: color .2s; }
 .footer-legal a:hover { color: #fff; }
+/* Footer: city landing pages (mirrors assets/site.css .footer-cities) */
+.footer-cities { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 28px; }
+.footer-cities-label { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted2); flex-shrink: 0; }
+.footer-cities-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.footer-cities-links a { font-size: 15px; color: var(--muted); text-decoration: none; transition: color .2s; }
+.footer-cities-links a:hover { color: #fff; }
+html[dir="rtl"] .footer-cities, html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
+@media (max-width: 700px) {
+  .footer-cities { flex-direction: column; gap: 10px; padding-bottom: 22px; }
+  .footer-cities-label { font-size: 12px; }
+  .footer-cities-links a { font-size: 14px; }
+  html[dir="rtl"] .footer-cities { flex-direction: column; align-items: flex-end; }
+}
 
 /* ── WA FLOAT ── */
 .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; align-items: center; gap: 10px; text-decoration: none; animation: waPop .5s cubic-bezier(.16,1,.3,1) 1.5s both; }
@@ -1016,6 +1029,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </div>
+    <!-- Cities: local landing pages -->
+    <div class="footer-cities reveal">
+      <span class="footer-cities-label" data-en="Cities" data-fr="Villes" data-ar="المدن">Cities</span>
+      <div class="footer-cities-links">
+        <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Website design Casablanca</a>
+      </div>
+    </div>
+
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">

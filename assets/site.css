@@ -1227,6 +1227,34 @@ footer > * { position: relative; z-index: 1; }
 .footer-legal a { font-size: 16px; color: var(--muted2); text-decoration: none; transition: color .2s; }
 .footer-legal a:hover { color: #fff; }
 
+/* ── FOOTER: city landing pages ──
+   Small internal-linking row for the per-city SEO pages. Sits between the
+   socials row and the legal row. */
+.footer-cities {
+  display: flex; align-items: baseline; gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 28px;
+}
+.footer-cities-label {
+  font-size: 13px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted2);
+  flex-shrink: 0;
+}
+.footer-cities-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.footer-cities-links a {
+  font-size: 15px; color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-cities-links a:hover { color: #fff; }
+html[dir="rtl"] .footer-cities { flex-direction: row-reverse; }
+html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
+@media (max-width: 700px) {
+  .footer-cities { flex-direction: column; gap: 10px; padding-bottom: 22px; }
+  .footer-cities-label { font-size: 12px; }
+  .footer-cities-links a { font-size: 14px; }
+  html[dir="rtl"] .footer-cities { flex-direction: column; align-items: flex-end; }
+}
+
 /* ── REVEAL ANIMATIONS ── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 .reveal.visible { opacity: 1 !important; transform: translateY(0) !important; }
