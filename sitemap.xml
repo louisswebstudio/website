@@ -65,6 +65,30 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.louisswebstudio.com/creation-site-web-fes</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.louisswebstudio.com/creation-site-web-essaouira</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.louisswebstudio.com/creation-site-web-kenitra</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.louisswebstudio.com/creation-site-web-oujda</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <!-- Case study / project pages -->
   <url>
