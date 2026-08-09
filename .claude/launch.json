@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "static",
+      "name": "site",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "3456", "."],
-      "port": 3456
+      "runtimeArgs": ["serve", ".", "-l", "3123"],
+      "port": 3123
     }
   ]
 }

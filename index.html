@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- lang="fr" because French is what both the crawler and a first-time visitor
+     render (see assets/index-lang.js). The EN/AR switcher updates this at
+     runtime. -->
+<html lang="fr">
 <head>
 <!-- Google Tag Manager (externalized for strict CSP; deferred + loads gtm.js on
      first interaction so it never blocks rendering — see assets/gtm-init.js) -->
@@ -7,10 +10,19 @@
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Création de Sites Web au Maroc | Louiss Web Studio</title>
-<meta name="description" content="Création de sites web au Maroc : sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit et livraison en 2 à 4 semaines.">
+<!-- The data-* attributes are the single source of truth for the localized
+     title/description; assets/index-lang.js reads them instead of hardcoding
+     its own strings. Keep the French copy first — it is what gets indexed. -->
+<title data-en="Premium Websites for Businesses in Morocco | Louiss Web Studio"
+       data-fr="Création de Sites Web Premium au Maroc | Louiss Web Studio"
+       data-ar="تصميم مواقع إلكترونية احترافية بالمغرب | Louiss Web Studio">Création de Sites Web Premium au Maroc | Louiss Web Studio</title>
+<meta name="description"
+      data-en="Premium, fast websites for businesses that want more customers and credibility. Based in Tanger, working across Morocco. Free quote within 24h."
+      data-fr="Studio web à Tanger : des sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit sous 24 h, livraison en 2 à 4 semaines."
+      data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء. عرض سعر مجاني خلال 24 ساعة."
+      content="Studio web à Tanger : des sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit sous 24 h, livraison en 2 à 4 semaines.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://louisswebstudio.com/">
+<link rel="canonical" href="https://www.louisswebstudio.com/">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
@@ -20,18 +32,34 @@
 <!-- Open Graph (used by WhatsApp, Facebook, LinkedIn link previews) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Louiss Web Studio">
-<meta property="og:url" content="https://louisswebstudio.com/">
-<meta property="og:title" content="Création de Sites Web au Maroc | Louiss Web Studio">
-<meta property="og:description" content="Création de sites web au Maroc : sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit et livraison en 2 à 4 semaines.">
-<meta property="og:image" content="https://louisswebstudio.com/logo.png">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:url" content="https://www.louisswebstudio.com/">
+<meta property="og:title"
+      data-en="Premium Websites for Businesses in Morocco | Louiss Web Studio"
+      data-fr="Création de Sites Web Premium au Maroc | Louiss Web Studio"
+      data-ar="تصميم مواقع إلكترونية احترافية بالمغرب | Louiss Web Studio"
+      content="Création de Sites Web Premium au Maroc | Louiss Web Studio">
+<meta property="og:description"
+      data-en="Premium, fast websites for businesses that want more customers and credibility. Based in Tanger, working across Morocco. Free quote within 24h."
+      data-fr="Studio web à Tanger : des sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit sous 24 h, livraison en 2 à 4 semaines."
+      data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء. عرض سعر مجاني خلال 24 ساعة."
+      content="Studio web à Tanger : des sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit sous 24 h, livraison en 2 à 4 semaines.">
+<meta property="og:image" content="https://www.louisswebstudio.com/logo.png">
+<meta property="og:locale" content="fr_MA">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:locale:alternate" content="ar_MA">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Création de Sites Web au Maroc | Louiss Web Studio">
-<meta name="twitter:description" content="Création de sites web au Maroc : sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit et livraison en 2 à 4 semaines.">
-<meta name="twitter:image" content="https://louisswebstudio.com/logo.png">
+<meta name="twitter:title"
+      data-en="Premium Websites for Businesses in Morocco | Louiss Web Studio"
+      data-fr="Création de Sites Web Premium au Maroc | Louiss Web Studio"
+      data-ar="تصميم مواقع إلكترونية احترافية بالمغرب | Louiss Web Studio"
+      content="Création de Sites Web Premium au Maroc | Louiss Web Studio">
+<meta name="twitter:description"
+      data-en="Premium, fast websites for businesses that want more customers and credibility. Based in Tanger, working across Morocco. Free quote within 24h."
+      data-fr="Studio web à Tanger : des sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit sous 24 h, livraison en 2 à 4 semaines."
+      data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء. عرض سعر مجاني خلال 24 ساعة."
+      content="Studio web à Tanger : des sites modernes, rapides et pensés pour convertir vos visiteurs en clients. Devis gratuit sous 24 h, livraison en 2 à 4 semaines.">
+<meta name="twitter:image" content="https://www.louisswebstudio.com/logo.png">
 <!-- Preconnect to font + asset origins so the handshake (DNS/TCP/TLS) happens early -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +84,7 @@
 </noscript>
 <script defer src="assets/fonts.js"></script>
 
+
 <!-- Critical above-the-fold CSS (nav, hero, mobile menu hidden state) blocks
      render but is small; the full site.css loads without blocking first paint
      via the same media="print" swap used for fonts (see assets/fonts.js). -->
@@ -72,12 +101,12 @@
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": "https://louisswebstudio.com/#business",
+      "@id": "https://www.louisswebstudio.com/#business",
       "name": "Louiss Web Studio",
       "alternateName": "Louiss Web Studio Tanger",
-      "url": "https://louisswebstudio.com/",
-      "logo": "https://louisswebstudio.com/logo.png",
-      "image": "https://louisswebstudio.com/logo.png",
+      "url": "https://www.louisswebstudio.com/",
+      "logo": "https://www.louisswebstudio.com/logo.png",
+      "image": "https://www.louisswebstudio.com/logo.png",
       "description": "Studio de web design au Maroc. Sites web modernes, rapides et sur-mesure pour les entreprises marocaines.",
       "telephone": "+212716490397",
       "priceRange": "$$",
@@ -113,11 +142,11 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://louisswebstudio.com/#website",
-      "url": "https://louisswebstudio.com/",
+      "@id": "https://www.louisswebstudio.com/#website",
+      "url": "https://www.louisswebstudio.com/",
       "name": "Louiss Web Studio",
-      "publisher": { "@id": "https://louisswebstudio.com/#business" },
-      "inLanguage": "en"
+      "publisher": { "@id": "https://www.louisswebstudio.com/#business" },
+      "inLanguage": "fr-MA"
     }
   ]
 }
@@ -127,9 +156,9 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Louiss Web Studio",
-  "url": "https://louisswebstudio.com",
-  "logo": "https://louisswebstudio.com/logo.png",
-  "image": "https://louisswebstudio.com/logo.png",
+  "url": "https://www.louisswebstudio.com",
+  "logo": "https://www.louisswebstudio.com/logo.png",
+  "image": "https://www.louisswebstudio.com/logo.png",
   "description": "Studio de design web au Maroc. Création de sites web modernes, rapides et optimisés pour convertir les visiteurs en clients.",
   "address": {
     "@type": "PostalAddress",
@@ -179,7 +208,7 @@
       "name": "How long does it take to build a website?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most projects go from Figma design to live website in 5 to 7 days. More complex projects (e-commerce, booking systems) take 10 to 14 days. We always give you a precise deadline before starting."
+        "text": "Most projects go from Figma design to live website in 7 to 14 days, depending on complexity. We always give you a precise deadline before starting."
       }
     },
     {
@@ -237,14 +266,14 @@
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "https://louisswebstudio.com/#organization",
+  "@id": "https://www.louisswebstudio.com/#organization",
   "name": "Louiss Web Studio",
-  "url": "https://louisswebstudio.com",
+  "url": "https://www.louisswebstudio.com",
   "logo": {
     "@type": "ImageObject",
-    "url": "https://louisswebstudio.com/logo.png"
+    "url": "https://www.louisswebstudio.com/logo.png"
   },
-  "image": "https://louisswebstudio.com/logo.png",
+  "image": "https://www.louisswebstudio.com/logo.png",
   "description": "Studio de création de sites web au Maroc. Sites modernes, rapides et sur-mesure pour les entreprises marocaines.",
   "email": "contact@louisswebstudio.com",
   "telephone": "+212716490397",
@@ -286,9 +315,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#" class="logo"><img src="logo.png" alt="Louiss Web Studio" width="3560" height="653"></a>
 
     <div class="nav-links">
-      <a href="./projects.html" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+      <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
       <a href="#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
-      <a href="./contact.html" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
     </div>
 
     <div class="nav-right">
@@ -327,7 +356,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="hamburger-bar"></span>
       </button>
 
-      <a href="./contact.html" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+      <a href="/contact" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -342,12 +371,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="./projects.html" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+    <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
     <a href="#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
-    <a href="./contact.html"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+    <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
   </div>
   <div class="menu-bottom">
-    <a href="./contact.html#cal-embed" class="mobile-menu-cta"
+    <a href="/contact#cal-embed" class="mobile-menu-cta"
        data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
   </div>
 </div>
@@ -366,11 +395,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="hero-h1-line3" data-en="that Bring You <span class='hero-h1-blue'>Clients</span>" data-fr="qui Attirent des <span class='hero-h1-blue'>Clients</span>" data-ar="تجلب لك <span class='hero-h1-blue'>العملاء</span>">that Bring You <span class="hero-h1-blue">Clients</span></span>
       </h1>
 
-        <p class="hero-desc" data-en="From Figma to live in less than 7 days. Clean, fast, custom websites for businesses that want to stand out" data-fr="De Figma à votre site en 7 jours. Rapide, soigné, sur-mesure, pour les entreprises qui veulent se démarquer." data-ar="من Figma إلى الإنترنت في أقل من 7 أيام. مواقع نظيفة وسريعة ومخصصة للشركات التي تريد التميز">From Figma to live in less than 7 days. Clean, fast, custom websites for businesses that want to stand out</p>
+        <p class="hero-desc" data-en="From Figma to live in 7 to 14 days. Clean, fast, custom websites for businesses that want to stand out" data-fr="De Figma à votre site en 7 à 14 jours. Rapide, soigné, sur-mesure, pour les entreprises qui veulent se démarquer." data-ar="من Figma إلى الإنترنت خلال 7 إلى 14 يوماً. مواقع نظيفة وسريعة ومخصصة للشركات التي تريد التميز">From Figma to live in 7 to 14 days. Clean, fast, custom websites for businesses that want to stand out</p>
 
 
         <div class="hero-ctas">
-          <a href="./contact.html#cal-embed" class="btn-primary" data-en="Start Your Project" data-fr="Démarrer Votre Projet" data-ar="ابدأ مشروعك">Start Your Project</a>
+          <a href="/contact#cal-embed" class="btn-primary" data-en="Start Your Project" data-fr="Démarrer Votre Projet" data-ar="ابدأ مشروعك">Start Your Project</a>
           <a href="#work" class="btn-secondary" data-en="View Portfolio" data-fr="Voir nos réalisations" data-ar="اعرض أعمالنا">View Portfolio</a>
         </div>
     </div>
@@ -416,13 +445,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="work-heading">
       <span class="work-h-see" data-en="See Our Latest Creative " data-fr="Des sites qui génèrent des " data-ar="مواقع تجلب ">Des sites qui génèrent des </span><span class="work-h-accent" data-en="Websites" data-fr="clients" data-ar="العملاء">clients</span>
     </div>
-    <p class="work-desc" data-en="From Figma to live in less than 7 days. Real websites built to bring you clients." data-fr="Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées." data-ar="كل مشروع مصمم لبناء الثقة وتوضيح عرضك وتحويل زوارك إلى طلبات مؤهلة.">Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées.</p>
+    <p class="work-desc" data-en="From Figma to live in 7 to 14 days. Real websites built to bring you clients." data-fr="Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées." data-ar="كل مشروع مصمم لبناء الثقة وتوضيح عرضك وتحويل زوارك إلى طلبات مؤهلة.">Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées.</p>
   </div>
   <!-- Portfolio Bento Grid — exact Figma layout -->
   <div class="bento-grid">
 
     <!-- Card 1: El Majdoub Immobilier — col 6–12, row 1 -->
-    <a href="./el-majdoub.html" class="bento-card bento-card-1 glow-card" data-hover-img="./assets/images/majdoiub project hover.webp">
+    <a href="/el-majdoub" class="bento-card bento-card-1 glow-card" data-hover-img="./assets/images/majdoiub project hover.webp">
       <div class="bento-thumb">
         <img src="./assets/images/majdoub project.webp" alt="Majdoub Immobilier" width="675" height="420" loading="lazy" class="bento-pos-6">
         <img class="bento-hover-img" src="./assets/images/majdoiub project hover.webp" alt="" width="500" height="548" loading="lazy">
@@ -441,7 +470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 
     <!-- Card 2: Supreme Toiture — col 8–12, row 2 -->
-    <a href="./supreme-toiture.html" class="bento-card bento-card-2 glow-card" data-hover-img="./assets/images/hover sup toiture.webp">
+    <a href="/supreme-toiture" class="bento-card bento-card-2 glow-card" data-hover-img="./assets/images/hover sup toiture.webp">
       <div class="bento-thumb">
         <img src="./assets/images/figma-roofing.webp" alt="Supreme Toiture" width="720" height="1100" loading="lazy" class="bento-pos-2">
         <img class="bento-hover-img" src="./assets/images/hover sup toiture.webp" alt="" width="500" height="548" loading="lazy">
@@ -460,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 
     <!-- Card 3 slot: Maison Monchef — col 1–5, row 1 -->
-    <a href="./maison-monchef.html" class="bento-card bento-card-3 dark2 glow-card" data-hover-img="./assets/images/hover maison monchef.webp">
+    <a href="/maison-monchef" class="bento-card bento-card-3 dark2 glow-card" data-hover-img="./assets/images/hover maison monchef.webp">
       <div class="bento-thumb">
         <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef" width="932" height="640" loading="lazy" class="bento-pos-5">
         <img class="bento-hover-img" src="./assets/images/hover maison monchef.webp" alt="" width="466" height="420" loading="lazy">
@@ -479,7 +508,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 
     <!-- Card 4: Digiseo — col 1–7, row 2 -->
-    <a href="./digiseo.html" class="bento-card bento-card-4 dark2 glow-card" data-hover-img="./assets/images/hover digiseo.webp">
+    <a href="/digiseo" class="bento-card bento-card-4 dark2 glow-card" data-hover-img="./assets/images/hover digiseo.webp">
       <div class="bento-thumb">
         <img src="./assets/images/figma-digiseo.webp" alt="Digiseo" width="720" height="1100" loading="lazy" class="bento-pos-4">
         <img class="bento-hover-img" src="./assets/images/hover digiseo.webp" alt="" width="500" height="548" loading="lazy">
@@ -502,7 +531,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Section CTA -->
   <div class="section-cta-bar reveal">
-    <a href="./projects.html" class="btn-primary" data-en="View More" data-fr="Voir Plus" data-ar="عرض المزيد">View More</a>
+    <a href="/projects" class="btn-primary" data-en="View More" data-fr="Voir Plus" data-ar="عرض المزيد">View More</a>
     <p class="urgency-line" data-en="⚡ Currently booking projects for this week. Only a few spots available" data-fr="⚡ Projets en cours pour cette semaine. Quelques places disponibles" data-ar="⚡ حجز المشاريع لهذا الأسبوع، أماكن محدودة متاحة">⚡ Currently booking projects for this week. Only a few spots available</p>
   </div>
   </div><!-- /container -->
@@ -808,8 +837,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="faq-answer">
           <p class="faq-answer-inner"
-            data-en="Most projects go from Figma design to live website in 5 to 7 days. More complex projects (e-commerce, booking systems) take 10 to 14 days. We always give you a precise deadline before starting."
-            data-fr="Nous livrons la plupart des sites en 5 à 7 jours, selon la complexité du projet. Vous pourrez bien sûr valider et demander des modifications avant la mise en ligne." data-ar="معظم المشاريع تنتقل من التصميم إلى الموقع المباشر في 5 إلى 7 أيام. المشاريع الأكثر تعقيداً تستغرق 10 إلى 14 يوماً. نحدد دائماً موعداً دقيقاً قبل البدء.">Most projects go from Figma design to live website in 5 to 7 days. More complex projects (e-commerce, booking systems) take 10 to 14 days. We always give you a precise deadline before starting.</p>
+            data-en="Most projects go from Figma design to live website in 7 to 14 days, depending on complexity. We always give you a precise deadline before starting."
+            data-fr="Nous livrons la plupart des sites en 7 à 14 jours, selon la complexité du projet. Vous pourrez bien sûr valider et demander des modifications avant la mise en ligne." data-ar="معظم المشاريع تنتقل من التصميم إلى الموقع المباشر خلال 7 إلى 14 يوماً، حسب التعقيد. نحدد دائماً موعداً دقيقاً قبل البدء.">Most projects go from Figma design to live website in 7 to 14 days, depending on complexity. We always give you a precise deadline before starting.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -911,7 +940,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="footer-top reveal">
       <div class="footer-cta-h"
         data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
-      <a href="contact.html#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+      <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
     </div>
 
     <!-- Middle: Logo + Nav + Socials -->
@@ -950,9 +979,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <div class="footer-legal">
         <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <a href="/tarifs" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Tarifs</a>
         <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
-        <a href="privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
-        <a href="terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
+        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
+        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
       </div>
     </div>
 

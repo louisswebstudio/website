@@ -1,5 +1,7 @@
 // ── LANGUAGE SWITCHER ────────────────────────────────────────────────────
-let currentLang = localStorage.getItem('ls_lang') || 'en';
+// French default — see the init() note at the bottom of this file. Whatever
+// this resolves to on first load is what Googlebot indexes.
+let currentLang = localStorage.getItem('ls_lang') || 'fr';
 
 const translations = {
   en: { flagSrc: 'https://flagcdn.com/w40/gb.png', code: 'EN' },
@@ -32,7 +34,9 @@ function setLang(lang) {
   localStorage.setItem('ls_lang', lang);
 
   // Update button display
+  // alt moves with src so the badge never announces the previous language.
   document.getElementById('activeFlagImg').src = translations[lang].flagSrc;
+  document.getElementById('activeFlagImg').alt = translations[lang].code;
   document.getElementById('activeLangCode').textContent = translations[lang].code;
 
   // Update active state in dropdown
@@ -99,12 +103,22 @@ function applyTranslations(lang) {
   // Same blur-in for every section heading (each triggers as it scrolls in)
   setupBlurHeadings();
 
-  // Update page title
-  document.title = lang === 'fr'
-    ? 'Louiss Web Studio — Nous Créons des Sites qui Attirent des Clients'
-    : lang === 'ar'
-    ? 'Louiss Web Studio — نبني مواقع إلكترونية تجلب لك العملاء'
-    : 'Louiss Web Studio — We Build Websites that Bring You Clients';
+  // Page title comes from data attributes on the <title> element itself, so the
+  // tag in the HTML stays the single source of truth. This used to be three
+  // hardcoded strings that silently replaced the optimised <title> on every
+  // load — Google indexes the rendered DOM, so the tuned title never reached
+  // it and the brand name led the SERP entry instead of the keyword.
+  const titleEl = document.querySelector('title[data-en]');
+  if (titleEl) {
+    const t = titleEl.getAttribute('data-' + lang);
+    if (t) document.title = t;
+  }
+
+  // Keep description/og/twitter in the rendered language (see site-chrome.js).
+  document.querySelectorAll('meta[data-en]').forEach(function (m) {
+    const v = m.getAttribute('data-' + lang);
+    if (v) m.setAttribute('content', v);
+  });
 }
 
 // ── Hero title reveal ──
@@ -202,12 +216,17 @@ document.querySelector('.lang-btn')?.addEventListener('click', toggleLang);
   document.getElementById('opt-' + l)?.addEventListener('click', function () { setLang(l); });
 });
 
-// Apply on page load (English is the primary language; only switch for AR/FR browsers)
+// Apply on page load. French is the primary language: the title, description
+// and JSON-LD all target Morocco in French, and Googlebot crawls as en-US — so
+// the old "default to English" branch made the crawler render an English page
+// underneath French metadata. Only Arabic browsers auto-switch (Googlebot never
+// sends ar-*); everyone else, humans and crawlers alike, gets the same French
+// page the HTML declares. The EN/FR/AR switcher still works for visitors.
 (function init() {
   let saved = localStorage.getItem('ls_lang');
   if (!saved) {
-    const bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-    saved = bl.startsWith('ar') ? 'ar' : bl.startsWith('fr') ? 'fr' : 'en';
+    const bl = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
+    saved = bl.startsWith('ar') ? 'ar' : 'fr';
   }
   currentLang = saved;
   setLang(currentLang);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <!-- Google Tag Manager (deferred; loads gtm.js on first interaction — see assets/gtm-init.js) -->
 <script src="assets/gtm-init.js" defer></script>
@@ -7,19 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Transfert Aéroport : Étude de Cas | Louiss Web Studio</title>
-<link rel="canonical" href="https://louisswebstudio.com/agadir-transfer">
+<title data-en="Airport Transfer Website: Case Study | Louiss Web Studio" data-fr="Transfert Aéroport : Étude de Cas | Louiss Web Studio" data-ar="موقع نقل المطار: دراسة حالة | Louiss Web Studio">Transfert Aéroport : Étude de Cas | Louiss Web Studio</title>
+<link rel="canonical" href="https://www.louisswebstudio.com/agadir-transfer">
 <meta name="description" content="Étude de cas : refonte du site d'Agadir Transfer avec un parcours de réservation clair qui génère plus de courses. Demandez une démo gratuite de votre site.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Louiss Web Studio">
-<meta property="og:url" content="https://louisswebstudio.com/agadir-transfer">
+<meta property="og:url" content="https://www.louisswebstudio.com/agadir-transfer">
 <meta property="og:title" content="Transfert Aéroport : Étude de Cas | Louiss Web Studio">
 <meta property="og:description" content="Étude de cas : refonte du site d'Agadir Transfer avec un parcours de réservation clair qui génère plus de courses. Demandez une démo gratuite de votre site.">
-<meta property="og:image" content="https://louisswebstudio.com/assets/images/hover%20aga%20trans.webp">
+<meta property="og:image" content="https://www.louisswebstudio.com/assets/images/hover%20aga%20trans.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Transfert Aéroport : Étude de Cas | Louiss Web Studio">
 <meta name="twitter:description" content="Étude de cas : refonte du site d'Agadir Transfer avec un parcours de réservation clair qui génère plus de courses. Demandez une démo gratuite de votre site.">
-<meta name="twitter:image" content="https://louisswebstudio.com/assets/images/hover%20aga%20trans.webp">
+<meta name="twitter:image" content="https://www.louisswebstudio.com/assets/images/hover%20aga%20trans.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
@@ -632,14 +632,28 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
   .cs-live-icon { width: 36px; height: 36px; }
   .cs-live-icon svg { width: 15px; height: 15px; }
 }
+/* ── FOOTER: city landing pages (mirrors assets/site.css) ── */
+.footer-cities { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 28px; }
+.footer-cities-label { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted2); flex-shrink: 0; }
+.footer-cities-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.footer-cities-links a { font-size: 15px; color: var(--muted); text-decoration: none; transition: color .2s; }
+.footer-cities-links a:hover { color: #fff; }
+html[dir="rtl"] .footer-cities { flex-direction: row-reverse; }
+html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
+@media (max-width: 700px) {
+  .footer-cities { flex-direction: column; gap: 10px; padding-bottom: 22px; }
+  .footer-cities-label { font-size: 12px; }
+  .footer-cities-links a { font-size: 14px; }
+  html[dir="rtl"] .footer-cities { flex-direction: column; align-items: flex-end; }
+}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Louiss Web Studio",
-  "image": "https://louisswebstudio.com/logo.png",
-  "url": "https://louisswebstudio.com",
+  "image": "https://www.louisswebstudio.com/logo.png",
+  "url": "https://www.louisswebstudio.com",
   "telephone": "+212716490397",
   "description": "Studio de web design au Maroc. Sites web modernes, rapides et sur-mesure pour les entreprises marocaines.",
   "areaServed": [
@@ -667,19 +681,19 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://louisswebstudio.com"
+      "item": "https://www.louisswebstudio.com"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Projects",
-      "item": "https://louisswebstudio.com/projects"
+      "item": "https://www.louisswebstudio.com/projects"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Agadir Transfer",
-      "item": "https://louisswebstudio.com/agadir-transfer"
+      "item": "https://www.louisswebstudio.com/agadir-transfer"
     }
   ]
 }
@@ -748,11 +762,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="./index.html" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
     <div class="nav-links">
-      <a href="./projects.html"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
+      <a href="/projects"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
       <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
-      <a href="./contact.html" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
     </div>
     <div class="nav-right">
       <div class="lang-switcher" id="langSwitcher">
@@ -774,7 +788,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
       </button>
-      <a href="./contact.html" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+      <a href="/contact" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -783,16 +797,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="./index.html" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="./projects.html"           class="mobile-menu-link" data-en="Projects"  data-fr="Projets" data-ar="المشاريع">Projects</a>
+    <a href="/projects"           class="mobile-menu-link" data-en="Projects"  data-fr="Projets" data-ar="المشاريع">Projects</a>
     <a href="/#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
-    <a href="./contact.html"      class="mobile-menu-link" data-en="Contact Us"   data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+    <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"   data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
   </div>
   <div class="menu-bottom">
-    <a href="./contact.html#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
+    <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
   </div>
 </div>
 
@@ -925,7 +939,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="cs-other-title" data-en="Other Projects" data-fr="Autres Projets" data-ar="مشاريع أخرى">Other Projects</h2>
     </div>
     <div class="cs-proj-grid">
-      <a href="./adventure-keys.html" class="cs-proj-card reveal">
+      <a href="/adventure-keys" class="cs-proj-card reveal">
         <div class="cs-proj-card-img">
           <img src="./assets/images/figma-adventure.webp" alt="Adventure Keys" loading="lazy">
           <img class="cs-proj-hover-img" src="./assets/images/hover adventure keys.webp" alt="" loading="lazy">
@@ -942,7 +956,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </a>
-      <a href="./digiseo.html" class="cs-proj-card reveal" style="transition-delay:.08s">
+      <a href="/digiseo" class="cs-proj-card reveal" style="transition-delay:.08s">
         <div class="cs-proj-card-img">
           <img src="./assets/images/figma-digiseo.webp" alt="Digiseo" loading="lazy">
           <img class="cs-proj-hover-img" src="./assets/images/hover digiseo.webp" alt="" loading="lazy">
@@ -959,7 +973,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </a>
-      <a href="./supreme-toiture.html" class="cs-proj-card reveal" style="transition-delay:.16s">
+      <a href="/supreme-toiture" class="cs-proj-card reveal" style="transition-delay:.16s">
         <div class="cs-proj-card-img">
           <img src="./assets/images/figma-roofing.webp" alt="Supreme Toiture" loading="lazy">
           <img class="cs-proj-hover-img" src="./assets/images/hover sup toiture.webp" alt="" loading="lazy">
@@ -1035,11 +1049,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
       <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <a href="contact.html#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="./index.html" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -1051,13 +1065,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </div>
+    <!-- Cities: local landing pages. Internal links so the per-city SEO pages
+         are reachable from every page, not just the homepage and /services. -->
+    <div class="footer-cities reveal">
+      <span class="footer-cities-label" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</span>
+      <div class="footer-cities-links">
+        <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+        <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+        <a href="/creation-site-web-agadir" data-en="Website design Agadir" data-fr="Création site web Agadir" data-ar="تصميم مواقع الويب بأكادير">Création site web Agadir</a>
+        <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+        <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+        <a href="/creation-site-web-fes" data-en="Website design Fès" data-fr="Création site web Fès" data-ar="تصميم مواقع الويب بفاس">Création site web Fès</a>
+        <a href="/creation-site-web-essaouira" data-en="Website design Essaouira" data-fr="Création site web Essaouira" data-ar="تصميم مواقع الويب بالصويرة">Création site web Essaouira</a>
+        <a href="/creation-site-web-kenitra" data-en="Website design Kénitra" data-fr="Création site web Kénitra" data-ar="تصميم مواقع الويب بالقنيطرة">Création site web Kénitra</a>
+        <a href="/creation-site-web-oujda" data-en="Website design Oujda" data-fr="Création site web Oujda" data-ar="تصميم مواقع الويب بوجدة">Création site web Oujda</a>
+      </div>
+    </div>
+
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <a href="/tarifs" data-en="Pricing" data-fr="Tarifs" data-ar="الأسعار">Tarifs</a>
         <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
-        <a href="privacy.html" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
-        <a href="terms.html" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
+        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
+        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -1107,7 +1139,9 @@ if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
 document.querySelectorAll('.mobile-menu-link').forEach(function(l) { l.addEventListener('click', closeMenu); });
 
 /* ══ Language switcher ══ */
-var currentLang = localStorage.getItem('ls_lang') || 'en';
+// French default: it is what both crawlers and first-time visitors render,
+// and it matches the indexed <title>/description. See init() below.
+var currentLang = localStorage.getItem('ls_lang') || 'fr';
 
 var translations = {
   en: { flagSrc: 'https://flagcdn.com/w40/gb.png', code: 'EN' },
@@ -1169,25 +1203,27 @@ function applyTranslations(lang) {
   document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
   document.documentElement.lang = lang;
 
-  if (lang === 'ar') {
-    document.title = 'أغادير ترانسفير — دراسة حالة · Louiss Web Studio';
-  } else if (lang === 'fr') {
-    document.title = 'Agadir Transfer — Étude de Cas · Louiss Web Studio';
-  } else {
-    document.title = 'Agadir Transfer — Case Study · Louiss Web Studio';
+  // Title comes from the data-* attributes on <title> so the optimised tag in
+  // the HTML stays authoritative. These used to be hardcoded brand-led strings
+  // that overwrote it in the rendered DOM, which is what Google indexes.
+  var titleEl = document.querySelector('title[data-en]');
+  if (titleEl) {
+    var t = titleEl.getAttribute('data-' + lang);
+    if (t) document.title = t;
   }
 }
 
 (function init() {
   var saved = localStorage.getItem('ls_lang');
   if (!saved) {
-    var bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    // Deliberately no English branch: Googlebot crawls as en-US, and that path
+    // used to flip the whole page (title, H1, body, html lang) to English while
+    // the French meta description stayed put — a mismatch that flattened CTR.
+    var bl = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
     if (bl.startsWith('ar')) {
       saved = 'ar';
-    } else if (bl.startsWith('fr')) {
-      saved = 'fr';
     } else {
-      saved = 'en';
+      saved = 'fr';
     }
   }
   currentLang = saved;

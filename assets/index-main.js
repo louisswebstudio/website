@@ -300,7 +300,7 @@
     if (grid) {
       grid.innerHTML = renderTestiCards();
       // Apply current language
-      const lang = localStorage.getItem('ls_lang') || 'en';
+      const lang = localStorage.getItem('ls_lang') || 'fr';
       if (lang !== 'en') {
         grid.querySelectorAll('[data-en]').forEach(el => {
           const val = el.getAttribute('data-' + lang);

@@ -14,7 +14,10 @@
     hero:    { en: 'Hi, I want a website that can bring me clients.', fr: "Bonjour, je veux un site web qui m'apporte des clients.", ar: 'مرحباً، أريد موقع ويب يجلب لي عملاء.' }
   };
 
-  let currentLang = localStorage.getItem('ls_lang') || 'en';
+  // French is the default because the indexed metadata (titles, descriptions,
+  // JSON-LD) targets Morocco in French. Whatever this resolves to on first load
+  // is what Googlebot indexes, so it must match the <title> in the HTML.
+  let currentLang = localStorage.getItem('ls_lang') || 'fr';
 
   window.toggleLang = function () {
     const s = document.getElementById('langSwitcher');
@@ -27,13 +30,15 @@
   });
 
   window.setLang = function (lang) {
-    if (!translations[lang]) lang = 'en';
+    if (!translations[lang]) lang = 'fr';
     currentLang = lang;
     localStorage.setItem('ls_lang', lang);
 
     const flag = document.getElementById('activeFlagImg');
     const code = document.getElementById('activeLangCode');
-    if (flag) flag.src = translations[lang].flagSrc;
+    // alt has to move with src, otherwise the badge announces the previous
+    // language (it was hardcoded alt="EN" while showing the French flag).
+    if (flag) { flag.src = translations[lang].flagSrc; flag.alt = translations[lang].code; }
     if (code) code.textContent = translations[lang].code;
 
     ['en', 'fr', 'ar'].forEach(function (l) {
@@ -72,6 +77,15 @@
       const t = titleEl.getAttribute('data-' + lang);
       if (t) document.title = t;
     }
+
+    // Keep the meta description in the same language as the title and the body.
+    // Without this the description stayed French while JS translated everything
+    // else, so the snippet Google rendered contradicted the page it sat on.
+    // Also covers og:/twitter: so link previews match what the visitor lands on.
+    document.querySelectorAll('meta[data-en]').forEach(function (m) {
+      const v = m.getAttribute('data-' + lang);
+      if (v) m.setAttribute('content', v);
+    });
   }
 
   // ── MOBILE MENU ──
@@ -122,8 +136,15 @@
   (function init() {
     let saved = localStorage.getItem('ls_lang');
     if (!saved) {
+      // Deliberately NOT falling back to English for en-* browsers. Googlebot
+      // crawls as en-US, so that branch made every French-targeted page render
+      // into English — the indexed <title> lost "création site web <ville>"
+      // while the meta description stayed French, which is what flattened CTR.
+      // Arabic browsers still auto-select AR: Googlebot never sends ar-*, so it
+      // costs nothing in search and it is the right default for those readers.
+      // Everyone else (including crawlers) gets French, matching the HTML.
       const bl = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
-      saved = bl.startsWith('ar') ? 'ar' : bl.startsWith('en') ? 'en' : 'fr';
+      saved = bl.startsWith('ar') ? 'ar' : 'fr';
     }
     window.setLang(saved);
   })();

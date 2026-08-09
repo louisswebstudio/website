@@ -90,7 +90,7 @@
     const grid = document.getElementById('testiGrid')
     if (grid && window.renderTestiCards) {
       grid.innerHTML = window.renderTestiCards()
-      const lang = localStorage.getItem('ls_lang') || 'en'
+      const lang = localStorage.getItem('ls_lang') || 'fr'
       if (lang !== 'en') applyTranslations(lang)
       if (window.initGlowCards) window.initGlowCards();
     }

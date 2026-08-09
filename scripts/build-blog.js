@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
-const SITE = 'https://louisswebstudio.com';
+const SITE = 'https://www.louisswebstudio.com';
 const ORG = 'Louiss Web Studio';
 const LOGO_URL = `${SITE}/logo.png`;
 
@@ -320,17 +320,17 @@ const favicons = (R) => `
 const navHtml = (R) => `
 <nav>
   <div class="nav-inner">
-    <a href="${R}index.html" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
     <div class="nav-links">
-      <a href="${R}projects.html" class="nav-link">Projets</a>
+      <a href="/projects" class="nav-link">Projets</a>
       <a href="/#faq" class="nav-link">FAQ</a>
-      <a href="${R}contact.html" class="nav-link">Contact</a>
+      <a href="/contact" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
         <span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span>
       </button>
-      <a href="${R}contact.html" class="btn-primary">Réserver un Appel</a>
+      <a href="/contact" class="btn-primary">Réserver un Appel</a>
     </div>
   </div>
 </nav>
@@ -338,16 +338,16 @@ const navHtml = (R) => `
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="${R}index.html" class="mob-overlay-logo" aria-label="Accueil"><img src="${R}logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Accueil"><img src="${R}logo.png" alt="Logo" height="20" width="auto"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fermer le menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="${R}projects.html" class="mobile-menu-link">Projets</a>
+    <a href="/projects" class="mobile-menu-link">Projets</a>
     <a href="/#faq" class="mobile-menu-link">FAQ</a>
-    <a href="${R}contact.html" class="mobile-menu-link">Contact</a>
+    <a href="/contact" class="mobile-menu-link">Contact</a>
   </div>
   <div class="menu-bottom">
-    <a href="${R}contact.html#cal-embed" class="mobile-menu-cta">Démarrer un Projet</a>
+    <a href="/contact#cal-embed" class="mobile-menu-cta">Démarrer un Projet</a>
   </div>
 </div>`;
 
@@ -358,11 +358,11 @@ const footerHtml = (R) => `
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
       <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <a href="${R}contact.html#cal-embed" class="btn-primary">Nous Contacter</a>
+        <a href="/contact#cal-embed" class="btn-primary">Nous Contacter</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="${R}index.html" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="/" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -378,9 +378,11 @@ const footerHtml = (R) => `
       <p class="footer-copy">© 2026 Louiss Web Studio. Tous droits réservés.</p>
       <p class="footer-copy">Studio de web design basé à Tanger, Maroc.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
+        <a href="/services">Services</a>
+        <a href="/tarifs">Tarifs</a>
         <a href="/blog/">Blog</a>
-        <a href="${R}privacy.html">Politique de Confidentialité</a>
-        <a href="${R}terms.html">Conditions d'Utilisation</a>
+        <a href="/privacy">Politique de Confidentialité</a>
+        <a href="/terms">Conditions d'Utilisation</a>
       </div>
     </div>
   </div>
@@ -606,7 +608,7 @@ ${bodyHtml}
       <div class="glow-circle glow-c" style="opacity:0.10;"></div>
       <h2>Besoin d'un site web professionnel ?</h2>
       <p>On conçoit des sites rapides, modernes et pensés pour convertir vos visiteurs en clients. Parlons de votre projet.</p>
-      <a href="${R}contact.html#cal-embed" class="btn-primary">Nous Contacter</a>
+      <a href="/contact#cal-embed" class="btn-primary">Nous Contacter</a>
     </div>
   </div>
 </article>

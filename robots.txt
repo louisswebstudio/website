@@ -30,4 +30,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://louisswebstudio.com/sitemap.xml
+Sitemap: https://www.louisswebstudio.com/sitemap.xml
