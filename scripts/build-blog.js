@@ -379,7 +379,7 @@ const footerHtml = (R) => `
       <p class="footer-copy">Studio de web design basé à Tanger, Maroc.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/services">Services</a>
-        <a href="/tarifs">Tarifs</a>
+        <a href="/tarifs">Packages</a>
         <a href="/blog/">Blog</a>
         <a href="/privacy">Politique de Confidentialité</a>
         <a href="/terms">Conditions d'Utilisation</a>
