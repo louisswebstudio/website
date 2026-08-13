@@ -3297,35 +3297,29 @@ html[dir="rtl"] .hero-bmock-track {
 
 
 
-/* ── 2. PORTFOLIO CARDS: navy panel + contained top preview ── */
-/* Section: "Des sites qui génèrent des clients"           */
-/* Match desktop: the screenshot floats on the navy thumb   */
-/* as a partial top preview, with navy visible around it.   */
+/* ── 2. PORTFOLIO CARDS: full-bleed top preview ── */
+/* Section: "Des sites qui génèrent des clients"     */
 @media (max-width: 768px) {
   .bento-thumb {
     aspect-ratio: 16 / 10;
     height: auto !important;
     border-radius: 16px;
-    background: #1a1f2e;   /* navy panel stays visible around the image */
+    background: #1a1f2e;   /* shows only while the lazy image is loading */
     overflow: hidden;
   }
-  /* Override desktop absolute+fixed-width image: inset on the navy   */
-  /* panel (navy frame on all sides) and crop to the top section.     */
-  /* Full-bleed cards (.bento-pos-5/-6) are excluded: they already fill  */
-  /* the thumb edge-to-edge, so this inset would show dead navy padding  */
-  /* around them instead of the intended full-bleed screenshot. */
-  .bento-thumb img:not(.bento-hover-img):not(.bento-pos-5):not(.bento-pos-6) {
+  /* Every preview fills its thumb edge-to-edge and crops from the top, so the
+     cards read as one set down the list. This used to inset the image by 14px
+     to leave a navy frame, but excluded .bento-pos-5/-6 (Maison Monchef, El
+     Majdoub) because those already filled the thumb — which meant two cards
+     went full-bleed and the rest carried a frame. Matching the full-bleed
+     treatment is what /projects already does in its own inline CSS. */
+  .bento-thumb img:not(.bento-hover-img) {
     position: absolute !important;
-    top: 14px !important;
-    left: 14px !important;
-    width: calc(100% - 28px) !important;
-    height: calc(100% - 28px) !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover !important;
     object-position: top center !important;
-    border-radius: 8px;
-  }
-  .bento-pos-5,
-  .bento-pos-6 {
     border-radius: 16px;
   }
   /* Standardise card radius to match thumb */
