@@ -2,32 +2,42 @@
 # All standard crawlers are welcome.
 User-agent: *
 Allow: /
+# Internal case-study template/demo tool — not a real page, not in the sitemap.
+Disallow: /casestudy/
 
 # ── AI / LLM crawlers explicitly allowed ──
 # We want Louiss Web Studio to be discoverable and citable by AI search
 # engines and assistants. See /llms.txt for a plain-text company summary.
 User-agent: GPTBot
 Allow: /
+Disallow: /casestudy/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /casestudy/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /casestudy/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /casestudy/
 
 User-agent: Claude-Web
 Allow: /
+Disallow: /casestudy/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /casestudy/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /casestudy/
 
 User-agent: CCBot
 Allow: /
+Disallow: /casestudy/
 
 Sitemap: https://www.louisswebstudio.com/sitemap.xml

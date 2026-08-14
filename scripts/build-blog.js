@@ -77,7 +77,12 @@ const ptComponents = {
   marks: {
     link: ({ children, value }) => {
       const href = value?.href || '#';
-      const ext = /^https?:\/\//i.test(href);
+      // Same-origin absolute URLs are internal: authors often paste the full
+      // https://www.louisswebstudio.com/... link, which would otherwise open
+      // the site's own pages in a new tab.
+      const ext =
+        /^https?:\/\//i.test(href) &&
+        !/^https?:\/\/(www\.)?louisswebstudio\.com(\/|$)/i.test(href);
       const rel = ext ? ' target="_blank" rel="noopener"' : '';
       return `<a href="${attr(href)}"${rel}>${children}</a>`;
     },
@@ -261,6 +266,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 .article-cta { max-width: 780px; margin: 72px auto 0; text-align: center; background: #111214; border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; padding: 48px 32px; position: relative; overflow: hidden; }
 .article-cta h2 { font-family: 'Poppins', 'Inter', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 600; color: #fff; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 14px; }
 .article-cta p { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 460px; margin: 0 auto 28px; }
+.article-cta p a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.article-cta p a:hover { text-decoration-color: var(--blue); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) { .projects-page-title { font-size: 48px; } }
@@ -522,6 +529,35 @@ ${pageScripts(R)}
 `;
 }
 
+// Per-post contextual link to the matching commercial page. Only slugs whose
+// topic genuinely maps to a service page are listed — posts without a real
+// match (dental, restaurants, salons, Instagram) deliberately get nothing.
+const RELATED_PAGE = {
+  'reservation-directe-riad-maroc-sans-booking': {
+    href: '/tourism-web-design',
+    label: 'création de sites web pour le tourisme et l’hôtellerie',
+  },
+  'site-web-location-voiture-maroc': {
+    href: '/tourism-web-design',
+    label: 'création de sites web pour le tourisme et le transport',
+  },
+  'prix-creation-site-web-maroc': {
+    href: '/tarifs',
+    label: 'nos packages et tarifs détaillés',
+  },
+  'creation-site-web-maroc': {
+    href: '/services',
+    label: 'nos services de création et de développement web',
+  },
+};
+
+const relatedLine = (slug) => {
+  const r = RELATED_PAGE[slug];
+  return r
+    ? `\n      <p>Sur ce sujet, voir aussi : <a href="${r.href}">${r.label}</a>.</p>`
+    : '';
+};
+
 export function postPage(p) {
   const R = '../../';
   const url = `${SITE}/blog/${p.slug}/`;
@@ -607,7 +643,7 @@ ${bodyHtml}
     <div class="article-cta reveal">
       <div class="glow-circle glow-c" style="opacity:0.10;"></div>
       <h2>Besoin d'un site web professionnel ?</h2>
-      <p>On conçoit des sites rapides, modernes et pensés pour convertir vos visiteurs en clients. Parlons de votre projet.</p>
+      <p>On conçoit des sites rapides, modernes et pensés pour convertir vos visiteurs en clients. Parlons de votre projet.</p>${relatedLine(p.slug)}
       <a href="/contact#cal-embed" class="btn-primary">Nous Contacter</a>
     </div>
   </div>

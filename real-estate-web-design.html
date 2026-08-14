@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google Tag Manager (deferred; loads gtm.js on first interaction — see assets/gtm-init.js) -->
+<script src="assets/gtm-init.js" defer></script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title data-en="Real Estate Web Design &amp; Development | Louiss Web Studio" data-fr="Création de Sites Web Immobiliers | Louiss Web Studio" data-ar="تصميم وتطوير مواقع عقارية | Louiss Web Studio">Création de Sites Web Immobiliers | Louiss Web Studio</title>
+<link rel="canonical" href="https://www.louisswebstudio.com/real-estate-web-design">
+<meta name="description" content="Création de sites et plateformes web pour l'immobilier : annonces, recherche par quartier, CMS autonome et sites multilingues. Deux plateformes livrées, à Dubaï et à Agadir.">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Louiss Web Studio">
+<meta property="og:url" content="https://www.louisswebstudio.com/real-estate-web-design">
+<meta property="og:title" content="Création de Sites Web Immobiliers | Louiss Web Studio">
+<meta property="og:description" content="Création de sites et plateformes web pour l'immobilier : annonces, recherche par quartier, CMS autonome et sites multilingues. Deux plateformes livrées, à Dubaï et à Agadir.">
+<meta property="og:image" content="https://www.louisswebstudio.com/assets/images/projects/maison-monchef/1.webp">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ar_MA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Création de Sites Web Immobiliers | Louiss Web Studio">
+<meta name="twitter:description" content="Création de sites et plateformes web pour l'immobilier : annonces, recherche par quartier, CMS autonome et sites multilingues. Deux plateformes livrées, à Dubaï et à Agadir.">
+<meta name="twitter:image" content="https://www.louisswebstudio.com/assets/images/projects/maison-monchef/1.webp">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon-192.png">
+<meta name="theme-color" content="#060607">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="dns-prefetch" href="https://flagcdn.com">
+<!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+</noscript>
+<script defer src="assets/fonts.js"></script>
+
+<!-- Shared chrome (nav, buttons, FAQ, footer, WA float) + unified heading scale -->
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/section-headings.css">
+
+<style>
+/* ─── PAGE HEADER ───────────────────────────────────── */
+.city-hero {
+  padding: 160px 0 120px; position: relative;
+  background-image: linear-gradient(rgba(6,6,7,0.76), rgba(6,6,7,0.82)), url('assets/images/projects/maison-monchef/1.webp');
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+}
+.city-hero > .container { position: relative; z-index: 1; }
+.city-page-title {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-weight: 600; font-size: 56px;
+  letter-spacing: -1.2px; line-height: 1.12;
+  color: #fff; text-align: center;
+  margin: 0 auto 20px; max-width: 900px; text-wrap: balance;
+}
+.city-page-title .accent {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.city-hero-lead {
+  font-size: 18px; color: #d4d4d8; line-height: 29.25px;
+  text-align: center; max-width: 690px; margin: 0 auto 16px;
+}
+.city-hero-lead:last-of-type { margin-bottom: 0; }
+.hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+
+/* ─── SECTION SHELL ──────────────────────────────────── */
+.svc-section { padding: 88px 0 96px; position: relative; }
+.svc-section > .container { position: relative; z-index: 1; }
+.svc-section--tint { background: rgba(3,3,3,0.22); border-top: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
+.svc-band-title {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 48px; font-weight: 600; color: #fff;
+  letter-spacing: -1.2px; line-height: 1.15;
+  text-align: center; margin: 0 auto 20px;
+  max-width: 780px; text-wrap: balance;
+}
+.svc-band-title em {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-style: normal; font-weight: 600;
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.svc-band-sub {
+  font-size: 17px; color: var(--muted); line-height: 1.7;
+  text-align: center; max-width: 680px; margin: 0 auto 56px;
+}
+.svc-band-sub a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.svc-band-sub a:hover { text-decoration-color: var(--blue); }
+.svc-band-note {
+  font-size: 16px; color: #d4d4d8; line-height: 1.7;
+  text-align: center; max-width: 640px; margin: 40px auto 0;
+}
+
+/* ─── CHALLENGE GRID (problem framing) ──────────────── */
+.challenge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.challenge-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: rgba(9,9,11,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 26px 28px;
+  backdrop-filter: blur(12px);
+  transition: border-color .3s, transform .3s;
+}
+.challenge-item:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-3px); }
+.challenge-icon {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(239,68,68,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px; color: #ef4444;
+}
+.challenge-title { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 7px; letter-spacing: -0.2px; }
+.challenge-desc { font-size: 14.5px; color: var(--muted); line-height: 1.7; }
+
+/* ─── BENEFIT / FEATURE GRID ────────────────────────── */
+.benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+.benefit-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: rgba(9,9,11,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px; padding: 20px 22px;
+  font-size: 15px; color: #d4d4d4; line-height: 1.6;
+  backdrop-filter: blur(12px);
+  transition: border-color .3s, transform .3s;
+}
+.benefit-item:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-3px); }
+.svc-feature-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(59,130,246,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.svc-feature-icon svg { color: var(--blue); }
+
+/* ─── SERVICE / CAPABILITY CARDS ─────────────────────── */
+.svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
+.svc-grid--three { grid-template-columns: repeat(3, 1fr); }
+.svc-card {
+  background: rgba(9,9,11,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 30px 26px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: border-color .3s, transform .3s;
+}
+.svc-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); }
+.svc-card-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 20px; font-weight: 700; color: #fff;
+  letter-spacing: -0.4px; line-height: 1.25;
+  margin-bottom: 10px;
+}
+.svc-card-desc { font-size: 14.5px; color: var(--muted); line-height: 1.7; }
+
+/* ─── CASE STUDY BLOCK ──────────────────────────────── */
+.case-block {
+  display: flex; gap: 48px; align-items: center;
+  background: rgba(9,9,11,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px; padding: 40px;
+  backdrop-filter: blur(12px);
+}
+.case-block + .case-block { margin-top: 24px; }
+.case-block--reverse { flex-direction: row-reverse; }
+.case-block-img {
+  flex: 0 0 400px; border-radius: 16px; overflow: hidden;
+  aspect-ratio: 4/3; position: relative; background: #1a1f2e;
+}
+.case-block-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.case-block-body { flex: 1; min-width: 0; }
+.case-block-tag {
+  font-size: 12px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+}
+.case-block-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 28px; font-weight: 700; color: #fff;
+  margin-bottom: 14px; letter-spacing: -0.6px; line-height: 1.2;
+}
+.case-block-desc { font-size: 15.5px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+.case-block-points { display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px; }
+.case-block-point { display: flex; align-items: flex-start; gap: 11px; font-size: 14.5px; color: #d4d4d4; line-height: 1.6; }
+.case-block-link {
+  color: #fff; text-decoration: underline;
+  text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px;
+  transition: text-decoration-color .2s; font-weight: 500;
+}
+.case-block-link:hover { text-decoration-color: var(--blue); }
+
+/* ─── PROCESS ───────────────────────────────────────── */
+.process-mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.process-mini-step {
+  background: rgba(9,9,11,0.8); border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 28px 24px; backdrop-filter: blur(12px);
+}
+.process-mini-num {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(59,130,246,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 16px;
+}
+.process-mini-title { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 8px; letter-spacing: -0.2px; }
+.process-mini-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ─── CLOSING CTA ───────────────────────────────────── */
+.svc-cta { padding: 96px 0; text-align: center; position: relative; overflow: hidden; }
+.svc-cta > .container { position: relative; z-index: 1; }
+.svc-cta-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(30px, 4vw, 52px); font-weight: 700; color: #fff;
+  letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
+}
+.svc-cta-sub { font-size: 16px; color: var(--muted); margin: 0 auto 36px; max-width: 540px; line-height: 1.7; }
+.svc-cta-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .city-page-title { font-size: 42px; }
+  .svc-band-title { font-size: 36px; }
+  .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-mini-grid { grid-template-columns: repeat(2, 1fr); }
+  .case-block { gap: 32px; padding: 32px; }
+  .case-block-img { flex-basis: 320px; }
+}
+@media (max-width: 900px) {
+  .svc-section { padding: 72px 0; }
+  .svc-band-title { font-size: 32px; }
+  .city-page-title { font-size: 36px; }
+  .city-hero { padding: 120px 0 90px; }
+  .challenge-grid { grid-template-columns: 1fr; }
+  .case-block, .case-block--reverse { flex-direction: column; }
+  .case-block-img { flex-basis: auto; width: 100%; }
+}
+@media (max-width: 700px) {
+  .svc-section { padding: 56px 0; }
+  .city-hero { padding: 88px 0 64px; }
+  .city-page-title { font-size: 28px; line-height: 35px; }
+  .city-hero-lead { font-size: 15px; line-height: 26px; }
+  .svc-band-title { font-size: 26px; line-height: 32px; }
+  .svc-band-sub { font-size: 14.5px; }
+  .benefit-grid { grid-template-columns: 1fr; }
+  .svc-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .process-mini-grid { grid-template-columns: 1fr; }
+  .svc-card { padding: 24px 20px; }
+  .challenge-item { padding: 22px 20px; }
+  .case-block { padding: 24px; }
+  .case-block-title { font-size: 22px; }
+  .svc-cta { padding: 56px 0; }
+  .hero-actions .btn-primary, .hero-actions .btn-secondary,
+  .svc-cta-actions .btn-primary, .svc-cta-actions .btn-secondary { width: 100%; }
+}
+
+/* ─── RTL ───────────────────────────────────────────── */
+html[dir="rtl"] .benefit-item { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .svc-card { text-align: right; }
+html[dir="rtl"] .challenge-item { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .case-block-body { text-align: right; }
+html[dir="rtl"] .case-block-point { flex-direction: row-reverse; }
+</style>
+
+<!-- Structured data: a service offering, not a real-estate business. No
+     LocalBusiness type — this page does not represent a property office. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.louisswebstudio.com/real-estate-web-design#service",
+      "name": "Real Estate Web Design and Development",
+      "serviceType": "Real estate website design and development",
+      "url": "https://www.louisswebstudio.com/real-estate-web-design",
+      "description": "Conception et développement de sites et plateformes web pour agences immobilières, gestionnaires de biens et promoteurs : annonces structurées, recherche par quartier et budget, CMS autonome et sites multilingues.",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Louiss Web Studio",
+        "url": "https://www.louisswebstudio.com",
+        "logo": "https://www.louisswebstudio.com/logo.png",
+        "telephone": "+212716490397",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Tanger",
+          "addressRegion": "Tanger-Tétouan-Al Hoceïma",
+          "addressCountry": "MA"
+        },
+        "sameAs": [
+          "https://www.instagram.com/louiss.webstudio/"
+        ]
+      },
+      "areaServed": ["Morocco", "Worldwide (remote)"],
+      "audience": {
+        "@type": "BusinessAudience",
+        "name": "Agences immobilières, gestionnaires de biens, promoteurs et plateformes immobilières"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.louisswebstudio.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sites Web Immobiliers", "item": "https://www.louisswebstudio.com/real-estate-web-design" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Pouvons-nous gérer nos annonces immobilières nous-mêmes ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Sur Maison Monchef comme sur El Majdoub Immobilier, nous avons mis en place un CMS permettant à l'équipe d'ajouter des biens, de modifier les prix et de mettre à jour les photos sans toucher au code." }
+        },
+        {
+          "@type": "Question",
+          "name": "Pouvez-vous construire un site immobilier multilingue ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Maison Monchef est livré en français, anglais et arabe, avec un modèle de contenu localisé dans Sanity et un support natif de la mise en page droite-à-gauche pour l'arabe." }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelles fonctions de recherche pouvez-vous mettre en place ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Une recherche structurée autour de la façon dont les gens cherchent réellement : par quartier, par type de bien et par budget, comme sur El Majdoub Immobilier, avec des annonces présentant photo, prix et informations clés dès le premier coup d'œil." }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien de temps prend un projet immobilier ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "En général 2 à 4 semaines après validation du design. Une plateforme multilingue avec un modèle de contenu structuré, comme Maison Monchef, se situe plutôt dans la fourchette 4 à 6 semaines." }
+        },
+        {
+          "@type": "Question",
+          "name": "Gérez-vous l'hébergement et le nom de domaine ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Pour Maison Monchef, le déploiement sur Vercel, le domaine, le routage e-mail, les DNS et le SSL ont été configurés de bout en bout, avec une migration sans interruption depuis l'installation précédente du client." }
+        },
+        {
+          "@type": "Question",
+          "name": "Travaillez-vous avec des agences immobilières hors du Maroc ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Maison Monchef a été conçu pour un client basé à Dubaï, entièrement à distance : découverte, design, développement et lancement." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ════ GLOBAL STARFIELD BACKGROUND ════ -->
+<canvas id="global-starfield" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block;"></canvas>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+
+    <div class="nav-links">
+      <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+      <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <div class="lang-btn" onclick="toggleLang()">
+          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <span class="lang-code" id="activeLangCode">FR</span>
+          <span class="lang-chevron">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#a3a3a3" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <div class="lang-dropdown">
+          <div class="lang-option" id="opt-en" onclick="setLang('en')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">English</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option active" id="opt-fr" onclick="setLang('fr')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">Français</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-ar" onclick="setLang('ar')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/sa.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">العربية</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MOBILE MENU ════ -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <div class="menu-top">
+    <a href="/" class="mob-overlay-logo" aria-label="Home">
+      <img src="logo.png" alt="Logo" height="20" width="auto">
+    </a>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <div class="menu-center">
+    <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+    <a href="/#faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+  </div>
+  <div class="menu-bottom">
+    <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+  </div>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="city-hero">
+  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(190px); width:700px; height:700px;"></div>
+  <div class="container">
+    <h1 class="city-page-title reveal"
+      data-en="Web Design &amp; Development for <span class='accent'>Real Estate</span>"
+      data-fr="Création de Sites Web pour <span class='accent'>l'Immobilier</span>"
+      data-ar="تصميم وتطوير مواقع <span class='accent'>عقارية</span>">Création de Sites Web pour <span class="accent">l'Immobilier</span></h1>
+
+    <p class="city-hero-lead reveal"
+      data-en="We design and build property websites and listing platforms for real estate agencies, property managers, and developers: structured listings, search that matches how buyers actually look, and a CMS your team runs without a developer."
+      data-fr="Nous concevons et développons des sites et plateformes d'annonces pour agences immobilières, gestionnaires de biens et promoteurs : des annonces structurées, une recherche qui correspond à la façon dont les acheteurs cherchent vraiment, et un CMS que votre équipe gère sans développeur."
+      data-ar="نصمم ونطوّر مواقع ومنصات عقارية لوكالات العقار ومديري الأملاك والمطورين: عروض منظمة، وبحث يطابق طريقة بحث المشترين فعلياً، ونظام إدارة محتوى يديره فريقك دون مطور.">Nous concevons et développons des sites et plateformes d'annonces pour agences immobilières, gestionnaires de biens et promoteurs : des annonces structurées, une recherche qui correspond à la façon dont les acheteurs cherchent vraiment, et un CMS que votre équipe gère sans développeur.</p>
+
+    <p class="city-hero-lead reveal"
+      data-en="Two real estate platforms delivered so far: one in Dubai, one in Agadir."
+      data-fr="Deux plateformes immobilières livrées à ce jour : une à Dubaï, une à Agadir."
+      data-ar="منصتان عقاريتان أُنجزتا حتى الآن: واحدة في دبي، وأخرى في أكادير.">Deux plateformes immobilières livrées à ce jour : une à Dubaï, une à Agadir.</p>
+
+    <div class="hero-actions reveal">
+      <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+      <a href="#etudes-de-cas" class="btn-secondary" data-en="See the two case studies" data-fr="Voir les deux études de cas" data-ar="شاهد دراستي الحالة">Voir les deux études de cas</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CHALLENGES ════ -->
+<section class="svc-section" id="enjeux">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="The problem" data-fr="Le problème" data-ar="المشكلة">Le problème</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="Why most real estate websites <em>lose</em> enquiries"
+      data-fr="Pourquoi la plupart des sites immobiliers <em>perdent</em> des demandes"
+      data-ar="لماذا تفقد معظم المواقع العقارية <em>الطلبات</em>">Pourquoi la plupart des sites immobiliers <em>perdent</em> des demandes</h2>
+    <p class="svc-band-sub reveal"
+      data-en="Property websites fail in specific, recognisable ways. These are the four we see most often before a rebuild."
+      data-fr="Les sites immobiliers échouent de façons précises et reconnaissables. Voici les quatre que nous rencontrons le plus souvent avant une refonte."
+      data-ar="تفشل المواقع العقارية بطرق محددة ومعروفة. هذه أكثر أربع حالات نصادفها قبل إعادة البناء.">Les sites immobiliers échouent de façons précises et reconnaissables. Voici les quatre que nous rencontrons le plus souvent avant une refonte.</p>
+
+    <div class="challenge-grid reveal">
+      <div class="challenge-item">
+        <span class="challenge-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div>
+          <div class="challenge-title" data-en="Listings that go stale" data-fr="Des annonces qui se périment" data-ar="عروض تصبح قديمة">Des annonces qui se périment</div>
+          <p class="challenge-desc"
+            data-en="If updating a price or adding a property means emailing a developer, listings drift out of date, and prospects lose trust in everything else on the site."
+            data-fr="Si modifier un prix ou ajouter un bien implique d'écrire à un développeur, les annonces se désynchronisent, et les prospects perdent confiance dans tout le reste du site."
+            data-ar="إذا كان تعديل السعر أو إضافة عقار يتطلب مراسلة مطور، تصبح العروض قديمة، ويفقد العملاء الثقة في باقي محتوى الموقع.">Si modifier un prix ou ajouter un bien implique d'écrire à un développeur, les annonces se désynchronisent, et les prospects perdent confiance dans tout le reste du site.</p>
+        </div>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div>
+          <div class="challenge-title" data-en="Search that doesn't match how people look" data-fr="Une recherche déconnectée des usages" data-ar="بحث لا يطابق سلوك الباحثين">Une recherche déconnectée des usages</div>
+          <p class="challenge-desc"
+            data-en="Buyers think in neighbourhoods, property types, and budgets. A site that only offers a generic keyword box forces them to guess, and most simply leave."
+            data-fr="Les acheteurs raisonnent en quartiers, types de biens et budgets. Un site qui ne propose qu'un champ de recherche générique les oblige à deviner, et la plupart repartent."
+            data-ar="يفكر المشترون بالأحياء وأنواع العقارات والميزانيات. الموقع الذي يقدم حقل بحث عاماً فقط يجبرهم على التخمين، ومعظمهم يغادر.">Les acheteurs raisonnent en quartiers, types de biens et budgets. Un site qui ne propose qu'un champ de recherche générique les oblige à deviner, et la plupart repartent.</p>
+        </div>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div>
+          <div class="challenge-title" data-en="Photography buried in the layout" data-fr="Des photos noyées dans la mise en page" data-ar="صور مدفونة في التصميم">Des photos noyées dans la mise en page</div>
+          <p class="challenge-desc"
+            data-en="Property is a visual purchase. Thumbnails squeezed into dense table rows waste the single strongest asset an agency already owns."
+            data-fr="L'immobilier est un achat visuel. Des vignettes compressées dans des tableaux denses gâchent le meilleur atout que possède déjà une agence."
+            data-ar="العقار قرار بصري. الصور المصغرة المحشورة في جداول كثيفة تهدر أقوى أصل تملكه الوكالة بالفعل.">L'immobilier est un achat visuel. Des vignettes compressées dans des tableaux denses gâchent le meilleur atout que possède déjà une agence.</p>
+        </div>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div>
+          <div class="challenge-title" data-en="One language for an international audience" data-fr="Une seule langue pour une audience internationale" data-ar="لغة واحدة لجمهور دولي">Une seule langue pour une audience internationale</div>
+          <p class="challenge-desc"
+            data-en="Property markets in Morocco and the Gulf draw buyers across French, English, and Arabic. A single-language site quietly excludes a share of them."
+            data-fr="Les marchés immobiliers au Maroc et dans le Golfe attirent des acheteurs francophones, anglophones et arabophones. Un site monolingue en exclut discrètement une partie."
+            data-ar="تجذب أسواق العقار في المغرب والخليج مشترين بالفرنسية والإنجليزية والعربية. الموقع أحادي اللغة يستبعد جزءاً منهم بصمت.">Les marchés immobiliers au Maroc et dans le Golfe attirent des acheteurs francophones, anglophones et arabophones. Un site monolingue en exclut discrètement une partie.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHAT WE BUILD ════ -->
+<section class="svc-section svc-section--tint" id="ce-que-nous-construisons">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="What we build for <em>real estate</em> businesses"
+      data-fr="Ce que nous construisons pour <em>l'immobilier</em>"
+      data-ar="ما الذي نبنيه <em>لقطاع العقار</em>">Ce que nous construisons pour <em>l'immobilier</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Four project types, each grounded in work we've actually shipped. For the full studio service range, see our services page."
+      data-fr="Quatre types de projets, chacun fondé sur un travail réellement livré. Pour l'ensemble des services du studio, voir notre page services."
+      data-ar="أربعة أنواع من المشاريع، كل منها مبني على عمل أنجزناه فعلاً. للاطلاع على كامل خدمات الاستوديو، انظر صفحة خدماتنا.">Quatre types de projets, chacun fondé sur un travail réellement livré. Pour l'ensemble des services du studio, voir notre <a href="/services">page services</a>.</p>
+
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Listing Platforms" data-fr="Plateformes d'Annonces" data-ar="منصات العروض">Plateformes d'Annonces</h3>
+        <p class="svc-card-desc"
+          data-en="A structured content model for properties, locations, amenities, and media, so every listing carries consistent data instead of free-form text."
+          data-fr="Un modèle de contenu structuré pour les biens, les localisations, les équipements et les médias, afin que chaque annonce porte des données cohérentes plutôt que du texte libre."
+          data-ar="نموذج محتوى منظم للعقارات والمواقع والمرافق والوسائط، بحيث تحمل كل عروض بيانات متسقة بدل نص حر.">Un modèle de contenu structuré pour les biens, les localisations, les équipements et les médias, afin que chaque annonce porte des données cohérentes plutôt que du texte libre.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Agency Websites" data-fr="Sites d'Agence" data-ar="مواقع الوكالات">Sites d'Agence</h3>
+        <p class="svc-card-desc"
+          data-en="Presentation sites for agencies and developers where credibility matters as much as inventory: brand, team, track record, and a clear path to contact."
+          data-fr="Des sites de présentation pour agences et promoteurs où la crédibilité compte autant que le portefeuille : marque, équipe, références et chemin clair vers la prise de contact."
+          data-ar="مواقع تعريفية للوكالات والمطورين حيث المصداقية بأهمية المعروض: العلامة، والفريق، والسجل، ومسار واضح للتواصل.">Des sites de présentation pour agences et promoteurs où la crédibilité compte autant que le portefeuille : marque, équipe, références et chemin clair vers la prise de contact.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Rental Platforms" data-fr="Plateformes de Location" data-ar="منصات التأجير">Plateformes de Location</h3>
+        <p class="svc-card-desc"
+          data-en="Rental-focused platforms connecting landlords with qualified tenants, with browsing organised by neighbourhood and budget rather than a raw listing dump."
+          data-fr="Des plateformes orientées location, connectant propriétaires et locataires qualifiés, avec une navigation organisée par quartier et budget plutôt qu'une liste brute."
+          data-ar="منصات موجهة للتأجير تربط الملاك بمستأجرين مؤهلين، مع تصفح منظم حسب الحي والميزانية بدل قائمة خام.">Des plateformes orientées location, connectant propriétaires et locataires qualifiés, avec une navigation organisée par quartier et budget plutôt qu'une liste brute.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Multilingual Portals" data-fr="Portails Multilingues" data-ar="بوابات متعددة اللغات">Portails Multilingues</h3>
+        <p class="svc-card-desc"
+          data-en="Property sites delivered in French, English, and Arabic, with each listing localised per language and full right-to-left support."
+          data-fr="Des sites immobiliers livrés en français, anglais et arabe, avec chaque annonce localisée par langue et un support complet du droite-à-gauche."
+          data-ar="مواقع عقارية بالفرنسية والإنجليزية والعربية، مع ترجمة كل عرض حسب اللغة ودعم كامل للاتجاه من اليمين لليسار.">Des sites immobiliers livrés en français, anglais et arabe, avec chaque annonce localisée par langue et un support complet du droite-à-gauche.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ LISTING & SEARCH UX ════ -->
+<section class="svc-section" id="recherche">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="Listings and search, built around <em>how buyers actually look</em>"
+      data-fr="Annonces et recherche, pensées <em>comme cherchent les acheteurs</em>"
+      data-ar="العروض والبحث، مبنية <em>على طريقة بحث المشترين</em>">Annonces et recherche, pensées <em>comme cherchent les acheteurs</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="On El Majdoub Immobilier we structured the whole platform around three real search axes, then made sure the listing itself answers the obvious questions before anyone has to click."
+      data-fr="Sur El Majdoub Immobilier, nous avons structuré toute la plateforme autour de trois axes de recherche réels, puis fait en sorte que l'annonce elle-même réponde aux questions évidentes avant même un clic."
+      data-ar="في El Majdoub Immobilier، بنينا المنصة حول ثلاثة محاور بحث حقيقية، ثم جعلنا العرض نفسه يجيب عن الأسئلة البديهية قبل أي نقرة.">Sur El Majdoub Immobilier, nous avons structuré toute la plateforme autour de trois axes de recherche réels, puis fait en sorte que l'annonce elle-même réponde aux questions évidentes avant même un clic.</p>
+
+    <div class="benefit-grid reveal">
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Search by neighbourhood, property type, and budget" data-fr="Recherche par quartier, type de bien et budget" data-ar="بحث حسب الحي ونوع العقار والميزانية">Recherche par quartier, type de bien et budget</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Listings that lead with large photography" data-fr="Des annonces qui mettent la photo en avant" data-ar="عروض تتصدرها صور كبيرة">Des annonces qui mettent la photo en avant</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Price and key details visible at a glance" data-fr="Prix et informations clés visibles d'un coup d'œil" data-ar="السعر والتفاصيل الأساسية ظاهرة بلمحة">Prix et informations clés visibles d'un coup d'œil</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Neighbourhood guides for buyers new to the city" data-fr="Guides de quartiers pour les acheteurs nouveaux en ville" data-ar="أدلة الأحياء للمشترين الجدد في المدينة">Guides de quartiers pour les acheteurs nouveaux en ville</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Structured data for properties, locations, and amenities" data-fr="Données structurées pour biens, localisations et équipements" data-ar="بيانات منظمة للعقارات والمواقع والمرافق">Données structurées pour biens, localisations et équipements</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Mobile-first layouts, since most property browsing starts on a phone" data-fr="Mise en page mobile-first, car la recherche de biens commence souvent sur téléphone" data-ar="تصميم يبدأ بالهاتف، لأن البحث عن العقارات يبدأ غالباً من الجوال">Mise en page mobile-first, car la recherche de biens commence souvent sur téléphone</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ LEAD GENERATION ════ -->
+<section class="svc-section svc-section--tint" id="conversion">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="From interested visitor to <em>real enquiry</em>"
+      data-fr="Du visiteur intéressé à la <em>demande concrète</em>"
+      data-ar="من زائر مهتم إلى <em>طلب حقيقي</em>">Du visiteur intéressé à la <em>demande concrète</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="A property site earns its keep when someone gets in touch. The design principle we applied on El Majdoub: close the gap between interest and enquiry to a single tap."
+      data-fr="Un site immobilier ne rentabilise sa place que lorsqu'une personne prend contact. Le principe appliqué sur El Majdoub : réduire l'écart entre l'intérêt et la demande à un seul geste."
+      data-ar="لا يؤتي الموقع العقاري ثماره إلا حين يتواصل أحدهم. المبدأ الذي طبقناه في El Majdoub: تقليص المسافة بين الاهتمام والطلب إلى نقرة واحدة.">Un site immobilier ne rentabilise sa place que lorsqu'une personne prend contact. Le principe appliqué sur El Majdoub : réduire l'écart entre l'intérêt et la demande à un seul geste.</p>
+
+    <div class="svc-grid svc-grid--three reveal">
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Streamlined contact flow" data-fr="Parcours de contact simplifié" data-ar="مسار تواصل مبسط">Parcours de contact simplifié</h3>
+        <p class="svc-card-desc"
+          data-en="Enquiry paths sit directly on the listing, not three pages away in a generic contact form."
+          data-fr="Les chemins de contact se trouvent directement sur l'annonce, pas à trois pages de là dans un formulaire générique."
+          data-ar="مسارات التواصل موجودة مباشرة على العرض، وليست على بُعد ثلاث صفحات في نموذج عام.">Les chemins de contact se trouvent directement sur l'annonce, pas à trois pages de là dans un formulaire générique.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="WhatsApp-first contact" data-fr="Contact WhatsApp en priorité" data-ar="تواصل عبر واتساب أولاً">Contact WhatsApp en priorité</h3>
+        <p class="svc-card-desc"
+          data-en="In Morocco and the Gulf, WhatsApp is where property conversations actually happen. We wire it in as a primary channel, not an afterthought."
+          data-fr="Au Maroc et dans le Golfe, WhatsApp est le canal réel des conversations immobilières. Nous l'intégrons comme canal principal, pas en complément."
+          data-ar="في المغرب والخليج، واتساب هو قناة الحوار العقاري الفعلية. ندمجه كقناة أساسية، لا كإضافة ثانوية.">Au Maroc et dans le Golfe, WhatsApp est le canal réel des conversations immobilières. Nous l'intégrons comme canal principal, pas en complément.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Trust built into the design" data-fr="La confiance intégrée au design" data-ar="الثقة مدمجة في التصميم">La confiance intégrée au design</h3>
+        <p class="svc-card-desc"
+          data-en="Buying or renting a home is a high-stakes decision. The visual direction on El Majdoub was built to feel welcoming, premium, and trustworthy."
+          data-fr="Acheter ou louer un logement est une décision à fort enjeu. La direction visuelle d'El Majdoub a été conçue pour être accueillante, premium et rassurante."
+          data-ar="شراء أو استئجار منزل قرار كبير. صُممت الهوية البصرية لـ El Majdoub لتكون مرحّبة وراقية وجديرة بالثقة.">Acheter ou louer un logement est une décision à fort enjeu. La direction visuelle d'El Majdoub a été conçue pour être accueillante, premium et rassurante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MULTILINGUAL ════ -->
+<section class="svc-section" id="multilingue">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="Selling property across <em>three languages</em>"
+      data-fr="Vendre de l'immobilier en <em>trois langues</em>"
+      data-ar="بيع العقارات <em>بثلاث لغات</em>">Vendre de l'immobilier en <em>trois langues</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="On Maison Monchef, every property listing, page, and interface string ships correctly localised in French, English, and Arabic, with a content model designed for it from the start."
+      data-fr="Sur Maison Monchef, chaque annonce, page et libellé d'interface est livré correctement localisé en français, anglais et arabe, avec un modèle de contenu conçu pour cela dès le départ."
+      data-ar="في Maison Monchef، كل عرض عقاري وصفحة ونص واجهة يُسلَّم مترجماً بدقة بالفرنسية والإنجليزية والعربية، بنموذج محتوى مصمم لذلك منذ البداية.">Sur Maison Monchef, chaque annonce, page et libellé d'interface est livré correctement localisé en français, anglais et arabe, avec un modèle de contenu conçu pour cela dès le départ.</p>
+
+    <div class="svc-grid svc-grid--three reveal">
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Localised content model" data-fr="Modèle de contenu localisé" data-ar="نموذج محتوى مترجم">Modèle de contenu localisé</h3>
+        <p class="svc-card-desc"
+          data-en="A structured per-language field pattern in the CMS, so each listing carries its own French, English, and Arabic content rather than a single translated blob."
+          data-fr="Un motif de champs structurés par langue dans le CMS, pour que chaque annonce porte son propre contenu français, anglais et arabe plutôt qu'un bloc traduit unique."
+          data-ar="نمط حقول منظم لكل لغة في نظام إدارة المحتوى، بحيث يحمل كل عرض محتواه الفرنسي والإنجليزي والعربي بدل كتلة مترجمة واحدة.">Un motif de champs structurés par langue dans le CMS, pour que chaque annonce porte son propre contenu français, anglais et arabe plutôt qu'un bloc traduit unique.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Native right-to-left support" data-fr="Support natif du droite-à-gauche" data-ar="دعم أصلي للاتجاه من اليمين لليسار">Support natif du droite-à-gauche</h3>
+        <p class="svc-card-desc"
+          data-en="Arabic gets a genuine RTL layout, not mirrored text in a left-to-right template, so the design quality holds in every language."
+          data-fr="L'arabe bénéficie d'une vraie mise en page RTL, pas d'un texte inversé dans un gabarit gauche-à-droite, pour que la qualité du design tienne dans chaque langue."
+          data-ar="تحصل العربية على تخطيط RTL حقيقي، وليس نصاً معكوساً داخل قالب من اليسار لليمين، لتبقى جودة التصميم ثابتة بكل لغة.">L'arabe bénéficie d'une vraie mise en page RTL, pas d'un texte inversé dans un gabarit gauche-à-droite, pour que la qualité du design tienne dans chaque langue.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Publish per language" data-fr="Publier langue par langue" data-ar="النشر لكل لغة">Publier langue par langue</h3>
+        <p class="svc-card-desc"
+          data-en="Your team can publish and update listings in any of the three languages independently, without developer involvement."
+          data-fr="Votre équipe peut publier et mettre à jour les annonces dans chacune des trois langues de façon indépendante, sans intervention d'un développeur."
+          data-ar="يمكن لفريقك نشر العروض وتحديثها بأي من اللغات الثلاث بشكل مستقل، دون تدخل مطور.">Votre équipe peut publier et mettre à jour les annonces dans chacune des trois langues de façon indépendante, sans intervention d'un développeur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CASE STUDIES ════ -->
+<section class="svc-section svc-section--tint" id="etudes-de-cas">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Case studies" data-fr="Études de cas" data-ar="دراسات الحالة">Études de cas</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="Two real estate platforms, <em>shipped</em>"
+      data-fr="Deux plateformes immobilières, <em>livrées</em>"
+      data-ar="منصتان عقاريتان، <em>تم إنجازهما</em>">Deux plateformes immobilières, <em>livrées</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Everything described on this page comes from these two projects. Both are live."
+      data-fr="Tout ce qui est décrit sur cette page provient de ces deux projets. Les deux sont en ligne."
+      data-ar="كل ما ورد في هذه الصفحة مستمد من هذين المشروعين. كلاهما على الإنترنت.">Tout ce qui est décrit sur cette page provient de ces deux projets. Les deux sont en ligne.</p>
+
+    <!-- Maison Monchef -->
+    <div class="case-block reveal">
+      <div class="case-block-img">
+        <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef, plateforme immobilière multilingue à Dubaï" loading="lazy">
+      </div>
+      <div class="case-block-body">
+        <div class="case-block-tag" data-en="Dubai · Multilingual Platform" data-fr="Dubaï · Plateforme Multilingue" data-ar="دبي · منصة متعددة اللغات">Dubaï · Plateforme Multilingue</div>
+        <div class="case-block-title">Maison Monchef</div>
+        <p class="case-block-desc"
+          data-en="A full-stack real estate platform for a Dubai-based client, serving French, English, and Arabic audiences without compromising design quality in any one language."
+          data-fr="Une plateforme immobilière full-stack pour un client basé à Dubaï, servant des audiences francophone, anglophone et arabophone sans compromis sur la qualité du design dans aucune langue."
+          data-ar="منصة عقارية متكاملة لعميل مقيم في دبي، تخدم جمهوراً فرنسياً وإنجليزياً وعربياً دون أي تنازل عن جودة التصميم بأي لغة.">Une plateforme immobilière full-stack pour un client basé à Dubaï, servant des audiences francophone, anglophone et arabophone sans compromis sur la qualité du design dans aucune langue.</p>
+        <div class="case-block-points">
+          <div class="case-block-point">
+            <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Next.js with a localised content model in Sanity CMS" data-fr="Next.js avec un modèle de contenu localisé dans Sanity CMS" data-ar="Next.js مع نموذج محتوى مترجم في Sanity CMS">Next.js avec un modèle de contenu localisé dans Sanity CMS</span>
+          </div>
+          <div class="case-block-point">
+            <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Properties, locations, amenities, and media, all editable by the client's team" data-fr="Biens, localisations, équipements et médias, tous modifiables par l'équipe du client" data-ar="العقارات والمواقع والمرافق والوسائط، كلها قابلة للتعديل من فريق العميل">Biens, localisations, équipements et médias, tous modifiables par l'équipe du client</span>
+          </div>
+          <div class="case-block-point">
+            <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Deployed on Vercel with DNS, mail routing, and SSL configured end to end" data-fr="Déployé sur Vercel avec DNS, routage e-mail et SSL configurés de bout en bout" data-ar="منشور على Vercel مع إعداد كامل لـ DNS وتوجيه البريد وشهادة SSL">Déployé sur Vercel avec DNS, routage e-mail et SSL configurés de bout en bout</span>
+          </div>
+        </div>
+        <a href="/maison-monchef" class="case-block-link" data-en="Read the Maison Monchef case study &rarr;" data-fr="Lire l'étude de cas Maison Monchef &rarr;" data-ar="اقرأ دراسة حالة Maison Monchef &larr;">Lire l'étude de cas Maison Monchef →</a>
+      </div>
+    </div>
+
+    <!-- El Majdoub -->
+    <div class="case-block case-block--reverse reveal">
+      <div class="case-block-img">
+        <img src="./assets/images/majdoub project.webp" alt="El Majdoub Immobilier, plateforme de location à Agadir" loading="lazy">
+      </div>
+      <div class="case-block-body">
+        <div class="case-block-tag" data-en="Agadir · Rental Platform" data-fr="Agadir · Plateforme de Location" data-ar="أكادير · منصة تأجير">Agadir · Plateforme de Location</div>
+        <div class="case-block-title">El Majdoub Immobilier</div>
+        <p class="case-block-desc"
+          data-en="A rental platform in Agadir built to connect landlords with qualified tenants, with the whole experience organised around how people actually search for a home."
+          data-fr="Une plateforme de location à Agadir conçue pour connecter propriétaires et locataires qualifiés, avec une expérience entièrement organisée autour de la façon dont les gens cherchent réellement un logement."
+          data-ar="منصة تأجير في أكادير بُنيت لربط الملاك بمستأجرين مؤهلين، بتجربة منظمة بالكامل حول طريقة بحث الناس الفعلية عن سكن.">Une plateforme de location à Agadir conçue pour connecter propriétaires et locataires qualifiés, avec une expérience entièrement organisée autour de la façon dont les gens cherchent réellement un logement.</p>
+        <div class="case-block-points">
+          <div class="case-block-point">
+            <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Browsing structured by neighbourhood, property type, and budget" data-fr="Navigation structurée par quartier, type de bien et budget" data-ar="تصفح منظم حسب الحي ونوع العقار والميزانية">Navigation structurée par quartier, type de bien et budget</span>
+          </div>
+          <div class="case-block-point">
+            <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="A neighbourhood guide helping newcomers discover the city's areas" data-fr="Un guide des quartiers aidant les nouveaux arrivants à découvrir la ville" data-ar="دليل أحياء يساعد القادمين الجدد على اكتشاف مناطق المدينة">Un guide des quartiers aidant les nouveaux arrivants à découvrir la ville</span>
+          </div>
+          <div class="case-block-point">
+            <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="A CMS letting the team update listings, photos, and pricing without code" data-fr="Un CMS permettant à l'équipe de mettre à jour annonces, photos et prix sans code" data-ar="نظام إدارة محتوى يتيح للفريق تحديث العروض والصور والأسعار دون كود">Un CMS permettant à l'équipe de mettre à jour annonces, photos et prix sans code</span>
+          </div>
+        </div>
+        <a href="/el-majdoub" class="case-block-link" data-en="Read the El Majdoub case study &rarr;" data-fr="Lire l'étude de cas El Majdoub &rarr;" data-ar="اقرأ دراسة حالة El Majdoub &larr;">Lire l'étude de cas El Majdoub →</a>
+      </div>
+    </div>
+
+    <div class="section-cta-bar reveal" style="text-align:center; margin-top:56px;">
+      <a href="/projects" class="btn-primary" data-en="View all projects" data-fr="Voir tous les projets" data-ar="عرض كل المشاريع">Voir tous les projets</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TECHNICAL CAPABILITIES ════ -->
+<section class="svc-section" id="technique">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="The <em>technical</em> side"
+      data-fr="Le volet <em>technique</em>"
+      data-ar="الجانب <em>التقني</em>">Le volet <em>technique</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Property platforms carry more content and more media than a standard site. These are the choices that keep them fast and manageable."
+      data-fr="Les plateformes immobilières portent plus de contenu et de médias qu'un site classique. Voici les choix qui les gardent rapides et gérables."
+      data-ar="تحمل المنصات العقارية محتوى ووسائط أكثر من الموقع العادي. هذه الخيارات تبقيها سريعة وسهلة الإدارة.">Les plateformes immobilières portent plus de contenu et de médias qu'un site classique. Voici les choix qui les gardent rapides et gérables.</p>
+
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <h3 class="svc-card-title">Next.js</h3>
+        <p class="svc-card-desc"
+          data-en="The framework behind Maison Monchef, chosen for content-heavy sites that need to stay fast as listings grow."
+          data-fr="Le framework derrière Maison Monchef, choisi pour les sites riches en contenu qui doivent rester rapides à mesure que les annonces s'accumulent."
+          data-ar="الإطار المستخدم في Maison Monchef، اختير للمواقع الغنية بالمحتوى التي يجب أن تبقى سريعة مع تزايد العروض.">Le framework derrière Maison Monchef, choisi pour les sites riches en contenu qui doivent rester rapides à mesure que les annonces s'accumulent.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Headless CMS" data-fr="CMS Headless" data-ar="نظام إدارة محتوى">CMS Headless</h3>
+        <p class="svc-card-desc"
+          data-en="Sanity, with the content model shaped around your inventory so the studio interface stays clean for non-technical editors."
+          data-fr="Sanity, avec un modèle de contenu façonné autour de votre portefeuille pour que l'interface reste claire pour des éditeurs non techniques."
+          data-ar="Sanity، بنموذج محتوى مصمم حول محفظتك ليبقى الواجهة واضحة للمحررين غير التقنيين.">Sanity, avec un modèle de contenu façonné autour de votre portefeuille pour que l'interface reste claire pour des éditeurs non techniques.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="Deployment &amp; Domains" data-fr="Déploiement &amp; Domaines" data-ar="النشر والنطاقات">Déploiement &amp; Domaines</h3>
+        <p class="svc-card-desc"
+          data-en="Vercel deployment with domain, DNS, mail routing, and SSL handled end to end, including migration from an existing setup without downtime."
+          data-fr="Déploiement Vercel avec domaine, DNS, routage e-mail et SSL gérés de bout en bout, migration depuis une installation existante comprise, sans interruption."
+          data-ar="نشر على Vercel مع النطاق وDNS وتوجيه البريد وSSL، بما في ذلك الترحيل من إعداد قائم دون انقطاع.">Déploiement Vercel avec domaine, DNS, routage e-mail et SSL gérés de bout en bout, migration depuis une installation existante comprise, sans interruption.</p>
+      </div>
+      <div class="svc-card">
+        <h3 class="svc-card-title" data-en="On-Page SEO" data-fr="SEO On-Page" data-ar="تحسين محركات البحث">SEO On-Page</h3>
+        <p class="svc-card-desc"
+          data-en="Structured headings, meta tags, Open Graph, page speed work, and a sitemap ship with every project as standard."
+          data-fr="Titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap sont livrés en standard avec chaque projet."
+          data-ar="عناوين منظمة، ووسوم ميتا، وOpen Graph، وتحسين السرعة، وخريطة موقع، تُسلَّم افتراضياً مع كل مشروع.">Titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap sont livrés en standard avec chaque projet.</p>
+      </div>
+    </div>
+
+    <p class="svc-band-note reveal"
+      data-en="Working remotely with an agency abroad? See how we run <a href='/international-web-design' style='color:#fff;text-decoration:underline;text-decoration-color:rgba(59,130,246,0.5);text-underline-offset:3px;'>international projects</a>."
+      data-fr="Vous êtes une agence à l'étranger ? Voir comment nous menons les <a href='/international-web-design' style='color:#fff;text-decoration:underline;text-decoration-color:rgba(59,130,246,0.5);text-underline-offset:3px;'>projets internationaux</a>."
+      data-ar="هل أنت وكالة في الخارج؟ اطّلع على كيفية إدارتنا <a href='/international-web-design' style='color:#fff;text-decoration:underline;text-decoration-color:rgba(59,130,246,0.5);text-underline-offset:3px;'>المشاريع الدولية</a>.">Vous êtes une agence à l'étranger ? Voir comment nous menons les <a href="/international-web-design" style="color:#fff;text-decoration:underline;text-decoration-color:rgba(59,130,246,0.5);text-underline-offset:3px;">projets internationaux</a>.</p>
+  </div>
+</section>
+
+<!-- ════ PROCESS ════ -->
+<section class="svc-section svc-section--tint" id="process">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="How a property project <em>runs</em>"
+      data-fr="Comment se déroule un projet <em>immobilier</em>"
+      data-ar="كيف يسير المشروع <em>العقاري</em>">Comment se déroule un projet <em>immobilier</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Four stages, whether you're an agency in Morocco or a developer abroad."
+      data-fr="Quatre étapes, que vous soyez une agence au Maroc ou un promoteur à l'étranger."
+      data-ar="أربع مراحل، سواء كنت وكالة في المغرب أو مطوراً في الخارج.">Quatre étapes, que vous soyez une agence au Maroc ou un promoteur à l'étranger.</p>
+
+    <div class="process-mini-grid reveal">
+      <div class="process-mini-step">
+        <div class="process-mini-num">01</div>
+        <div class="process-mini-title" data-en="Inventory &amp; Discovery" data-fr="Portefeuille &amp; Découverte" data-ar="المحفظة والاستكشاف">Portefeuille &amp; Découverte</div>
+        <p class="process-mini-desc"
+          data-en="We map your property types, how your clients search, and which languages the site needs to cover."
+          data-fr="Nous cartographions vos types de biens, la façon dont vos clients cherchent, et les langues que le site doit couvrir."
+          data-ar="نرسم أنواع عقاراتك، وطريقة بحث عملائك، واللغات التي يجب أن يغطيها الموقع.">Nous cartographions vos types de biens, la façon dont vos clients cherchent, et les langues que le site doit couvrir.</p>
+      </div>
+      <div class="process-mini-step">
+        <div class="process-mini-num">02</div>
+        <div class="process-mini-title" data-en="Content Model &amp; Design" data-fr="Modèle de Contenu &amp; Design" data-ar="نموذج المحتوى والتصميم">Modèle de Contenu &amp; Design</div>
+        <p class="process-mini-desc"
+          data-en="We structure the listing data model, then design the interface in Figma around it, reviewed together before any code."
+          data-fr="Nous structurons le modèle de données des annonces, puis concevons l'interface dans Figma autour, revue ensemble avant tout code."
+          data-ar="نبني نموذج بيانات العروض، ثم نصمم الواجهة في فيجما حوله، ونراجعها معاً قبل أي كود.">Nous structurons le modèle de données des annonces, puis concevons l'interface dans Figma autour, revue ensemble avant tout code.</p>
+      </div>
+      <div class="process-mini-step">
+        <div class="process-mini-num">03</div>
+        <div class="process-mini-title" data-en="Build &amp; CMS Setup" data-fr="Développement &amp; CMS" data-ar="التطوير ونظام المحتوى">Développement &amp; CMS</div>
+        <p class="process-mini-desc"
+          data-en="Development plus CMS configuration, so your team can load and manage listings before launch, not after."
+          data-fr="Développement et configuration du CMS, pour que votre équipe puisse charger et gérer les annonces avant le lancement, pas après."
+          data-ar="التطوير مع إعداد نظام المحتوى، ليتمكن فريقك من إدخال العروض وإدارتها قبل الإطلاق لا بعده.">Développement et configuration du CMS, pour que votre équipe puisse charger et gérer les annonces avant le lancement, pas après.</p>
+      </div>
+      <div class="process-mini-step">
+        <div class="process-mini-num">04</div>
+        <div class="process-mini-title" data-en="Launch &amp; Handover" data-fr="Lancement &amp; Transmission" data-ar="الإطلاق والتسليم">Lancement &amp; Transmission</div>
+        <p class="process-mini-desc"
+          data-en="Deployment, domain, and DNS handled for you, with 30 days of post-launch support and full access handed over."
+          data-fr="Déploiement, domaine et DNS gérés pour vous, avec 30 jours de support après lancement et remise de tous les accès."
+          data-ar="النشر والنطاق وDNS نتولاها عنك، مع 30 يوماً من الدعم بعد الإطلاق وتسليم كامل الصلاحيات.">Déploiement, domaine et DNS gérés pour vous, avec 30 jours de support après lancement et remise de tous les accès.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+  <div class="faq-inner">
+
+    <div class="faq-left reveal">
+      <div class="faq-label"><span class="faq-label-dot"></span> <span data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</span></div>
+      <h2 class="faq-title"
+        data-en="Questions about <em>property</em> websites?"
+        data-fr="Des questions sur les sites <em>immobiliers</em> ?"
+        data-ar="أسئلة حول المواقع <em>العقارية</em>؟">Des questions sur les sites <em>immobiliers</em> ?</h2>
+      <p class="faq-subtitle"
+        data-en="What agencies, property managers, and developers usually ask us first."
+        data-fr="Ce que les agences, gestionnaires de biens et promoteurs nous demandent en premier."
+        data-ar="ما تسألنا عنه الوكالات ومديرو الأملاك والمطورون أولاً.">Ce que les agences, gestionnaires de biens et promoteurs nous demandent en premier.</p>
+    </div>
+
+    <div class="faq-list reveal" id="faqList">
+      <div class="faq-item open">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Can we manage our property listings ourselves?"
+            data-fr="Pouvons-nous gérer nos annonces immobilières nous-mêmes ?"
+            data-ar="هل يمكننا إدارة عروضنا العقارية بأنفسنا؟">Pouvons-nous gérer nos annonces immobilières nous-mêmes ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. On both Maison Monchef and El Majdoub Immobilier we set up a CMS letting the team add properties, change prices, and update photos without touching code."
+            data-fr="Oui. Sur Maison Monchef comme sur El Majdoub Immobilier, nous avons mis en place un CMS permettant à l'équipe d'ajouter des biens, de modifier les prix et de mettre à jour les photos sans toucher au code."
+            data-ar="نعم. في Maison Monchef وEl Majdoub Immobilier، أعددنا نظام إدارة محتوى يتيح للفريق إضافة العقارات وتغيير الأسعار وتحديث الصور دون لمس الكود.">Oui. Sur Maison Monchef comme sur El Majdoub Immobilier, nous avons mis en place un CMS permettant à l'équipe d'ajouter des biens, de modifier les prix et de mettre à jour les photos sans toucher au code.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Can you build a multilingual property website?"
+            data-fr="Pouvez-vous construire un site immobilier multilingue ?"
+            data-ar="هل يمكنكم بناء موقع عقاري متعدد اللغات؟">Pouvez-vous construire un site immobilier multilingue ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. Maison Monchef ships in French, English, and Arabic, with a localised content model in Sanity and native right-to-left layout support for Arabic."
+            data-fr="Oui. Maison Monchef est livré en français, anglais et arabe, avec un modèle de contenu localisé dans Sanity et un support natif de la mise en page droite-à-gauche pour l'arabe."
+            data-ar="نعم. يُقدَّم Maison Monchef بالفرنسية والإنجليزية والعربية، بنموذج محتوى مترجم في Sanity ودعم أصلي لتخطيط اليمين لليسار للعربية.">Oui. <a href="/maison-monchef" style="color:#d4d4d4;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:3px;">Maison Monchef</a> est livré en français, anglais et arabe, avec un modèle de contenu localisé dans Sanity et un support natif de la mise en page droite-à-gauche pour l'arabe.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="What search features can you implement?"
+            data-fr="Quelles fonctions de recherche pouvez-vous mettre en place ?"
+            data-ar="ما وظائف البحث التي يمكنكم تنفيذها؟">Quelles fonctions de recherche pouvez-vous mettre en place ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Search structured around how people actually look: by neighbourhood, property type, and budget, as on El Majdoub Immobilier, with listings showing photo, price, and key details at a glance."
+            data-fr="Une recherche structurée autour de la façon dont les gens cherchent réellement : par quartier, type de bien et budget, comme sur El Majdoub Immobilier, avec des annonces présentant photo, prix et informations clés dès le premier coup d'œil."
+            data-ar="بحث منظم حول طريقة البحث الفعلية: حسب الحي ونوع العقار والميزانية، كما في El Majdoub Immobilier، مع عروض تُظهر الصورة والسعر والتفاصيل الأساسية بلمحة.">Une recherche structurée autour de la façon dont les gens cherchent réellement : par quartier, type de bien et budget, comme sur <a href="/el-majdoub" style="color:#d4d4d4;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:3px;">El Majdoub Immobilier</a>, avec des annonces présentant photo, prix et informations clés dès le premier coup d'œil.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="How long does a real estate project take?"
+            data-fr="Combien de temps prend un projet immobilier ?"
+            data-ar="كم يستغرق المشروع العقاري؟">Combien de temps prend un projet immobilier ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Usually 2 to 4 weeks after design sign-off. A multilingual platform with a structured content model, like Maison Monchef, sits closer to the 4 to 6 week range."
+            data-fr="En général 2 à 4 semaines après validation du design. Une plateforme multilingue avec un modèle de contenu structuré, comme Maison Monchef, se situe plutôt dans la fourchette 4 à 6 semaines."
+            data-ar="عادة 2 إلى 4 أسابيع بعد اعتماد التصميم. المنصة متعددة اللغات بنموذج محتوى منظم، مثل Maison Monchef، أقرب إلى 4-6 أسابيع.">En général 2 à 4 semaines après validation du design. Une plateforme multilingue avec un modèle de contenu structuré, comme Maison Monchef, se situe plutôt dans la fourchette 4 à 6 semaines.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Do you handle hosting and the domain name?"
+            data-fr="Gérez-vous l'hébergement et le nom de domaine ?"
+            data-ar="هل تتولون الاستضافة واسم النطاق؟">Gérez-vous l'hébergement et le nom de domaine ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. For Maison Monchef, the Vercel deployment, domain, mail routing, DNS, and SSL were configured end to end, with a zero-downtime migration from the client's prior setup."
+            data-fr="Oui. Pour Maison Monchef, le déploiement sur Vercel, le domaine, le routage e-mail, les DNS et le SSL ont été configurés de bout en bout, avec une migration sans interruption depuis l'installation précédente du client."
+            data-ar="نعم. في Maison Monchef، تم إعداد النشر على Vercel والنطاق وتوجيه البريد وDNS وSSL بالكامل، مع ترحيل دون انقطاع من إعداد العميل السابق.">Oui. Pour Maison Monchef, le déploiement sur Vercel, le domaine, le routage e-mail, les DNS et le SSL ont été configurés de bout en bout, avec une migration sans interruption depuis l'installation précédente du client.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Do you work with real estate agencies outside Morocco?"
+            data-fr="Travaillez-vous avec des agences immobilières hors du Maroc ?"
+            data-ar="هل تعملون مع وكالات عقارية خارج المغرب؟">Travaillez-vous avec des agences immobilières hors du Maroc ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. Maison Monchef was built for a Dubai-based client entirely remotely: discovery, design, development, and launch."
+            data-fr="Oui. Maison Monchef a été conçu pour un client basé à Dubaï, entièrement à distance : découverte, design, développement et lancement."
+            data-ar="نعم. صُمم Maison Monchef لعميل مقيم في دبي بالكامل عن بُعد: الاستكشاف والتصميم والتطوير والإطلاق.">Oui. Maison Monchef a été conçu pour un client basé à Dubaï, entièrement à distance : découverte, design, développement et lancement.</p>
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+  </div><!-- /faq-inner -->
+
+  <div class="faq-mobile-cta-wrap">
+    <a href="/contact#cal-embed" class="faq-cta" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+  </div>
+
+  </div><!-- /container -->
+</section>
+
+<!-- ════ CLOSING CTA ════ -->
+<section class="svc-cta" id="lets-talk">
+  <div class="glow-circle glow-c" style="opacity:0.12; filter:blur(190px); width:700px; height:700px;"></div>
+  <div class="container">
+    <div class="reveal">
+      <h2 class="svc-cta-title" data-en="Let's Talk About Your Portfolio" data-fr="Parlons de Votre Portefeuille" data-ar="لنتحدث عن محفظتك">Parlons de Votre Portefeuille</h2>
+      <p class="svc-cta-sub"
+        data-en="Tell us how many properties you manage and how your clients search. We'll tell you what the site should do."
+        data-fr="Dites-nous combien de biens vous gérez et comment vos clients cherchent. Nous vous dirons ce que le site doit faire."
+        data-ar="أخبرنا كم عقاراً تدير وكيف يبحث عملاؤك. سنخبرك بما يجب أن يفعله الموقع.">Dites-nous combien de biens vous gérez et comment vos clients cherchent. Nous vous dirons ce que le site doit faire.</p>
+      <div class="svc-cta-actions">
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+        <a href="/contact" class="btn-secondary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer-section">
+  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="container">
+
+    <!-- Top: Contact CTA -->
+    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
+      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;"
+        data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
+      <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+    </div>
+
+    <!-- Middle: Logo + Socials -->
+    <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
+      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
+        <div class="footer-socials" style="display:flex; gap:12px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cities: local landing pages -->
+    <div class="footer-cities reveal">
+      <span class="footer-cities-label" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</span>
+      <div class="footer-cities-links">
+        <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+        <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+        <a href="/creation-site-web-agadir" data-en="Website design Agadir" data-fr="Création site web Agadir" data-ar="تصميم مواقع الويب بأكادير">Création site web Agadir</a>
+        <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+        <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+        <a href="/creation-site-web-fes" data-en="Website design Fès" data-fr="Création site web Fès" data-ar="تصميم مواقع الويب بفاس">Création site web Fès</a>
+        <a href="/creation-site-web-essaouira" data-en="Website design Essaouira" data-fr="Création site web Essaouira" data-ar="تصميم مواقع الويب بالصويرة">Création site web Essaouira</a>
+        <a href="/creation-site-web-kenitra" data-en="Website design Kénitra" data-fr="Création site web Kénitra" data-ar="تصميم مواقع الويب بالقنيطرة">Création site web Kénitra</a>
+        <a href="/creation-site-web-oujda" data-en="Website design Oujda" data-fr="Création site web Oujda" data-ar="تصميم مواقع الويب بوجدة">Création site web Oujda</a>
+      </div>
+    </div>
+
+    <!-- Bottom: Legal -->
+    <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
+      <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. Tous droits réservés.</p>
+      <div class="footer-legal" style="display:flex; gap:24px;">
+        <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+        <a href="/real-estate-web-design" aria-current="page" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Immobilier</a>
+        <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourisme</a>
+        <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
+        <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
+        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
+        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ════ WA FLOAT ════ -->
+<a href="https://wa.me/212716490397?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20real%20estate%20website." data-wa-type="generic" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-float-label" data-en="Get a Free Quote" data-fr="Devis Gratuit" data-ar="احصل على عرض مجاني">Devis Gratuit</span>
+  <div class="wa-float-btn">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.1 1.519 5.832L0 24l6.335-1.493A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.359-.214-3.72.876.893-3.619-.234-.372A9.818 9.818 0 1112 21.818z"/></svg>
+  </div>
+</a>
+
+<script>
+/* ══ FAQ accordion — one open at a time (mirrors index-main.js) ══ */
+document.querySelectorAll('.faq-question').forEach(function (q) {
+  q.addEventListener('click', function () {
+    var item = q.closest('.faq-item');
+    if (!item) return;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function (el) { el.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+
+<script defer src="assets/site-chrome.js"></script>
+<script defer src="assets/starfield.js"></script>
+</body>
+</html>

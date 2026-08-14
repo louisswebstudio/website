@@ -38,6 +38,9 @@
 </noscript>
 <script defer src="assets/fonts.js"></script>
 
+<!-- Resolves light/dark and sets data-theme on <html> BEFORE any CSS paints.
+     Not deferred on purpose — deferring it would paint dark then snap to light. -->
+<script src="assets/theme-init.js"></script>
 
 <style>
 /* ─── RESET ─────────────────────────────────────────── */
@@ -259,6 +262,9 @@ nav {
   max-width: 560px;
   margin: 0 auto;
 }
+.projects-page-niches { font-size: 16px; color: #a3a3a3; line-height: 1.7; text-align: center; max-width: 620px; margin: 14px auto 0; }
+.projects-page-niches a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.projects-page-niches a:hover { text-decoration-color: var(--blue); }
 
 /* ─── WORK SECTION ───────────────────────────────────── */
 .work-section {
@@ -670,6 +676,10 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
 }
 </style>
 <link rel="stylesheet" href="assets/section-headings.css">
+<!-- Light mode. Shared with index.html; every rule is scoped to
+     html[data-theme="light"] so this file is inert in dark mode. Loaded after
+     the inline <style> block above, which it overrides on specificity. -->
+<link rel="stylesheet" href="assets/theme.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -799,6 +809,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
     </div>
     <div class="nav-right">
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). Labels are set and localised by theme-toggle.js. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
       <div class="lang-switcher" id="langSwitcher">
         <div class="lang-btn" onclick="toggleLang()">
           <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
@@ -834,6 +856,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/projects"           class="mobile-menu-link" data-en="Projects"   data-fr="Projets" data-ar="المشاريع">Projects</a>
     <a href="/#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+
+    <!-- Theme toggle (mobile nav). Shares the .theme-toggle class with the
+         navbar button so theme-toggle.js binds and syncs both. -->
+    <div class="theme-toggle-row">
+      <span class="theme-toggle-label">Dark mode</span>
+      <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </div>
   </div>
   <div class="menu-bottom">
     <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
@@ -851,6 +888,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       data-en="Real websites built to bring you clients, from Figma to live in 7 to 14 days."
       data-fr="Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées."
       data-ar="كل مشروع مصمم لبناء الثقة وتوضيح عرضك وتحويل زوارك إلى طلبات مؤهلة.">Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées.</p>
+    <p class="projects-page-niches reveal"
+      data-en="Looking for a specific sector? See our work in <a href='/real-estate-web-design'>real estate</a>, <a href='/tourism-web-design'>tourism and travel</a>, or for <a href='/international-web-design'>international clients</a>."
+      data-fr="Vous cherchez un secteur précis ? Voir notre travail en <a href='/real-estate-web-design'>immobilier</a>, en <a href='/tourism-web-design'>tourisme</a>, ou pour des <a href='/international-web-design'>clients internationaux</a>."
+      data-ar="تبحث عن قطاع محدد؟ اطّلع على أعمالنا في <a href='/real-estate-web-design'>العقار</a> و<a href='/tourism-web-design'>السياحة</a>، أو مع <a href='/international-web-design'>عملاء دوليين</a>.">Vous cherchez un secteur précis ? Voir notre travail en <a href="/real-estate-web-design">immobilier</a>, en <a href="/tourism-web-design">tourisme</a>, ou pour des <a href="/international-web-design">clients internationaux</a>.</p>
   </div>
 </section>
 
@@ -1150,7 +1191,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
-        <a href="/tarifs" data-en="Pricing" data-fr="Packages" data-ar="الأسعار">Packages</a>
+        <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
         <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
@@ -1310,6 +1351,9 @@ document.querySelectorAll('.faq-question').forEach(function(q) {
 </script>
 
 <script defer src="assets/starfield.js"></script>
+<!-- Toggle behaviour + cookie persistence. Deferred: the theme itself was
+     already applied pre-paint by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 
 </body>
 </html>

@@ -84,6 +84,11 @@
 </noscript>
 <script defer src="assets/fonts.js"></script>
 
+<!-- Resolves light/dark and sets data-theme on <html> BEFORE the stylesheets
+     paint. Intentionally not deferred: deferring it would paint the dark theme
+     first and then snap to light. External (not inline) because this page's CSP
+     has no 'unsafe-inline' in script-src. -->
+<script src="assets/theme-init.js"></script>
 
 <!-- Critical above-the-fold CSS (nav, hero, mobile menu hidden state) blocks
      render but is small; the full site.css loads without blocking first paint
@@ -92,6 +97,12 @@
 <link rel="stylesheet" href="assets/section-headings.css">
 <link rel="stylesheet" href="assets/site.css" media="print" data-async-css>
 <noscript><link rel="stylesheet" href="assets/site.css"></noscript>
+<!-- Light mode. Render-blocking (not async like site.css) so the light palette
+     is present on the first paint and the page never flashes dark first. Every
+     rule inside is scoped to html[data-theme="light"], so this file is inert
+     for dark-mode visitors. See assets/theme-init.js for how the attribute is
+     set before paint. -->
+<link rel="stylesheet" href="assets/theme.css">
 <!-- Structured data: tells Google this domain IS the "Louiss Web Studio" brand,
      links the Instagram profile as the same entity (sameAs), and exposes the
      business name/logo/area served for branded search + knowledge panel. -->
@@ -312,7 +323,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo"><img src="logo.png" alt="Louiss Web Studio" width="3560" height="653"></a>
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Louiss Web Studio" width="3560" height="653" class="logo-img-dark">
+      <img src="logo-black.png" alt="Louiss Web Studio" width="3560" height="653" class="logo-img-light">
+    </a>
 
     <div class="nav-links">
       <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
@@ -321,6 +335,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="nav-right">
+
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). aria-label / aria-pressed are kept in sync by
+           assets/theme-toggle.js, which also localises them. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
 
       <!-- Language Switcher -->
       <div class="lang-switcher" id="langSwitcher">
@@ -366,7 +393,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
     <a href="#" class="mob-overlay-logo" aria-label="Home">
-      <img src="logo.png" alt="Logo" width="109" height="20" loading="lazy" class="mob-logo-img">
+      <img src="logo.png" alt="Logo" width="109" height="20" loading="lazy" class="mob-logo-img logo-img-dark">
+      <img src="logo-black.png" alt="Logo" width="109" height="20" loading="lazy" class="mob-logo-img logo-img-light">
     </a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
@@ -374,6 +402,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
     <a href="#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"    data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+
+    <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+         button, so assets/theme-toggle.js binds both and keeps them in sync.
+         The label text is set from JS to match the active language. -->
+    <div class="theme-toggle-row">
+      <span class="theme-toggle-label">Dark mode</span>
+      <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </div>
   </div>
   <div class="menu-bottom">
     <a href="/contact#cal-embed" class="mobile-menu-cta"
@@ -446,6 +490,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="work-h-see" data-en="See Our Latest Creative " data-fr="Des sites qui génèrent des " data-ar="مواقع تجلب ">Des sites qui génèrent des </span><span class="work-h-accent" data-en="Websites" data-fr="clients" data-ar="العملاء">clients</span>
     </div>
     <p class="work-desc" data-en="From Figma to live in 7 to 14 days. Real websites built to bring you clients." data-fr="Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées." data-ar="كل مشروع مصمم لبناء الثقة وتوضيح عرضك وتحويل زوارك إلى طلبات مؤهلة.">Chaque projet est pensé pour inspirer confiance, clarifier votre offre et transformer vos visiteurs en demandes qualifiées.</p>
+    <p class="work-desc"
+      data-en="Based in Tanger, we also build for clients abroad — like <a href='/maison-monchef'>Maison Monchef</a>, a multilingual real estate platform for a Dubai-based client."
+      data-fr="Basés à Tanger, nous concevons aussi pour des clients à l'étranger — comme <a href='/maison-monchef'>Maison Monchef</a>, une plateforme immobilière multilingue pour un client basé à Dubaï."
+      data-ar="من طنجة، نصمم أيضاً لعملاء في الخارج — مثل <a href='/maison-monchef'>ميزون مونشيف</a>، منصة عقارية متعددة اللغات لعميل مقيم في دبي.">Basés à Tanger, nous concevons aussi pour des clients à l'étranger — comme <a href="/maison-monchef">Maison Monchef</a>, une plateforme immobilière multilingue pour un client basé à Dubaï.</p>
   </div>
   <!-- Portfolio Bento Grid — exact Figma layout -->
   <div class="bento-grid">
@@ -945,7 +993,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Middle: Logo + Nav + Socials -->
     <div class="footer-mid reveal">
-      <a href="#" class="logo"><img src="logo.png" alt="Louiss Web Studio" width="3560" height="653" loading="lazy"></a>
+      <a href="#" class="logo">
+        <img src="logo.png" alt="Louiss Web Studio" width="3560" height="653" loading="lazy" class="logo-img-dark">
+        <img src="logo-black.png" alt="Louiss Web Studio" width="3560" height="653" loading="lazy" class="logo-img-light">
+      </a>
       <div class="footer-mid-actions">
 <div class="footer-socials">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -979,7 +1030,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <div class="footer-legal">
         <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
-        <a href="/tarifs" data-en="Pricing" data-fr="Packages" data-ar="الأسعار">Packages</a>
+        <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+        <a href="/real-estate-web-design" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Real Estate</a>
+        <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourism</a>
+        <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
         <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
@@ -991,6 +1045,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script defer src="assets/index-main.js"></script>
 <script defer src="assets/index-lang.js"></script>
+<!-- Toggle behaviour + cookie persistence. Deferred: the theme itself was
+     already applied pre-paint by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 
 <!-- ── FLOATING WHATSAPP BUTTON ── -->
 <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20a%20website%20that%20can%20bring%20me%20clients.%20Can%20you%20show%20me%20how%20you%20would%20do%20it%3F" data-wa-type="hero" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">

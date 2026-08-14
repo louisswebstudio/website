@@ -33,12 +33,33 @@ car rental agencies, real estate, e-commerce, travel and tourism.
 ## Pages
 
 - Homepage: https://www.louisswebstudio.com
-- Services (agencies and direct clients abroad): https://www.louisswebstudio.com/services.html
-- Pricing: https://www.louisswebstudio.com/tarifs.html
-- Projects: https://www.louisswebstudio.com/projects.html
-- Création site web Casablanca (French, local): https://www.louisswebstudio.com/creation-site-web-casablanca
+- Services (agencies and direct clients abroad): https://www.louisswebstudio.com/services
+- International web design and development (remote work with clients abroad): https://www.louisswebstudio.com/international-web-design
+- Pricing: https://www.louisswebstudio.com/tarifs
+- Projects: https://www.louisswebstudio.com/projects
+- Contact: https://www.louisswebstudio.com/contact
 - Blog: https://www.louisswebstudio.com/blog/
-- Contact: https://www.louisswebstudio.com/contact.html
+
+### City landing pages (French, local SEO)
+
+- Agadir: https://www.louisswebstudio.com/creation-site-web-agadir
+- Casablanca: https://www.louisswebstudio.com/creation-site-web-casablanca
+- Essaouira: https://www.louisswebstudio.com/creation-site-web-essaouira
+- Fès: https://www.louisswebstudio.com/creation-site-web-fes
+- Kénitra: https://www.louisswebstudio.com/creation-site-web-kenitra
+- Marrakech: https://www.louisswebstudio.com/creation-site-web-marrakech
+- Oujda: https://www.louisswebstudio.com/creation-site-web-oujda
+- Rabat: https://www.louisswebstudio.com/creation-site-web-rabat
+- Tanger: https://www.louisswebstudio.com/creation-site-web-tanger
+
+### Case studies
+
+- Maison Monchef (multilingual real estate platform, Dubai): https://www.louisswebstudio.com/maison-monchef
+- El Majdoub Immobilier (real estate rental, Agadir): https://www.louisswebstudio.com/el-majdoub
+- Adventure Keys (travel and tourism): https://www.louisswebstudio.com/adventure-keys
+- Agadir Transfer (airport transfer booking): https://www.louisswebstudio.com/agadir-transfer
+- Digiseo (SEO agency): https://www.louisswebstudio.com/digiseo
+- Supreme Toiture (roofing company): https://www.louisswebstudio.com/supreme-toiture
 
 ## Location
 
@@ -46,4 +67,4 @@ Morocco. Serves clients across Morocco and international clients remotely.
 
 ## Contact
 
-WhatsApp and contact form available at https://www.louisswebstudio.com/contact.html
+WhatsApp and contact form available at https://www.louisswebstudio.com/contact

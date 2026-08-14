@@ -411,6 +411,9 @@ html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unse
 .work-desc {
   font-size: 18px; color: #d4d4d8; line-height: 29.25px; max-width: 520px;
 }
+.work-desc a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.work-desc a:hover { text-decoration-color: #3b82f6; }
+.work-desc + .work-desc { margin-top: 12px; }
 
 /* ── PORTFOLIO BENTO GRID ── */
 .bento-grid {
@@ -3698,3 +3701,8 @@ html[lang="fr"] .hero .hero-h1 {
   border-radius: 50%; display: block;
 }
 .bento-hover-img.is-static { opacity: 1; transform: none; }
+
+/* Inline links inside the city-page sector note (markup lives in each city
+   page's inline <style>; only the anchor treatment is shared here). */
+.svc-band-note a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.svc-band-note a:hover { text-decoration-color: var(--blue); }

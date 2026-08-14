@@ -33,6 +33,11 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
+
+<!-- Resolves light/dark and sets data-theme on <html> BEFORE any CSS paints.
+     Not deferred on purpose — deferring it would paint dark then snap to light. -->
+<script src="assets/theme-init.js"></script>
+
 <!-- Cal.com inline embed -->
 <script type="text/javascript">
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, [L, ar[1], ar[2]])} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
@@ -42,12 +47,27 @@
     calLink: "louiss-webstudio/15-min-meeting",
     layout: "month_view"
   });
+  // Cal.com's own theme is independent of the site's — match it to whatever
+  // assets/theme-init.js already resolved onto <html data-theme> so the booking
+  // iframe doesn't render dark inside a light page (or vice versa).
   Cal.ns.contact("ui", {
-    theme: "dark",
+    theme: document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark",
     styles: { branding: { brandColor: "#00C9A7" } },
     hideEventTypeDetails: false,
     layout: "month_view"
   });
+  // Keep the booking iframe in sync if the visitor flips the toggle after the
+  // embed has already loaded.
+  if (window.MutationObserver) {
+    new MutationObserver(function () {
+      Cal.ns.contact("ui", {
+        theme: document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark",
+        styles: { branding: { brandColor: "#00C9A7" } },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
   // Hide the loading skeleton once the Cal iframe is interactive (or on failure).
   var hideCalLoader = function () {
     var el = document.getElementById("cal-loading");
@@ -74,19 +94,41 @@ html { scroll-behavior: smooth; }
 .cal-wrap { position: relative; width: 100%; min-height: 600px; }
 #cal-loading {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 18px; background: #060607;
+  background: #060607; padding: 28px;
   transition: opacity .45s ease; z-index: 2;
 }
 #cal-loading.hidden { opacity: 0; pointer-events: none; }
-.cal-spinner {
-  width: 42px; height: 42px; border-radius: 50%;
-  border: 3px solid rgba(255,255,255,.12); border-top-color: #00C9A7;
-  animation: cal-spin .8s linear infinite;
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
-.cal-loading-text { color: #8a8a8a; font-size: .95rem; letter-spacing: .2px; }
-@keyframes cal-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .cal-spinner { animation-duration: 2s; } }
+.cal-skel {
+  display: grid; grid-template-columns: 220px 1fr 220px; gap: 32px;
+  height: 100%; max-width: 1100px; margin: 0 auto;
+}
+.cal-skel-info { display: flex; flex-direction: column; gap: 14px; padding-top: 8px; }
+.cal-skel-calendar { display: flex; flex-direction: column; }
+.cal-skel-slots { display: flex; flex-direction: column; gap: 10px; padding-top: 8px; overflow: hidden; max-height: 100%; }
+.cal-skel-line, .cal-skel-day, .cal-skel-slot {
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.12) 37%, rgba(255,255,255,.05) 63%);
+  background-size: 400% 100%;
+  animation: cal-shimmer 1.6s ease-in-out infinite;
+}
+.cal-skel-line { height: 12px; border-radius: 6px; }
+.cal-skel-line--sm { width: 40%; height: 10px; }
+.cal-skel-line--md { width: 45%; height: 18px; margin-bottom: 20px; }
+.cal-skel-line--lg { width: 75%; height: 20px; margin: 4px 0 8px; }
+.cal-skel-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.cal-skel-day { aspect-ratio: 1; }
+.cal-skel-slot { height: 40px; flex-shrink: 0; }
+@keyframes cal-shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .cal-skel-line, .cal-skel-day, .cal-skel-slot { animation: none; } }
+@media (max-width: 900px) {
+  .cal-skel { grid-template-columns: 1fr; gap: 20px; }
+  .cal-skel-info, .cal-skel-slots { display: none; }
+}
+html[dir="rtl"] .cal-skel { direction: rtl; }
 body {
   background: #060607;
   color: #fff;
@@ -520,6 +562,7 @@ footer { background: rgba(3,3,3,0.3); padding: 96px 0 0; position: relative; ove
 footer::before { content: ''; position: absolute; inset: 0; z-index: 0; background: rgba(6,6,7,0.2); pointer-events: none; }
 footer > * { position: relative; z-index: 1; }
 .footer-top { border-bottom: 1px solid rgba(38,38,38,0.6); padding-bottom: 40px; margin-bottom: 48px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+.footer-cta-h { font-family: 'Satoshi', 'Inter', sans-serif; font-size: clamp(36px, 6.5vw, 72px); font-weight: 700; color: #fff; letter-spacing: -0.033em; line-height: 1.333; }
 .footer-mid { display: flex; align-items: center; justify-content: space-between; padding: 0 0 40px; }
 .footer-socials { display: flex; gap: 8px; }
 .footer-social { color: #fff; text-decoration: none; transition: color .2s; }
@@ -597,6 +640,10 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   html[dir="rtl"] .footer-cities { flex-direction: column; align-items: flex-end; }
 }
 </style>
+<!-- Light mode. Shared with index.html/projects.html; every rule is scoped to
+     html[data-theme="light"] so this file is inert in dark mode. Loaded after
+     the inline <style> block above, which it overrides on specificity. -->
+<link rel="stylesheet" href="assets/theme.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -643,7 +690,7 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
 }
 </script>
 </head>
-<body>
+<body class="page-contact">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -658,13 +705,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo">
+      <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;" class="logo-img-dark">
+      <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;" class="logo-img-light">
+    </a>
     <div class="nav-links">
       <a href="/projects"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
       <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
       <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا" style="color:rgba(255,255,255,0.90);">Contact Us</a>
     </div>
     <div class="nav-right">
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). Labels are set and localised by theme-toggle.js. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
       <div class="lang-switcher" id="langSwitcher">
         <div class="lang-btn" onclick="toggleLang()">
           <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
@@ -693,13 +755,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="/" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Home">
+      <img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark">
+      <img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light">
+    </a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
     <a href="/projects"           class="mobile-menu-link" data-en="Projects"  data-fr="Projets" data-ar="المشاريع">Projects</a>
     <a href="/#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"   data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+
+    <!-- Theme toggle (mobile nav). Shares the .theme-toggle class with the
+         navbar button so theme-toggle.js binds and syncs both. -->
+    <div class="theme-toggle-row">
+      <span class="theme-toggle-label">Dark mode</span>
+      <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </div>
   </div>
   <div class="menu-bottom">
     <a href="#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
@@ -731,10 +811,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="cal-wrap">
       <div id="cal-embed" style="width:100%;min-height:600px;"></div>
-      <div id="cal-loading">
-        <div class="cal-spinner" aria-hidden="true"></div>
-        <p class="cal-loading-text" data-en="Loading the booking calendar…" data-fr="Chargement du calendrier de réservation…" data-ar="جارٍ تحميل تقويم الحجز…">Loading the booking calendar…</p>
+      <div id="cal-loading" role="status" aria-live="polite">
+        <span class="sr-only" data-en="Loading the booking calendar…" data-fr="Chargement du calendrier de réservation…" data-ar="جارٍ تحميل تقويم الحجز…">Loading the booking calendar…</span>
+        <div class="cal-skel" aria-hidden="true">
+          <div class="cal-skel-info">
+            <div class="cal-skel-line cal-skel-line--sm"></div>
+            <div class="cal-skel-line cal-skel-line--lg"></div>
+            <div class="cal-skel-line" style="width:88%"></div>
+            <div class="cal-skel-line" style="width:70%"></div>
+            <div class="cal-skel-line" style="width:55%"></div>
+          </div>
+          <div class="cal-skel-calendar">
+            <div class="cal-skel-line cal-skel-line--md"></div>
+            <div class="cal-skel-grid" id="calSkelGrid"></div>
+          </div>
+          <div class="cal-skel-slots" id="calSkelSlots">
+            <div class="cal-skel-line cal-skel-line--md"></div>
+          </div>
+        </div>
       </div>
+      <script>
+        (function () {
+          var grid = document.getElementById("calSkelGrid");
+          for (var i = 0; i < 35; i++) grid.appendChild(document.createElement("span")).className = "cal-skel-day";
+          var slots = document.getElementById("calSkelSlots");
+          for (var j = 0; j < 7; j++) slots.appendChild(document.createElement("span")).className = "cal-skel-slot";
+        })();
+      </script>
     </div>
   </div>
 </section>
@@ -743,14 +846,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer class="footer-section">
   <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
   <div class="container">
-    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
+    <div class="footer-top reveal" style="padding-bottom:48px;">
+      <div class="footer-cta-h" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
       <div style="display:flex; gap:8px; align-items:center;">
         <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20to%20start%20a%20project." data-wa-type="generic" target="_blank" rel="noopener" class="btn-primary" data-en="Contact Us on WhatsApp" data-fr="Contactez-nous sur WhatsApp" data-ar="تواصل معنا عبر واتساب">Contact Us on WhatsApp</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="/" class="logo">
+        <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;" class="logo-img-dark">
+        <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;" class="logo-img-light">
+      </a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -779,11 +885,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
+    <div class="footer-bottom reveal" style="flex-wrap:wrap; gap:12px;">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
-        <a href="/tarifs" data-en="Pricing" data-fr="Packages" data-ar="الأسعار">Packages</a>
+        <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
         <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
@@ -1039,5 +1145,8 @@ document.querySelectorAll('.cs-faq-q').forEach(function(q) {
   if (reducedMotion) { drawStatic(); } else { requestAnimationFrame(animate); }
 })();
 </script>
+<!-- Theme toggle wiring (click handling + persistence). The initial theme was
+     already applied pre-paint by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 </body>
 </html>
