@@ -123,13 +123,17 @@ html[data-theme="light"] .hamburger-bar { background: var(--l-text); }
    Two <img> per logo slot (nav, mobile overlay, footer): logo.png is tuned
    for the dark background, logo-black.png for white/off-white. Same swap
    mechanism as the theme-toggle sun/moon icons below — only one is ever
-   visible, so no JS is needed and the accessible alt text stays put. */
+   visible, so no JS is needed and the accessible alt text stays put.
+
+   !important is load-bearing here, not defensive: outside index.html the logo
+   <img> carries an inline style="...display:block" for sizing, and an inline
+   declaration outranks any selector. Without it both logos paint at once. */
 .logo .logo-img-light,
-.mob-overlay-logo .logo-img-light { display: none; }
+.mob-overlay-logo .logo-img-light { display: none !important; }
 html[data-theme="light"] .logo .logo-img-dark,
-html[data-theme="light"] .mob-overlay-logo .logo-img-dark { display: none; }
+html[data-theme="light"] .mob-overlay-logo .logo-img-dark { display: none !important; }
 html[data-theme="light"] .logo .logo-img-light,
-html[data-theme="light"] .mob-overlay-logo .logo-img-light { display: block; }
+html[data-theme="light"] .mob-overlay-logo .logo-img-light { display: block !important; }
 
 /* ══ THEME TOGGLE ════════════════════════════════════════════════════════ */
 
@@ -719,3 +723,307 @@ html.theme-transition *::after {
     transition: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SITE-WIDE COVERAGE — city, service, niche, case-study, pricing and legal
+   pages. All of these load assets/site.css, so the nav / footer / mobile menu
+   / button / FAQ rules above already reach them; what follows is only the
+   components declared in each page's own inline <style> block.
+
+   Those inline blocks re-declare some shared components (nav, footer) at
+   single-class specificity, which the html[data-theme="light"] prefix still
+   outranks — no !important needed except where the source used it.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ══ PAGE HEROES (city + niche pages) ═════════════════════════════════════
+   The hero sits on a dark photo behind a near-opaque scrim. Repainting the
+   scrim in the page background keeps the photo as a faint texture; simply
+   lowering its opacity would leave a muddy grey wash instead. Each page sets
+   its own image, so only the gradient stops are restated here. */
+html[data-theme="light"] .city-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Opaque enough to stop the niche-page heroes (which use project
+     screenshots) ghosting their own text behind the headline, while the city
+     photos still read as a faint texture. */
+  background: linear-gradient(rgba(246,247,249,0.945), rgba(246,247,249,0.965));
+  pointer-events: none;
+  z-index: 0;
+}
+html[data-theme="light"] .city-page-title,
+html[data-theme="light"] .projects-page-title { color: var(--l-text); }
+html[data-theme="light"] .city-page-title .accent,
+html[data-theme="light"] .svc-band-title em,
+html[data-theme="light"] .pricing-h em,
+html[data-theme="light"] .cs-faq-title em {
+  background: linear-gradient(to right, #1e40af, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+html[data-theme="light"] .city-hero-lead,
+html[data-theme="light"] .projects-page-sub { color: var(--l-text-soft); }
+html[data-theme="light"] .projects-page-niches { color: var(--muted); }
+
+/* ══ SECTION BANDS + HEADINGS (shared shell) ═════════════════════════════ */
+html[data-theme="light"] .svc-section--tint {
+  background: var(--l-bg-band);
+  border-top: 1px solid var(--l-border);
+}
+html[data-theme="light"] .svc-band-title,
+html[data-theme="light"] .svc-cta-title,
+html[data-theme="light"] .pricing-h { color: var(--l-text); }
+html[data-theme="light"] .svc-band-sub,
+html[data-theme="light"] .svc-cta-sub { color: var(--muted); }
+html[data-theme="light"] .svc-band-note { color: var(--l-text-soft); }
+html[data-theme="light"] .svc-band-note a,
+html[data-theme="light"] .svc-band-sub a,
+html[data-theme="light"] .projects-page-niches a,
+html[data-theme="light"] .inline-link,
+html[data-theme="light"] .price-callout a.inline-link {
+  color: var(--l-blue-text);
+  text-decoration-color: rgba(37,99,235,0.45);
+}
+html[data-theme="light"] .inline-link:hover { text-decoration-color: var(--blue); }
+/* FAQ answers keep the quieter, ink-coloured link the dark theme uses. */
+html[data-theme="light"] .faq-answer-inner .inline-link {
+  color: var(--l-text-soft);
+  text-decoration-color: rgba(16,24,40,0.30);
+}
+html[data-theme="light"] .faq-answer-inner .inline-link:hover { text-decoration-color: rgba(16,24,40,0.60); }
+
+/* ══ CARDS: benefit / service / challenge / process-mini / journey ════════
+   Dark mode separates these translucent near-black panels from the page with
+   a bright hairline. On light they become white surfaces that lift on shadow,
+   matching the bento and testimonial treatment above. */
+html[data-theme="light"] .benefit-item,
+html[data-theme="light"] .svc-card,
+html[data-theme="light"] .challenge-item,
+html[data-theme="light"] .process-mini-step,
+html[data-theme="light"] .journey-step,
+html[data-theme="light"] .case-block,
+html[data-theme="light"] .feature-project,
+html[data-theme="light"] .price-callout,
+html[data-theme="light"] .pricing-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .benefit-item:hover,
+html[data-theme="light"] .svc-card:hover,
+html[data-theme="light"] .challenge-item:hover,
+html[data-theme="light"] .pricing-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .benefit-item,
+html[data-theme="light"] .journey-step,
+html[data-theme="light"] .case-block-point,
+html[data-theme="light"] .pricing-feature { color: var(--l-text-soft); }
+html[data-theme="light"] .svc-card-title,
+html[data-theme="light"] .challenge-title,
+html[data-theme="light"] .process-mini-title,
+html[data-theme="light"] .case-block-title,
+html[data-theme="light"] .feature-project-title { color: var(--l-text); }
+html[data-theme="light"] .svc-card-desc,
+html[data-theme="light"] .challenge-desc,
+html[data-theme="light"] .process-mini-desc,
+html[data-theme="light"] .case-block-desc,
+html[data-theme="light"] .feature-project-desc { color: var(--muted); }
+html[data-theme="light"] .svc-divider { background: var(--l-border); }
+html[data-theme="light"] .svc-feature { color: var(--l-text-soft); }
+html[data-theme="light"] .svc-feature a,
+html[data-theme="light"] .case-block-link,
+html[data-theme="light"] .feature-project-link { color: var(--l-blue-text); }
+html[data-theme="light"] .feature-project-secondary { color: var(--muted2); }
+html[data-theme="light"] .feature-project-secondary a { color: var(--l-text-soft); }
+
+/* The "problem" icon: #ef4444 is legible on near-black but misses AA on a
+   white card, so it drops to the darker red used elsewhere in light mode. */
+html[data-theme="light"] .challenge-icon {
+  background: rgba(220,38,38,0.09);
+  color: var(--l-red);
+}
+
+/* ══ SECTOR PILLS (city pages) ═══════════════════════════════════════════ */
+html[data-theme="light"] .sector-pill {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border-str);
+  color: var(--l-text-soft);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .sector-pill:hover {
+  background: rgba(37,99,235,0.06);
+  border-color: rgba(37,99,235,0.35);
+  color: var(--l-text);
+}
+
+/* ══ PROJECT CARDS (city / services / niche / case-study pages) ══════════
+   The image plate keeps the dark-mode navy for the same reason the bento
+   thumbnails do: several screenshots have white margins that would dissolve
+   into a light plate and lose their edge. */
+html[data-theme="light"] .cs-proj-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .cs-proj-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .cs-proj-card-name { color: var(--l-text); }
+html[data-theme="light"] .cs-proj-card-cat { color: #6b7280; }
+html[data-theme="light"] .cs-proj-card-sub { color: var(--muted2); }
+
+/* ══ CASE STUDY PAGES ════════════════════════════════════════════════════ */
+html[data-theme="light"] .cs-hero-title,
+html[data-theme="light"] .cs-section-title,
+html[data-theme="light"] .cs-mid-cta-title,
+html[data-theme="light"] .cs-other-title,
+html[data-theme="light"] .cs-faq-title { color: var(--l-text); }
+html[data-theme="light"] .cs-hero-sub,
+html[data-theme="light"] .cs-mid-cta-sub { color: var(--muted); }
+html[data-theme="light"] .cs-faq-sub,
+html[data-theme="light"] .cs-breadcrumb-current { color: var(--muted2); }
+html[data-theme="light"] .cs-tag-dot { background: rgba(16,24,40,0.25); }
+html[data-theme="light"] .cs-meta-value { color: var(--l-text); }
+html[data-theme="light"] .cs-meta-bar { border-color: var(--l-border); }
+html[data-theme="light"] .cs-breadcrumb a { color: var(--muted2); }
+html[data-theme="light"] .cs-breadcrumb a:hover { color: var(--l-text); }
+html[data-theme="light"] .cs-breadcrumb-sep { color: rgba(16,24,40,0.28); }
+
+/* The case-study section bodies carry their colour in a style attribute with
+   no class to hook — the heading as color:#fff, the copy wrapper as
+   color:#A3A3A3 — and an inline declaration beats any selector. These three
+   rules are the only place light mode has to reach for !important on content;
+   they stay scoped to [data-theme="light"] so dark is untouched. */
+html[data-theme="light"] .cs-section h2[style],
+html[data-theme="light"] .cs-section h3[style] { color: var(--l-text) !important; }
+html[data-theme="light"] .cs-section [style*="A3A3A3" i],
+html[data-theme="light"] .cs-section [style*="a3a3a3"] { color: var(--muted) !important; }
+html[data-theme="light"] .cs-meta-bar span[style*="255,255,255"] { color: var(--l-text) !important; }
+
+html[data-theme="light"] .cs-section-img {
+  background: #eef1f5;
+  border: 1px solid var(--l-border);
+}
+html[data-theme="light"] .cs-section-img-placeholder { color: rgba(16,24,40,0.28); }
+
+html[data-theme="light"] .cs-testimonials,
+html[data-theme="light"] .cs-faq { background: var(--l-bg-band); }
+html[data-theme="light"] .cs-testimonial-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .cs-testimonial-quote { color: #4b5262; }
+html[data-theme="light"] .cs-testimonial-name { color: var(--l-text); }
+
+html[data-theme="light"] .cs-mid-cta { border-bottom-color: var(--l-border); }
+html[data-theme="light"] .cs-mid-cta-secondary { color: var(--muted2); }
+html[data-theme="light"] .cs-mid-cta-secondary:hover { color: var(--l-text); }
+
+html[data-theme="light"] .cs-faq-item { border-bottom-color: var(--l-border); }
+html[data-theme="light"] .cs-faq-q { color: #2b313c; }
+html[data-theme="light"] .cs-faq-item.open .cs-faq-q { color: var(--l-text); }
+html[data-theme="light"] .cs-faq-icon {
+  border: 1.5px solid var(--l-border-str);
+  color: var(--muted);
+}
+html[data-theme="light"] .cs-faq-item.open .cs-faq-icon {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #ffffff;
+}
+/* "Visit live" badge: a solid white disc on black becomes an outlined disc so
+   it still reads as a control against the light page. */
+html[data-theme="light"] .cs-live-icon {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border-str);
+  color: var(--l-text);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .cs-live-badge:hover .cs-live-icon {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+}
+html[data-theme="light"] .cs-live-ring-text { color: var(--muted2); }
+
+/* ══ PRICING (tarifs.html) ═══════════════════════════════════════════════ */
+html[data-theme="light"] .pricing-card.featured {
+  background: var(--l-surface);
+  border-color: var(--blue);
+  box-shadow: 0 12px 32px rgba(37,99,235,0.14), 0 2px 6px rgba(16,24,40,0.05);
+}
+html[data-theme="light"] .pricing-name,
+html[data-theme="light"] .pricing-amount { color: var(--l-text); }
+html[data-theme="light"] .pricing-tag,
+html[data-theme="light"] .pricing-desc,
+html[data-theme="light"] .pricing-currency,
+html[data-theme="light"] .pricing-from,
+html[data-theme="light"] .pricing-sub { color: var(--muted); }
+html[data-theme="light"] .pricing-divider { background: var(--l-border); }
+html[data-theme="light"] .pricing-features-label { color: var(--muted2); }
+
+/* ══ LEGAL PAGES (privacy / terms) ═══════════════════════════════════════ */
+html[data-theme="light"] .legal-wrap h1,
+html[data-theme="light"] .legal-wrap h2,
+html[data-theme="light"] .legal-wrap h3,
+html[data-theme="light"] .legal-wrap strong { color: var(--l-text); }
+html[data-theme="light"] .legal-wrap,
+html[data-theme="light"] .legal-wrap p,
+html[data-theme="light"] .legal-wrap li { color: var(--l-text-soft); }
+html[data-theme="light"] .legal-wrap a { color: var(--l-blue-text); }
+html[data-theme="light"] .legal-wrap .updated { color: var(--muted2); }
+
+/* ══ BLOG (generated by scripts/build-blog.js) ═══════════════════════════
+   The blog ships its own inline shell CSS rather than site.css, but reuses the
+   same nav / footer / button class names, so only the listing cards and the
+   article body need their own rules here. */
+html[data-theme="light"] .blog-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .blog-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .blog-card-title { color: var(--l-text); }
+html[data-theme="light"] .blog-excerpt { color: var(--muted); }
+html[data-theme="light"] .blog-date { color: var(--muted2); }
+html[data-theme="light"] .blog-read { color: var(--l-blue-text); }
+/* The thumb keeps its blue gradient placeholder — it reads as brand colour on
+   either background, and posts without a cover image rely on it. */
+
+html[data-theme="light"] .article-title { color: var(--l-text); }
+html[data-theme="light"] .article-meta { color: var(--muted2); }
+/* #7fb0ff is tuned for a black backdrop; it fails AA on the light page. */
+html[data-theme="light"] .article-cat-badge { color: var(--l-blue-text); }
+html[data-theme="light"] .article-body { color: var(--l-text-soft); }
+html[data-theme="light"] .article-body h2,
+html[data-theme="light"] .article-body h3,
+html[data-theme="light"] .article-body strong,
+html[data-theme="light"] .article-cta h2 { color: var(--l-text); }
+html[data-theme="light"] .article-body a { color: var(--l-blue-text); }
+html[data-theme="light"] .article-body blockquote {
+  background: rgba(37,99,235,0.06);
+  border-left-color: var(--blue);
+  color: var(--l-text-soft);
+}
+html[data-theme="light"] .article-cta {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .article-cta p { color: var(--muted); }
+html[data-theme="light"] .article-cta p a { color: var(--l-blue-text); }
+
+/* ══ 404 ═════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .nf-wrap h1,
+html[data-theme="light"] .nf-links h2 { color: var(--l-text); }
+html[data-theme="light"] .nf-lead { color: var(--muted); }
+html[data-theme="light"] .nf-link { color: var(--l-blue-text); }
+html[data-theme="light"] .nf-links { border-color: var(--l-border); }

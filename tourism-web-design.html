@@ -29,6 +29,9 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="shortcut icon" href="favicon-192.png">
 <meta name="theme-color" content="#060607">
+<!-- Resolves the colour theme before first paint. Render-blocking on purpose:
+     a deferred script would let the dark palette paint once and then snap. -->
+<script src="assets/theme-init.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
@@ -46,6 +49,9 @@
 
 <!-- Shared chrome (nav, buttons, FAQ, footer, WA float) + unified heading scale -->
 <link rel="stylesheet" href="assets/site.css">
+<!-- Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+     theme is untouched. See assets/theme-init.js. -->
+<link rel="stylesheet" href="assets/theme.css">
 <link rel="stylesheet" href="assets/section-headings.css">
 
 <style>
@@ -291,6 +297,14 @@
   .svc-cta-actions .btn-primary, .svc-cta-actions .btn-secondary { width: 100%; }
 }
 
+
+/* Inline prose links (body copy + FAQ answers). Kept as a class rather than
+   an inline style so light mode can restyle them. */
+.inline-link { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.inline-link:hover { text-decoration-color: var(--blue); }
+.faq-answer-inner .inline-link { color: #d4d4d4; text-decoration-color: rgba(255,255,255,0.25); }
+.faq-answer-inner .inline-link:hover { text-decoration-color: rgba(255,255,255,0.6); }
+
 /* ─── RTL ───────────────────────────────────────────── */
 html[dir="rtl"] .benefit-item { flex-direction: row-reverse; text-align: right; }
 html[dir="rtl"] .svc-card { text-align: right; }
@@ -396,7 +410,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
 
     <div class="nav-links">
       <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
@@ -431,6 +445,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). aria-label / aria-pressed are kept in sync by
+           assets/theme-toggle.js, which also localises them. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+
 
       <!-- Hamburger (mobile only) -->
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
@@ -449,7 +477,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
     <a href="/" class="mob-overlay-logo" aria-label="Home">
-      <img src="logo.png" alt="Logo" height="20" width="auto">
+      <img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light">
     </a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
@@ -458,6 +486,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/#faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
   </div>
+
+  <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+       button, so assets/theme-toggle.js binds both and keeps them in sync.
+       The label text is set from JS to match the active language. -->
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Dark mode</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+    </button>
+  </div>
+
+
   <div class="menu-bottom">
     <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
   </div>
@@ -669,7 +715,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="svc-card-desc"
           data-en="We build multilingual sites with native right-to-left support for Arabic. Our multilingual work is documented in the Maison Monchef case study, delivered in all three languages."
           data-fr="Nous construisons des sites multilingues avec un support natif du droite-à-gauche pour l'arabe. Notre travail multilingue est documenté dans l'étude de cas Maison Monchef, livrée dans les trois langues."
-          data-ar="نبني مواقع متعددة اللغات مع دعم أصلي للاتجاه من اليمين لليسار للعربية. عملنا متعدد اللغات موثق في دراسة حالة Maison Monchef، المنجزة باللغات الثلاث.">Nous construisons des sites multilingues avec un support natif du droite-à-gauche pour l'arabe. Notre travail multilingue est documenté dans l'étude de cas <a href="/maison-monchef" style="color:#fff;text-decoration:underline;text-decoration-color:rgba(59,130,246,0.5);text-underline-offset:3px;">Maison Monchef</a>, livrée dans les trois langues.</p>
+          data-ar="نبني مواقع متعددة اللغات مع دعم أصلي للاتجاه من اليمين لليسار للعربية. عملنا متعدد اللغات موثق في دراسة حالة Maison Monchef، المنجزة باللغات الثلاث.">Nous construisons des sites multilingues avec un support natif du droite-à-gauche pour l'arabe. Notre travail multilingue est documenté dans l'étude de cas <a href="/maison-monchef" class="inline-link">Maison Monchef</a>, livrée dans les trois langues.</p>
       </div>
       <div class="svc-card">
         <h3 class="svc-card-title" data-en="On-page SEO as standard" data-fr="SEO on-page en standard" data-ar="تحسين محركات البحث افتراضياً">SEO on-page en standard</h3>
@@ -848,7 +894,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="faq-answer-inner"
             data-en="Yes. For Adventure Keys we designed a full multi-step booking flow: package selection, date picking, room type, add-ons, and payment, in a guided experience that reduces drop-off at every step."
             data-fr="Oui. Pour Adventure Keys, nous avons conçu un parcours de réservation complet en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée qui réduit l'abandon à chaque étape."
-            data-ar="نعم. في Adventure Keys صممنا مسار حجز كاملاً متعدد الخطوات: اختيار الباقة، والتواريخ، ونوع الغرفة، والإضافات، والدفع، ضمن تجربة موجهة تقلل الانسحاب في كل خطوة.">Oui. Pour <a href="/adventure-keys" style="color:#d4d4d4;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:3px;">Adventure Keys</a>, nous avons conçu un parcours de réservation complet en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée qui réduit l'abandon à chaque étape.</p>
+            data-ar="نعم. في Adventure Keys صممنا مسار حجز كاملاً متعدد الخطوات: اختيار الباقة، والتواريخ، ونوع الغرفة، والإضافات، والدفع، ضمن تجربة موجهة تقلل الانسحاب في كل خطوة.">Oui. Pour <a href="/adventure-keys" class="inline-link">Adventure Keys</a>, nous avons conçu un parcours de réservation complet en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée qui réduit l'abandon à chaque étape.</p>
         </div>
       </div>
 
@@ -864,7 +910,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="faq-answer-inner"
             data-en="Yes, every site is designed mobile-first. For Agadir Transfer, the layout was built to work equally well for a tired traveller on a phone at the airport and a travel agent booking on desktop."
             data-fr="Oui, tous nos sites sont conçus mobile-first. Pour Agadir Transfer, la mise en page a été pensée pour fonctionner aussi bien pour un voyageur fatigué sur son téléphone à l'aéroport que pour un agent de voyage sur ordinateur."
-            data-ar="نعم، كل مواقعنا مصممة بدءاً من الهاتف. في Agadir Transfer، بُني التصميم ليعمل بنفس الجودة لمسافر متعب على هاتفه في المطار ولوكيل سفر على حاسوبه.">Oui, tous nos sites sont conçus mobile-first. Pour <a href="/agadir-transfer" style="color:#d4d4d4;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:3px;">Agadir Transfer</a>, la mise en page a été pensée pour fonctionner aussi bien pour un voyageur fatigué sur son téléphone à l'aéroport que pour un agent de voyage sur ordinateur.</p>
+            data-ar="نعم، كل مواقعنا مصممة بدءاً من الهاتف. في Agadir Transfer، بُني التصميم ليعمل بنفس الجودة لمسافر متعب على هاتفه في المطار ولوكيل سفر على حاسوبه.">Oui, tous nos sites sont conçus mobile-first. Pour <a href="/agadir-transfer" class="inline-link">Agadir Transfer</a>, la mise en page a été pensée pour fonctionner aussi bien pour un voyageur fatigué sur son téléphone à l'aéroport que pour un agent de voyage sur ordinateur.</p>
         </div>
       </div>
 
@@ -896,7 +942,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="faq-answer-inner"
             data-en="Yes. We build sites in French, English, and Arabic, with native right-to-left layout support. See the Maison Monchef case study for an example delivered in all three languages."
             data-fr="Oui. Nous construisons des sites en français, anglais et arabe, avec un support natif de la mise en page droite-à-gauche. Voir l'étude de cas Maison Monchef pour un exemple livré dans les trois langues."
-            data-ar="نعم. نبني مواقع بالفرنسية والإنجليزية والعربية، مع دعم أصلي لتخطيط اليمين لليسار. انظر دراسة حالة Maison Monchef لمثال أُنجز باللغات الثلاث.">Oui. Nous construisons des sites en français, anglais et arabe, avec un support natif de la mise en page droite-à-gauche. Voir l'étude de cas <a href="/maison-monchef" style="color:#d4d4d4;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:3px;">Maison Monchef</a> pour un exemple livré dans les trois langues.</p>
+            data-ar="نعم. نبني مواقع بالفرنسية والإنجليزية والعربية، مع دعم أصلي لتخطيط اليمين لليسار. انظر دراسة حالة Maison Monchef لمثال أُنجز باللغات الثلاث.">Oui. Nous construisons des sites en français, anglais et arabe, avec un support natif de la mise en page droite-à-gauche. Voir l'étude de cas <a href="/maison-monchef" class="inline-link">Maison Monchef</a> pour un exemple livré dans les trois langues.</p>
         </div>
       </div>
 
@@ -967,14 +1013,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Top: Contact CTA -->
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;"
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;"
         data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
       <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
     </div>
 
     <!-- Middle: Logo + Socials -->
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -1044,5 +1090,9 @@ document.querySelectorAll('.faq-question').forEach(function (q) {
 
 <script defer src="assets/site-chrome.js"></script>
 <script defer src="assets/starfield.js"></script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 </body>
 </html>

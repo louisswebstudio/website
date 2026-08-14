@@ -24,6 +24,7 @@
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="shortcut icon" href="../favicon-192.png">
 <meta name="theme-color" content="#060607">
+<script src="../assets/theme-init.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -239,6 +240,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   .section-cta-bar { margin-top: 48px; }
 }
 </style>
+<link rel="stylesheet" href="../assets/theme.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -256,13 +258,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="../logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
     <div class="nav-links">
       <a href="/projects" class="nav-link">Projets</a>
       <a href="/#faq" class="nav-link">FAQ</a>
       <a href="/contact" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Passer en mode clair">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
         <span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span>
       </button>
@@ -274,13 +280,20 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="/" class="mob-overlay-logo" aria-label="Accueil"><img src="../logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Accueil"><img src="../logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="../logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fermer le menu">&#x2715;</button>
   </div>
   <div class="menu-center">
     <a href="/projects" class="mobile-menu-link">Projets</a>
     <a href="/#faq" class="mobile-menu-link">FAQ</a>
     <a href="/contact" class="mobile-menu-link">Contact</a>
+  </div>
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Mode sombre</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Passer en mode clair">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
   </div>
   <div class="menu-bottom">
     <a href="/contact#cal-embed" class="mobile-menu-cta">Démarrer un Projet</a>
@@ -428,13 +441,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
       <div style="display:flex; gap:8px; align-items:center;">
         <a href="/contact#cal-embed" class="btn-primary">Nous Contacter</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="/" class="logo"><img src="../logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="../logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -488,5 +501,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 })();
 </script>
 <script defer src="../assets/starfield.js"></script>
+<script defer src="../assets/theme-toggle.js"></script>
 </body>
 </html>

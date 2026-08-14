@@ -6,6 +6,10 @@
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#060607">
+<!-- Resolves the colour theme before first paint. Render-blocking on purpose:
+     a deferred script would let the dark palette paint once and then snap. -->
+<script src="assets/theme-init.js"></script>
 <meta name="robots" content="index, follow">
 <title data-en="Multilingual Real Estate Platform: Case Study | Louiss Web Studio" data-fr="Site Immobilier Multilingue : Étude de Cas | Louiss Web Studio" data-ar="منصة عقارية متعددة اللغات: دراسة حالة | Louiss Web Studio">Site Immobilier Multilingue : Étude de Cas | Louiss Web Studio</title>
 <link rel="canonical" href="https://www.louisswebstudio.com/maison-monchef">
@@ -668,6 +672,9 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   }
 }
 </style>
+<!-- Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+     theme is untouched. See assets/theme-init.js. -->
+<link rel="stylesheet" href="assets/theme.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -791,7 +798,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
     <div class="nav-links">
       <a href="/projects"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
       <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
@@ -812,6 +819,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="lang-option" id="opt-ar" onclick="setLang('ar')"><div class="lang-opt-flag"><img src="https://flagcdn.com/w40/sa.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div><span class="lang-opt-code">العربية</span></div>
         </div>
       </div>
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). aria-label / aria-pressed are kept in sync by
+           assets/theme-toggle.js, which also localises them. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
@@ -826,7 +847,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="/" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
@@ -834,6 +855,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"   data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
   </div>
+
+  <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+       button, so assets/theme-toggle.js binds both and keeps them in sync.
+       The label text is set from JS to match the active language. -->
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Dark mode</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+    </button>
+  </div>
+
+
   <div class="menu-bottom">
     <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
   </div>
@@ -854,11 +893,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cs-meta-bar reveal" style="padding:25px 0; justify-content:center; gap:48px;">
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
         <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Client" data-fr="Client" data-ar="العميل">Client</span>
-        <span style="font-size:20px; font-weight:600; color:rgba(255,255,255,0.85);">Maison Monchef</span>
+        <span class="cs-meta-value" style="font-size:20px; font-weight:600;">Maison Monchef</span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
         <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Year" data-fr="Année" data-ar="السنة">Year</span>
-        <span style="font-size:20px; font-weight:600; color:rgba(255,255,255,0.85);">2026</span>
+        <span class="cs-meta-value" style="font-size:20px; font-weight:600;">2026</span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
         <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Scope" data-fr="Périmètre" data-ar="النطاق">Scope</span>
@@ -1107,13 +1146,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
       <div style="display:flex; gap:8px; align-items:center;">
         <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
       </div>
     </div>
     <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
       <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
         <div class="footer-socials" style="display:flex; gap:12px;">
           <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
@@ -1391,5 +1430,9 @@ document.querySelectorAll('.cs-faq-q').forEach(function(q) {
   if (reducedMotion) { drawStatic(); } else { requestAnimationFrame(animate); }
 })();
 </script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 </body>
 </html>
