@@ -33,10 +33,10 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="dns-prefetch" href="https://flagcdn.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
@@ -249,7 +249,7 @@ nav {
 }
 .projects-hero > .container { position: relative; z-index: 1; }
 .projects-page-title {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-weight: 600;
   font-size: 60px;
   letter-spacing: -1.2px;
@@ -334,14 +334,14 @@ nav {
 
 /* ─── SECTION HEADINGS ──────────────────────────────── */
 .svc-band-title {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   text-align: center; margin: 0 auto 20px;
   max-width: 620px; text-wrap: balance;
 }
 .svc-band-title em {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -385,8 +385,8 @@ nav {
   margin-bottom: 64px;
   position: relative; z-index: 1;
 }
-.process-h { font-family: 'Poppins', 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
-.process-h em { font-family: 'Poppins', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.process-h { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
+.process-h em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .process-right-text { font-size: 18px; color: #a3a3a3; line-height: 29.25px; max-width: 560px; margin: 0 auto; text-align: center; }
 
 /* ── PROCESS BODY: steps + image panel ── */
@@ -735,6 +735,45 @@ html[lang="ar"] .process-h { font-size: 52px; text-wrap: unset; max-width: 800px
   ]
 }
 </script>
+<!-- Type-system rules mirrored from assets/site.css. This page is self-contained
+     (it does not link site.css), so per CLAUDE.md the shared rules have to be
+     repeated here or they never reach it. -->
+<style>
+/* Form controls don't inherit the page font by default; without this they fall
+   back to the UA font (Arial), which puts a family outside the type system. */
+button, input, select, textarea { font-family: inherit; }
+
+/* ---- ARABIC: everything must resolve to Cairo ----
+   Heading rules declare their own family (Satoshi), and a declaration on the
+   element always beats the inherited html[lang="ar"] rule. Satoshi carries no
+   Arabic glyphs, so without these Arabic headings fell back to system sans. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] em, html[lang="ar"] .bento-title,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .projects-page-title, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .footer-phone, html[lang="ar"] .svc-band-title,
+html[lang="ar"] .svc-band-title em, html[lang="ar"] .svc-card-title,
+html[lang="ar"] .svc-cta-title, html[lang="ar"] .cs-hero-title,
+html[lang="ar"] .cs-section-title, html[lang="ar"] .cs-mid-cta-title,
+html[lang="ar"] .cs-other-title, html[lang="ar"] .cs-faq-title,
+html[lang="ar"] .cs-proj-card-name, html[lang="ar"] .cs-live-ring-text {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* Some headings carry font-family in a style="" attribute; inline styles
+   outrank every selector, so this is the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+</style>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

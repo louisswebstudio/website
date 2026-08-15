@@ -134,9 +134,9 @@ function LaptopMockSite() {
       </div>
       <div style={{ padding: "20px 24px 0", flex: 1, display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 20 }}>
         <div>
-          <div style={{ fontSize: 9, color: "#52525b", fontWeight: 600, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.1em" }}>— A heritage hotel reborn</div>
+          <div style={{ fontSize: 9, color: "#52525b", fontWeight: 600, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.1em" }}>A heritage hotel, reborn</div>
           <div style={{ fontSize: 26, fontWeight: 700, lineHeight: 1.0, letterSpacing: "-0.025em", marginBottom: 8 }}>
-            Stay at the<br/><em style={{ fontFamily: "Georgia, serif", fontStyle: "italic", color: "var(--accent)", fontWeight: 500 }}>edge of the Atlas.</em>
+            Stay at the<br/><em style={{ fontFamily: "'Satoshi', 'Inter', sans-serif", fontStyle: "italic", color: "var(--accent)", fontWeight: 500 }}>edge of the Atlas.</em>
           </div>
           <div style={{ fontSize: 8, color: "#52525b", lineHeight: 1.45, marginBottom: 12 }}>
             Twelve suites carved into a hillside,<br/>thirty minutes from Marrakech.
@@ -147,7 +147,7 @@ function LaptopMockSite() {
           </div>
         </div>
         <div style={{ borderRadius: 6, height: 130, background: "linear-gradient(135deg, #f5d8a8 0%, #c97f4a 60%, #6b3a1a 100%)", boxShadow: "inset 0 -20px 30px rgba(0,0,0,0.2)", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", bottom: 8, left: 8, fontSize: 8, color: "#fff", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Suite — 03</div>
+          <div style={{ position: "absolute", bottom: 8, left: 8, fontSize: 8, color: "#fff", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Suite 03</div>
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, padding: "16px 24px 18px" }}>
@@ -177,7 +177,7 @@ function PhoneMockSite() {
       <div style={{ padding: "16px 14px 12px" }}>
         <div style={{ fontSize: 6, color: "#52525b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>Heritage stay</div>
         <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.0, margin: "4px 0 6px" }}>
-          Stay at the <em style={{ fontFamily: "Georgia", color: "var(--accent)", fontWeight: 500 }}>edge.</em>
+          Stay at the <em style={{ fontFamily: "'Satoshi', 'Inter', sans-serif", color: "var(--accent)", fontWeight: 500 }}>edge.</em>
         </div>
       </div>
       <div style={{ margin: "0 14px", height: 130, borderRadius: 8, background: "linear-gradient(160deg, #f5d8a8 0%, #c97f4a 60%, #6b3a1a 100%)", position: "relative" }}>
@@ -304,7 +304,7 @@ function Problem() {
           <div className="before-card">
             <div className="header">
               <div className="label"><span className="ring"></span> Before</div>
-              <div className="url">atlasandco.ma — March 2025</div>
+              <div className="url">atlasandco.ma · March 2025</div>
             </div>
             <div className="before-mock">
               <div className="top"></div>
@@ -404,7 +404,7 @@ function Result() {
           <div className="after-card">
             <div className="header">
               <div className="label"><span className="ring"></span> After</div>
-              <div className="url">atlasandco.ma — June 2025</div>
+              <div className="url">atlasandco.ma · June 2025</div>
             </div>
             <div className="after-mock">
               <div className="nav">

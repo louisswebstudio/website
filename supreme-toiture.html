@@ -26,10 +26,10 @@
 <meta name="twitter:image" content="https://www.louisswebstudio.com/assets/images/hover%20sup%20toiture.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
@@ -740,6 +740,45 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   ]
 }
 </script>
+<!-- Type-system rules mirrored from assets/site.css. This page is self-contained
+     (it does not link site.css), so per CLAUDE.md the shared rules have to be
+     repeated here or they never reach it. -->
+<style>
+/* Form controls don't inherit the page font by default; without this they fall
+   back to the UA font (Arial), which puts a family outside the type system. */
+button, input, select, textarea { font-family: inherit; }
+
+/* ---- ARABIC: everything must resolve to Cairo ----
+   Heading rules declare their own family (Satoshi), and a declaration on the
+   element always beats the inherited html[lang="ar"] rule. Satoshi carries no
+   Arabic glyphs, so without these Arabic headings fell back to system sans. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] em, html[lang="ar"] .bento-title,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .projects-page-title, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .footer-phone, html[lang="ar"] .svc-band-title,
+html[lang="ar"] .svc-band-title em, html[lang="ar"] .svc-card-title,
+html[lang="ar"] .svc-cta-title, html[lang="ar"] .cs-hero-title,
+html[lang="ar"] .cs-section-title, html[lang="ar"] .cs-mid-cta-title,
+html[lang="ar"] .cs-other-title, html[lang="ar"] .cs-faq-title,
+html[lang="ar"] .cs-proj-card-name, html[lang="ar"] .cs-live-ring-text {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* Some headings carry font-family in a style="" attribute; inline styles
+   outrank every selector, so this is the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+</style>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -839,9 +878,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="glow-circle glow-tl" style="opacity:0.12;"></div>
   <div class="container">
     <h1 class="cs-hero-title reveal" style="text-wrap:balance;"
-      data-en="Supreme Toiture — Web Design<br>&amp; Brand Identity"
-      data-fr="Supreme Toiture — Design Web<br>&amp; Identité de Marque"
-      data-ar="سوبريم توتير — تصميم ويب<br>وهوية علامة تجارية">Supreme Toiture — Web Design<br>&amp; Brand Identity</h1>
+      data-en="Supreme Toiture, Web Design<br>&amp; Brand Identity"
+      data-fr="Supreme Toiture, Design Web<br>&amp; Identité de Marque"
+      data-ar="سوبريم توتير، تصميم ويب<br>وهوية علامة تجارية">Supreme Toiture, Web Design<br>&amp; Brand Identity</h1>
     <p class="cs-hero-sub reveal">Web design for a professional roofing company in France. Trustworthy branding and a conversion-focused layout built to generate qualified leads from homeowners.</p>
     <div class="cs-meta-bar reveal" style="padding:25px 0; justify-content:center; gap:48px;">
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">

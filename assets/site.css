@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
   max-width: 100%;
 }
+/* Form controls don't inherit the page font by default — without this they fall
+   back to the UA font (Arial), which put one stray family outside the type
+   system. Inheriting keeps them on Inter, and on Cairo under html[lang="ar"]. */
+button, input, select, textarea { font-family: inherit; }
 
 /* ── TOKENS ── */
 :root {
@@ -184,9 +188,9 @@ nav {
   display: flex; align-items: center;
   gap: 32px; margin: 0;
 }
-/* "Websites" — gradient text, Poppins Bold */
+/* "Websites" — gradient text, Satoshi Bold */
 .hero-h1-italic {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 700;
   font-size: 96px; line-height: 96px;
   background: linear-gradient(to right, #2563eb, #3b82f6);
@@ -220,7 +224,7 @@ html[lang="fr"] .hero-h1-row { display: none; }
 /* ── FRENCH SECTION HEADING OVERRIDES ── */
 /* Hero H1: blue gradient on "des sites" */
 html[lang="fr"] .hero-h1-line1 em {
-  font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 700;
+  font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 700;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -406,8 +410,8 @@ html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unse
 .work-h-line1 {
   display: inline;
 }
-.work-h-see   { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; }
-.work-h-accent { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; margin-inline-start: 0.25em; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.work-h-see   { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; }
+.work-h-accent { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; margin-inline-start: 0.25em; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .work-desc {
   font-size: 18px; color: #d4d4d8; line-height: 29.25px; max-width: 520px;
 }
@@ -612,12 +616,12 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
 }
 .testimonials-section > * { position: relative; z-index: 1; }
 .testimonials-heading {
-  font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 600; color: #fff;
+  font-family: 'Satoshi', 'Inter', sans-serif; font-size: 60px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1; text-align: center;
   max-width: 672px; margin: 0 auto 20px;
   text-wrap: balance;
 }
-.testimonials-heading em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.testimonials-heading em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .testimonials-sub { font-size: 18px; color: #a1a1aa; line-height: 28px; text-align: center; margin: 0 auto 40px; }
 
 /* carousel nav — arrows sit at the top-right, above the cards */
@@ -725,8 +729,8 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
   display: flex; flex-direction: column;
   align-items: flex-start; gap: 24px;
 }
-.process-h { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
-.process-h em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.process-h { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
+.process-h em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .process-right-text { font-size: 18px; color: #a3a3a3; line-height: 29.25px; max-width: 560px; margin: 0 auto; text-align: center; }
 
 /* ── PROCESS BODY: steps + image panel ── */
@@ -857,13 +861,13 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 }
 .faq-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 .faq-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   margin-bottom: 20px; max-width: 480px;
 }
 .faq-title em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -981,8 +985,8 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
   display: flex; flex-direction: column;
   align-items: flex-start; gap: 24px;
 }
-.process-h { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
-.process-h em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.process-h { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
+.process-h em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .process-right-text { font-size: 18px; color: #a3a3a3; line-height: 29.25px; max-width: 560px; margin: 0 auto; text-align: center; }
 
 /* ── PROCESS BODY: steps + image panel ── */
@@ -1094,14 +1098,14 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 }
 .faq-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
 .faq-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.15;
   margin: 0 auto 20px; max-width: 1000px;
   text-align: center; text-wrap: balance;
 }
 .faq-title em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -1198,7 +1202,7 @@ footer > * { position: relative; z-index: 1; }
 .footer-cta-small { font-size: 36px; font-weight: 500; color: var(--muted2); letter-spacing: -0.9px; }
 .footer-cta-row { display: flex; align-items: center; gap: 16px; }
 .footer-dot { width: 16px; height: 16px; background: var(--blue); border-radius: 9999px; flex-shrink: 0; }
-.footer-phone { font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -1.5px; line-height: 60px; }
+.footer-phone { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -1.5px; line-height: 60px; }
 .footer-ctas { display: flex; gap: 8px; }
 .footer-mid {
   display: flex; align-items: center; justify-content: space-between;
@@ -1534,7 +1538,7 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   margin-bottom: 64px;
 }
 .transformation-h {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 60px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   margin: 0 auto 24px;
@@ -1542,7 +1546,7 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   text-wrap: balance;
 }
 .transformation-h em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -1668,14 +1672,14 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   margin-bottom: 64px;
 }
 .pricing-h {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 60px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   margin: 0 auto 16px;
   max-width: 760px; text-wrap: balance;
 }
 .pricing-h em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -2106,7 +2110,6 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   letter-spacing: -1.2px;
   margin-bottom: 0;
 }
-.services-h-italic { font-family: 'Playfair Display', serif; font-style: italic; color: var(--blue); font-weight: 500; }
 .services-h-dash { color: var(--blue); }
 .services-h-bold { font-weight: 600; color: #fff; }
 .services-h-bottom { font-size: 48px; font-weight: 600; color: #fff; line-height: 48px; letter-spacing: -1.2px; }
@@ -3420,6 +3423,57 @@ html[lang="ar"] .hero-h1-line3 {
   font-family: 'Cairo', sans-serif;
 }
 html[lang="ar"] { font-family: 'Cairo', sans-serif; }
+/* ---- ARABIC: headings must use Cairo too ----
+   Every heading class declares its own font-family (Satoshi). A declaration on
+   the element itself always beats the inherited html[lang="ar"] rule above, and
+   Satoshi carries no Arabic glyphs — so without these overrides Arabic headings
+   fell through to the system sans-serif rather than Cairo.
+   Specificity: html[lang="ar"] + class = (0,2,x), which outranks the bare class. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] .hero-h1, html[lang="ar"] .hero-h1-italic,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .footer-phone, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .city-page-title, html[lang="ar"] .projects-page-title,
+html[lang="ar"] .svc-band-title, html[lang="ar"] .svc-band-title em,
+html[lang="ar"] .svc-card-title, html[lang="ar"] .svc-cta-title,
+html[lang="ar"] .case-block-title, html[lang="ar"] .feature-project-title,
+html[lang="ar"] .cs-hero-title, html[lang="ar"] .cs-section-title,
+html[lang="ar"] .cs-mid-cta-title, html[lang="ar"] .cs-other-title,
+html[lang="ar"] .cs-faq-title, html[lang="ar"] .cs-proj-card-name,
+html[lang="ar"] .lp-h1, html[lang="ar"] .lp-h2,
+html[lang="ar"] .lp-showcase-title, html[lang="ar"] .lp-ledger-title,
+html[lang="ar"] .lp-cta-title, html[lang="ar"] .lp-track-title,
+html[lang="ar"] .lp-statement-text, html[lang="ar"] .lp-work-name,
+html[lang="ar"] .lp-ledger-num, html[lang="ar"] .lp-journey-label {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* A handful of headings carry font-family in a style="" attribute (the footer
+   display line, the case-study section titles). Inline styles outrank every
+   selector, so these are the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+/* A few Latin-side rules pin Inter explicitly, which likewise beats the
+   inherited Cairo. Each override below mirrors the original selector's
+   specificity so it wins (.hero .hero-ctas .btn-* is three classes deep). */
+html[lang="ar"] .hero-desc,
+html[lang="ar"] .bento-title,
+html[lang="ar"] .flower-label,
+html[lang="ar"] .flower-num,
+html[lang="ar"] .hero .hero-ctas .btn-primary,
+html[lang="ar"] .hero .hero-ctas .btn-secondary {
+  font-family: 'Cairo', sans-serif;
+}
+
+
 
 /* ---- AR HERO SIZE OVERRIDES ---- */
 html[lang="ar"] .hero-h1-line1  { font-size: 80px; line-height: 86px; letter-spacing: -1.5px; }
@@ -3706,3 +3760,64 @@ html[lang="fr"] .hero .hero-h1 {
    page's inline <style>; only the anchor treatment is shared here). */
 .svc-band-note a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
 .svc-band-note a:hover { text-decoration-color: var(--blue); }
+
+/* ═══════════════════════════════════════════════════
+   PORTFOLIO BENTO — TABLET & SMALL LAPTOP (769–1200px)
+   Between the ≤768px full-bleed patch and the 12-column
+   desktop bento there was a dead zone: the cards kept the
+   desktop layout, so each preview stayed a fixed 342px-wide
+   screenshot absolutely positioned at a hardcoded offset
+   (.bento-pos-1..4) inside a 420px-tall thumb. Once the
+   column narrows past ~1200px that image no longer fills
+   its card and leaves dead navy space around it.
+   Here the grid drops to two equal columns and every
+   preview fills its thumb (cover, cropped from the top),
+   which is the same treatment mobile and desktop already get.
+   Scoped as a range so neither neighbour is touched.
+═══════════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 24px;
+  }
+  /* Equal half-width cards across the whole set — the asymmetric
+     7/5 desktop spans give wildly different thumb heights once
+     there are only two columns. */
+  .bento-card,
+  .bento-card-1,
+  .bento-card-2,
+  .bento-card-3,
+  .bento-card-4,
+  .bento-card-5,
+  .bento-card-6 {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: start;
+    padding: 16px;
+    gap: 16px;
+  }
+  .bento-thumb {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    /* Forces a compositing layer so the rounded corners clip the
+       absolutely-positioned image (Safari otherwise ignores
+       overflow:hidden + border-radius for absolute children). */
+    transform: translateZ(0);
+  }
+  .bento-thumb img:not(.bento-hover-img) {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    border-radius: 16px;
+  }
+  .bento-title { font-size: 20px; line-height: 28px; }
+  .bento-cat   { font-size: 14px; line-height: 20px; }
+  /* The label inside the arrow button would wrap the info row at
+     this width, so keep the button at its collapsed size. */
+  .bento-card:hover .bento-btn-expand { width: 44px; gap: 0; }
+  .bento-card:hover .bento-btn-expand span { max-width: 0; opacity: 0; }
+}

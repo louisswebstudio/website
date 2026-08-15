@@ -37,12 +37,12 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="dns-prefetch" href="https://flagcdn.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
@@ -55,230 +55,354 @@
 <link rel="stylesheet" href="assets/section-headings.css">
 
 <style>
-/* ─── PAGE HEADER (mirrors services.html / city pages) ── */
-.city-hero {
-  padding: 160px 0 120px; position: relative;
-  background-image: linear-gradient(rgba(6,6,7,0.72), rgba(6,6,7,0.78)), url('assets/images/tanger-hero.webp');
-  background-size: cover; background-position: center; background-repeat: no-repeat;
-}
-.city-hero > .container { position: relative; z-index: 1; }
-.city-page-title {
-  font-family: 'Poppins', 'Inter', sans-serif;
-  font-weight: 600; font-size: 56px;
-  letter-spacing: -1.2px; line-height: 1.12;
-  color: #fff; text-align: center;
-  margin: 0 auto 20px; max-width: 920px; text-wrap: balance;
-}
-.city-page-title .accent {
-  background: linear-gradient(to right, #2563eb, #3b82f6);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.city-hero-lead {
-  font-size: 18px; color: #d4d4d8; line-height: 29.25px;
-  text-align: center; max-width: 680px; margin: 0 auto 16px;
-}
-.city-hero-lead:last-of-type { margin-bottom: 0; }
-.hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+/* ══════════════════════════════════════════════════════════════════════
+   INDUSTRY LANDING PAGE SYSTEM  (.lp-*)
+   ──────────────────────────────────────────────────────────────────────
+   Namespaced away from .svc-* / .city-* on purpose: those class names are
+   shared with the nine creation-site-web-<city> pages and services.html,
+   and assets/theme.css carries light-mode rules for them. Everything here
+   is page-local, light mode included, so this redesign cannot leak.
 
-/* ─── SECTION SHELL ──────────────────────────────────── */
-.svc-section { padding: 88px 0 96px; position: relative; }
-.svc-section > .container { position: relative; z-index: 1; }
-.svc-section--tint { background: rgba(3,3,3,0.22); border-top: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
-.svc-band-title {
-  font-family: 'Poppins', 'Inter', sans-serif;
-  font-size: 48px; font-weight: 600; color: #fff;
-  letter-spacing: -1.2px; line-height: 1.15;
-  text-align: center; margin: 0 auto 20px;
-  max-width: 760px; text-wrap: balance;
+   Backgrounds stay translucent in dark mode so the fixed #global-starfield
+   canvas still reads through the page. Light mode paints solid, since the
+   starfield is hidden there.
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  --lp-ink:       #ffffff;
+  --lp-ink-2:     #d4d4d8;
+  --lp-ink-3:     #a3a3a3;
+  --lp-ink-4:     #7d838e;
+  --lp-rule:      rgba(255,255,255,0.10);
+  --lp-rule-soft: rgba(255,255,255,0.055);
+  --lp-surface:   rgba(255,255,255,0.028);
+  --lp-band:      rgba(255,255,255,0.016);
+  --lp-band-deep: rgba(0,0,0,0.30);
+  --lp-panel:     rgba(10,10,12,0.86);
+  --lp-accent:    #3b82f6;
+  --lp-shadow:    0 30px 80px -24px rgba(0,0,0,0.65);
 }
-.svc-band-title em {
-  font-family: 'Poppins', 'Inter', sans-serif;
-  font-style: normal; font-weight: 600;
-  background: linear-gradient(to right, #2563eb, #3b82f6);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.svc-band-sub {
-  font-size: 17px; color: var(--muted); line-height: 1.7;
-  text-align: center; max-width: 660px; margin: 0 auto 56px;
-}
-.svc-band-note {
-  font-size: 16px; color: #d4d4d8; line-height: 1.7;
-  text-align: center; max-width: 640px; margin: 40px auto 0;
+html[data-theme="light"] {
+  --lp-ink:       #14161a;
+  --lp-ink-2:     #3f4653;
+  --lp-ink-3:     #565d6b;
+  --lp-ink-4:     #646b79;
+  --lp-rule:      rgba(16,24,40,0.13);
+  --lp-rule-soft: rgba(16,24,40,0.075);
+  --lp-surface:   rgba(16,24,40,0.022);
+  --lp-band:      #ffffff;
+  --lp-band-deep: #eef1f5;
+  --lp-panel:     rgba(255,255,255,0.94);
+  --lp-accent:    #1d4ed8;
+  --lp-shadow:    0 18px 44px -18px rgba(16,24,40,0.18);
 }
 
-/* ─── BENEFIT GRID ──────────────────────────────────── */
-.benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
-.benefit-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  background: rgba(9,9,11,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 14px; padding: 20px 22px;
-  font-size: 15px; color: #d4d4d4; line-height: 1.6;
-  backdrop-filter: blur(12px);
-  transition: border-color .3s, transform .3s;
+/* ─── SHELL ──────────────────────────────────────────── */
+.lp-section { padding: clamp(64px, 8.5vw, 128px) 0; position: relative; }
+.lp-section > .container { position: relative; z-index: 1; }
+.lp-section--band { background: var(--lp-band); border-top: 1px solid var(--lp-rule-soft); border-bottom: 1px solid var(--lp-rule-soft); }
+.lp-section--deep { background: var(--lp-band-deep); border-top: 1px solid var(--lp-rule-soft); border-bottom: 1px solid var(--lp-rule-soft); }
+.lp-narrow { max-width: 1180px; margin: 0 auto; }
+
+/* ─── TYPE ───────────────────────────────────────────── */
+.lp-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--lp-ink-4);
+  margin-bottom: 22px;
 }
-.benefit-item:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-3px); }
-.svc-feature-icon {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: rgba(59,130,246,0.1);
+.lp-eyebrow::after { content: ''; height: 1px; width: 30px; background: var(--lp-rule); flex-shrink: 0; }
+
+.lp-h1 {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-weight: 700; font-size: clamp(37px, 5.6vw, 76px);
+  line-height: 1.04; letter-spacing: -2.2px;
+  color: var(--lp-ink); text-wrap: balance; margin: 0 0 22px;
+}
+.lp-h2 {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-weight: 700; font-size: clamp(29px, 3.9vw, 55px);
+  line-height: 1.08; letter-spacing: -1.5px;
+  color: var(--lp-ink); text-wrap: balance; margin: 0;
+}
+/* Accent word inside a heading. Same face and weight as the heading it sits in
+   (Satoshi for Latin, Cairo for Arabic); set apart by colour alone, which is the
+   accent convention used everywhere else on the site. */
+.lp-h1 .accent, .lp-h2 em, .lp-statement-text em {
+  font-family: inherit;
+  font-style: normal;
+  color: var(--lp-accent);
+  -webkit-text-fill-color: currentColor;
+}
+html[lang="ar"] .lp-h1 .accent,
+html[lang="ar"] .lp-h2 em,
+html[lang="ar"] .lp-statement-text em { font-family: 'Cairo', sans-serif; }
+
+.lp-lead { font-size: clamp(16.5px, 1.25vw, 19px); line-height: 1.72; color: var(--lp-ink-2); max-width: 60ch; margin: 0 0 16px; }
+.lp-lead:last-of-type { margin-bottom: 0; }
+.lp-sub { font-size: 16.5px; line-height: 1.78; color: var(--lp-ink-3); max-width: 58ch; margin: 0; }
+
+/* Section header: title left, supporting copy right, baselines aligned.
+   Replaces the centred title→sub→grid rhythm that made every band identical. */
+.lp-head {
+  display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,0.94fr);
+  gap: clamp(22px, 4.5vw, 72px); align-items: end;
+  margin-bottom: clamp(38px, 4.6vw, 68px);
+}
+.lp-head--solo { grid-template-columns: 1fr; max-width: 840px; }
+.lp-head--center { grid-template-columns: 1fr; max-width: 820px; margin-left: auto; margin-right: auto; text-align: center; }
+.lp-head--center .lp-eyebrow { justify-content: center; }
+.lp-head--center .lp-eyebrow::before { content: ''; height: 1px; width: 30px; background: var(--lp-rule); flex-shrink: 0; }
+.lp-head--center .lp-sub { margin-left: auto; margin-right: auto; }
+
+/* ─── BROWSER FRAME ──────────────────────────────────── */
+.lp-frame {
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--lp-rule); background: var(--lp-band-deep);
+  box-shadow: var(--lp-shadow);
+}
+.lp-frame-bar {
+  height: 34px; display: flex; align-items: center; gap: 7px;
+  padding: 0 13px; background: var(--lp-surface);
+  border-bottom: 1px solid var(--lp-rule-soft);
+}
+.lp-frame-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--lp-rule); flex-shrink: 0; }
+.lp-frame-url {
+  margin-left: 8px; height: 19px; flex: 1; max-width: 260px;
+  border-radius: 999px; background: var(--lp-surface);
+  border: 1px solid var(--lp-rule-soft);
+}
+.lp-frame-media { display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: var(--lp-band-deep); }
+.lp-frame-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.lp-frame-media--tall { aspect-ratio: 4/3; }
+
+/* ─── HERO ───────────────────────────────────────────── */
+.lp-hero { padding: clamp(104px, 11vw, 164px) 0 clamp(60px, 7vw, 104px); position: relative; overflow: hidden; }
+.lp-hero > .container { position: relative; z-index: 1; }
+.lp-hero-grid {
+  display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,0.98fr);
+  gap: clamp(34px, 4.6vw, 76px); align-items: center;
+}
+.lp-hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.lp-hero-proof {
+  margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--lp-rule-soft);
+  font-size: 14px; line-height: 1.65; color: var(--lp-ink-4); max-width: 46ch;
+}
+
+/* ─── UI COMPOSITION (decorative, aria-hidden) ───────── */
+.lp-compose { position: relative; }
+.lp-panel {
+  position: absolute; left: 16px; right: 16px; bottom: 16px;
+  background: var(--lp-panel); backdrop-filter: blur(14px);
+  border: 1px solid var(--lp-rule); border-radius: 12px;
+  padding: 13px; box-shadow: var(--lp-shadow);
+}
+.lp-field {
+  display: flex; align-items: center; gap: 9px; height: 37px;
+  border-radius: 9px; border: 1px solid var(--lp-rule);
+  background: var(--lp-surface); padding: 0 12px;
+  font-size: 12.5px; color: var(--lp-ink-4);
+}
+.lp-field svg { flex-shrink: 0; color: var(--lp-ink-4); }
+.lp-chips { display: flex; gap: 7px; margin-top: 10px; flex-wrap: wrap; }
+.lp-chip {
+  font-size: 11.5px; font-weight: 500; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--lp-rule); color: var(--lp-ink-3); white-space: nowrap;
+}
+.lp-chip--on { background: var(--lp-accent); border-color: transparent; color: #fff; }
+
+/* ─── LEDGER (replaces the repeated card grids) ──────── */
+.lp-ledger { border-top: 1px solid var(--lp-rule); }
+.lp-ledger-row {
+  display: grid; grid-template-columns: 56px minmax(0,0.85fr) minmax(0,1.4fr);
+  gap: clamp(14px, 2.6vw, 44px); align-items: start;
+  padding: clamp(22px, 2.6vw, 32px) 0;
+  border-bottom: 1px solid var(--lp-rule-soft);
+  transition: background .35s ease;
+}
+.lp-ledger-row:hover { background: var(--lp-surface); }
+.lp-ledger--tight .lp-ledger-row { grid-template-columns: 56px minmax(0,1fr); align-items: center; }
+.lp-ledger-num {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 12.5px; font-weight: 600; letter-spacing: .1em;
+  color: var(--lp-ink-4); padding-top: 4px;
+}
+.lp-ledger--tight .lp-ledger-num { padding-top: 0; }
+.lp-ledger-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(17.5px, 1.45vw, 21px); font-weight: 600;
+  color: var(--lp-ink); letter-spacing: -.4px; line-height: 1.32;
+}
+.lp-ledger-desc { font-size: 15.5px; line-height: 1.75; color: var(--lp-ink-3); }
+.lp-ledger-row--flag .lp-ledger-num { color: #ef4444; }
+html[data-theme="light"] .lp-ledger-row--flag .lp-ledger-num { color: var(--l-red, #dc2626); }
+
+/* ─── SHOWCASE (proof) ───────────────────────────────── */
+.lp-showcase {
+  display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,0.88fr);
+  gap: clamp(28px, 4.2vw, 64px); align-items: center;
+}
+.lp-showcase + .lp-showcase { margin-top: clamp(48px, 6vw, 96px); }
+.lp-showcase--flip .lp-showcase-visual { order: 2; }
+.lp-showcase-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--lp-accent); margin-bottom: 14px;
+}
+.lp-showcase-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(26px, 2.8vw, 40px); font-weight: 700;
+  color: var(--lp-ink); letter-spacing: -1px; line-height: 1.14; margin-bottom: 16px;
+}
+.lp-showcase-desc { font-size: 16px; line-height: 1.75; color: var(--lp-ink-3); max-width: 54ch; }
+.lp-points { list-style: none; margin: 26px 0 26px; padding: 0; }
+.lp-point {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 13px 0; border-top: 1px solid var(--lp-rule-soft);
+  font-size: 14.5px; line-height: 1.65; color: var(--lp-ink-2);
+}
+.lp-point:last-child { border-bottom: 1px solid var(--lp-rule-soft); }
+.lp-point-icon {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: rgba(59,130,246,0.12); color: var(--lp-accent);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 1px;
 }
-.svc-feature-icon svg { color: var(--blue); }
+.lp-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 600; color: var(--lp-ink);
+  border-bottom: 1px solid var(--lp-accent); padding-bottom: 3px;
+  transition: gap .25s ease, color .25s ease;
+}
+.lp-link:hover { gap: 13px; color: var(--lp-accent); }
 
-/* ─── SERVICE / CAPABILITY CARDS ─────────────────────── */
-.svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
-.svc-grid--three { grid-template-columns: repeat(3, 1fr); }
-.svc-card {
-  background: rgba(9,9,11,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px; padding: 30px 26px;
-  display: flex; flex-direction: column;
-  position: relative; overflow: hidden;
-  backdrop-filter: blur(12px);
-  transition: border-color .3s, transform .3s;
-}
-.svc-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); }
-.svc-card-title {
+/* ─── STATEMENT (a breath between dense bands) ───────── */
+.lp-statement { padding: clamp(66px, 9vw, 138px) 0; }
+.lp-statement-text {
   font-family: 'Satoshi', 'Inter', sans-serif;
-  font-size: 20px; font-weight: 700; color: #fff;
-  letter-spacing: -0.4px; line-height: 1.25;
-  margin-bottom: 10px;
+  font-size: clamp(23px, 3.1vw, 42px); font-weight: 600;
+  line-height: 1.26; letter-spacing: -1.2px;
+  color: var(--lp-ink); max-width: 17ch; text-wrap: balance;
 }
-.svc-card-desc { font-size: 14.5px; color: var(--muted); line-height: 1.7; }
+.lp-statement-body { font-size: 16.5px; line-height: 1.8; color: var(--lp-ink-3); max-width: 52ch; }
+.lp-statement-grid {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: clamp(28px, 5vw, 80px); align-items: center;
+}
 
-/* ─── FEATURED PROJECT (Maison Monchef) ──────────────── */
-.feature-project {
-  display: flex; gap: 48px; align-items: center;
-  background: rgba(9,9,11,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 20px; padding: 40px;
-  backdrop-filter: blur(12px);
-}
-.feature-project-img {
-  flex: 0 0 380px; border-radius: 16px; overflow: hidden;
-  aspect-ratio: 4/3; position: relative; background: #1a1f2e;
-}
-.feature-project-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.feature-project-body { flex: 1; min-width: 0; }
-.feature-project-tag {
-  font-size: 12px; font-weight: 700; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
-}
-.feature-project-title {
+/* ─── PROCESS TRACK ──────────────────────────────────── */
+.lp-track { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0; border-top: 1px solid var(--lp-rule); }
+.lp-track-step { position: relative; padding: clamp(24px,2.4vw,34px) clamp(16px,2vw,34px) 0 0; }
+.lp-track-step::before { content: ''; position: absolute; top: -1px; left: 0; width: 30px; height: 2px; background: var(--lp-accent); }
+.lp-track-num { font-size: 12.5px; font-weight: 600; letter-spacing: .1em; color: var(--lp-ink-4); margin-bottom: 14px; }
+.lp-track-title {
   font-family: 'Satoshi', 'Inter', sans-serif;
-  font-size: 28px; font-weight: 700; color: #fff;
-  margin-bottom: 14px; letter-spacing: -0.6px; line-height: 1.2;
+  font-size: 17.5px; font-weight: 600; color: var(--lp-ink);
+  letter-spacing: -.3px; margin-bottom: 9px; line-height: 1.3;
 }
-.feature-project-desc { font-size: 15.5px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
-.feature-project-link {
-  color: #fff; text-decoration: underline;
-  text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px;
-  transition: text-decoration-color .2s; font-weight: 500;
-}
-.feature-project-link:hover { text-decoration-color: var(--blue); }
-.feature-project-secondary { margin-top: 18px; font-size: 14.5px; color: var(--muted2); line-height: 1.6; }
-.feature-project-secondary a { color: #d4d4d4; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); text-underline-offset: 3px; }
-.feature-project-secondary a:hover { text-decoration-color: rgba(255,255,255,0.6); }
+.lp-track-desc { font-size: 14.5px; line-height: 1.68; color: var(--lp-ink-3); }
 
-/* ─── PROJECT CARDS (same component as case study pages) ── */
-.section-cta-bar { text-align: center; margin-top: 56px; }
-.cs-proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.cs-proj-card { text-decoration: none; display: flex; flex-direction: column; gap: 20px; border-radius: 24px; overflow: hidden; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.05); transition: border-color .3s; padding: 17px; }
-.cs-proj-card:hover { border-color: rgba(59,130,246,0.2); }
-.cs-proj-card-img { width: 100%; aspect-ratio: 4/3; border-radius: 16px; overflow: hidden; background: #1a1f2e; position: relative; flex-shrink: 0; }
-.cs-proj-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); }
-.cs-proj-card:hover .cs-proj-card-img img { transform: scale(1.04); }
-.cs-proj-card-img .cs-proj-hover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.06); transition: opacity .38s ease, transform .5s cubic-bezier(.16,1,.3,1); z-index: 2; }
-.cs-proj-card:hover .cs-proj-card-img .cs-proj-hover-img { opacity: 1; transform: scale(1); }
-.cs-proj-card-info { display: flex; align-items: flex-end; justify-content: space-between; padding: 0 8px 8px; }
-.cs-proj-card-cat { font-size: 14px; color: #a3a3a3; line-height: 20px; margin-bottom: 6px; }
-.cs-proj-card-name { font-size: 20px; font-weight: 500; font-family: 'Inter', sans-serif; color: #fff; letter-spacing: -0.5px; line-height: 28px; }
-.cs-proj-card-sub { font-size: 12px; color: #6b6b6f; margin-top: 3px; line-height: 1.4; }
-.cs-proj-card-btn { background: linear-gradient(to right, #2563eb, #3b82f6); width: 44px; height: 44px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; gap: 0; opacity: 0; transform: scale(0.8); transition: opacity .25s ease, transform .3s cubic-bezier(.16,1,.3,1), width .35s cubic-bezier(.16,1,.3,1), gap .35s cubic-bezier(.16,1,.3,1); box-shadow: 0 0 15px -3px rgba(37,99,235,0.15); }
-.cs-proj-card:hover .cs-proj-card-btn { opacity: 1; transform: scale(1); width: 148px; gap: 8px; }
-.cs-proj-card-btn span { white-space: nowrap; font-size: 15px; font-weight: 600; color: #fff; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .3s cubic-bezier(.16,1,.3,1), opacity .2s ease; }
-.cs-proj-card:hover .cs-proj-card-btn span { max-width: 120px; opacity: 1; }
-html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
-
-/* ─── PROCESS (compact, static — see services.html for the animated version) ── */
-.process-mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.process-mini-step {
-  background: rgba(9,9,11,0.8); border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px; padding: 28px 24px; backdrop-filter: blur(12px);
-}
-.process-mini-num {
-  width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(59,130,246,0.4);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 16px;
-}
-.process-mini-title { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 8px; letter-spacing: -0.2px; }
-.process-mini-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
-
-/* ─── CLOSING CTA ───────────────────────────────────── */
-.svc-cta { padding: 96px 0; text-align: center; position: relative; overflow: hidden; }
-.svc-cta > .container { position: relative; z-index: 1; }
-.svc-cta-title {
+/* ─── CLOSING CTA ────────────────────────────────────── */
+.lp-cta { padding: clamp(72px, 9vw, 128px) 0; position: relative; overflow: hidden; text-align: center; }
+.lp-cta > .container { position: relative; z-index: 1; }
+.lp-cta-title {
   font-family: 'Satoshi', 'Inter', sans-serif;
-  font-size: clamp(30px, 4vw, 52px); font-weight: 700; color: #fff;
-  letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
+  font-size: clamp(30px, 4.4vw, 58px); font-weight: 700;
+  color: var(--lp-ink); letter-spacing: -1.8px; line-height: 1.08;
+  margin: 0 auto 16px; max-width: 16ch; text-wrap: balance;
 }
-.svc-cta-sub { font-size: 16px; color: var(--muted); margin: 0 auto 36px; max-width: 520px; line-height: 1.7; }
-.svc-cta-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.lp-cta-sub { font-size: 16.5px; line-height: 1.75; color: var(--lp-ink-3); margin: 0 auto 34px; max-width: 52ch; }
+.lp-cta-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
 
-/* ─── RESPONSIVE ────────────────────────────────────── */
-@media (max-width: 1100px) {
-  .city-page-title { font-size: 42px; }
-  .svc-band-title { font-size: 36px; }
-  .benefit-grid { grid-template-columns: repeat(2, 1fr); }
-  .svc-grid { grid-template-columns: repeat(2, 1fr); }
-  .cs-proj-grid { grid-template-columns: repeat(2, 1fr); }
-  .process-mini-grid { grid-template-columns: repeat(2, 1fr); }
-  .feature-project { gap: 32px; padding: 32px; }
-  .feature-project-img { flex-basis: 300px; }
+/* ─── PROSE LINKS ────────────────────────────────────── */
+.inline-link {
+  color: var(--lp-ink); text-decoration: underline;
+  text-decoration-color: rgba(59,130,246,0.55); text-underline-offset: 3px;
+  transition: text-decoration-color .2s;
 }
-@media (max-width: 900px) {
-  .svc-section { padding: 72px 0; }
-  .svc-band-title { font-size: 32px; }
-  .city-page-title { font-size: 36px; }
-  .city-hero { padding: 120px 0 90px; }
-  .feature-project { flex-direction: column; }
-  .feature-project-img { flex-basis: auto; width: 100%; }
-}
-@media (max-width: 700px) {
-  .svc-section { padding: 56px 0; }
-  .city-hero { padding: 88px 0 64px; }
-  .city-page-title { font-size: 28px; line-height: 35px; }
-  .city-hero-lead { font-size: 15px; line-height: 26px; }
-  .svc-band-title { font-size: 26px; line-height: 32px; }
-  .svc-band-sub { font-size: 14.5px; }
-  .benefit-grid { grid-template-columns: 1fr; }
-  .svc-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-  .cs-proj-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-  .process-mini-grid { grid-template-columns: 1fr; }
-  .section-cta-bar { margin-top: 40px; }
-  .svc-card { padding: 24px 20px; }
-  .feature-project { padding: 24px; }
-  .feature-project-title { font-size: 22px; }
-  .svc-cta { padding: 56px 0; }
-  .hero-actions .btn-primary, .hero-actions .btn-secondary,
-  .svc-cta-actions .btn-primary, .svc-cta-actions .btn-secondary { width: 100%; }
-}
-
-
-/* Inline prose links (body copy + FAQ answers). Kept as a class rather than
-   an inline style so light mode can restyle them. */
-.inline-link { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
-.inline-link:hover { text-decoration-color: var(--blue); }
-.faq-answer-inner .inline-link { color: #d4d4d4; text-decoration-color: rgba(255,255,255,0.25); }
+.inline-link:hover { text-decoration-color: var(--lp-accent); }
+.faq-answer-inner .inline-link { color: var(--lp-ink-2); text-decoration-color: rgba(255,255,255,0.25); }
 .faq-answer-inner .inline-link:hover { text-decoration-color: rgba(255,255,255,0.6); }
+html[data-theme="light"] .faq-answer-inner .inline-link { color: var(--lp-accent); text-decoration-color: rgba(29,78,216,0.4); }
 
-/* ─── RTL ───────────────────────────────────────────── */
-html[dir="rtl"] .benefit-item { flex-direction: row-reverse; text-align: right; }
-html[dir="rtl"] .svc-card { text-align: right; }
-html[dir="rtl"] .feature-project-secondary { text-align: right; }
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .lp-hero-grid { grid-template-columns: 1fr; gap: 44px; }
+  .lp-showcase, .lp-showcase--flip { grid-template-columns: 1fr; gap: 32px; }
+  .lp-showcase--flip .lp-showcase-visual { order: 0; }
+  .lp-head { grid-template-columns: 1fr; gap: 18px; align-items: start; }
+  .lp-statement-grid { grid-template-columns: 1fr; gap: 26px; }
+  .lp-statement-text { max-width: 22ch; }
+  .lp-track { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 8px; }
+  .lp-track-step:nth-child(n+3) { border-top: 1px solid var(--lp-rule-soft); margin-top: 14px; }
+  .lp-track-step:nth-child(n+3)::before { top: -1px; }
+}
+@media (max-width: 760px) {
+  .lp-ledger-row { grid-template-columns: 34px minmax(0,1fr); row-gap: 8px; }
+  .lp-ledger-desc { grid-column: 2 / -1; }
+  .lp-ledger--tight .lp-ledger-row { grid-template-columns: 34px minmax(0,1fr); }
+  .lp-panel { position: static; margin-top: 12px; left: auto; right: auto; bottom: auto; backdrop-filter: none; }
+  .lp-track { grid-template-columns: 1fr; }
+  .lp-track-step { padding-right: 0; }
+  .lp-track-step:nth-child(n+2) { border-top: 1px solid var(--lp-rule-soft); margin-top: 14px; }
+  .lp-hero-actions .btn-primary, .lp-hero-actions .btn-secondary,
+  .lp-cta-actions .btn-primary, .lp-cta-actions .btn-secondary { width: 100%; }
+  .lp-statement-text { max-width: none; }
+  .lp-frame-media { aspect-ratio: 4/3; }
+}
+
+/* ─── RTL ────────────────────────────────────────────── */
+html[dir="rtl"] .lp-eyebrow::after { order: -1; }
+html[dir="rtl"] .lp-point { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .lp-ledger-row { text-align: right; }
+html[dir="rtl"] .lp-track-step { padding: clamp(24px,2.4vw,34px) 0 0 clamp(16px,2vw,34px); }
+html[dir="rtl"] .lp-track-step::before { left: auto; right: 0; }
+html[dir="rtl"] .lp-panel { direction: rtl; }
+html[dir="rtl"] .lp-link:hover { gap: 13px; }
+
+/* ─── LANGUAGE TABS (international only, decorative) ─── */
+.lp-tabs { display: flex; gap: 6px; }
+.lp-tab {
+  font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--lp-rule); color: var(--lp-ink-3); white-space: nowrap;
+}
+.lp-tab--on { background: var(--lp-accent); border-color: transparent; color: #fff; }
+.lp-tab--rtl { direction: rtl; font-family: 'Cairo', sans-serif; }
+
+/* ─── SELECTED WORK GRID (international only) ────────── */
+/* Replaces .cs-proj-* on this page. Keeps the hover crossfade that component
+   had, but reframed in the new visual language. */
+.lp-work { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(16px, 2vw, 28px); }
+.lp-work-card { display: flex; flex-direction: column; }
+.lp-work-media {
+  position: relative; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--lp-rule); aspect-ratio: 4/3;
+  background: var(--lp-band-deep);
+}
+.lp-work-media img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.lp-work-hover {
+  position: absolute; inset: 0; opacity: 0; transform: scale(1.05);
+  transition: opacity .4s ease, transform .6s cubic-bezier(.16,1,.3,1); z-index: 2;
+}
+.lp-work-card:hover .lp-work-hover { opacity: 1; transform: scale(1); }
+.lp-work-info { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 18px; }
+.lp-work-cat { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--lp-accent); margin-bottom: 8px; }
+.lp-work-name {
+  font-family: 'Satoshi', 'Inter', sans-serif; font-size: 19px; font-weight: 700;
+  color: var(--lp-ink); letter-spacing: -.4px; margin-bottom: 5px; line-height: 1.25;
+}
+.lp-work-sub { font-size: 13.5px; line-height: 1.55; color: var(--lp-ink-3); }
+.lp-work-go {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--lp-rule); color: var(--lp-ink-3);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.lp-work-card:hover .lp-work-go { background: var(--lp-accent); border-color: transparent; color: #fff; transform: translateX(3px); }
+html[dir="rtl"] .lp-work-card:hover .lp-work-go { transform: translateX(-3px) scaleX(-1); }
+html[dir="rtl"] .lp-work-go svg { transform: scaleX(-1); }
+@media (max-width: 900px) { .lp-work { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 620px) { .lp-work { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
 </style>
 
 <!-- Structured data: the studio is based in Tanger and offers its services
@@ -472,353 +596,450 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- ════ HERO ════ -->
-<section class="city-hero">
+<section class="lp-hero">
   <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(190px); width:700px; height:700px;"></div>
   <div class="container">
-    <h1 class="city-page-title reveal"
-      data-en="International Web Design &amp; Development, <span class='accent'>Based in Tangier</span>"
-      data-fr="Design et Développement Web International, <span class='accent'>Basés à Tanger</span>"
-      data-ar="تصميم وتطوير مواقع دولية، <span class='accent'>من طنجة</span>">Design et Développement Web International, <span class="accent">Basés à Tanger</span></h1>
+    <div class="lp-hero-grid">
 
-    <p class="city-hero-lead reveal"
-      data-en="We design and build custom websites for ambitious businesses worldwide: UI/UX design, full-stack development, and multilingual builds, delivered through remote collaboration with the same standard of craft as a local studio."
-      data-fr="Nous concevons et développons des sites web sur mesure pour des entreprises ambitieuses partout dans le monde : design UI/UX, développement full-stack et sites multilingues, livrés en collaboration à distance avec la même exigence qu'un studio local."
-      data-ar="نصمم ونطوّر مواقع ويب مخصصة لشركات طموحة حول العالم: تصميم واجهات، تطوير متكامل، ومواقع متعددة اللغات، ننجزها عبر تعاون عن بُعد بنفس معايير استوديو محلي.">Nous concevons et développons des sites web sur mesure pour des entreprises ambitieuses partout dans le monde : design UI/UX, développement full-stack et sites multilingues, livrés en collaboration à distance avec la même exigence qu'un studio local.</p>
+      <div class="lp-hero-copy">
+        <div class="lp-eyebrow reveal" data-en="International Projects" data-fr="Projets internationaux" data-ar="مشاريع دولية">Projets internationaux</div>
 
-    <div class="hero-actions reveal">
-      <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
-      <a href="/maison-monchef" class="btn-secondary" data-en="See the Maison Monchef case study" data-fr="Voir l'étude de cas Maison Monchef" data-ar="شاهد دراسة حالة Maison Monchef">Voir l'étude de cas Maison Monchef</a>
+        <h1 class="lp-h1 reveal"
+          data-en="International Web Design &amp; Development, <span class='accent'>Based in Tangier</span>"
+          data-fr="Design et Développement Web International, <span class='accent'>Basés à Tanger</span>"
+          data-ar="تصميم وتطوير مواقع دولية، <span class='accent'>من طنجة</span>">Design et Développement Web International, <span class="accent">Basés à Tanger</span></h1>
+
+        <p class="lp-lead reveal"
+          data-en="We design and build custom websites for ambitious businesses worldwide: UI/UX design, full-stack development, and multilingual builds, delivered through remote collaboration with the same standard of craft as a local studio."
+          data-fr="Nous concevons et développons des sites web sur mesure pour des entreprises ambitieuses partout dans le monde : design UI/UX, développement full-stack et sites multilingues, livrés en collaboration à distance avec la même exigence qu'un studio local."
+          data-ar="نصمم ونطوّر مواقع ويب مخصصة لشركات طموحة حول العالم: تصميم واجهات، تطوير متكامل، ومواقع متعددة اللغات، ننجزها عبر تعاون عن بُعد بنفس معايير استوديو محلي.">Nous concevons et développons des sites web sur mesure pour des entreprises ambitieuses partout dans le monde : design UI/UX, développement full-stack et sites multilingues, livrés en collaboration à distance avec la même exigence qu'un studio local.</p>
+
+        <div class="lp-hero-actions reveal">
+          <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+          <a href="/maison-monchef" class="btn-secondary" data-en="See the Maison Monchef case study" data-fr="Voir l'étude de cas Maison Monchef" data-ar="شاهد دراسة حالة Maison Monchef">Voir l'étude de cas Maison Monchef</a>
+        </div>
+      </div>
+
+      <!-- Decorative composition: the trilingual capability this page sells,
+           shown over a real screenshot. No invented data. -->
+      <div class="lp-compose reveal" aria-hidden="true">
+        <div class="lp-frame">
+          <div class="lp-frame-bar">
+            <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+            <span class="lp-frame-url"></span>
+          </div>
+          <div class="lp-frame-media">
+            <img src="./assets/images/projects/maison-monchef/1.webp" alt="" width="932" height="640" loading="eager" fetchpriority="high">
+          </div>
+        </div>
+        <div class="lp-panel">
+          <div class="lp-tabs">
+            <span class="lp-tab lp-tab--on">Français</span>
+            <span class="lp-tab">English</span>
+            <span class="lp-tab lp-tab--rtl">العربية</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ INTERNATIONAL PROJECT: MAISON MONCHEF — proof moved up ════ -->
+<section class="lp-section lp-section--band" id="maison-monchef">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <div>
+          <div class="lp-eyebrow reveal" data-en="International Project" data-fr="Projet International" data-ar="مشروع دولي">Projet International</div>
+          <h2 class="lp-h2 reveal"
+            data-en="A multilingual real estate platform, built for a <em>Dubai-based</em> client"
+            data-fr="Une plateforme immobilière multilingue, conçue pour un client basé à <em>Dubaï</em>"
+            data-ar="منصة عقارية متعددة اللغات، صُممت لعميل مقيم في <em>دبي</em>">Une plateforme immobilière multilingue, conçue pour un client basé à <em>Dubaï</em></h2>
+        </div>
+      </div>
+
+      <div class="lp-showcase reveal">
+        <div class="lp-showcase-visual">
+          <div class="lp-frame">
+            <div class="lp-frame-bar" aria-hidden="true">
+              <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+              <span class="lp-frame-url"></span>
+            </div>
+            <div class="lp-frame-media">
+              <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef, plateforme immobilière multilingue" width="932" height="640" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="lp-showcase-body">
+          <div class="lp-showcase-tag" data-en="Real Estate · Multilingual" data-fr="Immobilier · Multilingue" data-ar="عقارات · متعدد اللغات">Immobilier · Multilingue</div>
+          <div class="lp-showcase-title">Maison Monchef</div>
+          <p class="lp-showcase-desc"
+            data-en="Maison Monchef is our clearest proof point for international, remote work: a real estate platform for a Dubai-based client, built in French, English, and Arabic with Next.js and Sanity CMS, entirely over calls, Figma, and WhatsApp."
+            data-fr="Maison Monchef est notre preuve la plus claire de travail international et à distance : une plateforme immobilière pour un client basé à Dubaï, construite en français, anglais et arabe avec Next.js et Sanity CMS, entièrement via appels, Figma et WhatsApp."
+            data-ar="ميزون مونشيف هي أوضح دليل على عملنا الدولي عن بُعد: منصة عقارية لعميل مقيم في دبي، بُنيت بالفرنسية والإنجليزية والعربية باستخدام Next.js وSanity CMS، بالكامل عبر المكالمات وفيجما وواتساب.">Maison Monchef est notre preuve la plus claire de travail international et à distance : une plateforme immobilière pour un client basé à Dubaï, construite en français, anglais et arabe avec Next.js et Sanity CMS, entièrement via appels, Figma et WhatsApp.</p>
+          <p style="margin:22px 0 24px;" class="lp-showcase-desc"
+            data-en="For a Morocco-based real estate example, see also our <a href='/el-majdoub' class='inline-link'>El Majdoub Immobilier case study</a>, a rental platform built in Agadir."
+            data-fr="Pour un exemple immobilier basé au Maroc, voir aussi notre <a href='/el-majdoub' class='inline-link'>étude de cas El Majdoub Immobilier</a>, une plateforme de location construite à Agadir."
+            data-ar="لمثال عقاري مقره المغرب، انظر أيضاً <a href='/el-majdoub' class='inline-link'>دراسة حالة El Majdoub Immobilier</a>، منصة تأجير بُنيت في أكادير.">Pour un exemple immobilier basé au Maroc, voir aussi notre <a href="/el-majdoub" class="inline-link">étude de cas El Majdoub Immobilier</a>, une plateforme de location construite à Agadir.</p>
+          <a href="/maison-monchef" class="lp-link" data-en="Read the full Maison Monchef case study &rarr;" data-fr="Lire l'étude de cas Maison Monchef complète &rarr;" data-ar="اقرأ دراسة حالة Maison Monchef الكاملة &larr;">Lire l'étude de cas Maison Monchef complète →</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════ REMOTE COLLABORATION ════ -->
-<section class="svc-section" id="collaboration">
+<section class="lp-section" id="collaboration">
   <div class="container">
-    <div class="section-label section-label--center reveal" style="justify-content:center;">
-      <span class="section-label-dot"></span>
-      <span data-en="Remote Collaboration" data-fr="Collaboration à Distance" data-ar="تعاون عن بُعد">Collaboration à Distance</span>
-    </div>
-    <h2 class="svc-band-title reveal"
-      data-en="How we work with clients <em>outside Morocco</em>"
-      data-fr="Comment nous travaillons avec des clients <em>à l'étranger</em>"
-      data-ar="كيف نعمل مع عملاء <em>خارج المغرب</em>">Comment nous travaillons avec des clients <em>à l'étranger</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="A remote project only works if the process is clear from day one. Here's how ours is structured, from the first call to launch."
-      data-fr="Un projet à distance ne fonctionne que si le processus est clair dès le premier jour. Voici comment le nôtre est structuré, du premier appel jusqu'au lancement."
-      data-ar="لا ينجح المشروع عن بُعد إلا إذا كانت العملية واضحة منذ اليوم الأول. إليك كيف تتم عمليتنا، من المكالمة الأولى إلى الإطلاق.">Un projet à distance ne fonctionne que si le processus est clair dès le premier jour. Voici comment le nôtre est structuré, du premier appel jusqu'au lancement.</p>
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <div>
+          <div class="lp-eyebrow reveal" data-en="Remote Collaboration" data-fr="Collaboration à Distance" data-ar="تعاون عن بُعد">Collaboration à Distance</div>
+          <h2 class="lp-h2 reveal"
+            data-en="How we work with clients <em>outside Morocco</em>"
+            data-fr="Comment nous travaillons avec des clients <em>à l'étranger</em>"
+            data-ar="كيف نعمل مع عملاء <em>خارج المغرب</em>">Comment nous travaillons avec des clients <em>à l'étranger</em></h2>
+        </div>
+        <p class="lp-sub reveal"
+          data-en="A remote project only works if the process is clear from day one. Here's how ours is structured, from the first call to launch."
+          data-fr="Un projet à distance ne fonctionne que si le processus est clair dès le premier jour. Voici comment le nôtre est structuré, du premier appel jusqu'au lancement."
+          data-ar="لا ينجح المشروع عن بُعد إلا إذا كانت العملية واضحة منذ اليوم الأول. إليك كيف تتم عمليتنا، من المكالمة الأولى إلى الإطلاق.">Un projet à distance ne fonctionne que si le processus est clair dès le premier jour. Voici comment le nôtre est structuré, du premier appel jusqu'au lancement.</p>
+      </div>
 
-    <div class="benefit-grid reveal">
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Video calls for discovery, design review, and launch" data-fr="Appels vidéo pour la découverte, la revue de design et le lancement" data-ar="مكالمات فيديو للاستكشاف، ومراجعة التصميم، والإطلاق">Appels vidéo pour la découverte, la revue de design et le lancement</span>
-      </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="WhatsApp and email for day-to-day updates" data-fr="WhatsApp et e-mail pour les échanges du quotidien" data-ar="واتساب والبريد الإلكتروني للتواصل اليومي">WhatsApp et e-mail pour les échanges du quotidien</span>
-      </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Design reviewed and commented directly in Figma" data-fr="Design revu et commenté directement dans Figma" data-ar="مراجعة التصميم والتعليق عليه مباشرة في فيجما">Design revu et commenté directement dans Figma</span>
-      </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Fixed milestones, so you always know what's next" data-fr="Étapes fixes, pour toujours savoir ce qui suit" data-ar="مراحل ثابتة، لتعرف دائماً الخطوة التالية">Étapes fixes, pour toujours savoir ce qui suit</span>
-      </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="One point of contact from first call to launch" data-fr="Un seul interlocuteur, du premier appel au lancement" data-ar="جهة اتصال واحدة من المكالمة الأولى إلى الإطلاق">Un seul interlocuteur, du premier appel au lancement</span>
-      </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="30 days of support included after launch" data-fr="30 jours de support inclus après le lancement" data-ar="30 يوماً من الدعم مشمولة بعد الإطلاق">30 jours de support inclus après le lancement</span>
-      </div>
-    </div>
-
-    <p class="svc-band-note reveal"
-      data-en="Tanger sits on GMT, which overlaps fully with European business hours and partially with mornings in the Gulf, the UK, and the US East Coast."
-      data-fr="Tanger est sur le fuseau horaire GMT, ce qui chevauche entièrement les heures de bureau en Europe, et partiellement les matinées dans le Golfe, au Royaume-Uni et sur la côte est des États-Unis."
-      data-ar="تقع طنجة على التوقيت العالمي GMT، وهو ما يتداخل كلياً مع ساعات العمل في أوروبا، وجزئياً مع صباح دول الخليج والمملكة المتحدة والساحل الشرقي للولايات المتحدة.">Tanger est sur le fuseau horaire GMT, ce qui chevauche entièrement les heures de bureau en Europe, et partiellement les matinées dans le Golfe, au Royaume-Uni et sur la côte est des États-Unis.</p>
-  </div>
-</section>
-
-<!-- ════ WHY WORK WITH US ════ -->
-<section class="svc-section svc-section--tint" id="pourquoi">
-  <div class="container">
-    <h2 class="svc-band-title reveal"
-      data-en="Why work with a Morocco-based studio on an <em>international</em> project?"
-      data-fr="Pourquoi choisir un studio basé au Maroc pour un projet <em>international</em> ?"
-      data-ar="لماذا تختار استوديو مقرّه المغرب لمشروع <em>دولي</em>؟">Pourquoi choisir un studio basé au Maroc pour un projet <em>international</em> ?</h2>
-    <p class="svc-band-sub reveal"
-      data-en="We're a small studio by design. That means direct access to the person actually building your site, not a chain of account managers."
-      data-fr="Nous sommes un studio volontairement petit. Cela veut dire un accès direct à la personne qui construit réellement votre site, sans chaîne de chargés de compte."
-      data-ar="نحن استوديو صغير عن قصد. هذا يعني وصولاً مباشراً إلى الشخص الذي يبني موقعك فعلاً، دون سلسلة من مديري الحسابات.">Nous sommes un studio volontairement petit. Cela veut dire un accès direct à la personne qui construit réellement votre site, sans chaîne de chargés de compte.</p>
-
-    <div class="svc-grid svc-grid--three reveal">
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="Direct communication" data-fr="Communication directe" data-ar="تواصل مباشر">Communication directe</h3>
-        <p class="svc-card-desc"
-          data-en="You talk to the person designing and coding your site, in French, English, or Arabic, not a sales layer."
-          data-fr="Vous échangez avec la personne qui conçoit et code votre site, en français, en anglais ou en arabe, pas avec un intermédiaire commercial."
-          data-ar="تتواصل مباشرة مع الشخص الذي يصمم ويبرمج موقعك، بالفرنسية أو الإنجليزية أو العربية، وليس مع طبقة مبيعات وسيطة.">Vous échangez avec la personne qui conçoit et code votre site, en français, en anglais ou en arabe, pas avec un intermédiaire commercial.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="Custom, not templated" data-fr="Sur mesure, pas un template" data-ar="مخصص، وليس قالباً">Sur mesure, pas un template</h3>
-        <p class="svc-card-desc"
-          data-en="Every project starts in Figma and is built in code, not assembled from a page builder or a pre-made theme."
-          data-fr="Chaque projet démarre dans Figma et est construit en code, pas assemblé à partir d'un page builder ou d'un thème préfabriqué."
-          data-ar="كل مشروع يبدأ في فيجما ويُبنى بالكود، وليس مُجمّعاً من أداة بناء صفحات أو قالب جاهز.">Chaque projet démarre dans Figma et est construit en code, pas assemblé à partir d'un page builder ou d'un thème préfabriqué.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="A workable time zone" data-fr="Un fuseau horaire compatible" data-ar="توقيت متوافق">Un fuseau horaire compatible</h3>
-        <p class="svc-card-desc"
-          data-en="GMT means your calls happen during normal business hours in Europe, and workable morning slots in the Gulf, the UK, or the US East Coast."
-          data-fr="Le fuseau GMT permet des appels aux heures de bureau normales en Europe, et des créneaux matinaux compatibles dans le Golfe, au Royaume-Uni ou sur la côte est des États-Unis."
-          data-ar="يتيح توقيت GMT إجراء المكالمات في ساعات العمل العادية بأوروبا، وأوقات صباحية ملائمة في الخليج أو المملكة المتحدة أو الساحل الشرقي الأمريكي.">Le fuseau GMT permet des appels aux heures de bureau normales en Europe, et des créneaux matinaux compatibles dans le Golfe, au Royaume-Uni ou sur la côte est des États-Unis.</p>
+      <div class="lp-ledger lp-ledger--tight reveal">
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">01</div>
+          <div class="lp-ledger-title" data-en="Video calls for discovery, design review, and launch" data-fr="Appels vidéo pour la découverte, la revue de design et le lancement" data-ar="مكالمات فيديو للاستكشاف، ومراجعة التصميم، والإطلاق">Appels vidéo pour la découverte, la revue de design et le lancement</div>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">02</div>
+          <div class="lp-ledger-title" data-en="WhatsApp and email for day-to-day updates" data-fr="WhatsApp et e-mail pour les échanges du quotidien" data-ar="واتساب والبريد الإلكتروني للتواصل اليومي">WhatsApp et e-mail pour les échanges du quotidien</div>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">03</div>
+          <div class="lp-ledger-title" data-en="Design reviewed and commented directly in Figma" data-fr="Design revu et commenté directement dans Figma" data-ar="مراجعة التصميم والتعليق عليه مباشرة في فيجما">Design revu et commenté directement dans Figma</div>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">04</div>
+          <div class="lp-ledger-title" data-en="Fixed milestones, so you always know what's next" data-fr="Étapes fixes, pour toujours savoir ce qui suit" data-ar="مراحل ثابتة، لتعرف دائماً الخطوة التالية">Étapes fixes, pour toujours savoir ce qui suit</div>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">05</div>
+          <div class="lp-ledger-title" data-en="One point of contact from first call to launch" data-fr="Un seul interlocuteur, du premier appel au lancement" data-ar="جهة اتصال واحدة من المكالمة الأولى إلى الإطلاق">Un seul interlocuteur, du premier appel au lancement</div>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">06</div>
+          <div class="lp-ledger-title" data-en="30 days of support included after launch" data-fr="30 jours de support inclus après le lancement" data-ar="30 يوماً من الدعم مشمولة بعد الإطلاق">30 jours de support inclus après le lancement</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════ SERVICES ════ -->
-<section class="svc-section" id="services">
+<!-- ════ STATEMENT — the time-zone argument, given room ════ -->
+<section class="lp-statement lp-section--deep">
   <div class="container">
-    <h2 class="svc-band-title reveal"
-      data-en="What we build for <em>international clients</em>"
-      data-fr="Ce que nous construisons pour des <em>clients internationaux</em>"
-      data-ar="ما الذي نبنيه <em>للعملاء الدوليين</em>">Ce que nous construisons pour des <em>clients internationaux</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="Four capabilities that come together on every international project. For the full breakdown of our process, see our services page."
-      data-fr="Quatre compétences qui se combinent sur chaque projet international. Pour le détail complet de notre processus, voir notre page services."
-      data-ar="أربع قدرات تجتمع في كل مشروع دولي. للاطلاع على تفاصيل عمليتنا الكاملة، انظر صفحة خدماتنا.">Quatre compétences qui se combinent sur chaque projet international. Pour le détail complet de notre processus, voir notre <a href="/services" class="inline-link">page services</a>.</p>
-
-    <div class="svc-grid reveal">
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="Custom UI/UX Design" data-fr="Design UI/UX Sur Mesure" data-ar="تصميم واجهات مخصص">Design UI/UX Sur Mesure</h3>
-        <p class="svc-card-desc"
-          data-en="Interfaces designed in Figma around your brand and your audience, not a generic template."
-          data-fr="Des interfaces conçues dans Figma autour de votre marque et de votre audience, jamais un template générique."
-          data-ar="واجهات مصممة في فيجما حول علامتك التجارية وجمهورك، وليس قالباً عاماً.">Des interfaces conçues dans Figma autour de votre marque et de votre audience, jamais un template générique.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="Full-Stack Development" data-fr="Développement Full-Stack" data-ar="تطوير متكامل">Développement Full-Stack</h3>
-        <p class="svc-card-desc"
-          data-en="Next.js, Tailwind, and headless CMS (Sanity) when a project needs dynamic content or a client-manageable backend."
-          data-fr="Next.js, Tailwind et CMS headless (Sanity) quand un projet a besoin de contenu dynamique ou d'un back-office gérable par vous-même."
-          data-ar="Next.js وTailwind ونظام إدارة محتوى headless (Sanity) عندما يحتاج المشروع محتوى ديناميكياً أو لوحة تحكم تديرها بنفسك.">Next.js, Tailwind et CMS headless (Sanity) quand un projet a besoin de contenu dynamique ou d'un back-office gérable par vous-même.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="Multilingual Websites" data-fr="Sites Multilingues" data-ar="مواقع متعددة اللغات">Sites Multilingues</h3>
-        <p class="svc-card-desc"
-          data-en="French, English, and Arabic, including full right-to-left (RTL) layout support for Arabic-speaking audiences."
-          data-fr="Français, anglais et arabe, avec un support complet de la mise en page droite-à-gauche (RTL) pour les audiences arabophones."
-          data-ar="الفرنسية والإنجليزية والعربية، مع دعم كامل للتخطيط من اليمين إلى اليسار (RTL) للجمهور الناطق بالعربية.">Français, anglais et arabe, avec un support complet de la mise en page droite-à-gauche (RTL) pour les audiences arabophones.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title" data-en="Performance & Technical SEO" data-fr="Performance & SEO Technique" data-ar="الأداء وتحسين محركات البحث">Performance &amp; SEO Technique</h3>
-        <p class="svc-card-desc"
-          data-en="Fast load times, clean semantic markup, and structured data, built in from the first commit, not patched on later."
-          data-fr="Temps de chargement rapides, balisage sémantique propre et données structurées, intégrés dès le premier commit, pas ajoutés après coup."
-          data-ar="أوقات تحميل سريعة، وترميز دلالي نظيف، وبيانات منظمة، مدمجة منذ أول تعديل، وليست مضافة لاحقاً.">Temps de chargement rapides, balisage sémantique propre et données structurées, intégrés dès le premier commit, pas ajoutés après coup.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════ INTERNATIONAL PROJECT: MAISON MONCHEF ════ -->
-<section class="svc-section svc-section--tint" id="maison-monchef">
-  <div class="container">
-    <div class="section-label section-label--center reveal" style="justify-content:center;">
-      <span class="section-label-dot"></span>
-      <span data-en="International Project" data-fr="Projet International" data-ar="مشروع دولي">Projet International</span>
-    </div>
-    <h2 class="svc-band-title reveal"
-      data-en="A multilingual real estate platform, built for a <em>Dubai-based</em> client"
-      data-fr="Une plateforme immobilière multilingue, conçue pour un client basé à <em>Dubaï</em>"
-      data-ar="منصة عقارية متعددة اللغات، صُممت لعميل مقيم في <em>دبي</em>">Une plateforme immobilière multilingue, conçue pour un client basé à <em>Dubaï</em></h2>
-
-    <div class="feature-project reveal">
-      <div class="feature-project-img">
-        <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef, plateforme immobilière multilingue" loading="lazy">
-      </div>
-      <div class="feature-project-body">
-        <div class="feature-project-tag" data-en="Real Estate · Multilingual" data-fr="Immobilier · Multilingue" data-ar="عقارات · متعدد اللغات">Immobilier · Multilingue</div>
-        <div class="feature-project-title">Maison Monchef</div>
-        <p class="feature-project-desc"
-          data-en="Maison Monchef is our clearest proof point for international, remote work: a real estate platform for a Dubai-based client, built in French, English, and Arabic with Next.js and Sanity CMS, entirely over calls, Figma, and WhatsApp."
-          data-fr="Maison Monchef est notre preuve la plus claire de travail international et à distance : une plateforme immobilière pour un client basé à Dubaï, construite en français, anglais et arabe avec Next.js et Sanity CMS, entièrement via appels, Figma et WhatsApp."
-          data-ar="ميزون مونشيف هي أوضح دليل على عملنا الدولي عن بُعد: منصة عقارية لعميل مقيم في دبي، بُنيت بالفرنسية والإنجليزية والعربية باستخدام Next.js وSanity CMS، بالكامل عبر المكالمات وفيجما وواتساب.">Maison Monchef est notre preuve la plus claire de travail international et à distance : une plateforme immobilière pour un client basé à Dubaï, construite en français, anglais et arabe avec Next.js et Sanity CMS, entièrement via appels, Figma et WhatsApp.</p>
-        <a href="/maison-monchef" class="feature-project-link" data-en="Read the full Maison Monchef case study &rarr;" data-fr="Lire l'étude de cas Maison Monchef complète &rarr;" data-ar="اقرأ دراسة حالة Maison Monchef الكاملة &larr;">Lire l'étude de cas Maison Monchef complète →</a>
-        <p class="feature-project-secondary"
-          data-en="For a Morocco-based real estate example, see also our <a href='/el-majdoub'>El Majdoub Immobilier case study</a>, a rental platform built in Agadir."
-          data-fr="Pour un exemple immobilier basé au Maroc, voir aussi notre <a href='/el-majdoub'>étude de cas El Majdoub Immobilier</a>, une plateforme de location construite à Agadir."
-          data-ar="لمثال عقاري مقره المغرب، انظر أيضاً <a href='/el-majdoub'>دراسة حالة El Majdoub Immobilier</a>، منصة تأجير بُنيت في أكادير.">Pour un exemple immobilier basé au Maroc, voir aussi notre <a href="/el-majdoub">étude de cas El Majdoub Immobilier</a>, une plateforme de location construite à Agadir.</p>
+    <div class="lp-narrow">
+      <div class="lp-statement-grid">
+        <p class="lp-statement-text reveal"
+          data-en="A time zone that already fits your working day."
+          data-fr="Un fuseau horaire déjà aligné sur votre journée."
+          data-ar="توقيت يتوافق أصلاً مع يوم عملك.">Un fuseau horaire déjà aligné sur votre journée.</p>
+        <p class="lp-statement-body reveal"
+          data-en="Tanger sits on GMT, which overlaps fully with European business hours and partially with mornings in the Gulf, the UK, and the US East Coast."
+          data-fr="Tanger est sur le fuseau horaire GMT, ce qui chevauche entièrement les heures de bureau en Europe, et partiellement les matinées dans le Golfe, au Royaume-Uni et sur la côte est des États-Unis."
+          data-ar="تقع طنجة على التوقيت العالمي GMT، وهو ما يتداخل كلياً مع ساعات العمل في أوروبا، وجزئياً مع صباح دول الخليج والمملكة المتحدة والساحل الشرقي للولايات المتحدة.">Tanger est sur le fuseau horaire GMT, ce qui chevauche entièrement les heures de bureau en Europe, et partiellement les matinées dans le Golfe, au Royaume-Uni et sur la côte est des États-Unis.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════ MULTILINGUAL CAPABILITY ════ -->
-<section class="svc-section" id="multilingue">
+<section class="lp-section" id="multilingue">
   <div class="container">
-    <h2 class="svc-band-title reveal"
-      data-en="Built to speak your <em>audience's</em> language"
-      data-fr="Conçus pour parler la langue de <em>votre audience</em>"
-      data-ar="مبنية لتتحدث لغة <em>جمهورك</em>">Conçus pour parler la langue de <em>votre audience</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="This very page is delivered in French, English, and Arabic from a single URL. It's the same multilingual system we build into client projects, not a plugin bolted on afterward."
-      data-fr="Cette page elle-même est livrée en français, anglais et arabe depuis une seule URL. C'est le même système multilingue que nous intégrons aux projets clients, pas un plugin ajouté après coup."
-      data-ar="هذه الصفحة نفسها تُعرض بالفرنسية والإنجليزية والعربية من رابط واحد. إنه نفس النظام متعدد اللغات الذي ندمجه في مشاريع العملاء، وليس إضافة لاحقة.">Cette page elle-même est livrée en français, anglais et arabe depuis une seule URL. C'est le même système multilingue que nous intégrons aux projets clients, pas un plugin ajouté après coup.</p>
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="Built to speak your <em>audience's</em> language"
+          data-fr="Conçus pour parler la langue de <em>votre audience</em>"
+          data-ar="مبنية لتتحدث لغة <em>جمهورك</em>">Conçus pour parler la langue de <em>votre audience</em></h2>
+        <p class="lp-sub reveal"
+          data-en="This very page is delivered in French, English, and Arabic from a single URL. It's the same multilingual system we build into client projects, not a plugin bolted on afterward."
+          data-fr="Cette page elle-même est livrée en français, anglais et arabe depuis une seule URL. C'est le même système multilingue que nous intégrons aux projets clients, pas un plugin ajouté après coup."
+          data-ar="هذه الصفحة نفسها تُعرض بالفرنسية والإنجليزية والعربية من رابط واحد. إنه نفس النظام متعدد اللغات الذي ندمجه في مشاريع العملاء، وليس إضافة لاحقة.">Cette page elle-même est livrée en français, anglais et arabe depuis une seule URL. C'est le même système multilingue que nous intégrons aux projets clients, pas un plugin ajouté après coup.</p>
+      </div>
 
-    <div class="svc-grid svc-grid--three reveal">
-      <div class="svc-card">
-        <h3 class="svc-card-title">Français</h3>
-        <p class="svc-card-desc"
-          data-en="Your primary content, written for a francophone audience — Morocco, France, and the wider francophone market."
-          data-fr="Votre contenu principal, rédigé pour une audience francophone : Maroc, France et marché francophone au sens large."
-          data-ar="محتواك الرئيسي، مكتوب لجمهور فرنكوفوني: المغرب وفرنسا والسوق الفرنكوفوني عموماً.">Votre contenu principal, rédigé pour une audience francophone : Maroc, France et marché francophone au sens large.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title">English</h3>
-        <p class="svc-card-desc"
-          data-en="A full English version for your international audience, not a machine-translated afterthought."
-          data-fr="Une version anglaise complète pour votre audience internationale, pas une traduction automatique de dernière minute."
-          data-ar="نسخة إنجليزية كاملة لجمهورك الدولي، وليست ترجمة آلية لاحقة.">Une version anglaise complète pour votre audience internationale, pas une traduction automatique de dernière minute.</p>
-      </div>
-      <div class="svc-card">
-        <h3 class="svc-card-title">العربية</h3>
-        <p class="svc-card-desc"
-          data-en="Full right-to-left (RTL) layout support for the Arabic-speaking market, tested at the same design standard as the other languages."
-          data-fr="Support complet de la mise en page droite-à-gauche (RTL) pour le marché arabophone, testé au même niveau d'exigence que les autres langues."
-          data-ar="دعم كامل للتخطيط من اليمين إلى اليسار (RTL) للسوق الناطق بالعربية، بنفس مستوى الجودة كباقي اللغات.">Support complet de la mise en page droite-à-gauche (RTL) pour le marché arabophone, testé au même niveau d'exigence que les autres langues.</p>
+      <div class="lp-showcase lp-showcase--flip reveal">
+        <div class="lp-showcase-visual">
+          <div class="lp-frame">
+            <div class="lp-frame-bar" aria-hidden="true">
+              <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+              <span class="lp-frame-url"></span>
+            </div>
+            <div class="lp-frame-media lp-frame-media--tall">
+              <img src="./assets/images/projects/maison-monchef/2.webp" alt="Maison Monchef, interface livrée en trois langues" width="932" height="700" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="lp-showcase-body">
+          <div class="lp-ledger">
+            <div class="lp-ledger-row" style="grid-template-columns:56px minmax(0,1fr);">
+              <div class="lp-ledger-num">01</div>
+              <div>
+                <h3 class="lp-ledger-title">Français</h3>
+                <p class="lp-ledger-desc" style="margin-top:8px;"
+                  data-en="Your primary content, written for a francophone audience: Morocco, France, and the wider francophone market."
+                  data-fr="Votre contenu principal, rédigé pour une audience francophone : Maroc, France et marché francophone au sens large."
+                  data-ar="محتواك الرئيسي، مكتوب لجمهور فرنكوفوني: المغرب وفرنسا والسوق الفرنكوفوني عموماً.">Votre contenu principal, rédigé pour une audience francophone : Maroc, France et marché francophone au sens large.</p>
+              </div>
+            </div>
+            <div class="lp-ledger-row" style="grid-template-columns:56px minmax(0,1fr);">
+              <div class="lp-ledger-num">02</div>
+              <div>
+                <h3 class="lp-ledger-title">English</h3>
+                <p class="lp-ledger-desc" style="margin-top:8px;"
+                  data-en="A full English version for your international audience, not a machine-translated afterthought."
+                  data-fr="Une version anglaise complète pour votre audience internationale, pas une traduction automatique de dernière minute."
+                  data-ar="نسخة إنجليزية كاملة لجمهورك الدولي، وليست ترجمة آلية لاحقة.">Une version anglaise complète pour votre audience internationale, pas une traduction automatique de dernière minute.</p>
+              </div>
+            </div>
+            <div class="lp-ledger-row" style="grid-template-columns:56px minmax(0,1fr);">
+              <div class="lp-ledger-num">03</div>
+              <div>
+                <h3 class="lp-ledger-title">العربية</h3>
+                <p class="lp-ledger-desc" style="margin-top:8px;"
+                  data-en="Full right-to-left (RTL) layout support for the Arabic-speaking market, tested at the same design standard as the other languages."
+                  data-fr="Support complet de la mise en page droite-à-gauche (RTL) pour le marché arabophone, testé au même niveau d'exigence que les autres langues."
+                  data-ar="دعم كامل للتخطيط من اليمين إلى اليسار (RTL) للسوق الناطق بالعربية، بنفس مستوى الجودة كباقي اللغات.">Support complet de la mise en page droite-à-gauche (RTL) pour le marché arabophone, testé au même niveau d'exigence que les autres langues.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════ PROCESS ════ -->
-<section class="svc-section svc-section--tint" id="process">
+<!-- ════ WHY WORK WITH US ════ -->
+<section class="lp-section lp-section--band" id="pourquoi">
   <div class="container">
-    <h2 class="svc-band-title reveal"
-      data-en="How an international project <em>runs</em>"
-      data-fr="Comment se déroule un projet <em>international</em>"
-      data-ar="كيف يسير مشروع <em>دولي</em>">Comment se déroule un projet <em>international</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="Four stages, the same for every project regardless of where you're based."
-      data-fr="Quatre étapes, identiques pour chaque projet quel que soit votre pays."
-      data-ar="أربع مراحل، متطابقة لكل مشروع بغض النظر عن بلدك.">Quatre étapes, identiques pour chaque projet quel que soit votre pays.</p>
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="Why work with a Morocco-based studio on an <em>international</em> project?"
+          data-fr="Pourquoi choisir un studio basé au Maroc pour un projet <em>international</em> ?"
+          data-ar="لماذا تختار استوديو مقرّه المغرب لمشروع <em>دولي</em>؟">Pourquoi choisir un studio basé au Maroc pour un projet <em>international</em> ?</h2>
+        <p class="lp-sub reveal"
+          data-en="We're a small studio by design. That means direct access to the person actually building your site, not a chain of account managers."
+          data-fr="Nous sommes un studio volontairement petit. Cela veut dire un accès direct à la personne qui construit réellement votre site, sans chaîne de chargés de compte."
+          data-ar="نحن استوديو صغير عن قصد. هذا يعني وصولاً مباشراً إلى الشخص الذي يبني موقعك فعلاً، دون سلسلة من مديري الحسابات.">Nous sommes un studio volontairement petit. Cela veut dire un accès direct à la personne qui construit réellement votre site, sans chaîne de chargés de compte.</p>
+      </div>
 
-    <div class="process-mini-grid reveal">
-      <div class="process-mini-step">
-        <div class="process-mini-num">01</div>
-        <div class="process-mini-title" data-en="Discovery Call" data-fr="Appel de Découverte" data-ar="مكالمة الاستكشاف">Appel de Découverte</div>
-        <p class="process-mini-desc"
-          data-en="A video call to scope your goals, audience, and the languages your site needs to cover."
-          data-fr="Un appel vidéo pour cadrer vos objectifs, votre audience et les langues à couvrir sur le site."
-          data-ar="مكالمة فيديو لتحديد أهدافك وجمهورك واللغات التي يحتاجها الموقع.">Un appel vidéo pour cadrer vos objectifs, votre audience et les langues à couvrir sur le site.</p>
+      <div class="lp-ledger reveal">
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">01</div>
+          <h3 class="lp-ledger-title" data-en="Direct communication" data-fr="Communication directe" data-ar="تواصل مباشر">Communication directe</h3>
+          <p class="lp-ledger-desc"
+            data-en="You talk to the person designing and coding your site, in French, English, or Arabic, not a sales layer."
+            data-fr="Vous échangez avec la personne qui conçoit et code votre site, en français, en anglais ou en arabe, pas avec un intermédiaire commercial."
+            data-ar="تتواصل مباشرة مع الشخص الذي يصمم ويبرمج موقعك، بالفرنسية أو الإنجليزية أو العربية، وليس مع طبقة مبيعات وسيطة.">Vous échangez avec la personne qui conçoit et code votre site, en français, en anglais ou en arabe, pas avec un intermédiaire commercial.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">02</div>
+          <h3 class="lp-ledger-title" data-en="Custom, not templated" data-fr="Sur mesure, pas un template" data-ar="مخصص، وليس قالباً">Sur mesure, pas un template</h3>
+          <p class="lp-ledger-desc"
+            data-en="Every project starts in Figma and is built in code, not assembled from a page builder or a pre-made theme."
+            data-fr="Chaque projet démarre dans Figma et est construit en code, pas assemblé à partir d'un page builder ou d'un thème préfabriqué."
+            data-ar="كل مشروع يبدأ في فيجما ويُبنى بالكود، وليس مُجمّعاً من أداة بناء صفحات أو قالب جاهز.">Chaque projet démarre dans Figma et est construit en code, pas assemblé à partir d'un page builder ou d'un thème préfabriqué.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">03</div>
+          <h3 class="lp-ledger-title" data-en="A workable time zone" data-fr="Un fuseau horaire compatible" data-ar="توقيت متوافق">Un fuseau horaire compatible</h3>
+          <p class="lp-ledger-desc"
+            data-en="GMT means your calls happen during normal business hours in Europe, and workable morning slots in the Gulf, the UK, or the US East Coast."
+            data-fr="Le fuseau GMT permet des appels aux heures de bureau normales en Europe, et des créneaux matinaux compatibles dans le Golfe, au Royaume-Uni ou sur la côte est des États-Unis."
+            data-ar="يتيح توقيت GMT إجراء المكالمات في ساعات العمل العادية بأوروبا، وأوقات صباحية ملائمة في الخليج أو المملكة المتحدة أو الساحل الشرقي الأمريكي.">Le fuseau GMT permet des appels aux heures de bureau normales en Europe, et des créneaux matinaux compatibles dans le Golfe, au Royaume-Uni ou sur la côte est des États-Unis.</p>
+        </div>
       </div>
-      <div class="process-mini-step">
-        <div class="process-mini-num">02</div>
-        <div class="process-mini-title" data-en="Design in Figma" data-fr="Design dans Figma" data-ar="التصميم في فيجما">Design dans Figma</div>
-        <p class="process-mini-desc"
-          data-en="Custom UI/UX design, reviewed together over calls and Figma comments until it's right."
-          data-fr="Design UI/UX sur mesure, revu ensemble par appels et commentaires Figma jusqu'à validation."
-          data-ar="تصميم واجهات مخصص، نراجعه معاً عبر المكالمات وتعليقات فيجما حتى يصبح جاهزاً.">Design UI/UX sur mesure, revu ensemble par appels et commentaires Figma jusqu'à validation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SERVICES ════ -->
+<section class="lp-section" id="services">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="What we build for <em>international clients</em>"
+          data-fr="Ce que nous construisons pour des <em>clients internationaux</em>"
+          data-ar="ما الذي نبنيه <em>للعملاء الدوليين</em>">Ce que nous construisons pour des <em>clients internationaux</em></h2>
+        <p class="lp-sub reveal"
+          data-en="Four capabilities that come together on every international project. For the full breakdown of our process, see our <a href='/services' class='inline-link'>services page</a>."
+          data-fr="Quatre compétences qui se combinent sur chaque projet international. Pour le détail complet de notre processus, voir notre <a href='/services' class='inline-link'>page services</a>."
+          data-ar="أربع قدرات تجتمع في كل مشروع دولي. للاطلاع على تفاصيل عمليتنا الكاملة، انظر <a href='/services' class='inline-link'>صفحة خدماتنا</a>.">Quatre compétences qui se combinent sur chaque projet international. Pour le détail complet de notre processus, voir notre <a href="/services" class="inline-link">page services</a>.</p>
       </div>
-      <div class="process-mini-step">
-        <div class="process-mini-num">03</div>
-        <div class="process-mini-title" data-en="Development" data-fr="Développement" data-ar="التطوير">Développement</div>
-        <p class="process-mini-desc"
-          data-en="2 to 4 weeks of full-stack development, longer for multilingual sites or custom features."
-          data-fr="2 à 4 semaines de développement full-stack, davantage pour les sites multilingues ou fonctionnalités sur mesure."
-          data-ar="2 إلى 4 أسابيع من التطوير المتكامل، وأكثر للمواقع متعددة اللغات أو الميزات المخصصة.">2 à 4 semaines de développement full-stack, davantage pour les sites multilingues ou fonctionnalités sur mesure.</p>
-      </div>
-      <div class="process-mini-step">
-        <div class="process-mini-num">04</div>
-        <div class="process-mini-title" data-en="Launch & Support" data-fr="Lancement & Support" data-ar="الإطلاق والدعم">Lancement &amp; Support</div>
-        <p class="process-mini-desc"
-          data-en="Deployment, DNS, and domain handled end to end, with 30 days of post-launch support included."
-          data-fr="Déploiement, DNS et domaine gérés de bout en bout, avec 30 jours de support inclus après le lancement."
-          data-ar="النشر وDNS والنطاق، مُدارة من البداية إلى النهاية، مع 30 يوماً من الدعم بعد الإطلاق.">Déploiement, DNS et domaine gérés de bout en bout, avec 30 jours de support inclus après le lancement.</p>
+
+      <div class="lp-ledger reveal">
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">01</div>
+          <h3 class="lp-ledger-title" data-en="Custom UI/UX Design" data-fr="Design UI/UX Sur Mesure" data-ar="تصميم واجهات مخصص">Design UI/UX Sur Mesure</h3>
+          <p class="lp-ledger-desc"
+            data-en="Interfaces designed in Figma around your brand and your audience, not a generic template."
+            data-fr="Des interfaces conçues dans Figma autour de votre marque et de votre audience, jamais un template générique."
+            data-ar="واجهات مصممة في فيجما حول علامتك التجارية وجمهورك، وليس قالباً عاماً.">Des interfaces conçues dans Figma autour de votre marque et de votre audience, jamais un template générique.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">02</div>
+          <h3 class="lp-ledger-title" data-en="Full-Stack Development" data-fr="Développement Full-Stack" data-ar="تطوير متكامل">Développement Full-Stack</h3>
+          <p class="lp-ledger-desc"
+            data-en="Next.js, Tailwind, and headless CMS (Sanity) when a project needs dynamic content or a client-manageable backend."
+            data-fr="Next.js, Tailwind et CMS headless (Sanity) quand un projet a besoin de contenu dynamique ou d'un back-office gérable par vous-même."
+            data-ar="Next.js وTailwind ونظام إدارة محتوى headless (Sanity) عندما يحتاج المشروع محتوى ديناميكياً أو لوحة تحكم تديرها بنفسك.">Next.js, Tailwind et CMS headless (Sanity) quand un projet a besoin de contenu dynamique ou d'un back-office gérable par vous-même.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">03</div>
+          <h3 class="lp-ledger-title" data-en="Multilingual Websites" data-fr="Sites Multilingues" data-ar="مواقع متعددة اللغات">Sites Multilingues</h3>
+          <p class="lp-ledger-desc"
+            data-en="French, English, and Arabic, including full right-to-left (RTL) layout support for Arabic-speaking audiences."
+            data-fr="Français, anglais et arabe, avec un support complet de la mise en page droite-à-gauche (RTL) pour les audiences arabophones."
+            data-ar="الفرنسية والإنجليزية والعربية، مع دعم كامل للتخطيط من اليمين إلى اليسار (RTL) للجمهور الناطق بالعربية.">Français, anglais et arabe, avec un support complet de la mise en page droite-à-gauche (RTL) pour les audiences arabophones.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">04</div>
+          <h3 class="lp-ledger-title" data-en="Performance & Technical SEO" data-fr="Performance & SEO Technique" data-ar="الأداء وتحسين محركات البحث">Performance &amp; SEO Technique</h3>
+          <p class="lp-ledger-desc"
+            data-en="Fast load times, clean semantic markup, and structured data, built in from the first commit, not patched on later."
+            data-fr="Temps de chargement rapides, balisage sémantique propre et données structurées, intégrés dès le premier commit, pas ajoutés après coup."
+            data-ar="أوقات تحميل سريعة، وترميز دلالي نظيف، وبيانات منظمة، مدمجة منذ أول تعديل، وليست مضافة لاحقاً.">Temps de chargement rapides, balisage sémantique propre et données structurées, intégrés dès le premier commit, pas ajoutés après coup.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════ SELECTED WORK ════ -->
-<section class="svc-section" id="realisations">
+<section class="lp-section lp-section--deep" id="realisations">
   <div class="container">
-    <div class="section-label section-label--center reveal" style="justify-content:center;">
-      <span class="section-label-dot"></span>
-      <span data-en="Selected projects" data-fr="Projets sélectionnés" data-ar="مشاريع مختارة">Projets sélectionnés</span>
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <div>
+          <div class="lp-eyebrow reveal" data-en="Selected projects" data-fr="Projets sélectionnés" data-ar="مشاريع مختارة">Projets sélectionnés</div>
+          <h2 class="lp-h2 reveal"
+            data-en="Projects with an <em>international</em> reach"
+            data-fr="Des projets à portée <em>internationale</em>"
+            data-ar="مشاريع ذات <em>بُعد دولي</em>">Des projets à portée <em>internationale</em></h2>
+        </div>
+        <p class="lp-sub reveal"
+          data-en="Real estate, tourism, and multilingual platforms built for audiences beyond a single city."
+          data-fr="Immobilier, tourisme et plateformes multilingues, construits pour des audiences qui dépassent une seule ville."
+          data-ar="عقارات، سياحة، ومنصات متعددة اللغات، بُنيت لجماهير تتجاوز مدينة واحدة.">Immobilier, tourisme et plateformes multilingues, construits pour des audiences qui dépassent une seule ville.</p>
+      </div>
+
+      <div class="lp-work">
+        <a href="/maison-monchef" class="lp-work-card reveal">
+          <div class="lp-work-media">
+            <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef" width="675" height="506" loading="lazy">
+            <img class="lp-work-hover" src="./assets/images/hover maison monchef.webp" alt="" width="675" height="506" loading="lazy">
+          </div>
+          <div class="lp-work-info">
+            <div>
+              <div class="lp-work-cat" data-en="Real Estate · Multilingual" data-fr="Immobilier · Multilingue" data-ar="عقارات · متعدد اللغات">Immobilier · Multilingue</div>
+              <div class="lp-work-name">Maison Monchef</div>
+              <div class="lp-work-sub" data-en="Multilingual real estate platform, Dubai" data-fr="Plateforme immobilière multilingue, Dubaï" data-ar="منصة عقارية متعددة اللغات، دبي">Plateforme immobilière multilingue, Dubaï</div>
+            </div>
+            <span class="lp-work-go" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </div>
+        </a>
+
+        <a href="/el-majdoub" class="lp-work-card reveal" style="transition-delay:.08s">
+          <div class="lp-work-media">
+            <img src="./assets/images/majdoub project.webp" alt="El Majdoub Immobilier" width="675" height="506" loading="lazy">
+            <img class="lp-work-hover" src="./assets/images/majdoiub project hover.webp" alt="" width="675" height="506" loading="lazy">
+          </div>
+          <div class="lp-work-info">
+            <div>
+              <div class="lp-work-cat" data-en="Real Estate · Rental" data-fr="Immobilier · Location" data-ar="عقارات · تأجير">Immobilier · Location</div>
+              <div class="lp-work-name">El Majdoub Immobilier</div>
+              <div class="lp-work-sub" data-en="Dynamic property management platform" data-fr="Plateforme dynamique de gestion de biens" data-ar="منصة ديناميكية لإدارة العقارات">Plateforme dynamique de gestion de biens</div>
+            </div>
+            <span class="lp-work-go" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </div>
+        </a>
+
+        <a href="/adventure-keys" class="lp-work-card reveal" style="transition-delay:.16s">
+          <div class="lp-work-media">
+            <img src="./assets/images/projects/adventue-keys/1.webp" alt="Adventure Keys" width="675" height="506" loading="lazy">
+            <img class="lp-work-hover" src="./assets/images/projects/adventue-keys/2.webp" alt="" width="675" height="506" loading="lazy">
+          </div>
+          <div class="lp-work-info">
+            <div>
+              <div class="lp-work-cat" data-en="Travel · Tourism" data-fr="Voyage · Tourisme" data-ar="سفر · سياحة">Voyage · Tourisme</div>
+              <div class="lp-work-name">Adventure Keys</div>
+              <div class="lp-work-sub" data-en="Built for an international travel audience" data-fr="Conçu pour une audience de voyageurs internationaux" data-ar="مصمم لجمهور مسافرين دوليين">Conçu pour une audience de voyageurs internationaux</div>
+            </div>
+            <span class="lp-work-go" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="reveal" style="margin-top:clamp(40px,5vw,64px);">
+        <a href="/projects" class="btn-primary" data-en="View all projects" data-fr="Voir tous les projets" data-ar="عرض كل المشاريع">Voir tous les projets</a>
+      </div>
     </div>
-    <h2 class="svc-band-title reveal"
-      data-en="Projects with an <em>international</em> reach"
-      data-fr="Des projets à portée <em>internationale</em>"
-      data-ar="مشاريع ذات <em>بُعد دولي</em>">Des projets à portée <em>internationale</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="Real estate, tourism, and multilingual platforms built for audiences beyond a single city."
-      data-fr="Immobilier, tourisme et plateformes multilingues, construits pour des audiences qui dépassent une seule ville."
-      data-ar="عقارات، سياحة، ومنصات متعددة اللغات، بُنيت لجماهير تتجاوز مدينة واحدة.">Immobilier, tourisme et plateformes multilingues, construits pour des audiences qui dépassent une seule ville.</p>
+  </div>
+</section>
 
-    <div class="cs-proj-grid">
-      <a href="/maison-monchef" class="cs-proj-card reveal">
-        <div class="cs-proj-card-img">
-          <img src="./assets/images/projects/maison-monchef/1.webp" alt="Maison Monchef" loading="lazy">
-          <img class="cs-proj-hover-img" src="./assets/images/hover maison monchef.webp" alt="" loading="lazy">
-        </div>
-        <div class="cs-proj-card-info">
-          <div>
-            <div class="cs-proj-card-cat" data-en="Real Estate · Multilingual" data-fr="Immobilier · Multilingue" data-ar="عقارات · متعدد اللغات">Immobilier · Multilingue</div>
-            <div class="cs-proj-card-name">Maison Monchef</div>
-            <div class="cs-proj-card-sub" data-en="Multilingual real estate platform, Dubai" data-fr="Plateforme immobilière multilingue, Dubaï" data-ar="منصة عقارية متعددة اللغات، دبي">Plateforme immobilière multilingue, Dubaï</div>
-          </div>
-          <div class="cs-proj-card-btn">
-            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <span data-en="See it live" data-fr="Voir le site" data-ar="شاهد الموقع">Voir le site</span>
-          </div>
-        </div>
-      </a>
+<!-- ════ PROCESS ════ -->
+<section class="lp-section" id="process">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="How an international project <em>runs</em>"
+          data-fr="Comment se déroule un projet <em>international</em>"
+          data-ar="كيف يسير مشروع <em>دولي</em>">Comment se déroule un projet <em>international</em></h2>
+        <p class="lp-sub reveal"
+          data-en="Four stages, the same for every project regardless of where you're based."
+          data-fr="Quatre étapes, identiques pour chaque projet quel que soit votre pays."
+          data-ar="أربع مراحل، متطابقة لكل مشروع بغض النظر عن بلدك.">Quatre étapes, identiques pour chaque projet quel que soit votre pays.</p>
+      </div>
 
-      <a href="/el-majdoub" class="cs-proj-card reveal" style="transition-delay:.08s">
-        <div class="cs-proj-card-img">
-          <img src="./assets/images/majdoub project.webp" alt="El Majdoub Immobilier" loading="lazy">
-          <img class="cs-proj-hover-img" src="./assets/images/majdoiub project hover.webp" alt="" loading="lazy">
+      <div class="lp-track reveal">
+        <div class="lp-track-step">
+          <div class="lp-track-num">01</div>
+          <div class="lp-track-title" data-en="Discovery Call" data-fr="Appel de Découverte" data-ar="مكالمة الاستكشاف">Appel de Découverte</div>
+          <p class="lp-track-desc"
+            data-en="A video call to scope your goals, audience, and the languages your site needs to cover."
+            data-fr="Un appel vidéo pour cadrer vos objectifs, votre audience et les langues à couvrir sur le site."
+            data-ar="مكالمة فيديو لتحديد أهدافك وجمهورك واللغات التي يحتاجها الموقع.">Un appel vidéo pour cadrer vos objectifs, votre audience et les langues à couvrir sur le site.</p>
         </div>
-        <div class="cs-proj-card-info">
-          <div>
-            <div class="cs-proj-card-cat" data-en="Real Estate · Rental" data-fr="Immobilier · Location" data-ar="عقارات · تأجير">Immobilier · Location</div>
-            <div class="cs-proj-card-name">El Majdoub Immobilier</div>
-            <div class="cs-proj-card-sub" data-en="Dynamic property management platform" data-fr="Plateforme dynamique de gestion de biens" data-ar="منصة ديناميكية لإدارة العقارات">Plateforme dynamique de gestion de biens</div>
-          </div>
-          <div class="cs-proj-card-btn">
-            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <span data-en="See it live" data-fr="Voir le site" data-ar="شاهد الموقع">Voir le site</span>
-          </div>
+        <div class="lp-track-step">
+          <div class="lp-track-num">02</div>
+          <div class="lp-track-title" data-en="Design in Figma" data-fr="Design dans Figma" data-ar="التصميم في فيجما">Design dans Figma</div>
+          <p class="lp-track-desc"
+            data-en="Custom UI/UX design, reviewed together over calls and Figma comments until it's right."
+            data-fr="Design UI/UX sur mesure, revu ensemble par appels et commentaires Figma jusqu'à validation."
+            data-ar="تصميم واجهات مخصص، نراجعه معاً عبر المكالمات وتعليقات فيجما حتى يصبح جاهزاً.">Design UI/UX sur mesure, revu ensemble par appels et commentaires Figma jusqu'à validation.</p>
         </div>
-      </a>
-
-      <a href="/adventure-keys" class="cs-proj-card reveal" style="transition-delay:.16s">
-        <div class="cs-proj-card-img">
-          <img src="./assets/images/projects/adventue-keys/1.webp" alt="Adventure Keys" loading="lazy">
-          <img class="cs-proj-hover-img" src="./assets/images/projects/adventue-keys/2.webp" alt="" loading="lazy">
+        <div class="lp-track-step">
+          <div class="lp-track-num">03</div>
+          <div class="lp-track-title" data-en="Development" data-fr="Développement" data-ar="التطوير">Développement</div>
+          <p class="lp-track-desc"
+            data-en="2 to 4 weeks of full-stack development, longer for multilingual sites or custom features."
+            data-fr="2 à 4 semaines de développement full-stack, davantage pour les sites multilingues ou fonctionnalités sur mesure."
+            data-ar="2 إلى 4 أسابيع من التطوير المتكامل، وأكثر للمواقع متعددة اللغات أو الميزات المخصصة.">2 à 4 semaines de développement full-stack, davantage pour les sites multilingues ou fonctionnalités sur mesure.</p>
         </div>
-        <div class="cs-proj-card-info">
-          <div>
-            <div class="cs-proj-card-cat" data-en="Travel · Tourism" data-fr="Voyage · Tourisme" data-ar="سفر · سياحة">Voyage · Tourisme</div>
-            <div class="cs-proj-card-name">Adventure Keys</div>
-            <div class="cs-proj-card-sub" data-en="Built for an international travel audience" data-fr="Conçu pour une audience de voyageurs internationaux" data-ar="مصمم لجمهور مسافرين دوليين">Conçu pour une audience de voyageurs internationaux</div>
-          </div>
-          <div class="cs-proj-card-btn">
-            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <span data-en="See it live" data-fr="Voir le site" data-ar="شاهد الموقع">Voir le site</span>
-          </div>
+        <div class="lp-track-step">
+          <div class="lp-track-num">04</div>
+          <div class="lp-track-title" data-en="Launch & Support" data-fr="Lancement & Support" data-ar="الإطلاق والدعم">Lancement &amp; Support</div>
+          <p class="lp-track-desc"
+            data-en="Deployment, DNS, and domain handled end to end, with 30 days of post-launch support included."
+            data-fr="Déploiement, DNS et domaine gérés de bout en bout, avec 30 jours de support inclus après le lancement."
+            data-ar="النشر وDNS والنطاق، مُدارة من البداية إلى النهاية، مع 30 يوماً من الدعم بعد الإطلاق.">Déploiement, DNS et domaine gérés de bout en bout, avec 30 jours de support inclus après le lancement.</p>
         </div>
-      </a>
-    </div>
-
-    <div class="section-cta-bar reveal">
-      <a href="/projects" class="btn-primary" data-en="View all projects" data-fr="Voir tous les projets" data-ar="عرض كل المشاريع">Voir tous les projets</a>
+      </div>
     </div>
   </div>
 </section>
@@ -948,16 +1169,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ════ CLOSING CTA ════ -->
-<section class="svc-cta" id="lets-talk">
+<section class="lp-cta" id="lets-talk">
   <div class="glow-circle glow-c" style="opacity:0.12; filter:blur(190px); width:700px; height:700px;"></div>
   <div class="container">
     <div class="reveal">
-      <h2 class="svc-cta-title" data-en="Let's Talk About Your Project" data-fr="Parlons de Votre Projet" data-ar="لنتحدث عن مشروعك">Parlons de Votre Projet</h2>
-      <p class="svc-cta-sub"
+      <h2 class="lp-cta-title" data-en="Let's Talk About Your Project" data-fr="Parlons de Votre Projet" data-ar="لنتحدث عن مشروعك">Parlons de Votre Projet</h2>
+      <p class="lp-cta-sub"
         data-en="Wherever you're based, tell us about the site you need. We reply the same day."
         data-fr="Où que vous soyez basé, parlez-nous du site dont vous avez besoin. Nous répondons le jour même."
         data-ar="أينما كنت، أخبرنا عن الموقع الذي تحتاجه. نرد في نفس اليوم.">Où que vous soyez basé, parlez-nous du site dont vous avez besoin. Nous répondons le jour même.</p>
-      <div class="svc-cta-actions">
+      <div class="lp-cta-actions">
         <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
         <a href="/contact" class="btn-secondary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
       </div>

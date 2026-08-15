@@ -162,7 +162,7 @@ nav {
   gap: 32px; margin: 0;
 }
 .hero-h1-italic {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 700;
   font-size: 96px; line-height: 96px;
   background: linear-gradient(to right, #2563eb, #3b82f6);
@@ -191,7 +191,7 @@ html[lang="fr"] .hero-h1-that { display: none; }
 html[lang="fr"] .hero-h1-line3 { font-size: 72px; line-height: 76px; letter-spacing: -1.8px; }
 }
 html[lang="fr"] .hero-h1-line1 em {
-  font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 700;
+  font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 700;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1007,6 +1007,57 @@ html[lang="ar"] .hero-h1-line3 {
   font-family: 'Cairo', sans-serif;
 }
 html[lang="ar"] { font-family: 'Cairo', sans-serif; }
+/* ---- ARABIC: headings must use Cairo too ----
+   Every heading class declares its own font-family (Satoshi). A declaration on
+   the element itself always beats the inherited html[lang="ar"] rule above, and
+   Satoshi carries no Arabic glyphs — so without these overrides Arabic headings
+   fell through to the system sans-serif rather than Cairo.
+   Specificity: html[lang="ar"] + class = (0,2,x), which outranks the bare class. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] .hero-h1, html[lang="ar"] .hero-h1-italic,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .footer-phone, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .city-page-title, html[lang="ar"] .projects-page-title,
+html[lang="ar"] .svc-band-title, html[lang="ar"] .svc-band-title em,
+html[lang="ar"] .svc-card-title, html[lang="ar"] .svc-cta-title,
+html[lang="ar"] .case-block-title, html[lang="ar"] .feature-project-title,
+html[lang="ar"] .cs-hero-title, html[lang="ar"] .cs-section-title,
+html[lang="ar"] .cs-mid-cta-title, html[lang="ar"] .cs-other-title,
+html[lang="ar"] .cs-faq-title, html[lang="ar"] .cs-proj-card-name,
+html[lang="ar"] .lp-h1, html[lang="ar"] .lp-h2,
+html[lang="ar"] .lp-showcase-title, html[lang="ar"] .lp-ledger-title,
+html[lang="ar"] .lp-cta-title, html[lang="ar"] .lp-track-title,
+html[lang="ar"] .lp-statement-text, html[lang="ar"] .lp-work-name,
+html[lang="ar"] .lp-ledger-num, html[lang="ar"] .lp-journey-label {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* A handful of headings carry font-family in a style="" attribute (the footer
+   display line, the case-study section titles). Inline styles outrank every
+   selector, so these are the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+/* A few Latin-side rules pin Inter explicitly, which likewise beats the
+   inherited Cairo. Each override below mirrors the original selector's
+   specificity so it wins (.hero .hero-ctas .btn-* is three classes deep). */
+html[lang="ar"] .hero-desc,
+html[lang="ar"] .bento-title,
+html[lang="ar"] .flower-label,
+html[lang="ar"] .flower-num,
+html[lang="ar"] .hero .hero-ctas .btn-primary,
+html[lang="ar"] .hero .hero-ctas .btn-secondary {
+  font-family: 'Cairo', sans-serif;
+}
+
+
 html[lang="ar"] .hero-h1-line1 { font-size: 80px; line-height: 86px; letter-spacing: -1.5px; }
 html[lang="ar"] .hero-h1-italic { font-size: 80px; line-height: 86px; }
 html[lang="ar"] .hero-h1-that { font-size: 80px; line-height: 86px; letter-spacing: -1.5px; }
