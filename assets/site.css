@@ -3709,6 +3709,48 @@ html[lang="fr"] .hero .hero-h1 {
   min-width: 0;
   font-family: 'Inter', sans-serif;
 }
+/* Short desktop viewports (15.6" 1366x768 laptops, and 1080p at 125–150% OS
+   scaling). The hero is sized off width alone, so on a wide-but-short screen
+   the 230px top padding + 72px headline + 128px strip margin push the mockup
+   cards entirely below the fold. Scale the vertical rhythm down by viewport
+   height so the cards stay in the first view, as they do on a tall monitor.
+   min-width guard keeps the mobile hero (absolute cards at 82vh) untouched. */
+@media (min-width: 769px) and (max-height: 900px) {
+  .hero {
+    padding-top: 150px;
+    padding-bottom: 0;
+    /* Anchor the strip at 78vh and let the hero box grow past the fold to
+       contain it, so only the top of the cards shows and the rest is
+       revealed on scroll — same pattern as the mobile hero. Without the
+       taller min-height, .hero's overflow:hidden would crop the cards for
+       good instead of merely placing them below the fold. */
+    min-height: calc(78vh + 329px);
+  }
+  .hero .hero-title-block { gap: 26px; }
+  .hero .hero-h1 { font-size: clamp(32px, 5vw, 56px); }
+  html[lang="fr"] .hero .hero-h1 { font-size: clamp(26px, 4.1vw, 48px); }
+  .hero .hero-desc { font-size: 16px; line-height: 26px; }
+  .hero .hero-bottom-mockups {
+    position: absolute;
+    left: 0; right: 0;
+    top: 78vh;
+    width: 100%;
+    margin-top: 0;
+    /* card height + the 20px nth-child(even) stagger, or the offset cards
+       get their bottoms clipped by the container. */
+    height: 305px;
+  }
+  .hero-bmock-item { width: 508px; height: 285px; }
+}
+@media (min-width: 769px) and (max-height: 760px) {
+  .hero { padding-top: 120px; min-height: calc(78vh + 284px); }
+  .hero .hero-title-block { gap: 20px; }
+  .hero .hero-h1 { font-size: clamp(30px, 4.6vw, 46px); }
+  html[lang="fr"] .hero .hero-h1 { font-size: clamp(24px, 3.8vw, 40px); }
+  .hero .hero-desc { font-size: 15px; line-height: 24px; }
+  .hero .hero-bottom-mockups { height: 260px; }
+  .hero-bmock-item { width: 428px; height: 240px; }
+}
 
 /* ════════════════════════════════════════════════════════════════════════
    CSP hardening: de-inlined index.html style="" attributes.
