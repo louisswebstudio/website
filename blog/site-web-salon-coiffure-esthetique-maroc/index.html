@@ -40,8 +40,21 @@
 <style>
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     clip additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body { background: #060607; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; max-width: 100%; }
+/* Form controls don't inherit the page font by default; without this they fall
+   back to the UA font (Arial), outside the Satoshi/Inter type system. */
 button, input, select, textarea { font-family: inherit; }
 
 /* ─── TOKENS ─────────────────────────────────────────── */
@@ -112,10 +125,69 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   .mobile-menu-cta { display: flex !important; width: 100% !important; max-width: 100% !important; padding: 16px !important; border-radius: 12px !important; background: #fff !important; color: #0e0e0e !important; font-size: 15px !important; font-weight: 500 !important; justify-content: center; }
 }
 
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
+}
+
 /* ─── SHARED ─────────────────────────────────────────── */
 .container { max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%; }
-.glow-circle { position: absolute; border-radius: 50%; background: #2563eb; filter: blur(160px); opacity: 0.18; pointer-events: none; z-index: 0; }
-.glow-c { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.15; }
+/* Decorative glow. Was a solid #2563eb circle under filter: blur(160px) — a
+   blur that wide forces a multi-pass gaussian over a ~3x oversized offscreen
+   surface on every repaint. A blurred solid disc is just a radial alpha ramp,
+   so these stops reproduce it at zero paint cost. --glow-peak is the centre
+   coverage the disc actually reaches at this radius/sigma, and --glow-k scales
+   the box out to the radius+3sigma the blur used to bleed into. Mirrored from
+   the DECORATIVE GLOWS block in assets/site.css. */
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.85;
+  --glow-k: 2.5;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+  transform: scale(var(--glow-k));
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-c { width: 600px; height: 600px; top: 50%; left: 50%; opacity: 0.15;
+          --glow-peak: 0.828; --glow-k: 2.60; /* R=300, sigma=160 */
+          transform: translate(-50%,-50%) scale(var(--glow-k)); }
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -332,7 +404,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
       </div>
       <img class="article-hero-img" src="https://cdn.sanity.io/images/72a3cb7n/production/1171110edf9d34fbf0ab89cec78a2c722a389be7-1280x720.avif?w=1200&amp;fit=max&amp;auto=format" alt="Salon de coiffure et institut de beauté " fetchpriority="high">
       <div class="article-body reveal">
-<p>Un salon de coiffure ou un institut de beauté vit de son agenda. Or aujourd&#x27;hui, une cliente ne décroche plus forcément son téléphone pour prendre rendez-vous : elle cherche un salon en ligne, regarde les photos, lit les avis et veut réserver en quelques clics. Le salon qui rend tout cela simple gagne la cliente. Voici comment.</p><h2>Vos clientes vous choisissent d&#x27;abord avec les yeux</h2><p>La coiffure et l&#x27;esthétique sont des métiers visuels. Avant de réserver, une cliente veut voir votre travail : coupes, couleurs, ongles, soins. Une galerie de <strong>photos avant/après</strong> de qualité vaut mille arguments. Un site web met en valeur votre talent bien mieux qu&#x27;un fil Instagram noyé dans les publications, et il reste trouvable sur Google.</p><h2>La réservation en ligne : fini le téléphone qui sonne dans le vide</h2><p>Beaucoup de rendez-vous se perdent parce que le salon est occupé et ne peut pas répondre. Un système de <strong>réservation en ligne</strong> permet à vos clientes de réserver à toute heure, même quand vous coiffez. Résultat : un agenda mieux rempli, moins d&#x27;appels à gérer, et des clientes qui trouvent enfin le créneau qui leur convient.</p><h2>Réduire les rendez-vous manqués</h2><p>Les rendez-vous oubliés coûtent cher. Un site connecté à des <strong>rappels automatiques</strong> (par SMS ou WhatsApp) réduit fortement les absences. La cliente reçoit un rappel la veille, confirme, et votre fauteuil ne reste pas vide. C&#x27;est du chiffre d&#x27;affaires récupéré sans effort supplémentaire.</p><h2>Afficher clairement vos prestations et vos prix</h2><p>Une cliente hésite à entrer si elle ne connaît pas vos tarifs. Une page claire avec vos <strong>prestations et leurs prix</strong> (coupe, brushing, coloration, soins, manucure) la rassure et attire une clientèle qui correspond à votre positionnement. La transparence attire les bonnes clientes et vous fait gagner du temps.</p><h2>Être trouvée dans « coiffeur + votre quartier »</h2><p>Couplé à une <a href="/blog/fiche-google-business-maroc/">fiche Google Business</a> et à ses avis, votre site vous place dans les recherches locales : « salon de coiffure Tanger », « institut de beauté Agadir ». C&#x27;est là que se trouvent vos futures clientes régulières, celles qui habitent à quelques minutes de votre salon.</p><h2>Notre conseil</h2><p>Un site simple, visuel, avec réservation en ligne et vos tarifs, suffit à transformer votre présence en ligne en rendez-vous concrets. Chez Louiss Web Studio, nous créons des sites élégants pour les métiers de la beauté, avec une <a href="/contact">démo gratuite</a> de votre salon en ligne avant tout engagement.</p>
+<p>Un salon de coiffure ou un institut de beauté vit de son agenda. Or aujourd&#x27;hui, une cliente ne décroche plus forcément son téléphone pour prendre rendez-vous : elle cherche un salon en ligne, regarde les photos, lit les avis et veut réserver en quelques clics. Le salon qui rend tout cela simple gagne la cliente. Voici comment.</p><h2>Vos clientes vous choisissent d&#x27;abord avec les yeux</h2><p>La coiffure et l&#x27;esthétique sont des métiers visuels. Avant de réserver, une cliente veut voir votre travail : coupes, couleurs, ongles, soins. Une galerie de <strong>photos avant/après</strong> de qualité vaut mille arguments. Un site web met en valeur votre talent bien mieux qu&#x27;un fil Instagram noyé dans les publications, et il reste trouvable sur Google.</p><h2>La réservation en ligne : fini le téléphone qui sonne dans le vide</h2><p>Beaucoup de rendez-vous se perdent parce que le salon est occupé et ne peut pas répondre. Un système de <strong>réservation en ligne</strong> permet à vos clientes de réserver à toute heure, même quand vous coiffez. Résultat : un agenda mieux rempli, moins d&#x27;appels à gérer, et des clientes qui trouvent enfin le créneau qui leur convient.</p><h2>Réduire les rendez-vous manqués</h2><p>Les rendez-vous oubliés coûtent cher. Un site connecté à des <strong>rappels automatiques</strong> (par SMS ou WhatsApp) réduit fortement les absences. La cliente reçoit un rappel la veille, confirme, et votre fauteuil ne reste pas vide. C&#x27;est du chiffre d&#x27;affaires récupéré sans effort supplémentaire.</p><h2>Afficher clairement vos prestations et vos prix</h2><p>Une cliente hésite à entrer si elle ne connaît pas vos tarifs. Une page claire avec vos <strong>prestations et leurs prix</strong> (coupe, brushing, coloration, soins, manucure) la rassure et attire une clientèle qui correspond à votre positionnement. La transparence attire les bonnes clientes et vous fait gagner du temps.</p><h2>Être trouvée dans « coiffeur + votre quartier »</h2><p>Couplé à une <a href="/blog/fiche-google-business-maroc/">fiche Google Business</a> et à ses avis, votre site vous place dans les recherches locales : « salon de coiffure Tanger », « institut de beauté Agadir ». C&#x27;est là que se trouvent vos futures clientes régulières, celles qui habitent à quelques minutes de votre salon.</p><h2>Notre conseil</h2><p>Un site simple, visuel, avec réservation en ligne et vos tarifs, suffit à transformer votre présence en ligne en rendez-vous concrets. Chez Louiss Web Studio, nous créons des sites élégants pour les métiers de la beauté — avec une <a href="/contact">démo gratuite</a> de votre salon en ligne avant tout engagement.</p>
       </div>
     </div>
 
@@ -348,7 +420,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 <div style="height:64px;"></div>
 
 <footer class="footer-section">
-  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
       <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>

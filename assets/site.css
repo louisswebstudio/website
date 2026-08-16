@@ -1,5 +1,16 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     `clip` additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body {
   background: #060607;
   color: #fff;
@@ -147,13 +158,68 @@ nav {
   display: flex; flex-direction: column;
   gap: 0;
 }
+/* ── DECORATIVE GLOWS ──────────────────────────────────────────────────────
+   Every glow on the site used to be a solid #2563eb circle run through
+   filter: blur(150–200px). A blur that wide is the most expensive paint the
+   page does: the kernel reaches ~3σ, so an 800px circle at blur(200px) makes
+   the compositor allocate and gaussian-blur a ~2400px offscreen surface, and
+   it redoes that on every repaint, resize and theme toggle.
+
+   A gaussian-blurred *solid* disc is nothing but a radial alpha ramp, so a
+   radial-gradient reproduces it exactly at zero paint cost. Three custom
+   properties drive it:
+
+     --glow-rgb   the glow colour (theme.css swaps this for light mode; it must
+                  stay a property rather than a `background` override, or it
+                  would replace the gradient with a hard-edged solid circle)
+     --glow-peak  alpha at the centre. A blurred disc does NOT reach full
+                  opacity once σ is comparable to the radius — e.g. a 700px
+                  circle at blur(160px) peaks at 0.909 — so this is baked in
+                  per size and the element's own `opacity` is left untouched.
+     --glow-k     scale factor. The blur bled out to radius+3σ, well past the
+                  element box; `closest-side` only reaches the box edge, so the
+                  box is scaled up to cover the same area. transform is safe
+                  here — the glows are position:absolute + pointer-events:none,
+                  and body already sets overflow-x:hidden.
+
+   The stop list is the numerically computed profile of a blurred disc,
+   normalised to that full extent. It is shape-invariant across every σ/R this
+   site uses (0.46–0.80): the largest normalised deviation is 0.12, which at
+   these opacities is under 0.01 of actual alpha, so one profile serves all. */
+.glow-circle,
+.hero-glow,
+.process-glow {
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.85;
+  --glow-k: 2.5;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+}
 .hero-glow {
   position: absolute;
   left: -100px; top: 0;
   width: 700px; height: 700px;
-  background: #2563eb;
+  /* was: background #2563eb + blur(160px) — R=350, σ=160 */
+  --glow-peak: 0.909;
+  --glow-k: 2.37;
+  transform: scale(var(--glow-k));
   border-radius: 50%;
-  filter: blur(160px);
   opacity: 0.18;
   pointer-events: none;
   z-index: 0;
@@ -704,11 +770,14 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 .process-section > * { position: relative; z-index: 1; }
 .process-glow {
   position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
   width: 700px; height: 700px;
   border-radius: 50%;
-  background: #2563eb;
-  filter: blur(180px);
+  /* was: background #2563eb + blur(180px) — R=350, σ=180.
+     The percentage translate resolves against the unscaled 700px border box,
+     so appending scale() keeps the circle centred exactly where it was. */
+  --glow-peak: 0.849;
+  --glow-k: 2.54;
+  transform: translate(-50%, -50%) scale(var(--glow-k));
   opacity: 0.12;
   pointer-events: none;
   z-index: 0;
@@ -960,11 +1029,14 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 .process-section > * { position: relative; z-index: 1; }
 .process-glow {
   position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
   width: 700px; height: 700px;
   border-radius: 50%;
-  background: #2563eb;
-  filter: blur(180px);
+  /* was: background #2563eb + blur(180px) — R=350, σ=180.
+     The percentage translate resolves against the unscaled 700px border box,
+     so appending scale() keeps the circle centred exactly where it was. */
+  --glow-peak: 0.849;
+  --glow-k: 2.54;
+  transform: translate(-50%, -50%) scale(var(--glow-k));
   opacity: 0.12;
   pointer-events: none;
   z-index: 0;
@@ -1651,21 +1723,29 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
 .pricing-section > * { position: relative; z-index: 1; }
 .pricing-glow { display: none; }
 
-/* ── AMBIENT GLOW CIRCLES ── */
+/* ── AMBIENT GLOW CIRCLES ──
+   Gradient + --glow-* come from the DECORATIVE GLOWS block near the top of this
+   file. All of these were blur(160px); because σ was fixed while the diameter
+   varied, the centre coverage varies a lot between sizes (a 400px circle under
+   blur(160px) only reaches 0.542), so --glow-peak is set per modifier. */
 .glow-circle {
   position: absolute;
   border-radius: 50%;
-  background: #2563eb;
-  filter: blur(160px);
+  transform: scale(var(--glow-k));
   opacity: 0.18;
   pointer-events: none;
   z-index: 0;
 }
-.glow-tl { width: 500px; height: 500px; top: -100px; left: -80px; }
-.glow-tr { width: 400px; height: 400px; top: -60px; right: -60px; opacity: 0.12; }
-.glow-c  { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.15; }
-.glow-br { width: 450px; height: 450px; bottom: -80px; right: -60px; opacity: 0.13; }
-.glow-bl { width: 450px; height: 450px; bottom: -80px; left: -60px; opacity: 0.13; }
+/* R=250, σ=160 */
+.glow-tl { width: 500px; height: 500px; top: -100px; left: -80px; --glow-peak: 0.705; --glow-k: 2.92; }
+/* R=200, σ=160 */
+.glow-tr { width: 400px; height: 400px; top: -60px; right: -60px; opacity: 0.12; --glow-peak: 0.542; --glow-k: 3.40; }
+/* R=300, σ=160 */
+.glow-c  { width: 600px; height: 600px; top: 50%; left: 50%; opacity: 0.15; --glow-peak: 0.828; --glow-k: 2.60;
+           transform: translate(-50%,-50%) scale(var(--glow-k)); }
+/* R=225, σ=160 */
+.glow-br { width: 450px; height: 450px; bottom: -80px; right: -60px; opacity: 0.13; --glow-peak: 0.628; --glow-k: 3.13; }
+.glow-bl { width: 450px; height: 450px; bottom: -80px; left: -60px; opacity: 0.13; --glow-peak: 0.628; --glow-k: 3.13; }
 
 .pricing-header {
   text-align: center;
@@ -3678,10 +3758,9 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 @media (max-width: 768px) {
   .hero .hero-h1 .blur-word { animation-delay: 0s !important; }
 }
-/* FR headline: capped at 58px so both lines stay on one row each. */
-html[lang="fr"] .hero .hero-h1 {
-  font-size: clamp(26px, 4.5vw, 58px);
-}
+/* FR headline shares the EN/AR scale — no separate cap, so the three languages
+   render at the same size and weight. The FR lines are short enough to stay on
+   one row each at 72px within the 920px max-width. */
 .hero .hero-desc {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -3728,7 +3807,6 @@ html[lang="fr"] .hero .hero-h1 {
   }
   .hero .hero-title-block { gap: 26px; }
   .hero .hero-h1 { font-size: clamp(32px, 5vw, 56px); }
-  html[lang="fr"] .hero .hero-h1 { font-size: clamp(26px, 4.1vw, 48px); }
   .hero .hero-desc { font-size: 16px; line-height: 26px; }
   .hero .hero-bottom-mockups {
     position: absolute;
@@ -3746,7 +3824,6 @@ html[lang="fr"] .hero .hero-h1 {
   .hero { padding-top: 120px; min-height: calc(78vh + 284px); }
   .hero .hero-title-block { gap: 20px; }
   .hero .hero-h1 { font-size: clamp(30px, 4.6vw, 46px); }
-  html[lang="fr"] .hero .hero-h1 { font-size: clamp(24px, 3.8vw, 40px); }
   .hero .hero-desc { font-size: 15px; line-height: 24px; }
   .hero .hero-bottom-mockups { height: 260px; }
   .hero-bmock-item { width: 428px; height: 240px; }
@@ -3773,9 +3850,13 @@ html[lang="fr"] .hero .hero-h1 {
 .bento-pos-4 { left: 166px;    top: 39px; }
 .bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 .bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
-.glow-tl-soft  { opacity: 0.12; filter: blur(180px); }
-.glow-c-soft   { opacity: 0.15; filter: blur(150px); }
-.glow-c-footer { opacity: 0.13; filter: blur(200px); width: 800px; height: 800px; }
+/* Softer variants of the ambient circles. Only the --glow-* values change —
+   the transform declared on .glow-circle/.glow-c reads var(--glow-k) off the
+   element, so overriding the property here is enough. */
+.glow-tl-soft  { opacity: 0.12; --glow-peak: 0.619; --glow-k: 3.16; } /* 500px, σ=180 */
+.glow-c-soft   { opacity: 0.15; --glow-peak: 0.865; --glow-k: 2.50; } /* 600px, σ=150 */
+.glow-c-footer { opacity: 0.13; width: 800px; height: 800px;
+                 --glow-peak: 0.865; --glow-k: 2.50; }                /* 800px, σ=200 */
 .compare-img {
   position: absolute; width: 100%; height: 100%;
   object-fit: cover; object-position: top center; top: 0; left: 0;
@@ -3862,4 +3943,28 @@ html[lang="fr"] .hero .hero-h1 {
      this width, so keep the button at its collapsed size. */
   .bento-card:hover .bento-btn-expand { width: 44px; gap: 0; }
   .bento-card:hover .bento-btn-expand span { max-width: 0; opacity: 0; }
+}
+
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Below 767px site.css makes .nav-inner transparent with !important and moves
+     the colour to nav, so this only applies to the tablet pill. */
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
 }

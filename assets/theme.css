@@ -74,12 +74,18 @@ html[data-theme="light"] #global-starfield { display: none !important; }
 
 /* ── Decorative blue glow orbs ──
    At 0.18 opacity over black these read as light sources; over off-white the
-   same blur turns into a grey-blue smudge. Lower opacity + a lighter blue
-   keeps a hint of colour without the dirt. */
+   same glow turns into a grey-blue smudge. Lower opacity + a lighter blue
+   keeps a hint of colour without the dirt.
+
+   Set --glow-rgb rather than `background`: the orbs are radial-gradients now
+   (they used to be solid circles under a wide filter: blur, which cost real
+   paint time — see the DECORATIVE GLOWS block in site.css). Overriding
+   `background` here would replace the whole gradient with a flat fill and give
+   every orb a hard circular edge. */
 html[data-theme="light"] .hero-glow,
 html[data-theme="light"] .glow-circle,
 html[data-theme="light"] .process-glow {
-  background: #60a5fa;
+  --glow-rgb: 96, 165, 250;
   opacity: 0.14;
 }
 
@@ -1027,3 +1033,13 @@ html[data-theme="light"] .nf-links h2 { color: var(--l-text); }
 html[data-theme="light"] .nf-lead { color: var(--muted); }
 html[data-theme="light"] .nf-link { color: var(--l-blue-text); }
 html[data-theme="light"] .nf-links { border-color: var(--l-border); }
+
+/* Light mode's pill is far more transparent than dark mode's (0.82 vs 0.90),
+   so losing the blur on touch is more visible here — close the alpha a little
+   further to compensate. Pairs with the (hover: none) block in site.css. */
+@media (hover: none) {
+  html[data-theme="light"] .nav-inner { background: rgba(255,255,255,0.90); }
+}
+@media (hover: none) and (max-width: 767px) {
+  html[data-theme="light"] nav { background: rgba(255,255,255,0.97); }
+}

@@ -6,7 +6,18 @@
    regenerate or mirror the change here. */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     `clip` additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body {
   background: #060607;
   color: #fff;
@@ -123,13 +134,40 @@ nav {
   display: flex; flex-direction: column;
   gap: 0;
 }
+/* Was a solid #2563eb circle under filter: blur(160px). That blur is the most
+   expensive paint above the fold, and it sits in the render-blocking sheet, so
+   it lands squarely in the LCP window. A blurred solid disc is just a radial
+   alpha ramp: the stops below are its computed profile, --glow-peak is the
+   centre coverage a 700px circle actually reaches at σ=160, and the scale
+   expands the box to the radius+3σ the blur used to bleed into. Kept in sync
+   with the DECORATIVE GLOWS block in assets/site.css. */
 .hero-glow {
   position: absolute;
   left: -100px; top: 0;
   width: 700px; height: 700px;
-  background: #2563eb;
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.909;
+  --glow-k: 2.37;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+  transform: scale(var(--glow-k));
   border-radius: 50%;
-  filter: blur(160px);
   opacity: 0.18;
   pointer-events: none;
   z-index: 0;
@@ -1193,9 +1231,7 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 @media (max-width: 768px) {
 .hero .hero-h1 .blur-word { animation-delay: 0s !important; }
 }
-html[lang="fr"] .hero .hero-h1 {
-  font-size: clamp(26px, 4.5vw, 58px);
-}
+/* FR headline shares the EN/AR scale — no separate cap. */
 .hero .hero-desc {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -1238,7 +1274,6 @@ html[lang="fr"] .hero .hero-h1 {
 .hero { padding-top: 150px; padding-bottom: 0; min-height: calc(78vh + 329px); }
 .hero .hero-title-block { gap: 26px; }
 .hero .hero-h1 { font-size: clamp(32px, 5vw, 56px); }
-html[lang="fr"] .hero .hero-h1 { font-size: clamp(26px, 4.1vw, 48px); }
 .hero .hero-desc { font-size: 16px; line-height: 26px; }
 .hero .hero-bottom-mockups {
   position: absolute;
@@ -1256,7 +1291,6 @@ html[lang="fr"] .hero .hero-h1 { font-size: clamp(26px, 4.1vw, 48px); }
 .hero { padding-top: 120px; min-height: calc(78vh + 284px); }
 .hero .hero-title-block { gap: 20px; }
 .hero .hero-h1 { font-size: clamp(30px, 4.6vw, 46px); }
-html[lang="fr"] .hero .hero-h1 { font-size: clamp(24px, 3.8vw, 40px); }
 .hero .hero-desc { font-size: 15px; line-height: 24px; }
 .hero .hero-bottom-mockups { height: 260px; }
 .hero-bmock-item { width: 428px; height: 240px; }
@@ -1288,4 +1322,28 @@ html[lang="fr"] .hero .hero-h1 { font-size: clamp(24px, 3.8vw, 40px); }
 @keyframes hero-strip-rtl {
   from { transform: translateX(-5376px); }
   to   { transform: translateX(0); }
+}
+
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Below 767px site.css makes .nav-inner transparent with !important and moves
+     the colour to nav, so this only applies to the tablet pill. */
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
 }

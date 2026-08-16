@@ -40,8 +40,21 @@
 <style>
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     clip additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body { background: #060607; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; max-width: 100%; }
+/* Form controls don't inherit the page font by default; without this they fall
+   back to the UA font (Arial), outside the Satoshi/Inter type system. */
 button, input, select, textarea { font-family: inherit; }
 
 /* ─── TOKENS ─────────────────────────────────────────── */
@@ -112,10 +125,69 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   .mobile-menu-cta { display: flex !important; width: 100% !important; max-width: 100% !important; padding: 16px !important; border-radius: 12px !important; background: #fff !important; color: #0e0e0e !important; font-size: 15px !important; font-weight: 500 !important; justify-content: center; }
 }
 
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
+}
+
 /* ─── SHARED ─────────────────────────────────────────── */
 .container { max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%; }
-.glow-circle { position: absolute; border-radius: 50%; background: #2563eb; filter: blur(160px); opacity: 0.18; pointer-events: none; z-index: 0; }
-.glow-c { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.15; }
+/* Decorative glow. Was a solid #2563eb circle under filter: blur(160px) — a
+   blur that wide forces a multi-pass gaussian over a ~3x oversized offscreen
+   surface on every repaint. A blurred solid disc is just a radial alpha ramp,
+   so these stops reproduce it at zero paint cost. --glow-peak is the centre
+   coverage the disc actually reaches at this radius/sigma, and --glow-k scales
+   the box out to the radius+3sigma the blur used to bleed into. Mirrored from
+   the DECORATIVE GLOWS block in assets/site.css. */
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.85;
+  --glow-k: 2.5;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+  transform: scale(var(--glow-k));
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-c { width: 600px; height: 600px; top: 50%; left: 50%; opacity: 0.15;
+          --glow-peak: 0.828; --glow-k: 2.60; /* R=300, sigma=160 */
+          transform: translate(-50%,-50%) scale(var(--glow-k)); }
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -332,7 +404,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
       </div>
       
       <div class="article-body reveal">
-<p>Quand un Marocain cherche « coiffeur près de moi » ou « restaurant à Tanger », Google affiche d&#x27;abord une petite carte avec trois entreprises. Ces trois places valent de l&#x27;or, et elles sont gratuites. Elles viennent de la <strong>fiche Google Business</strong> (anciennement Google My Business). Pour un commerce local, c&#x27;est l&#x27;outil marketing le plus rentable qui existe. Voici comment en tirer parti.</p><h2>C&#x27;est quoi une fiche Google Business ?</h2><p>C&#x27;est la fiche gratuite qui présente votre entreprise directement dans Google et sur Google Maps : nom, adresse, horaires, téléphone, photos et avis clients. Elle apparaît quand quelqu&#x27;un cherche votre nom ou votre activité dans votre ville. Bien remplie, elle peut vous apporter des appels et des visites <strong>sans même avoir de site web</strong>, et encore plus avec un site.</p><h2>Comment la créer (étape par étape)</h2><p>Rendez-vous sur google.com/business, connectez-vous avec un compte Google, et cherchez votre entreprise. Si elle existe déjà, revendiquez-la ; sinon, créez-la. Renseignez le <strong>nom exact</strong>, la <strong>catégorie</strong> (le métier), l&#x27;<strong>adresse</strong>, la <strong>zone desservie</strong> et le <strong>téléphone</strong>. Google vous demandera de valider que vous êtes bien le propriétaire, souvent par courrier, SMS ou appel.</p><h2>Les infos à ne jamais négliger</h2><p>Trois éléments font toute la différence : des <strong>horaires toujours à jour</strong> (rien n&#x27;énerve plus qu&#x27;une porte fermée à l&#x27;horaire affiché), de <strong>vraies photos</strong> récentes de votre local, de vos produits et de votre équipe, et une <strong>catégorie précise</strong>. Ajoutez aussi le lien vers votre site web : c&#x27;est ce qui transforme un curieux sur Google en visiteur, puis en client.</p><h2>Les avis clients : votre meilleur atout</h2><p>Une fiche avec 40 avis positifs bat presque toujours une fiche sans avis, même mieux placée. Prenez l&#x27;habitude de <strong>demander un avis</strong> à chaque client satisfait : un simple message WhatsApp avec le lien suffit. Répondez à tous les avis, positifs comme négatifs, avec calme et professionnalisme : les futurs clients lisent ces réponses autant que les avis eux-mêmes.</p><h2>Fiche Google + site web : le duo gagnant</h2><p>La fiche vous rend visible ; le site web convertit. Quand un client clique sur votre site depuis la fiche, il doit trouver un site <strong>rapide, clair et mobile</strong>, avec un bouton d&#x27;appel et WhatsApp. C&#x27;est là que se joue la différence entre une entreprise qu&#x27;on remarque et une entreprise qu&#x27;on contacte. Pour aller plus loin, lisez notre article sur <a href="/blog/referencement-google-cabinet-dentaire-maroc/">le référencement local d&#x27;un cabinet</a>.</p><h2>Notre conseil</h2><p>Créez votre fiche aujourd&#x27;hui, remplissez-la à 100 %, et connectez-la à un site web qui donne envie de vous contacter. Chez Louiss Web Studio, nous concevons des sites pensés pour convertir ces visiteurs Google en clients, avec une <a href="/contact">démo gratuite</a> avant tout engagement.</p>
+<p>Quand un Marocain cherche « coiffeur près de moi » ou « restaurant à Tanger », Google affiche d&#x27;abord une petite carte avec trois entreprises. Ces trois places valent de l&#x27;or — et elles sont gratuites. Elles viennent de la <strong>fiche Google Business</strong> (anciennement Google My Business). Pour un commerce local, c&#x27;est l&#x27;outil marketing le plus rentable qui existe. Voici comment en tirer parti.</p><h2>C&#x27;est quoi une fiche Google Business ?</h2><p>C&#x27;est la fiche gratuite qui présente votre entreprise directement dans Google et sur Google Maps : nom, adresse, horaires, téléphone, photos et avis clients. Elle apparaît quand quelqu&#x27;un cherche votre nom ou votre activité dans votre ville. Bien remplie, elle peut vous apporter des appels et des visites <strong>sans même avoir de site web</strong> — et encore plus avec un site.</p><h2>Comment la créer (étape par étape)</h2><p>Rendez-vous sur google.com/business, connectez-vous avec un compte Google, et cherchez votre entreprise. Si elle existe déjà, revendiquez-la ; sinon, créez-la. Renseignez le <strong>nom exact</strong>, la <strong>catégorie</strong> (le métier), l&#x27;<strong>adresse</strong>, la <strong>zone desservie</strong> et le <strong>téléphone</strong>. Google vous demandera de valider que vous êtes bien le propriétaire, souvent par courrier, SMS ou appel.</p><h2>Les infos à ne jamais négliger</h2><p>Trois éléments font toute la différence : des <strong>horaires toujours à jour</strong> (rien n&#x27;énerve plus qu&#x27;une porte fermée à l&#x27;horaire affiché), de <strong>vraies photos</strong> récentes de votre local, de vos produits et de votre équipe, et une <strong>catégorie précise</strong>. Ajoutez aussi le lien vers votre site web : c&#x27;est ce qui transforme un curieux sur Google en visiteur, puis en client.</p><h2>Les avis clients : votre meilleur atout</h2><p>Une fiche avec 40 avis positifs bat presque toujours une fiche sans avis, même mieux placée. Prenez l&#x27;habitude de <strong>demander un avis</strong> à chaque client satisfait — un simple message WhatsApp avec le lien suffit. Répondez à tous les avis, positifs comme négatifs, avec calme et professionnalisme : les futurs clients lisent ces réponses autant que les avis eux-mêmes.</p><h2>Fiche Google + site web : le duo gagnant</h2><p>La fiche vous rend visible ; le site web convertit. Quand un client clique sur votre site depuis la fiche, il doit trouver un site <strong>rapide, clair et mobile</strong>, avec un bouton d&#x27;appel et WhatsApp. C&#x27;est là que se joue la différence entre une entreprise qu&#x27;on remarque et une entreprise qu&#x27;on contacte. Pour aller plus loin, lisez notre article sur <a href="/blog/referencement-google-cabinet-dentaire-maroc/">le référencement local d&#x27;un cabinet</a>.</p><h2>Notre conseil</h2><p>Créez votre fiche aujourd&#x27;hui, remplissez-la à 100 %, et connectez-la à un site web qui donne envie de vous contacter. Chez Louiss Web Studio, nous concevons des sites pensés pour convertir ces visiteurs Google en clients — avec une <a href="/contact">démo gratuite</a> avant tout engagement.</p>
       </div>
     </div>
 
@@ -348,7 +420,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 <div style="height:64px;"></div>
 
 <footer class="footer-section">
-  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
       <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
