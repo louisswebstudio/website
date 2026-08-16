@@ -28,13 +28,6 @@
     return LABELS[root.getAttribute('lang')] || LABELS.en;
   }
 
-  function readCookie() {
-    try {
-      var m = document.cookie.match(/(?:^|;\s*)ls_theme=(light|dark)(?:\s*;|$)/);
-      return m ? m[1] : null;
-    } catch (e) { return null; }
-  }
-
   function writeCookie(theme) {
     try {
       document.cookie = COOKIE + '=' + theme +
@@ -85,25 +78,17 @@
     toggles[i].addEventListener('click', onToggle);
   }
 
-  /* Follow the OS while the visitor has not made an explicit choice. Once the
-     cookie exists the manual choice wins and system changes are ignored. */
-  if (window.matchMedia) {
-    var mq = window.matchMedia('(prefers-color-scheme: light)');
-    var onSystemChange = function (e) {
-      if (readCookie()) return;
-      apply(e.matches ? 'light' : 'dark', true);
-    };
-    if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
-    else if (mq.addListener) mq.addListener(onSystemChange);
-  }
+  /* The site defaults to light for every visitor without an ls_theme cookie
+     (see theme-init.js), so the OS colour scheme is deliberately not followed —
+     dark is only ever reached through this toggle. */
 
   /* The language switcher swaps <html lang>/dir after load; re-label then. */
   if (window.MutationObserver) {
     new MutationObserver(function () {
-      syncControls(root.getAttribute('data-theme') || 'dark');
+      syncControls(root.getAttribute('data-theme') || 'light');
     }).observe(root, { attributes: true, attributeFilter: ['lang'] });
   }
 
-  syncMetaThemeColor(root.getAttribute('data-theme') || 'dark');
-  syncControls(root.getAttribute('data-theme') || 'dark');
+  syncMetaThemeColor(root.getAttribute('data-theme') || 'light');
+  syncControls(root.getAttribute('data-theme') || 'light');
 })();

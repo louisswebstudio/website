@@ -10,8 +10,8 @@
 
    Order of precedence:
      1. ls_theme cookie   — an explicit choice the visitor made
-     2. prefers-color-scheme: light
-     3. dark              — the site's original default
+     2. light             — the site's default for everyone else, regardless of
+                            the OS colour scheme
 
    Persistence is a cookie, not localStorage, so the value is readable by the
    document before any module runs and could later be read server-side if the
@@ -25,12 +25,7 @@
     if (m) theme = m[1];
   } catch (e) { /* cookies blocked — fall through to the system preference */ }
 
-  if (!theme) {
-    theme = (window.matchMedia &&
-             window.matchMedia('(prefers-color-scheme: light)').matches)
-      ? 'light'
-      : 'dark';
-  }
+  if (!theme) theme = 'light';
 
   document.documentElement.setAttribute('data-theme', theme);
 
