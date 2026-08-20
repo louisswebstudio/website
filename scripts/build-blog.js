@@ -615,7 +615,6 @@ ${navHtml(R)}
     ${grid}
     <div class="section-cta-bar reveal">
       <a href="https://wa.me/212716490397?text=${encodeURIComponent('Bonjour, je souhaite un site web qui attire des clients.')}" class="btn-primary">Démarrer Votre Projet</a>
-      <p class="urgency-line">⚡ Projets en cours pour cette semaine. Quelques places disponibles</p>
     </div>
   </div>
 </section>
