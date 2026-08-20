@@ -1306,6 +1306,69 @@ footer > * { position: relative; z-index: 1; }
 .footer-legal a { font-size: 16px; color: var(--muted2); text-decoration: none; transition: color .2s; }
 .footer-legal a:hover { color: #fff; }
 
+/* ── FOOTER: 4-column grid ──
+   Brand / Services / Cities / Contact. Replaces the old stacked
+   footer-mid + footer-cities rows. Colours and type all come from the
+   existing tokens — nothing new is introduced here. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.2fr;
+  gap: 48px;
+  padding: 0 0 48px;
+}
+.footer-brand-tagline {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 300px; margin: 18px 0 22px;
+}
+/* Column headers carry more weight than the links beneath them, so the
+   columns read as structure at a glance. Sizes stay on the existing
+   13/14/15/16 scale. */
+.footer-col-title {
+  font-size: 14px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #fff;
+  margin-bottom: 18px;
+}
+.footer-col-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-links a {
+  font-size: 15px; color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-col-links a:hover { color: #fff; }
+/* Cities are de-emphasised (smaller + dimmer than Services/Contact) and
+   reflowed into two columns, so this column stops towering over its
+   neighbours. Order matters: these override .footer-col-links above. */
+.footer-col-links--cities {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+}
+.footer-col-links--cities a { font-size: 14px; color: var(--muted2); }
+.footer-col-links--cities a:hover { color: #fff; }
+/* Contact column: site navigation split off from the contact methods
+   above it by a hairline, reusing the .footer-bottom border value. */
+.footer-col-nav {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid rgba(38,38,38,.4);
+}
+/* Brand-column CTA. The button itself is .faq-cta (the site's existing
+   WhatsApp button) — this only positions it. */
+.footer-cta-wrap { margin-top: 22px; }
+/* Small rounded icon buttons — same visual language as .social-link above. */
+.footer-social-btn {
+  width: 38px; height: 38px; border-radius: 9999px;
+  border: 1px solid #262626;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.footer-social-btn:hover { border-color: var(--blue); color: var(--blue); }
+html[dir="rtl"] .footer-grid { direction: rtl; }
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 36px; }
+  .footer-brand-tagline { max-width: none; }
+}
+
 /* ── FOOTER: city landing pages ──
    Small internal-linking row for the per-city SEO pages. Sits between the
    socials row and the legal row. */

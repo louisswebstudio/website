@@ -1043,3 +1043,21 @@ html[data-theme="light"] .nf-links { border-color: var(--l-border); }
 @media (hover: none) and (max-width: 767px) {
   html[data-theme="light"] nav { background: rgba(255,255,255,0.97); }
 }
+
+/* ── FOOTER: 4-column grid (light) ──
+   .footer-col-title is #fff in the dark theme, which is invisible on the
+   light band. Flip it to the standard dark text colour, and give the
+   round social buttons + the contact/nav divider the same neutral
+   hairline every other light-mode border uses. */
+html[data-theme="light"] .footer-col-title { color: var(--l-text); }
+html[data-theme="light"] .footer-col-links a:hover,
+html[data-theme="light"] .footer-col-links--cities a:hover { color: var(--l-text); }
+html[data-theme="light"] .footer-col-nav { border-color: var(--l-border); }
+html[data-theme="light"] .footer-social-btn {
+  border: 1px solid var(--l-border-str);
+  color: var(--muted);
+}
+html[data-theme="light"] .footer-social-btn:hover {
+  border-color: var(--l-blue-text);
+  color: var(--l-blue-text);
+}
