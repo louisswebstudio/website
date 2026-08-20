@@ -104,14 +104,17 @@
      set before paint. -->
 <link rel="stylesheet" href="assets/theme.css">
 <!-- Structured data: tells Google this domain IS the "Louiss Web Studio" brand,
-     links the Instagram profile as the same entity (sameAs), and exposes the
-     business name/logo/area served for branded search + knowledge panel. -->
+     links the Instagram/Dribbble profiles as the same entity (sameAs), and
+     exposes the business name/logo/area served for branded search + knowledge
+     panel. Single ProfessionalService+Organization entity (rather than three
+     separate, slightly-inconsistent business blocks) so Google resolves one
+     canonical entity instead of guessing which one is authoritative. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "ProfessionalService",
+      "@type": ["ProfessionalService", "Organization"],
       "@id": "https://www.louisswebstudio.com/#business",
       "name": "Louiss Web Studio",
       "alternateName": "Louiss Web Studio Tanger",
@@ -119,6 +122,7 @@
       "logo": "https://www.louisswebstudio.com/logo.png",
       "image": "https://www.louisswebstudio.com/logo.png",
       "description": "Studio de web design au Maroc. Sites web modernes, rapides et sur-mesure pour les entreprises marocaines.",
+      "email": "contact@louisswebstudio.com",
       "telephone": "+212716490397",
       "priceRange": "$$",
       "areaServed": [
@@ -147,8 +151,21 @@
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Référencement (SEO)", "serviceType": "Search engine optimization" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maintenance et support de site web", "serviceType": "Website maintenance" } }
       ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+212716490397",
+        "contactType": "customer service",
+        "availableLanguage": ["French", "Arabic", "English"]
+      },
+      "knowsAbout": [
+        "Web Design",
+        "Web Development",
+        "Next.js",
+        "Multilingual Websites"
+      ],
       "sameAs": [
-        "https://www.instagram.com/louiss.webstudio/"
+        "https://www.instagram.com/louiss.webstudio/",
+        "https://dribbble.com/kuro3245"
       ]
     },
     {
@@ -159,53 +176,6 @@
       "publisher": { "@id": "https://www.louisswebstudio.com/#business" },
       "inLanguage": "fr-MA"
     }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Louiss Web Studio",
-  "url": "https://www.louisswebstudio.com",
-  "logo": "https://www.louisswebstudio.com/logo.png",
-  "image": "https://www.louisswebstudio.com/logo.png",
-  "description": "Studio de design web au Maroc. Création de sites web modernes, rapides et optimisés pour convertir les visiteurs en clients.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Tanger",
-    "addressCountry": "MA"
-  },
-  "telephone": "+212716490397",
-  "priceRange": "$$",
-  "areaServed": [
-    { "@type": "City", "name": "Tanger" },
-    { "@type": "City", "name": "Marrakech" },
-    { "@type": "City", "name": "Agadir" },
-    { "@type": "City", "name": "Casablanca" },
-    { "@type": "City", "name": "Rabat" },
-    { "@type": "City", "name": "Fès" },
-    { "@type": "City", "name": "Essaouira" },
-    { "@type": "City", "name": "Kénitra" },
-    { "@type": "City", "name": "Oujda" },
-    { "@type": "Country", "name": "Morocco" }
-  ],
-  "makesOffer": [
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création de site web (web design)", "serviceType": "Web design" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Développement de site web sur-mesure", "serviceType": "Web development" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Site e-commerce", "serviceType": "E-commerce development" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Système de réservation en ligne", "serviceType": "Booking system development" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Référencement (SEO)", "serviceType": "Search engine optimization" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maintenance et support de site web", "serviceType": "Website maintenance" } }
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+212716490397",
-    "contactType": "customer service",
-    "availableLanguage": ["French", "Arabic", "English"]
-  },
-  "sameAs": [
-    "https://www.instagram.com/louiss.webstudio/"
   ]
 }
 </script>
@@ -270,43 +240,6 @@
         "text": "Once your site is live, you have full access. We also offer a monthly maintenance package to handle updates, modifications, and ongoing support."
       }
     }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": "https://www.louisswebstudio.com/#organization",
-  "name": "Louiss Web Studio",
-  "url": "https://www.louisswebstudio.com",
-  "logo": {
-    "@type": "ImageObject",
-    "url": "https://www.louisswebstudio.com/logo.png"
-  },
-  "image": "https://www.louisswebstudio.com/logo.png",
-  "description": "Studio de création de sites web au Maroc. Sites modernes, rapides et sur-mesure pour les entreprises marocaines.",
-  "email": "contact@louisswebstudio.com",
-  "telephone": "+212716490397",
-  "areaServed": {
-    "@type": "Country",
-    "name": "Morocco"
-  },
-  "knowsAbout": [
-    "Web Design",
-    "Web Development",
-    "Next.js",
-    "Multilingual Websites"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+212716490397",
-    "contactType": "customer service",
-    "availableLanguage": ["French", "Arabic", "English"]
-  },
-  "sameAs": [
-    "https://www.instagram.com/louiss.webstudio/",
-    "https://dribbble.com/kuro3245"
   ]
 }
 </script>
