@@ -1295,8 +1295,17 @@ var waMessages = {
 };
 
 function setLang(lang) {
+  // This page only ships complete EN/FR copy (its Arabic is partial), so the
+  // switcher offers those two. Anything else — a stored 'ar' preference picked
+  // up elsewhere on the site, or an ar-* browser via init() — falls back to
+  // French instead of throwing on translations[lang].undefined. That throw used
+  // to abort init() and take every listener defined after it down with it,
+  // leaving the FAQ accordion dead. The stored preference is deliberately left
+  // alone so the rest of the site still honours it.
+  var supported = Object.prototype.hasOwnProperty.call(translations, lang);
+  if (!supported) lang = 'fr';
   currentLang = lang;
-  localStorage.setItem('ls_lang', lang);
+  if (supported) localStorage.setItem('ls_lang', lang);
   document.getElementById('activeFlagImg').src = translations[lang].flagSrc;
   document.getElementById('activeLangCode').textContent = translations[lang].code;
   document.getElementById('opt-en').classList.toggle('active', lang === 'en');

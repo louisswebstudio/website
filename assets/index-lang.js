@@ -56,6 +56,13 @@ function applyTranslations(lang) {
   document.querySelectorAll('[data-en]').forEach(el => {
     const val = el.getAttribute('data-' + lang);
     if (val === null) return;
+    // <img> has no text content — writing textContent to it is a silent no-op,
+    // which left the comparison screenshots on alt="" in every language. Their
+    // data-* values are alt text, so route them to the attribute instead.
+    if (el.tagName === 'IMG') {
+      el.setAttribute('alt', val);
+      return;
+    }
     // If it contains HTML tags use innerHTML, otherwise textContent
     if (val.includes('<')) {
       el.innerHTML = val;
