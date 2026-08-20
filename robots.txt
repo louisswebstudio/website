@@ -28,7 +28,19 @@ User-agent: Claude-Web
 Allow: /
 Disallow: /casestudy/
 
+User-agent: Claude-User
+Allow: /
+Disallow: /casestudy/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /casestudy/
+
 User-agent: PerplexityBot
+Allow: /
+Disallow: /casestudy/
+
+User-agent: Perplexity-User
 Allow: /
 Disallow: /casestudy/
 
@@ -41,3 +53,6 @@ Allow: /
 Disallow: /casestudy/
 
 Sitemap: https://www.louisswebstudio.com/sitemap.xml
+
+# LLMs.txt
+Sitemap: https://www.louisswebstudio.com/llms.txt
