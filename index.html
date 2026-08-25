@@ -753,7 +753,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ════ PROCESS ════ -->
-<section class="process-section" id="process">
+<!-- TEMPORARILY HIDDEN. Kept in the DOM on purpose: renderSteps() in
+     assets/index-main.js writes to #processSteps without a null guard,
+     so removing the section outright throws. To restore, delete the
+     hidden attribute and the inline display:none below. -->
+<section class="process-section" id="process" hidden style="display:none">
   <div class="process-glow"></div>
   <div class="container">
   <div class="process-header reveal">
