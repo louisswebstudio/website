@@ -3,13 +3,13 @@
 > Web design and development studio based in Tangier, Morocco, building fast, conversion-focused websites for local and regional businesses.
 
 ## Services
-- Professional showcase (vitrine) website
-- E-commerce website
-- Landing pages for ad campaigns
-- Redesign of an existing website
-- Custom full-stack development (Next.js, headless CMS, multilingual sites)
+Design-first web development: Figma to production, or a full build from scratch.
+- For direct clients: custom design in Figma, built end to end; Next.js, Tailwind or vanilla HTML/CSS/JS depending on project needs; headless CMS setup a non-developer team can manage; deployment, DNS and domain configuration handled.
+- For agencies: pixel-accurate implementation from Figma files, fast turnaround for client deadlines, clean handoff with documented code, white-label delivery available.
+- For international clients: multilingual builds in French, English and Arabic (RTL included); custom UI/UX and full-stack development, never a template; remote collaboration with clear deliverables.
 
 ## Cities served
+- [Morocco — nationwide overview](https://www.louisswebstudio.com/creation-site-web-maroc)
 - [Tanger](https://www.louisswebstudio.com/creation-site-web-tanger)
 - [Casablanca](https://www.louisswebstudio.com/creation-site-web-casablanca)
 - [Rabat](https://www.louisswebstudio.com/creation-site-web-rabat)
@@ -29,6 +29,11 @@
 - Portfolio/Projects: https://www.louisswebstudio.com/projects
 - Pricing: https://www.louisswebstudio.com/tarifs
 - Blog: https://www.louisswebstudio.com/blog/
+
+## Specialist pages
+- [Real estate web design](https://www.louisswebstudio.com/real-estate-web-design)
+- [Tourism and travel web design](https://www.louisswebstudio.com/tourism-web-design)
+- [International web design and development](https://www.louisswebstudio.com/international-web-design)
 
 ## Notable projects
 - [Adventure Keys](https://www.louisswebstudio.com/adventure-keys) — website redesign for a travel agency, built to turn visitors into bookings
