@@ -1,0 +1,1063 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   theme.css — LIGHT MODE for index.html
+   ──────────────────────────────────────────────────────────────────────────
+   Every rule is scoped to html[data-theme="light"], so the dark site is
+   completely untouched: with no attribute (or data-theme="dark") not a single
+   declaration here applies. assets/theme-init.js sets the attribute before
+   first paint.
+
+   Why the attribute selector instead of a plain @media (prefers-color-scheme):
+   the manual toggle has to be able to override the OS, which a media query
+   alone cannot do.
+
+   SPECIFICITY NOTE — this sheet is linked BEFORE the async assets/site.css, so
+   on a specificity tie site.css would win on source order. Every selector here
+   carries the html[data-theme="light"] prefix (+1 attribute), which outranks
+   the single-class rules it replaces regardless of order. The handful of
+   site.css rules that use !important (mobile nav/menu) are matched with
+   !important here too — the extra attribute still wins the tie-break.
+
+   The dark theme paints white/near-white text on near-black. Light mode is NOT
+   that palette inverted: surfaces become white cards that LIFT off a soft grey
+   page with shadow (dark mode separates them with borders instead), the blue
+   is darkened for contrast on white, and the decorative glows are dialled back
+   because a saturated blur that reads as "glow" on black reads as "smudge" on
+   white.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] {
+  /* ── Redefined design tokens ──
+     site.css/site-critical.css already funnel a lot of colour through these
+     vars, so overriding them here fixes many rules for free (muted body copy,
+     borders, the marquee edge fades that read var(--dark), etc.). */
+  --blue:    #2563eb;   /* 5.2:1 on the page bg — safe for the small labels */
+  --dark:    #f6f7f9;   /* page background; used by marquee fade gradients   */
+  --card:    #ffffff;
+  --card2:   #f9fafb;
+  --border:  rgba(16,24,40,0.10);
+  --muted:   #565d6b;   /* 7.0:1  — body copy                                */
+  /* --muted2 carries captions/legal/meta (.author-role, .footer-copy). The
+     first pass used #858b98, which measured 3.4:1 on white and 3.0:1 on the
+     grey band — both below AA for body-size text. Darkened until it clears
+     4.5:1 against the band, which is the harder of the two backgrounds. */
+  --muted2:  #646b79;
+
+  /* ── Light-only helpers (not present in the dark theme) ── */
+  --l-bg:          #f4f3f1;  /* soft off-white — not stark #fff, so white
+                                cards have something to lift off of          */
+  --l-bg-band:     #fbfaf9;  /* alternating section band                     */
+  --l-surface:     #ffffff;
+  --l-text:        #14161a;  /* near-black body/heading copy                 */
+  --l-text-soft:   #3f4653;
+  --l-border:      rgba(16,24,40,0.10);
+  --l-border-str:  rgba(16,24,40,0.16);
+  --l-blue-text:   #1d4ed8;  /* 7.4:1 on white — for blue TEXT              */
+  --l-red:         #dc2626;  /* #f87171 is unreadable on white              */
+  --l-shadow-sm:   0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+  --l-shadow-md:   0 4px 12px rgba(16,24,40,0.06), 0 2px 4px rgba(16,24,40,0.04);
+  --l-shadow-lg:   0 12px 32px rgba(16,24,40,0.10), 0 4px 8px rgba(16,24,40,0.04);
+
+  color-scheme: light;     /* native scrollbars / form controls follow suit */
+  background: var(--l-bg); /* covers rubber-band overscroll above the body  */
+}
+
+html[data-theme="light"] body {
+  background: var(--l-bg);
+  color: var(--l-text);
+}
+
+/* The starfield canvas paints its own opaque #060607 fill across the whole
+   viewport every frame (see assets/starfield.js) — it cannot be recoloured
+   from CSS, so light mode drops it entirely rather than sitting a black
+   rectangle behind the page. */
+html[data-theme="light"] #global-starfield { display: none !important; }
+
+/* ── Decorative blue glow orbs ──
+   At 0.18 opacity over black these read as light sources; over off-white the
+   same glow turns into a grey-blue smudge. Lower opacity + a lighter blue
+   keeps a hint of colour without the dirt.
+
+   Set --glow-rgb rather than `background`: the orbs are radial-gradients now
+   (they used to be solid circles under a wide filter: blur, which cost real
+   paint time — see the DECORATIVE GLOWS block in site.css). Overriding
+   `background` here would replace the whole gradient with a flat fill and give
+   every orb a hard circular edge. */
+html[data-theme="light"] .hero-glow,
+html[data-theme="light"] .glow-circle,
+html[data-theme="light"] .process-glow {
+  --glow-rgb: 96, 165, 250;
+  opacity: 0.14;
+}
+
+/* ══ NAVBAR ══════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .nav-inner {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--l-border);
+  /* Dark mode separates the pill from the page with a bright hairline; on
+     white a hairline alone disappears, so the pill floats on a shadow. */
+  box-shadow: 0 6px 24px rgba(16,24,40,0.08), 0 1px 2px rgba(16,24,40,0.04);
+}
+html[data-theme="light"] .nav-link { color: #4b5262; }
+html[data-theme="light"] .nav-link:hover { color: var(--l-text); }
+
+html[data-theme="light"] .lang-btn:hover { background: rgba(16,24,40,0.05); }
+html[data-theme="light"] .lang-code { color: #3f4653; }
+html[data-theme="light"] .lang-chevron { color: #565d6b; }
+/* The chevron colour is a stroke="#a3a3a3" presentation attribute in the
+   markup; CSS overrides it without touching the HTML. */
+html[data-theme="light"] .lang-chevron svg path { stroke: #565d6b; }
+
+html[data-theme="light"] .lang-dropdown {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: 0 16px 40px rgba(16,24,40,0.14);
+}
+html[data-theme="light"] .lang-option { color: #3f4653; }
+html[data-theme="light"] .lang-option:hover { background: rgba(16,24,40,0.05); }
+html[data-theme="light"] .lang-option.active { color: var(--l-blue-text); }
+html[data-theme="light"] .lang-divider { background: var(--l-border); }
+
+html[data-theme="light"] .hamburger-btn {
+  border: 1px solid var(--l-border);
+  background: rgba(16,24,40,0.04);
+}
+html[data-theme="light"] .hamburger-btn:hover { background: rgba(16,24,40,0.08); }
+html[data-theme="light"] .hamburger-bar { background: var(--l-text); }
+
+/* ══ LOGO (light/dark swap) ══════════════════════════════════════════════
+   Two <img> per logo slot (nav, mobile overlay, footer): logo.png is tuned
+   for the dark background, logo-black.png for white/off-white. Same swap
+   mechanism as the theme-toggle sun/moon icons below — only one is ever
+   visible, so no JS is needed and the accessible alt text stays put.
+
+   !important is load-bearing here, not defensive: outside index.html the logo
+   <img> carries an inline style="...display:block" for sizing, and an inline
+   declaration outranks any selector. Without it both logos paint at once. */
+.logo .logo-img-light,
+.mob-overlay-logo .logo-img-light { display: none !important; }
+html[data-theme="light"] .logo .logo-img-dark,
+html[data-theme="light"] .mob-overlay-logo .logo-img-dark { display: none !important; }
+html[data-theme="light"] .logo .logo-img-light,
+html[data-theme="light"] .mob-overlay-logo .logo-img-light { display: block !important; }
+
+/* ══ THEME TOGGLE ════════════════════════════════════════════════════════ */
+
+.theme-toggle {
+  /* Unscoped: the control itself exists in both themes. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  color: #e5e7eb;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.12); }
+.theme-toggle svg { width: 18px; height: 18px; display: block; }
+
+/* Only one of the two icons is ever in the DOM flow; swapping via CSS keeps
+   the button's accessible name (aria-label) as the single source of truth for
+   screen readers instead of relying on the icon. */
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+html[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* Keyboard focus must stay obvious in both themes. :focus-visible keeps the
+   ring off mouse clicks. */
+.theme-toggle:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+html[data-theme="light"] .theme-toggle {
+  border: 1px solid var(--l-border-str);
+  background: rgba(16,24,40,0.04);
+  color: #3f4653;
+}
+html[data-theme="light"] .theme-toggle:hover { background: rgba(16,24,40,0.08); }
+html[data-theme="light"] .theme-toggle:focus-visible { outline-color: var(--l-blue-text); }
+
+/* The navbar instance is desktop-only: below 768px the top bar already holds
+   logo + language + hamburger, and a fourth control crowds it at ~360px. The
+   mobile nav gets its own copy inside the slide-in menu (.theme-toggle-mobile),
+   so both navs can switch the theme. */
+@media (max-width: 767px) {
+  .nav-right .theme-toggle { display: none; }
+}
+.theme-toggle-row {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+.theme-toggle-row .theme-toggle-label {
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+}
+html[data-theme="light"] .theme-toggle-row { border-bottom-color: var(--l-border); }
+html[data-theme="light"] .theme-toggle-row .theme-toggle-label { color: #3f4653; }
+@media (max-width: 767px) {
+  .theme-toggle-row { display: flex; }
+  /* Match the 44px minimum touch target site.css already enforces for the
+     hamburger and the CTA buttons at this breakpoint. */
+  .theme-toggle-row .theme-toggle { width: 44px; height: 44px; }
+}
+/* Match the staggered entrance the menu links already use (site-critical.css),
+   picking up one step after the last link so the row doesn't pop in early. */
+.theme-toggle-row {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .28s ease, transform .3s cubic-bezier(.16,1,.3,1);
+}
+.mobile-menu.open .theme-toggle-row {
+  opacity: 1;
+  transform: none;
+  transition-delay: .24s;
+}
+
+/* ══ MOBILE MENU ═════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .mobile-menu-overlay { background: rgba(16,24,40,0.35); }
+html[data-theme="light"] .mobile-menu {
+  background: #ffffff;
+  border-left: 1px solid var(--l-border);
+}
+html[data-theme="light"] .mobile-menu-close {
+  border: 1px solid var(--l-border);
+  background: rgba(16,24,40,0.04);
+  color: var(--l-text);
+}
+html[data-theme="light"] .mobile-menu-close:hover { background: rgba(16,24,40,0.08); }
+html[data-theme="light"] .mobile-menu-link { color: #3f4653; }
+html[data-theme="light"] .mobile-menu-link:hover,
+html[data-theme="light"] .mobile-menu-link:active { color: var(--l-text); }
+
+/* Below 767px site.css re-skins the mobile nav with !important; these match it. */
+@media (max-width: 767px) {
+  html[data-theme="light"] nav {
+    background: rgba(255,255,255,0.95);
+  }
+  html[data-theme="light"] .nav-inner {
+    border-bottom: 1px solid var(--l-border) !important;
+    box-shadow: none;
+  }
+  html[data-theme="light"] .mobile-menu { background: rgba(255,255,255,0.98); }
+  html[data-theme="light"] .mobile-menu-close { color: var(--l-text) !important; }
+  html[data-theme="light"] .mobile-menu-link {
+    color: #3f4653;
+    border-bottom: 0.5px solid var(--l-border);
+  }
+  html[data-theme="light"] .mobile-menu-link:hover { color: var(--l-text); }
+  /* Dark mode inverts this CTA to a white button; on white that vanishes, so
+     light mode returns it to the brand blue. */
+  html[data-theme="light"] .mobile-menu-cta {
+    background: var(--blue) !important;
+    color: #ffffff !important;
+  }
+}
+
+/* ══ BUTTONS ═════════════════════════════════════════════════════════════ */
+
+/* .btn-primary keeps its blue gradient — white on #2563eb is 5.2:1 and the
+   brand accent should not shift between themes. Only the glow is softened. */
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] .btn-cta,
+html[data-theme="light"] .btn-wa,
+html[data-theme="light"] .faq-cta {
+  box-shadow: 0 2px 8px rgba(37,99,235,0.24);
+}
+html[data-theme="light"] .btn-primary:hover,
+html[data-theme="light"] .btn-cta:hover,
+html[data-theme="light"] .btn-wa:hover,
+html[data-theme="light"] .faq-cta:hover {
+  box-shadow: 0 6px 20px rgba(37,99,235,0.32);
+}
+
+/* .btn-secondary is a near-white pill in dark mode — invisible on an off-white
+   page. It becomes a bordered white button so the primary/secondary hierarchy
+   survives. */
+html[data-theme="light"] .btn-secondary {
+  background: #ffffff;
+  color: var(--l-text);
+  border: 1px solid var(--l-border-str);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .btn-secondary:hover { background: #f9fafb; }
+
+html[data-theme="light"] .btn-outline {
+  color: var(--l-text-soft);
+  border: 1px solid var(--l-border-str);
+}
+html[data-theme="light"] .btn-outline:hover {
+  border-color: rgba(16,24,40,0.30);
+  color: var(--l-text);
+  background: rgba(16,24,40,0.04);
+}
+
+/* ══ SHARED: gradient display text ═══════════════════════════════════════
+   The dark theme clips a #2563eb→#3b82f6 gradient into headline text. #3b82f6
+   is only ~3.0:1 on white — right at the large-text floor — so light mode
+   shifts the ramp one stop darker. */
+html[data-theme="light"] .hero .hero-h1 .hero-h1-blue,
+html[data-theme="light"] .hero-h1-italic,
+html[data-theme="light"][lang="fr"] .hero-h1-line1 em,
+html[data-theme="light"] .work-h-accent,
+html[data-theme="light"] .testimonials-heading em,
+html[data-theme="light"] .transformation-h em,
+html[data-theme="light"] .process-h em,
+html[data-theme="light"] .faq-title em {
+  background: linear-gradient(to right, #1e40af, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ══ HERO ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .hero .hero-h1,
+html[data-theme="light"] .hero-h1-line1,
+html[data-theme="light"] .hero-h1-that,
+html[data-theme="light"] .hero-h1-line3 { color: var(--l-text); }
+html[data-theme="light"] .hero-h1-divider { background: var(--l-text); }
+
+html[data-theme="light"] .hero-desc,
+html[data-theme="light"] .hero .hero-desc { color: var(--l-text-soft); }
+
+html[data-theme="light"] .hero-trust-avatar {
+  border: 2px solid #ffffff;
+  background: #e8ebf0;
+}
+html[data-theme="light"] .hero-trust-copy { color: #565d6b; }
+html[data-theme="light"] .hero-trust-copy strong { color: var(--l-text); }
+html[data-theme="light"] .hero-trust-line,
+html[data-theme="light"] .hero-trust-item,
+html[data-theme="light"] .hero-reassurance,
+html[data-theme="light"] .section-cta-bar .urgency-line { color: #6b7280; }
+
+/* Scrolling mockup strip: white frames on the page bg, and the edge fades have
+   to be repainted from #030303 to the light background or the strip ends in
+   two black smears. */
+html[data-theme="light"] .hero-bmock-item {
+  background: #ffffff;
+  border: 1px solid var(--l-border);
+  box-shadow: 0 12px 32px rgba(16,24,40,0.10), 0 2px 6px rgba(16,24,40,0.05);
+}
+html[data-theme="light"] .hero-bottom-mockups::before {
+  background: linear-gradient(to right, var(--l-bg) 0%, rgba(246,247,249,0) 100%);
+}
+html[data-theme="light"] .hero-bottom-mockups::after {
+  background: linear-gradient(to left, var(--l-bg) 0%, rgba(246,247,249,0) 100%);
+}
+
+/* ══ SECTION BANDS ═══════════════════════════════════════════════════════
+   Dark mode tints alternating sections with translucent black plus a ::before
+   overlay. Stacking those on white would just grey the page unevenly, so the
+   overlays are switched off and the bands get one flat, deliberate tint. */
+html[data-theme="light"] .testimonials-section,
+html[data-theme="light"] .process-section,
+html[data-theme="light"] .faq-section,
+html[data-theme="light"] .transformation-section,
+html[data-theme="light"] .marquee-section,
+html[data-theme="light"] footer,
+html[data-theme="light"] .footer-section { background: var(--l-bg-band); }
+
+html[data-theme="light"] .testimonials-section::before,
+html[data-theme="light"] .process-section::before,
+html[data-theme="light"] .faq-section::before,
+html[data-theme="light"] footer::before,
+html[data-theme="light"] .footer-section::before { background: transparent; }
+
+/* ══ WORK / BENTO GRID ═══════════════════════════════════════════════════ */
+
+/* Portfolio thumbnails and hover collages intentionally stay the dark-theme
+   image in both themes — the navy backdrop reads as higher contrast against
+   the light card background than a re-matted light version would. */
+
+html[data-theme="light"] .work-h-see { color: var(--l-text); }
+html[data-theme="light"] .work-desc { color: var(--muted); }
+
+html[data-theme="light"] .bento-card,
+html[data-theme="light"] .bento-card.dark2 {
+  background: #F4F5F7;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+html[data-theme="light"] .bento-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-lg);
+}
+/* Screenshot backing plate intentionally keeps the dark-mode navy (#1a1f2e,
+   set in site.css) instead of a light tint — several thumbnails (Digiseo,
+   Supreme Toiture, Agadir Transfer, Adventure Keys) don't fill the thumb
+   edge-to-edge, and a light backing plate lets their white margins melt into
+   the light card background, killing the contrast the dark plate provides. */
+html[data-theme="light"] .bento-cat { color: #6b7280; }
+html[data-theme="light"] .bento-title { color: var(--l-text); }
+html[data-theme="light"] .bento-result { color: #6b7280; }
+html[data-theme="light"] .bento-btn-inactive { background: #e8ebf0; }
+
+/* .glow-card paints an animated gradient border and masks the middle with an
+   opaque plate via padding-box; that plate is near-black in dark mode. */
+html[data-theme="light"] .glow-card::before {
+  background:
+    linear-gradient(rgba(255,255,255,0.94) 0 100%) padding-box,
+    radial-gradient(at 80% 55%, #60a5fa 0px, transparent 50%) border-box,
+    radial-gradient(at 69% 34%, #3b82f6 0px, transparent 50%) border-box,
+    radial-gradient(at 8% 6%,   #2563eb 0px, transparent 50%) border-box,
+    radial-gradient(at 41% 38%, #60a5fa 0px, transparent 50%) border-box,
+    radial-gradient(at 86% 85%, #3b82f6 0px, transparent 50%) border-box,
+    radial-gradient(at 82% 18%, #2563eb 0px, transparent 50%) border-box,
+    radial-gradient(at 51% 4%,  #3b82f6 0px, transparent 50%) border-box,
+    linear-gradient(#2563eb 0 100%) border-box;
+}
+/* The inset "edge light" is a bloom tuned for a black backdrop; on white it
+   halos. Dim it rather than remove it so hover still reads. */
+html[data-theme="light"] .glow-card { --glow-color: hsl(217deg 91% 55% / 60%); }
+
+/* ══ MARQUEE ═════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .marquee-text { color: var(--l-text); }
+html[data-theme="light"] .marquee-text.outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(16,24,40,0.22);
+}
+
+/* ══ TRANSFORMATION (before / after) ═════════════════════════════════════ */
+
+html[data-theme="light"] .transformation-h { color: var(--l-text); }
+html[data-theme="light"] .transformation-sub { color: var(--muted); }
+
+/* "Before" stays deliberately flatter than "after": in dark mode that reads as
+   a dimmer card, here as an unelevated grey one against the white winner. */
+html[data-theme="light"] .t-card.before {
+  background: rgba(255,255,255,0.60);
+  border-color: var(--l-border);
+  box-shadow: none;
+}
+html[data-theme="light"] .t-card.after {
+  background: #ffffff;
+  border-color: rgba(37,99,235,0.45);
+  box-shadow: 0 12px 32px rgba(37,99,235,0.12), 0 2px 6px rgba(16,24,40,0.05);
+}
+html[data-theme="light"] .t-card.before .t-card-badge {
+  background: rgba(220,38,38,0.08);
+  border: 1px solid rgba(220,38,38,0.20);
+}
+html[data-theme="light"] .t-card.after .t-card-badge {
+  background: rgba(37,99,235,0.08);
+  border: 1px solid rgba(37,99,235,0.25);
+}
+html[data-theme="light"] .t-card-title { color: var(--l-text); }
+html[data-theme="light"] .t-card-desc { color: var(--muted); }
+html[data-theme="light"] .t-card.after .t-card-visual {
+  background: rgba(37,99,235,0.04);
+  border-color: rgba(37,99,235,0.15);
+}
+html[data-theme="light"] .t-wire-line { background: rgba(16,24,40,0.10); }
+html[data-theme="light"] .t-mock-bar { background: rgba(37,99,235,0.35); }
+html[data-theme="light"] .t-mock-block {
+  background: rgba(37,99,235,0.06);
+  border: 1px solid rgba(37,99,235,0.16);
+}
+html[data-theme="light"] .t-mock-frame.old {
+  background: #f2f4f7;
+  border: 1px solid var(--l-border);
+}
+html[data-theme="light"] .t-mock-frame.new {
+  background: #eff4ff;
+  border: 1px solid rgba(37,99,235,0.35);
+}
+html[data-theme="light"] .t-mock-frame img.img-left,
+html[data-theme="light"] .t-mock-frame img.img-right {
+  box-shadow: 0 8px 24px rgba(16,24,40,0.12);
+}
+html[data-theme="light"] .t-list-item { color: var(--l-text-soft); }
+html[data-theme="light"] .t-card.before .t-list-icon { background: rgba(220,38,38,0.10); }
+html[data-theme="light"] .t-card.after .t-list-icon { background: rgba(37,99,235,0.12); }
+html[data-theme="light"] .t-card.before .t-list-icon svg { color: var(--l-red); }
+html[data-theme="light"] .t-mock-label.label-before {
+  background: rgba(220,38,38,0.10);
+  border: 1px solid rgba(220,38,38,0.25);
+  color: var(--l-red);
+}
+html[data-theme="light"] .t-mock-label.label-after {
+  background: rgba(37,99,235,0.10);
+  border: 1px solid rgba(37,99,235,0.30);
+  color: var(--l-blue-text);
+}
+
+/* Mobile before/after: swipe slider + stacked text blocks */
+html[data-theme="light"] .ba-slider-wrap { border: 1px solid var(--l-border); }
+html[data-theme="light"] .ba-handle-icon { box-shadow: 0 2px 12px rgba(16,24,40,0.35); }
+html[data-theme="light"] .ba-label-before {
+  background: rgba(220,38,38,0.10);
+  border: 1px solid rgba(220,38,38,0.25);
+  color: var(--l-red);
+}
+html[data-theme="light"] .ba-label-after {
+  background: rgba(37,99,235,0.10);
+  border: 1px solid rgba(37,99,235,0.30);
+  color: var(--l-blue-text);
+}
+html[data-theme="light"] .tmt-block {
+  background: #ffffff;
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .tmt-block.tmt-before { border: 1px solid rgba(220,38,38,0.22); }
+html[data-theme="light"] .tmt-block.tmt-after  { border: 1px solid rgba(37,99,235,0.25); }
+html[data-theme="light"] .tmt-badge-before { background: rgba(220,38,38,0.10); }
+html[data-theme="light"] .tmt-badge-after  { background: rgba(37,99,235,0.10); }
+html[data-theme="light"] .tmt-block.tmt-before .tmt-block-title { color: var(--l-red); }
+html[data-theme="light"] .tmt-block.tmt-after  .tmt-block-title { color: var(--l-blue-text); }
+html[data-theme="light"] .tmt-item { color: var(--l-text-soft); }
+html[data-theme="light"] .tmt-before .tmt-icon { background: rgba(220,38,38,0.10); }
+html[data-theme="light"] .tmt-after  .tmt-icon { background: rgba(37,99,235,0.12); }
+
+/* ══ TESTIMONIALS ════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .testimonials-heading { color: var(--l-text); }
+html[data-theme="light"] .testimonials-sub { color: var(--muted); }
+html[data-theme="light"] .testi-arrow {
+  background: #ffffff;
+  border: 1px solid var(--l-border-str);
+  color: var(--l-text);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .testi-arrow:hover:not(:disabled) {
+  background: rgba(37,99,235,0.08);
+  border-color: rgba(37,99,235,0.40);
+  color: var(--l-blue-text);
+}
+html[data-theme="light"] .testimonial-card {
+  background: #ffffff;
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .testimonial-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-lg);
+}
+html[data-theme="light"] .testimonial-text { color: #4b5262; }
+html[data-theme="light"] .author-avatar {
+  background: #e8edf7;
+  color: var(--l-blue-text);
+}
+html[data-theme="light"] .author-name { color: var(--l-text); }
+
+/* ══ PROCESS ═════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .process-h { color: var(--l-text); }
+html[data-theme="light"] .process-right-text { color: var(--muted); }
+html[data-theme="light"] .process-step:hover { background: rgba(16,24,40,0.03); }
+html[data-theme="light"] .process-step.active {
+  background: #ffffff;
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .step-progress-bar { background: rgba(16,24,40,0.10); }
+html[data-theme="light"] .step-num-circle {
+  border: 1px solid var(--l-border-str);
+  color: var(--muted);
+}
+/* The dark rule sets colour #fff on a transparent circle — invisible here. */
+html[data-theme="light"] .process-step.active .step-num-circle {
+  border-color: var(--blue);
+  color: var(--l-blue-text);
+}
+html[data-theme="light"] .step-title { color: var(--l-text); }
+html[data-theme="light"] .process-image-panel {
+  border: 1px solid var(--l-border);
+  background: #ffffff;
+  box-shadow: 0 20px 48px rgba(16,24,40,0.10);
+}
+
+/* ══ FAQ ═════════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .faq-title { color: var(--l-text); }
+html[data-theme="light"] .faq-q-text { color: #2b313c; }
+html[data-theme="light"] .faq-question:hover .faq-q-text,
+html[data-theme="light"] .faq-item.open .faq-q-text { color: var(--l-text); }
+html[data-theme="light"] .faq-icon {
+  border: 1px solid var(--l-border-str);
+  color: var(--muted);
+}
+html[data-theme="light"] .faq-item.open .faq-icon {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #ffffff;
+}
+
+/* ══ SEPARATOR HAIRLINES ═════════════════════════════════════════════════
+   The dark theme draws every divider as white at 4–7% alpha. On an off-white
+   page those are invisible — the FAQ accordion loses its row dividers and the
+   marquee band loses its top/bottom rules entirely. They have to be re-drawn
+   as dark-on-light at a comparable weight rather than left to inherit.
+
+   The footer dividers are the opposite problem: they are a solid dark grey
+   (rgba(38,38,38,.6)) that survives on white but reads far too heavy, so they
+   get toned down to the same neutral hairline as everything else. */
+html[data-theme="light"] .faq-item,
+html[data-theme="light"] .faq-item:first-child,
+html[data-theme="light"] .faq-section,
+html[data-theme="light"] .marquee-section,
+html[data-theme="light"] .footer-top,
+html[data-theme="light"] .footer-bottom {
+  border-color: var(--l-border);
+}
+
+/* ══ FOOTER ══════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .footer-cta-h,
+html[data-theme="light"] .footer-phone { color: var(--l-text); }
+html[data-theme="light"] .footer-nav a:hover,
+html[data-theme="light"] .footer-legal a:hover,
+html[data-theme="light"] .footer-cities-links a:hover { color: var(--l-text); }
+html[data-theme="light"] .footer-social { color: var(--l-text); }
+html[data-theme="light"] .footer-social:hover { color: var(--l-blue-text); }
+html[data-theme="light"] .social-link {
+  border: 1px solid var(--l-border-str);
+  color: var(--muted);
+}
+html[data-theme="light"] .social-link:hover {
+  border-color: var(--blue);
+  color: var(--l-blue-text);
+}
+
+/* ══ PROJECTS PAGE ═══════════════════════════════════════════════════════
+   projects.html does not load site.css — it carries its own inline <style>
+   block. Most class names match index.html so the rules above already cover
+   it, but these components exist only there, and a few shared components are
+   built differently enough that the generic rules would misfire. Those are
+   scoped to body.page-projects so index.html keeps its own treatment. */
+
+html[data-theme="light"] .projects-page-title { color: var(--l-text); }
+html[data-theme="light"] .projects-page-title .accent {
+  background: linear-gradient(to right, #1e40af, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+html[data-theme="light"] .projects-page-sub { color: var(--l-text-soft); }
+
+/* "Coming soon" placeholder cards */
+html[data-theme="light"] .bento-coming-badge {
+  color: var(--muted2);
+  border: 1px solid var(--l-border-str);
+  background: rgba(255,255,255,0.7);
+}
+/* Was white at 20% — invisible on a light thumbnail plate. */
+html[data-theme="light"] .bento-thumb-placeholder { color: rgba(16,24,40,0.28); }
+
+/* The active nav item is marked with aria-current on this page. */
+html[data-theme="light"] .nav-link[aria-current="page"] { color: var(--l-text); }
+
+/* projects.html builds the FAQ icon as a filled disc whose glyph is coloured
+   separately (index.html uses a bordered circle instead). The generic rule
+   above fills the open state solid blue and sets colour on the container —
+   but this page's `.faq-item.open .faq-icon svg { color: var(--blue) }` is
+   more specific than that container colour, which would leave a blue glyph on
+   a blue disc. Keep this page's tinted-disc treatment instead. */
+html[data-theme="light"] body.page-projects .faq-icon {
+  background: rgba(16,24,40,0.05);
+  border: none;
+}
+html[data-theme="light"] body.page-projects .faq-icon svg { color: var(--muted); }
+html[data-theme="light"] body.page-projects .faq-item.open .faq-icon {
+  background: rgba(37,99,235,0.12);
+  border: none;
+}
+html[data-theme="light"] body.page-projects .faq-item.open .faq-icon svg {
+  color: var(--l-blue-text);
+}
+
+/* ══ CONTACT PAGE ════════════════════════════════════════════════════════
+   contact.html does not load site.css — it carries its own inline <style>
+   block. Nav/footer/mobile-menu share class names with index.html so the
+   rules above already cover them; these are the components unique to this
+   page (hero heading, the Cal.com booking-calendar loading skeleton). */
+
+html[data-theme="light"] body.page-contact .contact-hero-h1 { color: var(--l-text); }
+
+/* Cal.com skeleton: matches the page background instead of the dark-mode
+   #060607, and the shimmer sweep flips from white-on-dark to a neutral
+   ink-on-light so it stays visible against the light card. */
+html[data-theme="light"] body.page-contact #cal-loading { background: var(--l-bg); }
+html[data-theme="light"] body.page-contact .cal-skel-line,
+html[data-theme="light"] body.page-contact .cal-skel-day,
+html[data-theme="light"] body.page-contact .cal-skel-slot {
+  background: linear-gradient(90deg, rgba(16,24,40,.06) 25%, rgba(16,24,40,.14) 37%, rgba(16,24,40,.06) 63%);
+  background-size: 400% 100%;
+}
+
+/* ══ MISC ════════════════════════════════════════════════════════════════
+   The WhatsApp float keeps its green button and dark tooltip in both themes —
+   it is a third-party brand colour and the dark chip stays legible on white. */
+
+/* ══ THEME SWITCH TRANSITION ═════════════════════════════════════════════
+   theme-toggle.js adds .theme-transition to <html> for ~220ms around the
+   switch, so colours cross-fade instead of snapping. It is deliberately NOT a
+   permanent transition on * — that would animate every hover and scroll-reveal
+   on the page and cost real paint time. Only colour properties are animated;
+   transform/opacity are left alone so the existing animations are unaffected. */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color .22s ease,
+              background-image .22s ease,
+              border-color .22s ease,
+              color .22s ease,
+              box-shadow .22s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SITE-WIDE COVERAGE — city, service, niche, case-study, pricing and legal
+   pages. All of these load assets/site.css, so the nav / footer / mobile menu
+   / button / FAQ rules above already reach them; what follows is only the
+   components declared in each page's own inline <style> block.
+
+   Those inline blocks re-declare some shared components (nav, footer) at
+   single-class specificity, which the html[data-theme="light"] prefix still
+   outranks — no !important needed except where the source used it.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ══ PAGE HEROES (city + niche pages) ═════════════════════════════════════
+   The hero sits on a dark photo behind a near-opaque scrim. Repainting the
+   scrim in the page background keeps the photo as a faint texture; simply
+   lowering its opacity would leave a muddy grey wash instead. Each page sets
+   its own image, so only the gradient stops are restated here. */
+html[data-theme="light"] .city-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Opaque enough to stop the niche-page heroes (which use project
+     screenshots) ghosting their own text behind the headline, while the city
+     photos still read as a faint texture. */
+  background: linear-gradient(rgba(246,247,249,0.945), rgba(246,247,249,0.965));
+  pointer-events: none;
+  z-index: 0;
+}
+html[data-theme="light"] .city-page-title,
+html[data-theme="light"] .projects-page-title { color: var(--l-text); }
+html[data-theme="light"] .city-page-title .accent,
+html[data-theme="light"] .svc-band-title em,
+html[data-theme="light"] .pricing-h em,
+html[data-theme="light"] .cs-faq-title em {
+  background: linear-gradient(to right, #1e40af, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+html[data-theme="light"] .city-hero-lead,
+html[data-theme="light"] .projects-page-sub { color: var(--l-text-soft); }
+html[data-theme="light"] .projects-page-niches { color: var(--muted); }
+
+/* ══ SECTION BANDS + HEADINGS (shared shell) ═════════════════════════════ */
+html[data-theme="light"] .svc-section--tint {
+  background: var(--l-bg-band);
+  border-top: 1px solid var(--l-border);
+}
+html[data-theme="light"] .svc-band-title,
+html[data-theme="light"] .svc-cta-title,
+html[data-theme="light"] .pricing-h { color: var(--l-text); }
+html[data-theme="light"] .svc-band-sub,
+html[data-theme="light"] .svc-cta-sub { color: var(--muted); }
+html[data-theme="light"] .svc-band-note { color: var(--l-text-soft); }
+html[data-theme="light"] .svc-band-note a,
+html[data-theme="light"] .svc-band-sub a,
+html[data-theme="light"] .projects-page-niches a,
+html[data-theme="light"] .inline-link,
+html[data-theme="light"] .price-callout a.inline-link {
+  color: var(--l-blue-text);
+  text-decoration-color: rgba(37,99,235,0.45);
+}
+html[data-theme="light"] .inline-link:hover { text-decoration-color: var(--blue); }
+/* FAQ answers keep the quieter, ink-coloured link the dark theme uses. */
+html[data-theme="light"] .faq-answer-inner .inline-link {
+  color: var(--l-text-soft);
+  text-decoration-color: rgba(16,24,40,0.30);
+}
+html[data-theme="light"] .faq-answer-inner .inline-link:hover { text-decoration-color: rgba(16,24,40,0.60); }
+
+/* ══ CARDS: benefit / service / challenge / process-mini / journey ════════
+   Dark mode separates these translucent near-black panels from the page with
+   a bright hairline. On light they become white surfaces that lift on shadow,
+   matching the bento and testimonial treatment above. */
+html[data-theme="light"] .benefit-item,
+html[data-theme="light"] .svc-card,
+html[data-theme="light"] .challenge-item,
+html[data-theme="light"] .process-mini-step,
+html[data-theme="light"] .journey-step,
+html[data-theme="light"] .case-block,
+html[data-theme="light"] .feature-project,
+html[data-theme="light"] .price-callout,
+html[data-theme="light"] .pricing-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .benefit-item:hover,
+html[data-theme="light"] .svc-card:hover,
+html[data-theme="light"] .challenge-item:hover,
+html[data-theme="light"] .pricing-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .benefit-item,
+html[data-theme="light"] .journey-step,
+html[data-theme="light"] .case-block-point,
+html[data-theme="light"] .pricing-feature { color: var(--l-text-soft); }
+html[data-theme="light"] .svc-card-title,
+html[data-theme="light"] .challenge-title,
+html[data-theme="light"] .process-mini-title,
+html[data-theme="light"] .case-block-title,
+html[data-theme="light"] .feature-project-title { color: var(--l-text); }
+html[data-theme="light"] .svc-card-desc,
+html[data-theme="light"] .challenge-desc,
+html[data-theme="light"] .process-mini-desc,
+html[data-theme="light"] .case-block-desc,
+html[data-theme="light"] .feature-project-desc { color: var(--muted); }
+html[data-theme="light"] .svc-divider { background: var(--l-border); }
+html[data-theme="light"] .svc-feature { color: var(--l-text-soft); }
+html[data-theme="light"] .svc-feature a,
+html[data-theme="light"] .case-block-link,
+html[data-theme="light"] .feature-project-link { color: var(--l-blue-text); }
+html[data-theme="light"] .feature-project-secondary { color: var(--muted2); }
+html[data-theme="light"] .feature-project-secondary a { color: var(--l-text-soft); }
+
+/* The "problem" icon: #ef4444 is legible on near-black but misses AA on a
+   white card, so it drops to the darker red used elsewhere in light mode. */
+html[data-theme="light"] .challenge-icon {
+  background: rgba(220,38,38,0.09);
+  color: var(--l-red);
+}
+
+/* ══ SECTOR PILLS (city pages) ═══════════════════════════════════════════ */
+html[data-theme="light"] .sector-pill {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border-str);
+  color: var(--l-text-soft);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .sector-pill:hover {
+  background: rgba(37,99,235,0.06);
+  border-color: rgba(37,99,235,0.35);
+  color: var(--l-text);
+}
+
+/* ══ PROJECT CARDS (city / services / niche / case-study pages) ══════════
+   The image plate keeps the dark-mode navy for the same reason the bento
+   thumbnails do: several screenshots have white margins that would dissolve
+   into a light plate and lose their edge. */
+html[data-theme="light"] .cs-proj-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .cs-proj-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .cs-proj-card-name { color: var(--l-text); }
+html[data-theme="light"] .cs-proj-card-cat { color: #6b7280; }
+html[data-theme="light"] .cs-proj-card-sub { color: var(--muted2); }
+
+/* ══ CASE STUDY PAGES ════════════════════════════════════════════════════ */
+html[data-theme="light"] .cs-hero-title,
+html[data-theme="light"] .cs-section-title,
+html[data-theme="light"] .cs-mid-cta-title,
+html[data-theme="light"] .cs-other-title,
+html[data-theme="light"] .cs-faq-title { color: var(--l-text); }
+html[data-theme="light"] .cs-hero-sub,
+html[data-theme="light"] .cs-mid-cta-sub { color: var(--muted); }
+html[data-theme="light"] .cs-faq-sub,
+html[data-theme="light"] .cs-breadcrumb-current { color: var(--muted2); }
+html[data-theme="light"] .cs-tag-dot { background: rgba(16,24,40,0.25); }
+html[data-theme="light"] .cs-meta-value { color: var(--l-text); }
+html[data-theme="light"] .cs-meta-bar { border-color: var(--l-border); }
+html[data-theme="light"] .cs-breadcrumb a { color: var(--muted2); }
+html[data-theme="light"] .cs-breadcrumb a:hover { color: var(--l-text); }
+html[data-theme="light"] .cs-breadcrumb-sep { color: rgba(16,24,40,0.28); }
+
+/* The case-study section bodies carry their colour in a style attribute with
+   no class to hook — the heading as color:#fff, the copy wrapper as
+   color:#A3A3A3 — and an inline declaration beats any selector. These three
+   rules are the only place light mode has to reach for !important on content;
+   they stay scoped to [data-theme="light"] so dark is untouched. */
+html[data-theme="light"] .cs-section h2[style],
+html[data-theme="light"] .cs-section h3[style] { color: var(--l-text) !important; }
+html[data-theme="light"] .cs-section [style*="A3A3A3" i],
+html[data-theme="light"] .cs-section [style*="a3a3a3"] { color: var(--muted) !important; }
+html[data-theme="light"] .cs-meta-bar span[style*="255,255,255"] { color: var(--l-text) !important; }
+
+html[data-theme="light"] .cs-section-img {
+  background: #eef1f5;
+  border: 1px solid var(--l-border);
+}
+html[data-theme="light"] .cs-section-img-placeholder { color: rgba(16,24,40,0.28); }
+
+html[data-theme="light"] .cs-testimonials,
+html[data-theme="light"] .cs-faq { background: var(--l-bg-band); }
+html[data-theme="light"] .cs-testimonial-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .cs-testimonial-quote { color: #4b5262; }
+html[data-theme="light"] .cs-testimonial-name { color: var(--l-text); }
+
+html[data-theme="light"] .cs-mid-cta { border-bottom-color: var(--l-border); }
+html[data-theme="light"] .cs-mid-cta-secondary { color: var(--muted2); }
+html[data-theme="light"] .cs-mid-cta-secondary:hover { color: var(--l-text); }
+
+html[data-theme="light"] .cs-faq-item { border-bottom-color: var(--l-border); }
+html[data-theme="light"] .cs-faq-q { color: #2b313c; }
+html[data-theme="light"] .cs-faq-item.open .cs-faq-q { color: var(--l-text); }
+html[data-theme="light"] .cs-faq-icon {
+  border: 1.5px solid var(--l-border-str);
+  color: var(--muted);
+}
+html[data-theme="light"] .cs-faq-item.open .cs-faq-icon {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #ffffff;
+}
+/* "Visit live" badge: a solid white disc on black becomes an outlined disc so
+   it still reads as a control against the light page. */
+html[data-theme="light"] .cs-live-icon {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border-str);
+  color: var(--l-text);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .cs-live-badge:hover .cs-live-icon {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+}
+html[data-theme="light"] .cs-live-ring-text { color: var(--muted2); }
+
+/* ══ PRICING (tarifs.html) ═══════════════════════════════════════════════ */
+html[data-theme="light"] .pricing-card.featured {
+  background: var(--l-surface);
+  border-color: var(--blue);
+  box-shadow: 0 12px 32px rgba(37,99,235,0.14), 0 2px 6px rgba(16,24,40,0.05);
+}
+html[data-theme="light"] .pricing-name,
+html[data-theme="light"] .pricing-amount { color: var(--l-text); }
+html[data-theme="light"] .pricing-tag,
+html[data-theme="light"] .pricing-desc,
+html[data-theme="light"] .pricing-currency,
+html[data-theme="light"] .pricing-from,
+html[data-theme="light"] .pricing-sub { color: var(--muted); }
+html[data-theme="light"] .pricing-divider { background: var(--l-border); }
+html[data-theme="light"] .pricing-features-label { color: var(--muted2); }
+
+/* ══ LEGAL PAGES (privacy / terms) ═══════════════════════════════════════ */
+html[data-theme="light"] .legal-wrap h1,
+html[data-theme="light"] .legal-wrap h2,
+html[data-theme="light"] .legal-wrap h3,
+html[data-theme="light"] .legal-wrap strong { color: var(--l-text); }
+html[data-theme="light"] .legal-wrap,
+html[data-theme="light"] .legal-wrap p,
+html[data-theme="light"] .legal-wrap li { color: var(--l-text-soft); }
+html[data-theme="light"] .legal-wrap a { color: var(--l-blue-text); }
+html[data-theme="light"] .legal-wrap .updated { color: var(--muted2); }
+
+/* ══ BLOG (generated by scripts/build-blog.js) ═══════════════════════════
+   The blog ships its own inline shell CSS rather than site.css, but reuses the
+   same nav / footer / button class names, so only the listing cards and the
+   article body need their own rules here. */
+html[data-theme="light"] .blog-card {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-sm);
+}
+html[data-theme="light"] .blog-card:hover {
+  border-color: rgba(37,99,235,0.30);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .blog-card-title { color: var(--l-text); }
+html[data-theme="light"] .blog-excerpt { color: var(--muted); }
+html[data-theme="light"] .blog-date { color: var(--muted2); }
+html[data-theme="light"] .blog-read { color: var(--l-blue-text); }
+/* The thumb keeps its blue gradient placeholder — it reads as brand colour on
+   either background, and posts without a cover image rely on it. */
+
+html[data-theme="light"] .article-title { color: var(--l-text); }
+html[data-theme="light"] .article-meta { color: var(--muted2); }
+/* #7fb0ff is tuned for a black backdrop; it fails AA on the light page. */
+html[data-theme="light"] .article-cat-badge { color: var(--l-blue-text); }
+html[data-theme="light"] .article-body { color: var(--l-text-soft); }
+html[data-theme="light"] .article-body h2,
+html[data-theme="light"] .article-body h3,
+html[data-theme="light"] .article-body strong,
+html[data-theme="light"] .article-cta h2 { color: var(--l-text); }
+html[data-theme="light"] .article-body a { color: var(--l-blue-text); }
+html[data-theme="light"] .article-body blockquote {
+  background: rgba(37,99,235,0.06);
+  border-left-color: var(--blue);
+  color: var(--l-text-soft);
+}
+html[data-theme="light"] .article-cta {
+  background: var(--l-surface);
+  border: 1px solid var(--l-border);
+  box-shadow: var(--l-shadow-md);
+}
+html[data-theme="light"] .article-cta p { color: var(--muted); }
+html[data-theme="light"] .article-cta p a { color: var(--l-blue-text); }
+
+/* ══ 404 ═════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .nf-wrap h1,
+html[data-theme="light"] .nf-links h2 { color: var(--l-text); }
+html[data-theme="light"] .nf-lead { color: var(--muted); }
+html[data-theme="light"] .nf-link { color: var(--l-blue-text); }
+html[data-theme="light"] .nf-links { border-color: var(--l-border); }
+
+/* Light mode's pill is far more transparent than dark mode's (0.82 vs 0.90),
+   so losing the blur on touch is more visible here — close the alpha a little
+   further to compensate. Pairs with the (hover: none) block in site.css. */
+@media (hover: none) {
+  html[data-theme="light"] .nav-inner { background: rgba(255,255,255,0.90); }
+}
+@media (hover: none) and (max-width: 767px) {
+  html[data-theme="light"] nav { background: rgba(255,255,255,0.97); }
+}
+
+/* ── FOOTER: 4-column grid (light) ──
+   .footer-col-title is #fff in the dark theme, which is invisible on the
+   light band. Flip it to the standard dark text colour, and give the
+   round social buttons + the contact/nav divider the same neutral
+   hairline every other light-mode border uses. */
+html[data-theme="light"] .footer-col-title { color: var(--l-text); }
+html[data-theme="light"] .footer-col-links a:hover,
+html[data-theme="light"] .footer-col-links--cities a:hover { color: var(--l-text); }
+html[data-theme="light"] .footer-col-nav { border-color: var(--l-border); }
+html[data-theme="light"] .footer-social-btn {
+  border: 1px solid var(--l-border-str);
+  color: var(--muted);
+}
+html[data-theme="light"] .footer-social-btn:hover {
+  border-color: var(--l-blue-text);
+  color: var(--l-blue-text);
+}

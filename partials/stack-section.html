@@ -1,0 +1,210 @@
+<!-- ══════════════════════════════════════════════════════════════
+     PARTIAL  stack-section
+     Source of truth. Edit here, then run: npm run build:partials
+
+     Injected into any page carrying a marker pair named
+     PARTIAL:stack-section:START and PARTIAL:stack-section:END
+     (written as HTML comments). Do not write those markers with their
+     closing arrows anywhere inside this header: the build script strips
+     the first comment block, and an early close would leak header text
+     into every page.
+
+     Needs the shared landing-page inline style block for .svc-section,
+     .svc-band-title, .benefit-item, .budget-item-t, .budget-item-d,
+     .svc-feature-icon and .solo-card-h, plus the #stack rules in
+     assets/site.css.
+     ══════════════════════════════════════════════════════════════ -->
+<!-- ════ TECH STACK ════ -->
+<section class="svc-section svc-section--tint" id="stack">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Our stack" data-fr="Notre stack" data-ar="أدواتنا">Notre stack</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="The tools your site is <em>built</em> with"
+      data-fr="Les outils avec lesquels votre site est <em>construit</em>"
+      data-ar="الأدوات التي <em>يُبنى</em> بها موقعك">Les outils avec lesquels votre site est <em>construit</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Standard, widely used tools rather than exotic ones. Any developer can pick your site up later, which is the point."
+      data-fr="Des outils standards et largement utilisés, pas des technologies exotiques. N'importe quel développeur peut reprendre votre site plus tard, et c'est bien l'objectif."
+      data-ar="أدوات معيارية وواسعة الاستعمال، لا تقنيات غريبة. أي مطوّر يمكنه استلام موقعك لاحقاً، وهذا هو المقصود.">Des outils standards et largement utilisés, pas des technologies exotiques. N'importe quel développeur peut reprendre votre site plus tard, et c'est bien l'objectif.</p>
+
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-items:start;text-align:left;">
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Frontend" data-fr="Frontend" data-ar="الواجهة الأمامية">Frontend</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/nextjs.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Next.js</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="React framework" data-fr="Framework React" data-ar="إطار عمل React">Framework React</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/react.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">React</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="UI library" data-fr="Bibliothèque d'interface" data-ar="مكتبة الواجهات">Bibliothèque d'interface</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/typescript.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">TypeScript</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Type safety" data-fr="Typage statique" data-ar="أمان الأنواع">Typage statique</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/tailwind.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Tailwind CSS</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Styling" data-fr="Styles" data-ar="الأنماط">Styles</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/framer.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Framer Motion</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Animations" data-fr="Animations" data-ar="الحركات">Animations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Backend and CMS" data-fr="Backend et CMS" data-ar="الخلفية ونظام المحتوى">Backend et CMS</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/strapi.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Strapi</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Headless CMS" data-fr="CMS headless" data-ar="نظام محتوى بلا واجهة">CMS headless</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/wordpress.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">WordPress</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Takeovers and migrations" data-fr="Reprises et migrations" data-ar="الاستلام والترحيل">Reprises et migrations</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/postgresql.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">PostgreSQL</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Database" data-fr="Base de données" data-ar="قاعدة البيانات">Base de données</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/nodejs.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Node.js</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Blog generation" data-fr="Génération du blog" data-ar="توليد المدونة">Génération du blog</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/prisma.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Prisma</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="ORM" data-fr="ORM" data-ar="ORM">ORM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Tools and analytics" data-fr="Outils et analytics" data-ar="الأدوات والتحليلات">Outils et analytics</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/figma.png" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Figma</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Mockups and design system" data-fr="Maquettes et design system" data-ar="النماذج ونظام التصميم">Maquettes et design system</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/google-analytics.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Google Analytics 4</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Analytics" data-fr="Analytics" data-ar="التحليلات">Analytics</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/google-tag-manager.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Google Tag Manager</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Tracking" data-fr="Tracking" data-ar="التتبع">Tracking</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/search-console.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Search Console</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="SEO monitoring" data-fr="Suivi SEO" data-ar="متابعة تحسين البحث">Suivi SEO</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/semrush.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Semrush</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="SEO tools" data-fr="Outils SEO" data-ar="أدوات SEO">Outils SEO</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Infrastructure" data-fr="Infrastructure" data-ar="البنية التحتية">Infrastructure</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 0l12 20.785H0L12 0z"/></svg></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Vercel</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Hosting and deployment" data-fr="Hébergement et déploiement" data-ar="الاستضافة والنشر">Hébergement et déploiement</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/github.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">GitHub</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Version control and CI" data-fr="Versioning et déploiement continu" data-ar="إدارة الإصدارات والنشر المستمر">Versioning et déploiement continu</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/cloudflare.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Cloudflare</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="CDN and security" data-fr="CDN et sécurité" data-ar="شبكة توصيل وأمان">CDN et sécurité</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/aws.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">AWS</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Cloud services" data-fr="Services cloud" data-ar="خدمات سحابية">Services cloud</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/docker.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Docker</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Containers" data-fr="Conteneurs" data-ar="الحاويات">Conteneurs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-card reveal" style="margin-top:34px;padding:24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span class="svc-feature-icon" style="width:44px;height:44px;border-radius:12px;margin-top:0;background:var(--blue);"><svg style="color:#fff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+        <div style="flex:1;min-width:0;">
+          <span class="budget-item-t" style="font-size:17px;margin-bottom:6px;"
+            data-en="Why this matters to you" data-fr="Pourquoi cela vous concerne" data-ar="لماذا يهمك هذا">Pourquoi cela vous concerne</span>
+          <p class="budget-item-d" style="font-size:14px;"
+            data-en="We pick the foundation that suits the project, then configure it ourselves rather than filling in a theme as it comes. That is what keeps pages light, keeps the SEO structure under our control, and spares you surprises after launch."
+            data-fr="Nous choisissons la fondation qui convient au projet, puis nous la configurons nous-mêmes plutôt que de remplir un thème tel quel. C'est ce qui garde les pages légères, la structure SEO sous notre contrôle, et vous évite les mauvaises surprises après la livraison."
+            data-ar="نختار الأساس المناسب للمشروع ثم نضبطه بأنفسنا بدل ملء قالب كما هو. هذا ما يبقي الصفحات خفيفة وبنية SEO تحت سيطرتنا، ويجنّبك المفاجآت بعد التسليم.">Nous choisissons la fondation qui convient au projet, puis nous la configurons nous-mêmes plutôt que de remplir un thème tel quel. C'est ce qui garde les pages légères, la structure SEO sous notre contrôle, et vous évite les mauvaises surprises après la livraison.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

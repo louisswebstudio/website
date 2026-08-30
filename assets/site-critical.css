@@ -6,7 +6,18 @@
    regenerate or mirror the change here. */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     `clip` additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body {
   background: #060607;
   color: #fff;
@@ -123,13 +134,40 @@ nav {
   display: flex; flex-direction: column;
   gap: 0;
 }
+/* Was a solid #2563eb circle under filter: blur(160px). That blur is the most
+   expensive paint above the fold, and it sits in the render-blocking sheet, so
+   it lands squarely in the LCP window. A blurred solid disc is just a radial
+   alpha ramp: the stops below are its computed profile, --glow-peak is the
+   centre coverage a 700px circle actually reaches at σ=160, and the scale
+   expands the box to the radius+3σ the blur used to bleed into. Kept in sync
+   with the DECORATIVE GLOWS block in assets/site.css. */
 .hero-glow {
   position: absolute;
   left: -100px; top: 0;
   width: 700px; height: 700px;
-  background: #2563eb;
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.909;
+  --glow-k: 2.37;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+  transform: scale(var(--glow-k));
   border-radius: 50%;
-  filter: blur(160px);
   opacity: 0.18;
   pointer-events: none;
   z-index: 0;
@@ -162,7 +200,7 @@ nav {
   gap: 32px; margin: 0;
 }
 .hero-h1-italic {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 700;
   font-size: 96px; line-height: 96px;
   background: linear-gradient(to right, #2563eb, #3b82f6);
@@ -191,7 +229,7 @@ html[lang="fr"] .hero-h1-that { display: none; }
 html[lang="fr"] .hero-h1-line3 { font-size: 72px; line-height: 76px; letter-spacing: -1.8px; }
 }
 html[lang="fr"] .hero-h1-line1 em {
-  font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 700;
+  font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 700;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -287,7 +325,7 @@ html[lang="fr"] .faq-title { font-size: 26px; line-height: 32px; }
   line-height: 1.5;
 }
 .container {
-  max-width: 1440px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 80px;
   width: 100%;
@@ -1007,6 +1045,57 @@ html[lang="ar"] .hero-h1-line3 {
   font-family: 'Cairo', sans-serif;
 }
 html[lang="ar"] { font-family: 'Cairo', sans-serif; }
+/* ---- ARABIC: headings must use Cairo too ----
+   Every heading class declares its own font-family (Satoshi). A declaration on
+   the element itself always beats the inherited html[lang="ar"] rule above, and
+   Satoshi carries no Arabic glyphs — so without these overrides Arabic headings
+   fell through to the system sans-serif rather than Cairo.
+   Specificity: html[lang="ar"] + class = (0,2,x), which outranks the bare class. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] .hero-h1, html[lang="ar"] .hero-h1-italic,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .footer-phone, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .city-page-title, html[lang="ar"] .projects-page-title,
+html[lang="ar"] .svc-band-title, html[lang="ar"] .svc-band-title em,
+html[lang="ar"] .svc-card-title, html[lang="ar"] .svc-cta-title,
+html[lang="ar"] .case-block-title, html[lang="ar"] .feature-project-title,
+html[lang="ar"] .cs-hero-title, html[lang="ar"] .cs-section-title,
+html[lang="ar"] .cs-mid-cta-title, html[lang="ar"] .cs-other-title,
+html[lang="ar"] .cs-faq-title, html[lang="ar"] .cs-proj-card-name,
+html[lang="ar"] .lp-h1, html[lang="ar"] .lp-h2,
+html[lang="ar"] .lp-showcase-title, html[lang="ar"] .lp-ledger-title,
+html[lang="ar"] .lp-cta-title, html[lang="ar"] .lp-track-title,
+html[lang="ar"] .lp-statement-text, html[lang="ar"] .lp-work-name,
+html[lang="ar"] .lp-ledger-num, html[lang="ar"] .lp-journey-label {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* A handful of headings carry font-family in a style="" attribute (the footer
+   display line, the case-study section titles). Inline styles outrank every
+   selector, so these are the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+/* A few Latin-side rules pin Inter explicitly, which likewise beats the
+   inherited Cairo. Each override below mirrors the original selector's
+   specificity so it wins (.hero .hero-ctas .btn-* is three classes deep). */
+html[lang="ar"] .hero-desc,
+html[lang="ar"] .bento-title,
+html[lang="ar"] .flower-label,
+html[lang="ar"] .flower-num,
+html[lang="ar"] .hero .hero-ctas .btn-primary,
+html[lang="ar"] .hero .hero-ctas .btn-secondary {
+  font-family: 'Cairo', sans-serif;
+}
+
+
 html[lang="ar"] .hero-h1-line1 { font-size: 80px; line-height: 86px; letter-spacing: -1.5px; }
 html[lang="ar"] .hero-h1-italic { font-size: 80px; line-height: 86px; }
 html[lang="ar"] .hero-h1-that { font-size: 80px; line-height: 86px; letter-spacing: -1.5px; }
@@ -1142,9 +1231,7 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 @media (max-width: 768px) {
 .hero .hero-h1 .blur-word { animation-delay: 0s !important; }
 }
-html[lang="fr"] .hero .hero-h1 {
-  font-size: clamp(26px, 4.5vw, 58px);
-}
+/* FR headline shares the EN/AR scale — no separate cap. */
 .hero .hero-desc {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -1171,6 +1258,42 @@ html[lang="fr"] .hero .hero-h1 {
   height: auto;
   min-width: 0;
   font-family: 'Inter', sans-serif;
+}
+/* Short desktop viewports (15.6" 1366x768 laptops, and 1080p at 125–150% OS
+   scaling). The hero is sized off width alone, so on a wide-but-short screen
+   the 230px top padding + 72px headline + 128px strip margin push the mockup
+   cards entirely below the fold. Scale the vertical rhythm down by viewport
+   height so the cards stay in the first view, as they do on a tall monitor.
+   min-width guard keeps the mobile hero (absolute cards at 82vh) untouched. */
+@media (min-width: 769px) and (max-height: 900px) {
+/* Anchor the strip at 78vh and let the hero box grow past the fold to contain
+   it, so only the top of the cards shows and the rest is revealed on scroll —
+   same pattern as the mobile hero. Without the taller min-height, .hero's
+   overflow:hidden would crop the cards for good rather than just hide them
+   below the fold. */
+.hero { padding-top: 150px; padding-bottom: 0; min-height: calc(78vh + 329px); }
+.hero .hero-title-block { gap: 26px; }
+.hero .hero-h1 { font-size: clamp(32px, 5vw, 56px); }
+.hero .hero-desc { font-size: 16px; line-height: 26px; }
+.hero .hero-bottom-mockups {
+  position: absolute;
+  left: 0; right: 0;
+  top: 78vh;
+  width: 100%;
+  margin-top: 0;
+  /* card height + the 20px nth-child(even) stagger, or the offset cards get
+     their bottoms clipped by the container. */
+  height: 305px;
+}
+.hero-bmock-item { width: 508px; height: 285px; }
+}
+@media (min-width: 769px) and (max-height: 760px) {
+.hero { padding-top: 120px; min-height: calc(78vh + 284px); }
+.hero .hero-title-block { gap: 20px; }
+.hero .hero-h1 { font-size: clamp(30px, 4.6vw, 46px); }
+.hero .hero-desc { font-size: 15px; line-height: 24px; }
+.hero .hero-bottom-mockups { height: 260px; }
+.hero-bmock-item { width: 428px; height: 240px; }
 }
 #global-starfield {
   position: fixed; inset: 0; width: 100%; height: 100%;
@@ -1199,4 +1322,28 @@ html[lang="fr"] .hero .hero-h1 {
 @keyframes hero-strip-rtl {
   from { transform: translateX(-5376px); }
   to   { transform: translateX(0); }
+}
+
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Below 767px site.css makes .nav-inner transparent with !important and moves
+     the colour to nav, so this only applies to the tablet pill. */
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
 }

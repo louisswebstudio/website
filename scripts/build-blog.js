@@ -77,7 +77,12 @@ const ptComponents = {
   marks: {
     link: ({ children, value }) => {
       const href = value?.href || '#';
-      const ext = /^https?:\/\//i.test(href);
+      // Same-origin absolute URLs are internal: authors often paste the full
+      // https://www.louisswebstudio.com/... link, which would otherwise open
+      // the site's own pages in a new tab.
+      const ext =
+        /^https?:\/\//i.test(href) &&
+        !/^https?:\/\/(www\.)?louisswebstudio\.com(\/|$)/i.test(href);
       const rel = ext ? ' target="_blank" rel="noopener"' : '';
       return `<a href="${attr(href)}"${rel}>${children}</a>`;
     },
@@ -96,8 +101,22 @@ const renderBody = (body) =>
 const SHELL_CSS = `
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     clip additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body { background: #060607; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; max-width: 100%; }
+/* Form controls don't inherit the page font by default; without this they fall
+   back to the UA font (Arial), outside the Satoshi/Inter type system. */
+button, input, select, textarea { font-family: inherit; }
 
 /* ─── TOKENS ─────────────────────────────────────────── */
 :root {
@@ -167,17 +186,76 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
   .mobile-menu-cta { display: flex !important; width: 100% !important; max-width: 100% !important; padding: 16px !important; border-radius: 12px !important; background: #fff !important; color: #0e0e0e !important; font-size: 15px !important; font-weight: 500 !important; justify-content: center; }
 }
 
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
+}
+
 /* ─── SHARED ─────────────────────────────────────────── */
 .container { max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%; }
-.glow-circle { position: absolute; border-radius: 50%; background: #2563eb; filter: blur(160px); opacity: 0.18; pointer-events: none; z-index: 0; }
-.glow-c { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.15; }
+/* Decorative glow. Was a solid #2563eb circle under filter: blur(160px) — a
+   blur that wide forces a multi-pass gaussian over a ~3x oversized offscreen
+   surface on every repaint. A blurred solid disc is just a radial alpha ramp,
+   so these stops reproduce it at zero paint cost. --glow-peak is the centre
+   coverage the disc actually reaches at this radius/sigma, and --glow-k scales
+   the box out to the radius+3sigma the blur used to bleed into. Mirrored from
+   the DECORATIVE GLOWS block in assets/site.css. */
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.85;
+  --glow-k: 2.5;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+  transform: scale(var(--glow-k));
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-c { width: 600px; height: 600px; top: 50%; left: 50%; opacity: 0.15;
+          --glow-peak: 0.828; --glow-k: 2.60; /* R=300, sigma=160 */
+          transform: translate(-50%,-50%) scale(var(--glow-k)); }
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ─── PAGE HEADER ────────────────────────────────────── */
 .projects-hero { padding: 160px 0 0; position: relative; }
 .projects-hero > .container { position: relative; z-index: 1; }
-.projects-page-title { font-family: 'Poppins', 'Inter', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; text-align: center; margin-bottom: 16px; }
+.projects-page-title { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; text-align: center; margin-bottom: 16px; }
 .projects-page-title .accent { background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .projects-page-sub { font-size: 18px; color: #d4d4d8; line-height: 29.25px; text-align: center; max-width: 560px; margin: 0 auto; }
 
@@ -205,6 +283,68 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 .footer-legal { display: flex; gap: 24px; }
 .footer-legal a { font-size: 16px; color: var(--muted2); text-decoration: none; transition: color .2s; }
 .footer-legal a:hover { color: #fff; }
+/* ── FOOTER: 4-column grid ──
+   Brand / Services / Villes / Studio. Colours and type all
+   come from the existing tokens — nothing new is introduced here. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr 1fr;
+  gap: 48px;
+  padding: 0 0 48px;
+}
+.footer-brand-tagline {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 300px; margin: 18px 0 22px;
+}
+/* Column headers carry more weight than the links beneath them, so the
+   columns read as structure at a glance. Sizes stay on the existing
+   13/14/15/16 scale. */
+.footer-col-title {
+  font-size: 14px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #fff;
+  margin-bottom: 26px;
+}
+.footer-col-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-links a {
+  font-size: 15px; color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-col-links a:hover { color: #fff; }
+/* Cities are de-emphasised (smaller + dimmer than Services/Contact) and
+   reflowed into two columns, so this column stops towering over its
+   neighbours. Order matters: these override .footer-col-links above. */
+.footer-col-links--cities {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+}
+.footer-col-links--cities a { font-size: 14px; color: var(--muted2); }
+.footer-col-links--cities a:hover { color: #fff; }
+/* Contact column: site navigation split off from the contact methods
+   above it by a hairline, reusing the .footer-bottom border value. */
+.footer-col-nav {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid rgba(38,38,38,.4);
+}
+/* Brand-column CTA. The button itself is .faq-cta (the site's existing
+   WhatsApp button) — this only positions it. */
+.footer-cta-wrap { margin-top: 22px; }
+/* Small rounded icon buttons — same visual language as .social-link above. */
+.footer-social-btn {
+  width: 38px; height: 38px; border-radius: 9999px;
+  border: 1px solid #262626;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.footer-social-btn:hover { border-color: var(--blue); color: var(--blue); }
+html[dir="rtl"] .footer-grid { direction: rtl; }
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 36px; }
+  .footer-brand-tagline { max-width: none; }
+}
+
 
 /* ── WA FLOAT ── */
 .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; align-items: center; gap: 10px; text-decoration: none; animation: waPop .5s cubic-bezier(.16,1,.3,1) 1.5s both; }
@@ -227,7 +367,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 .blog-card:hover .blog-thumb img { transform: scale(1.05); }
 .blog-body { padding: 0 8px 8px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
 .blog-pill { align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted2); border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 9999px; white-space: nowrap; }
-.blog-card-title { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 22px; color: #fff; letter-spacing: -0.6px; line-height: 1.32; }
+.blog-card-title { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 500; font-size: 22px; color: #fff; letter-spacing: -0.6px; line-height: 1.32; }
 .blog-excerpt { font-size: 15px; color: var(--muted); line-height: 1.7; }
 .blog-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 8px; gap: 12px; }
 .blog-date { font-size: 13px; color: var(--muted2); }
@@ -241,12 +381,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 .article-wrap { max-width: 780px; margin: 0 auto; }
 .article-head { text-align: center; margin-bottom: 40px; }
 .article-cat-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #7fb0ff; border: 1px solid rgba(59,130,246,0.3); background: rgba(59,130,246,0.10); padding: 8px 16px; border-radius: 9999px; margin-bottom: 24px; }
-.article-title { font-family: 'Poppins', 'Inter', sans-serif; font-weight: 600; font-size: clamp(30px, 5vw, 52px); letter-spacing: -1.2px; line-height: 1.12; color: #fff; max-width: 820px; margin: 0 auto 20px; }
+.article-title { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 600; font-size: clamp(30px, 5vw, 52px); letter-spacing: -1.2px; line-height: 1.12; color: #fff; max-width: 820px; margin: 0 auto 20px; }
 .article-meta { color: var(--muted2); font-size: 14px; }
 .article-hero-img { width: 100%; border-radius: 20px; display: block; margin: 8px auto 44px; max-height: 460px; object-fit: cover; }
 .article-body { font-size: 17px; line-height: 1.8; color: #d4d4d8; }
 .article-body > *:first-child { margin-top: 0; }
-.article-body h2 { font-family: 'Poppins', 'Inter', sans-serif; font-size: 32px; font-weight: 600; color: #fff; letter-spacing: -0.5px; line-height: 1.25; margin: 48px 0 16px; }
+.article-body h2 { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 32px; font-weight: 600; color: #fff; letter-spacing: -0.5px; line-height: 1.25; margin: 48px 0 16px; }
 .article-body h3 { font-size: 23px; font-weight: 600; color: #fff; letter-spacing: -0.2px; line-height: 1.3; margin: 36px 0 12px; }
 .article-body p { margin: 0 0 22px; }
 .article-body a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
@@ -259,8 +399,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: tran
 
 /* Article CTA */
 .article-cta { max-width: 780px; margin: 72px auto 0; text-align: center; background: #111214; border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; padding: 48px 32px; position: relative; overflow: hidden; }
-.article-cta h2 { font-family: 'Poppins', 'Inter', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 600; color: #fff; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 14px; }
+.article-cta h2 { font-family: 'Satoshi', 'Inter', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 600; color: #fff; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 14px; }
 .article-cta p { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 460px; margin: 0 auto 28px; }
+.article-cta p a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.article-cta p a:hover { text-decoration-color: var(--blue); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) { .projects-page-title { font-size: 48px; } }
@@ -302,10 +444,10 @@ const fontsHead = (R) => `
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="${R}assets/fonts.js"></script>`;
@@ -317,16 +459,37 @@ const favicons = (R) => `
 <link rel="shortcut icon" href="${R}favicon-192.png">
 <meta name="theme-color" content="#060607">`;
 
+/* Resolves the colour theme before first paint. Render-blocking on purpose:
+   deferring it would let the dark palette paint once and then snap to light. */
+const themeHead = (R) => `
+<script src="${R}assets/theme-init.js"></script>`;
+
+/* Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+   theme is untouched. Linked after the inline shell CSS it overrides. */
+const themeCss = (R) => `
+<link rel="stylesheet" href="${R}assets/theme.css">`;
+
+const THEME_ICONS = `
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>`;
+
+/* logo.png is tuned for the dark background, logo-black.png for light; only
+   one is ever visible (see the swap rules in assets/theme.css). */
+const logoImgs = (R, attrs) =>
+  `<img src="${R}logo.png" ${attrs} class="logo-img-dark"><img src="${R}logo-black.png" ${attrs} class="logo-img-light">`;
+
 const navHtml = (R) => `
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo">${logoImgs(R, 'alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"')}</a>
     <div class="nav-links">
       <a href="/projects" class="nav-link">Projets</a>
-      <a href="/#faq" class="nav-link">FAQ</a>
+      <a href="/faq" class="nav-link">FAQ</a>
       <a href="/contact" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Passer en mode clair">${THEME_ICONS}
+      </button>
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
         <span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span>
       </button>
@@ -338,13 +501,18 @@ const navHtml = (R) => `
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="/" class="mob-overlay-logo" aria-label="Accueil"><img src="${R}logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Accueil">${logoImgs(R, 'alt="Logo" height="20" width="auto"')}</a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fermer le menu">&#x2715;</button>
   </div>
   <div class="menu-center">
     <a href="/projects" class="mobile-menu-link">Projets</a>
-    <a href="/#faq" class="mobile-menu-link">FAQ</a>
+    <a href="/faq" class="mobile-menu-link">FAQ</a>
     <a href="/contact" class="mobile-menu-link">Contact</a>
+  </div>
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Mode sombre</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Passer en mode clair">${THEME_ICONS}
+    </button>
   </div>
   <div class="menu-bottom">
     <a href="/contact#cal-embed" class="mobile-menu-cta">Démarrer un Projet</a>
@@ -353,36 +521,76 @@ const navHtml = (R) => `
 
 const footerHtml = (R) => `
 <footer class="footer-section">
-  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;">Prêt à lancer votre projet ?</div>
       <div style="display:flex; gap:8px; align-items:center;">
         <a href="/contact#cal-embed" class="btn-primary">Nous Contacter</a>
       </div>
     </div>
-    <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="${R}logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
-      <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
-        <div class="footer-socials" style="display:flex; gap:12px;">
-          <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+    <div class="footer-grid reveal">
+      <div class="footer-col">
+        <a href="/" class="logo">${logoImgs(R, 'alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"')}</a>
+        <p class="footer-brand-tagline">Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise.</p>
+        <p style="font-size:13px; font-weight:600; color:var(--muted); margin:-10px 0 20px;">50+ projets livrés à travers le Maroc</p>
+        <div class="footer-socials" style="display:flex; gap:10px; margin-bottom:20px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social-btn" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
           </a>
-          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
           </a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--muted);">
+          <a href="tel:+212716490397" style="color:inherit; text-decoration:none;">+212 7 16 49 03 97</a>
+          <a href="mailto:contact@louisswebstudio.com" style="color:inherit; text-decoration:none;">contact@louisswebstudio.com</a>
+          <span>Tanger, Maroc</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <a href="/services" class="footer-col-title" style="display:block; color:inherit; text-decoration:none;">Services</a>
+        <div class="footer-col-links">
+          <a href="/creation-site-e-commerce-maroc">Création site e-commerce Maroc</a>
+          <a href="/creation-site-vitrine-maroc">Création site vitrine Maroc</a>
+          <a href="/real-estate-web-design">Immobilier</a>
+          <a href="/tourism-web-design">Tourisme</a>
+          <a href="/international-web-design">International</a>
+          <a href="/tarifs">Packages</a>
+          <!-- Add here once the page exists: <a href="/referencement-seo-maroc">Référencement SEO & Développement</a> -->
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Villes</div>
+        <div class="footer-col-links">
+        <a href="/creation-site-web-maroc">Création site web Maroc</a>
+        <a href="/creation-site-web-casablanca">Création site web Casablanca</a>
+        <a href="/creation-site-web-rabat">Création site web Rabat</a>
+        <a href="/creation-site-web-marrakech">Création site web Marrakech</a>
+        <a href="/creation-site-web-tanger">Création site web Tanger</a>
+        <a href="/locations">Voir toutes les villes →</a>
+      </div>
+    </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Studio</div>
+        <div class="footer-col-links">
+          <a href="/projects">Projets</a>
+          <a href="/blog/">Blog</a>
+          <a href="/faq">FAQ</a>
+          <a href="/contact">Contact</a>
         </div>
       </div>
     </div>
+
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
       <p class="footer-copy">© 2026 Louiss Web Studio. Tous droits réservés.</p>
-      <p class="footer-copy">Studio de web design basé à Tanger, Maroc.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
-        <a href="/services">Services</a>
-        <a href="/tarifs">Packages</a>
-        <a href="/blog/">Blog</a>
         <a href="/privacy">Politique de Confidentialité</a>
         <a href="/terms">Conditions d'Utilisation</a>
+        <a href="/sitemap">Sitemap</a>
       </div>
     </div>
   </div>
@@ -464,22 +672,22 @@ ${gtmHead(R)}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio</title>
+<title>Blog : Conseils Web pour les Entreprises au Maroc · Louiss Web Studio</title>
 <link rel="canonical" href="${SITE}/blog/">
 <meta name="description" content="${attr(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Louiss Web Studio">
 <meta property="og:url" content="${SITE}/blog/">
-<meta property="og:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta property="og:title" content="Blog : Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
 <meta property="og:description" content="${attr(desc)}">
 <meta property="og:image" content="${LOGO_URL}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Blog — Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta name="twitter:title" content="Blog : Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
 <meta name="twitter:description" content="${attr(desc)}">
 <meta name="twitter:image" content="${LOGO_URL}">
-${favicons(R)}
+${favicons(R)}${themeHead(R)}
 ${fontsHead(R)}
-<style>${SHELL_CSS}</style>
+<style>${SHELL_CSS}</style>${themeCss(R)}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -509,7 +717,6 @@ ${navHtml(R)}
     ${grid}
     <div class="section-cta-bar reveal">
       <a href="https://wa.me/212716490397?text=${encodeURIComponent('Bonjour, je souhaite un site web qui attire des clients.')}" class="btn-primary">Démarrer Votre Projet</a>
-      <p class="urgency-line">⚡ Projets en cours pour cette semaine. Quelques places disponibles</p>
     </div>
   </div>
 </section>
@@ -517,10 +724,40 @@ ${navHtml(R)}
 ${footerHtml(R)}
 ${waFloat()}
 ${pageScripts(R)}
+<script defer src="${R}assets/theme-toggle.js"></script>
 </body>
 </html>
 `;
 }
+
+// Per-post contextual link to the matching commercial page. Only slugs whose
+// topic genuinely maps to a service page are listed — posts without a real
+// match (dental, restaurants, salons, Instagram) deliberately get nothing.
+const RELATED_PAGE = {
+  'reservation-directe-riad-maroc-sans-booking': {
+    href: '/tourism-web-design',
+    label: 'création de sites web pour le tourisme et l’hôtellerie',
+  },
+  'site-web-location-voiture-maroc': {
+    href: '/tourism-web-design',
+    label: 'création de sites web pour le tourisme et le transport',
+  },
+  'prix-creation-site-web-maroc': {
+    href: '/tarifs',
+    label: 'nos packages et tarifs détaillés',
+  },
+  'creation-site-web-maroc': {
+    href: '/services',
+    label: 'nos services de création et de développement web',
+  },
+};
+
+const relatedLine = (slug) => {
+  const r = RELATED_PAGE[slug];
+  return r
+    ? `\n      <p>Sur ce sujet, voir aussi : <a href="${r.href}">${r.label}</a>.</p>`
+    : '';
+};
 
 export function postPage(p) {
   const R = '../../';
@@ -578,9 +815,9 @@ ${gtmHead(R)}
 <meta name="twitter:title" content="${attr(p.title || title)}">
 <meta name="twitter:description" content="${attr(desc)}">
 <meta name="twitter:image" content="${esc(ogImage)}">
-${favicons(R)}
+${favicons(R)}${themeHead(R)}
 ${fontsHead(R)}
-<style>${SHELL_CSS}</style>
+<style>${SHELL_CSS}</style>${themeCss(R)}
 <script type="application/ld+json">
 ${JSON.stringify(jsonLd, null, 2)}
 </script>
@@ -607,7 +844,7 @@ ${bodyHtml}
     <div class="article-cta reveal">
       <div class="glow-circle glow-c" style="opacity:0.10;"></div>
       <h2>Besoin d'un site web professionnel ?</h2>
-      <p>On conçoit des sites rapides, modernes et pensés pour convertir vos visiteurs en clients. Parlons de votre projet.</p>
+      <p>On conçoit des sites rapides, modernes et pensés pour convertir vos visiteurs en clients. Parlons de votre projet.</p>${relatedLine(p.slug)}
       <a href="/contact#cal-embed" class="btn-primary">Nous Contacter</a>
     </div>
   </div>
@@ -617,6 +854,7 @@ ${bodyHtml}
 ${footerHtml(R)}
 ${waFloat()}
 ${pageScripts(R)}
+<script defer src="${R}assets/theme-toggle.js"></script>
 </body>
 </html>
 `;

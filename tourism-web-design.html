@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google Tag Manager (deferred; loads gtm.js on first interaction — see assets/gtm-init.js) -->
+<script src="assets/gtm-init.js" defer></script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title data-en="Tourism &amp; Travel Web Design | Louiss Web Studio" data-fr="Création de Sites Web Tourisme et Voyage | Louiss Web Studio" data-ar="تصميم مواقع السياحة والسفر | Louiss Web Studio">Création de Sites Web Tourisme et Voyage | Louiss Web Studio</title>
+<link rel="canonical" href="https://www.louisswebstudio.com/tourism-web-design">
+<meta name="description" content="Création de sites web pour le tourisme : tour-opérateurs, surf camps, hôtels, riads et transferts. Parcours de réservation, mobile-first et design qui inspire confiance.">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Louiss Web Studio">
+<meta property="og:url" content="https://www.louisswebstudio.com/tourism-web-design">
+<meta property="og:title" content="Création de Sites Web Tourisme et Voyage | Louiss Web Studio">
+<meta property="og:description" content="Création de sites web pour le tourisme : tour-opérateurs, surf camps, hôtels, riads et transferts. Parcours de réservation, mobile-first et design qui inspire confiance.">
+<meta property="og:image" content="https://www.louisswebstudio.com/assets/images/projects/adventue-keys/1.webp">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ar_MA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Création de Sites Web Tourisme et Voyage | Louiss Web Studio">
+<meta name="twitter:description" content="Création de sites web pour le tourisme : tour-opérateurs, surf camps, hôtels, riads et transferts. Parcours de réservation, mobile-first et design qui inspire confiance.">
+<meta name="twitter:image" content="https://www.louisswebstudio.com/assets/images/projects/adventue-keys/1.webp">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon-192.png">
+<meta name="theme-color" content="#060607">
+<!-- Resolves the colour theme before first paint. Render-blocking on purpose:
+     a deferred script would let the dark palette paint once and then snap. -->
+<script src="assets/theme-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="dns-prefetch" href="https://flagcdn.com">
+<!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+</noscript>
+<script defer src="assets/fonts.js"></script>
+
+<!-- Shared chrome (nav, buttons, FAQ, footer, WA float) + unified heading scale -->
+<link rel="stylesheet" href="assets/site.css">
+<!-- Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+     theme is untouched. See assets/theme-init.js. -->
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/section-headings.css">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   INDUSTRY LANDING PAGE SYSTEM  (.lp-*)
+   ──────────────────────────────────────────────────────────────────────
+   Namespaced away from .svc-* / .city-* on purpose: those class names are
+   shared with the nine creation-site-web-<city> pages and services.html,
+   and assets/theme.css carries light-mode rules for them. Everything here
+   is page-local, light mode included, so this redesign cannot leak.
+
+   Backgrounds stay translucent in dark mode so the fixed #global-starfield
+   canvas still reads through the page. Light mode paints solid, since the
+   starfield is hidden there.
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  --lp-ink:       #ffffff;
+  --lp-ink-2:     #d4d4d8;
+  --lp-ink-3:     #a3a3a3;
+  --lp-ink-4:     #7d838e;
+  --lp-rule:      rgba(255,255,255,0.10);
+  --lp-rule-soft: rgba(255,255,255,0.055);
+  --lp-surface:   rgba(255,255,255,0.028);
+  --lp-band:      rgba(255,255,255,0.016);
+  --lp-band-deep: rgba(0,0,0,0.30);
+  --lp-panel:     rgba(10,10,12,0.86);
+  --lp-accent:    #3b82f6;
+  --lp-shadow:    0 30px 80px -24px rgba(0,0,0,0.65);
+}
+html[data-theme="light"] {
+  --lp-ink:       #14161a;
+  --lp-ink-2:     #3f4653;
+  --lp-ink-3:     #565d6b;
+  --lp-ink-4:     #646b79;
+  --lp-rule:      rgba(16,24,40,0.13);
+  --lp-rule-soft: rgba(16,24,40,0.075);
+  --lp-surface:   rgba(16,24,40,0.022);
+  --lp-band:      #ffffff;
+  --lp-band-deep: #eef1f5;
+  --lp-panel:     rgba(255,255,255,0.94);
+  --lp-accent:    #1d4ed8;
+  --lp-shadow:    0 18px 44px -18px rgba(16,24,40,0.18);
+}
+
+/* ─── SHELL ──────────────────────────────────────────── */
+.lp-section { padding: clamp(64px, 8.5vw, 128px) 0; position: relative; }
+.lp-section > .container { position: relative; z-index: 1; }
+.lp-section--band { background: var(--lp-band); border-top: 1px solid var(--lp-rule-soft); border-bottom: 1px solid var(--lp-rule-soft); }
+.lp-section--deep { background: var(--lp-band-deep); border-top: 1px solid var(--lp-rule-soft); border-bottom: 1px solid var(--lp-rule-soft); }
+.lp-narrow { max-width: 1180px; margin: 0 auto; }
+
+/* ─── TYPE ───────────────────────────────────────────── */
+.lp-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--lp-ink-4);
+  margin-bottom: 22px;
+}
+.lp-eyebrow::after { content: ''; height: 1px; width: 30px; background: var(--lp-rule); flex-shrink: 0; }
+
+.lp-h1 {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-weight: 700; font-size: clamp(37px, 5.6vw, 76px);
+  line-height: 1.04; letter-spacing: -2.2px;
+  color: var(--lp-ink); text-wrap: balance; margin: 0 0 22px;
+}
+.lp-h2 {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-weight: 700; font-size: clamp(29px, 3.9vw, 55px);
+  line-height: 1.08; letter-spacing: -1.5px;
+  color: var(--lp-ink); text-wrap: balance; margin: 0;
+}
+/* Accent word inside a heading. Same face and weight as the heading it sits in
+   (Satoshi for Latin, Cairo for Arabic); set apart by colour alone, which is the
+   accent convention used everywhere else on the site. */
+.lp-h1 .accent, .lp-h2 em, .lp-statement-text em {
+  font-family: inherit;
+  font-style: normal;
+  color: var(--lp-accent);
+  -webkit-text-fill-color: currentColor;
+}
+html[lang="ar"] .lp-h1 .accent,
+html[lang="ar"] .lp-h2 em,
+html[lang="ar"] .lp-statement-text em { font-family: 'Cairo', sans-serif; }
+
+.lp-lead { font-size: clamp(16.5px, 1.25vw, 19px); line-height: 1.72; color: var(--lp-ink-2); max-width: 60ch; margin: 0 0 16px; }
+.lp-lead:last-of-type { margin-bottom: 0; }
+.lp-sub { font-size: 16.5px; line-height: 1.78; color: var(--lp-ink-3); max-width: 58ch; margin: 0; }
+
+/* Section header: title left, supporting copy right, baselines aligned.
+   Replaces the centred title→sub→grid rhythm that made every band identical. */
+.lp-head {
+  display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,0.94fr);
+  gap: clamp(22px, 4.5vw, 72px); align-items: end;
+  margin-bottom: clamp(38px, 4.6vw, 68px);
+}
+.lp-head--solo { grid-template-columns: 1fr; max-width: 840px; }
+.lp-head--center { grid-template-columns: 1fr; max-width: 820px; margin-left: auto; margin-right: auto; text-align: center; }
+.lp-head--center .lp-eyebrow { justify-content: center; }
+.lp-head--center .lp-eyebrow::before { content: ''; height: 1px; width: 30px; background: var(--lp-rule); flex-shrink: 0; }
+.lp-head--center .lp-sub { margin-left: auto; margin-right: auto; }
+
+/* ─── BROWSER FRAME ──────────────────────────────────── */
+.lp-frame {
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--lp-rule); background: var(--lp-band-deep);
+  box-shadow: var(--lp-shadow);
+}
+.lp-frame-bar {
+  height: 34px; display: flex; align-items: center; gap: 7px;
+  padding: 0 13px; background: var(--lp-surface);
+  border-bottom: 1px solid var(--lp-rule-soft);
+}
+.lp-frame-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--lp-rule); flex-shrink: 0; }
+.lp-frame-url {
+  margin-left: 8px; height: 19px; flex: 1; max-width: 260px;
+  border-radius: 999px; background: var(--lp-surface);
+  border: 1px solid var(--lp-rule-soft);
+}
+.lp-frame-media { display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: var(--lp-band-deep); }
+.lp-frame-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.lp-frame-media--tall { aspect-ratio: 4/3; }
+
+/* ─── HERO ───────────────────────────────────────────── */
+.lp-hero { padding: clamp(104px, 11vw, 164px) 0 clamp(60px, 7vw, 104px); position: relative; overflow: hidden; }
+.lp-hero > .container { position: relative; z-index: 1; }
+.lp-hero-grid {
+  display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,0.98fr);
+  gap: clamp(34px, 4.6vw, 76px); align-items: center;
+}
+.lp-hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.lp-hero-proof {
+  margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--lp-rule-soft);
+  font-size: 14px; line-height: 1.65; color: var(--lp-ink-4); max-width: 46ch;
+}
+
+/* ─── UI COMPOSITION (decorative, aria-hidden) ───────── */
+.lp-compose { position: relative; }
+.lp-panel {
+  position: absolute; left: 16px; right: 16px; bottom: 16px;
+  background: var(--lp-panel); backdrop-filter: blur(14px);
+  border: 1px solid var(--lp-rule); border-radius: 12px;
+  padding: 13px; box-shadow: var(--lp-shadow);
+}
+.lp-field {
+  display: flex; align-items: center; gap: 9px; height: 37px;
+  border-radius: 9px; border: 1px solid var(--lp-rule);
+  background: var(--lp-surface); padding: 0 12px;
+  font-size: 12.5px; color: var(--lp-ink-4);
+}
+.lp-field svg { flex-shrink: 0; color: var(--lp-ink-4); }
+.lp-chips { display: flex; gap: 7px; margin-top: 10px; flex-wrap: wrap; }
+.lp-chip {
+  font-size: 11.5px; font-weight: 500; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--lp-rule); color: var(--lp-ink-3); white-space: nowrap;
+}
+.lp-chip--on { background: var(--lp-accent); border-color: transparent; color: #fff; }
+
+/* ─── LEDGER (replaces the repeated card grids) ──────── */
+.lp-ledger { border-top: 1px solid var(--lp-rule); }
+.lp-ledger-row {
+  display: grid; grid-template-columns: 56px minmax(0,0.85fr) minmax(0,1.4fr);
+  gap: clamp(14px, 2.6vw, 44px); align-items: start;
+  padding: clamp(22px, 2.6vw, 32px) 0;
+  border-bottom: 1px solid var(--lp-rule-soft);
+  transition: background .35s ease;
+}
+.lp-ledger-row:hover { background: var(--lp-surface); }
+.lp-ledger--tight .lp-ledger-row { grid-template-columns: 56px minmax(0,1fr); align-items: center; }
+.lp-ledger-num {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 12.5px; font-weight: 600; letter-spacing: .1em;
+  color: var(--lp-ink-4); padding-top: 4px;
+}
+.lp-ledger--tight .lp-ledger-num { padding-top: 0; }
+.lp-ledger-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(17.5px, 1.45vw, 21px); font-weight: 600;
+  color: var(--lp-ink); letter-spacing: -.4px; line-height: 1.32;
+}
+.lp-ledger-desc { font-size: 15.5px; line-height: 1.75; color: var(--lp-ink-3); }
+.lp-ledger-row--flag .lp-ledger-num { color: #ef4444; }
+html[data-theme="light"] .lp-ledger-row--flag .lp-ledger-num { color: var(--l-red, #dc2626); }
+
+/* ─── SHOWCASE (proof) ───────────────────────────────── */
+.lp-showcase {
+  display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,0.88fr);
+  gap: clamp(28px, 4.2vw, 64px); align-items: center;
+}
+.lp-showcase + .lp-showcase { margin-top: clamp(48px, 6vw, 96px); }
+.lp-showcase--flip .lp-showcase-visual { order: 2; }
+.lp-showcase-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--lp-accent); margin-bottom: 14px;
+}
+.lp-showcase-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(26px, 2.8vw, 40px); font-weight: 700;
+  color: var(--lp-ink); letter-spacing: -1px; line-height: 1.14; margin-bottom: 16px;
+}
+.lp-showcase-desc { font-size: 16px; line-height: 1.75; color: var(--lp-ink-3); max-width: 54ch; }
+.lp-points { list-style: none; margin: 26px 0 26px; padding: 0; }
+.lp-point {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 13px 0; border-top: 1px solid var(--lp-rule-soft);
+  font-size: 14.5px; line-height: 1.65; color: var(--lp-ink-2);
+}
+.lp-point:last-child { border-bottom: 1px solid var(--lp-rule-soft); }
+.lp-point-icon {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: rgba(59,130,246,0.12); color: var(--lp-accent);
+  display: flex; align-items: center; justify-content: center;
+}
+.lp-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 600; color: var(--lp-ink);
+  border-bottom: 1px solid var(--lp-accent); padding-bottom: 3px;
+  transition: gap .25s ease, color .25s ease;
+}
+.lp-link:hover { gap: 13px; color: var(--lp-accent); }
+
+/* ─── STATEMENT (a breath between dense bands) ───────── */
+.lp-statement { padding: clamp(66px, 9vw, 138px) 0; }
+.lp-statement-text {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(23px, 3.1vw, 42px); font-weight: 600;
+  line-height: 1.26; letter-spacing: -1.2px;
+  color: var(--lp-ink); max-width: 17ch; text-wrap: balance;
+}
+.lp-statement-body { font-size: 16.5px; line-height: 1.8; color: var(--lp-ink-3); max-width: 52ch; }
+.lp-statement-grid {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: clamp(28px, 5vw, 80px); align-items: center;
+}
+
+/* ─── PROCESS TRACK ──────────────────────────────────── */
+.lp-track { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0; border-top: 1px solid var(--lp-rule); }
+.lp-track-step { position: relative; padding: clamp(24px,2.4vw,34px) clamp(16px,2vw,34px) 0 0; }
+.lp-track-step::before { content: ''; position: absolute; top: -1px; left: 0; width: 30px; height: 2px; background: var(--lp-accent); }
+.lp-track-num { font-size: 12.5px; font-weight: 600; letter-spacing: .1em; color: var(--lp-ink-4); margin-bottom: 14px; }
+.lp-track-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 17.5px; font-weight: 600; color: var(--lp-ink);
+  letter-spacing: -.3px; margin-bottom: 9px; line-height: 1.3;
+}
+.lp-track-desc { font-size: 14.5px; line-height: 1.68; color: var(--lp-ink-3); }
+
+/* ─── CLOSING CTA ────────────────────────────────────── */
+.lp-cta { padding: clamp(72px, 9vw, 128px) 0; position: relative; overflow: hidden; text-align: center; }
+.lp-cta > .container { position: relative; z-index: 1; }
+.lp-cta-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(30px, 4.4vw, 58px); font-weight: 700;
+  color: var(--lp-ink); letter-spacing: -1.8px; line-height: 1.08;
+  margin: 0 auto 16px; max-width: 16ch; text-wrap: balance;
+}
+.lp-cta-sub { font-size: 16.5px; line-height: 1.75; color: var(--lp-ink-3); margin: 0 auto 34px; max-width: 52ch; }
+.lp-cta-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* ─── PROSE LINKS ────────────────────────────────────── */
+.inline-link {
+  color: var(--lp-ink); text-decoration: underline;
+  text-decoration-color: rgba(59,130,246,0.55); text-underline-offset: 3px;
+  transition: text-decoration-color .2s;
+}
+.inline-link:hover { text-decoration-color: var(--lp-accent); }
+.faq-answer-inner .inline-link { color: var(--lp-ink-2); text-decoration-color: rgba(255,255,255,0.25); }
+.faq-answer-inner .inline-link:hover { text-decoration-color: rgba(255,255,255,0.6); }
+html[data-theme="light"] .faq-answer-inner .inline-link { color: var(--lp-accent); text-decoration-color: rgba(29,78,216,0.4); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .lp-hero-grid { grid-template-columns: 1fr; gap: 44px; }
+  .lp-showcase, .lp-showcase--flip { grid-template-columns: 1fr; gap: 32px; }
+  .lp-showcase--flip .lp-showcase-visual { order: 0; }
+  .lp-head { grid-template-columns: 1fr; gap: 18px; align-items: start; }
+  .lp-statement-grid { grid-template-columns: 1fr; gap: 26px; }
+  .lp-statement-text { max-width: 22ch; }
+  .lp-track { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 8px; }
+  .lp-track-step:nth-child(n+3) { border-top: 1px solid var(--lp-rule-soft); margin-top: 14px; }
+  .lp-track-step:nth-child(n+3)::before { top: -1px; }
+}
+@media (max-width: 760px) {
+  .lp-ledger-row { grid-template-columns: 34px minmax(0,1fr); row-gap: 8px; }
+  .lp-ledger-desc { grid-column: 2 / -1; }
+  .lp-ledger--tight .lp-ledger-row { grid-template-columns: 34px minmax(0,1fr); }
+  .lp-panel { position: static; margin-top: 12px; left: auto; right: auto; bottom: auto; backdrop-filter: none; }
+  .lp-track { grid-template-columns: 1fr; }
+  .lp-track-step { padding-right: 0; }
+  .lp-track-step:nth-child(n+2) { border-top: 1px solid var(--lp-rule-soft); margin-top: 14px; }
+  .lp-hero-actions .btn-primary, .lp-hero-actions .btn-secondary,
+  .lp-cta-actions .btn-primary, .lp-cta-actions .btn-secondary { width: 100%; }
+  .lp-statement-text { max-width: none; }
+  .lp-frame-media { aspect-ratio: 4/3; }
+}
+
+/* ─── RTL ────────────────────────────────────────────── */
+html[dir="rtl"] .lp-eyebrow::after { order: -1; }
+html[dir="rtl"] .lp-point { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .lp-ledger-row { text-align: right; }
+html[dir="rtl"] .lp-track-step { padding: clamp(24px,2.4vw,34px) 0 0 clamp(16px,2vw,34px); }
+html[dir="rtl"] .lp-track-step::before { left: auto; right: 0; }
+html[dir="rtl"] .lp-panel { direction: rtl; }
+html[dir="rtl"] .lp-link:hover { gap: 13px; }
+
+/* ─── BOOKING JOURNEY (tourism only) ─────────────────── */
+/* Replaces .journey-strip: a progress rail rather than pills-and-arrows, so it
+   reads as the booking flow the copy describes instead of three more chips. */
+.lp-journey { display: flex; align-items: flex-start; gap: 10px; }
+.lp-journey-step { flex: 1 1 0; min-width: 0; padding-top: 14px; border-top: 2px solid var(--lp-rule); }
+.lp-journey-step--on { border-top-color: var(--lp-accent); }
+.lp-journey-num { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; color: var(--lp-ink-4); margin-bottom: 5px; }
+.lp-journey-step--on .lp-journey-num { color: var(--lp-accent); }
+.lp-journey-label { font-size: 13px; font-weight: 600; color: var(--lp-ink); letter-spacing: -.2px; line-height: 1.3; }
+.lp-journey--lg { gap: clamp(12px, 2vw, 28px); margin-bottom: clamp(38px, 4.5vw, 64px); }
+.lp-journey--lg .lp-journey-step { padding-top: 20px; }
+.lp-journey--lg .lp-journey-num { font-size: 12px; margin-bottom: 8px; }
+.lp-journey--lg .lp-journey-label { font-size: clamp(17px, 1.7vw, 24px); font-family: 'Satoshi', 'Inter', sans-serif; letter-spacing: -.4px; }
+@media (max-width: 560px) {
+  .lp-journey--lg { flex-direction: column; gap: 0; }
+  .lp-journey--lg .lp-journey-step { width: 100%; margin-top: 12px; }
+}
+</style>
+
+<!-- Structured data: a service offering for tourism businesses. No
+     LocalBusiness / TravelAgency type — this page does not represent a
+     tour operator, only the studio that builds their websites. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.louisswebstudio.com/tourism-web-design#service",
+      "name": "Tourism and Travel Web Design",
+      "serviceType": "Tourism website design and development",
+      "url": "https://www.louisswebstudio.com/tourism-web-design",
+      "description": "Conception et développement de sites web pour les entreprises du tourisme : tour-opérateurs, surf camps, hôtels, riads, agences de voyage et services de transfert. Parcours de réservation, design mobile-first et mise en page pensée pour inspirer confiance aux voyageurs.",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Louiss Web Studio",
+        "url": "https://www.louisswebstudio.com",
+        "logo": "https://www.louisswebstudio.com/logo.png",
+        "telephone": "+212716490397",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Tanger",
+          "addressRegion": "Tanger-Tétouan-Al Hoceïma",
+          "addressCountry": "MA"
+        },
+        "sameAs": [
+          "https://www.instagram.com/louiss.webstudio/"
+        ]
+      },
+      "areaServed": ["Morocco", "Worldwide (remote)"],
+      "audience": {
+        "@type": "BusinessAudience",
+        "name": "Tour-opérateurs, surf camps, hôtels, riads, agences de voyage et services de transfert"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.louisswebstudio.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sites Web Tourisme", "item": "https://www.louisswebstudio.com/tourism-web-design" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Pouvez-vous intégrer un système de réservation en ligne ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Pour Adventure Keys, nous avons conçu un parcours de réservation complet en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée qui réduit l'abandon à chaque étape." }
+        },
+        {
+          "@type": "Question",
+          "name": "Le site fonctionnera-t-il bien sur mobile ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, tous nos sites sont conçus mobile-first. Pour Agadir Transfer, la mise en page a été pensée pour fonctionner aussi bien pour un voyageur fatigué sur son téléphone à l'aéroport que pour un agent de voyage sur ordinateur." }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment le site inspire-t-il confiance aux voyageurs étrangers ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Par le design et par la structure. Sur Adventure Keys, les profils des moniteurs apparaissent avant l'étape de réservation pour créer la confiance au bon moment. Sur Agadir Transfer, la direction visuelle répond à la question « puis-je faire confiance à ce service ? » avant même que le visiteur ne la pose." }
+        },
+        {
+          "@type": "Question",
+          "name": "Pouvez-vous créer un site touristique multilingue ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Nous construisons des sites en français, anglais et arabe, avec un support natif de la mise en page droite-à-gauche pour l'arabe. Voir l'étude de cas Maison Monchef pour un exemple livré dans les trois langues." }
+        },
+        {
+          "@type": "Question",
+          "name": "Le référencement est-il inclus ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Les bases du SEO on-page sont livrées en standard avec chaque projet : titres structurés, balises meta, Open Graph, optimisation de la vitesse de chargement et sitemap." }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien de temps prend un projet touristique ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "En général 2 à 4 semaines après validation du design. Un projet incluant un parcours de réservation sur mesure et du contenu multilingue se situe plutôt entre 4 et 6 semaines." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ════ GLOBAL STARFIELD BACKGROUND ════ -->
+<canvas id="global-starfield" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block;"></canvas>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
+
+    <div class="nav-links">
+      <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+      <a href="/faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <div class="lang-btn" onclick="toggleLang()">
+          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <span class="lang-code" id="activeLangCode">FR</span>
+          <span class="lang-chevron">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#a3a3a3" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <div class="lang-dropdown">
+          <div class="lang-option" id="opt-en" onclick="setLang('en')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">English</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option active" id="opt-fr" onclick="setLang('fr')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">Français</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-ar" onclick="setLang('ar')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/sa.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">العربية</span>
+          </div>
+        </div>
+      </div>
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). aria-label / aria-pressed are kept in sync by
+           assets/theme-toggle.js, which also localises them. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+
+
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MOBILE MENU ════ -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <div class="menu-top">
+    <a href="/" class="mob-overlay-logo" aria-label="Home">
+      <img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light">
+    </a>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <div class="menu-center">
+    <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+    <a href="/faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+  </div>
+
+  <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+       button, so assets/theme-toggle.js binds both and keeps them in sync.
+       The label text is set from JS to match the active language. -->
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Dark mode</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+    </button>
+  </div>
+
+
+  <div class="menu-bottom">
+    <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+  </div>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="lp-hero">
+  <div class="glow-circle glow-c" style="opacity:0.13; width:700px; height:700px; --glow-peak:0.817; --glow-k:2.63;"></div>
+  <div class="container">
+    <div class="lp-hero-grid">
+
+      <div class="lp-hero-copy">
+        <div class="lp-eyebrow reveal" data-en="Tourism &amp; Travel Web Design" data-fr="Création de sites touristiques" data-ar="تصميم مواقع سياحية">Création de sites touristiques</div>
+
+        <h1 class="lp-h1 reveal"
+          data-en="Web Design for <span class='accent'>Tourism &amp; Travel</span>"
+          data-fr="Création de Sites Web pour le <span class='accent'>Tourisme</span>"
+          data-ar="تصميم مواقع <span class='accent'>السياحة والسفر</span>">Création de Sites Web pour le <span class="accent">Tourisme</span></h1>
+
+        <p class="lp-lead reveal"
+          data-en="We design and build websites for tour operators, surf camps, hotels, riads, travel agencies, and transfer services: guided booking journeys, mobile-first layouts, and a design that earns a traveller's trust before they commit."
+          data-fr="Nous concevons et développons des sites pour tour-opérateurs, surf camps, hôtels, riads, agences de voyage et services de transfert : des parcours de réservation guidés, une mise en page mobile-first, et un design qui gagne la confiance du voyageur avant qu'il ne s'engage."
+          data-ar="نصمم ونطوّر مواقع لمنظمي الرحلات ومخيمات ركوب الأمواج والفنادق والرياضات ووكالات السفر وخدمات النقل: مسارات حجز موجهة، وتصميم يبدأ بالهاتف، وهوية بصرية تكسب ثقة المسافر قبل أن يحجز.">Nous concevons et développons des sites pour tour-opérateurs, surf camps, hôtels, riads, agences de voyage et services de transfert : des parcours de réservation guidés, une mise en page mobile-first, et un design qui gagne la confiance du voyageur avant qu'il ne s'engage.</p>
+
+        <div class="lp-hero-actions reveal">
+          <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+          <a href="#etudes-de-cas" class="btn-secondary" data-en="See the two case studies" data-fr="Voir les deux études de cas" data-ar="شاهد دراستي الحالة">Voir les deux études de cas</a>
+        </div>
+
+        <p class="lp-hero-proof reveal"
+          data-en="Two tourism projects delivered: a surf school in Taghazout and a private airport transfer service in Agadir."
+          data-fr="Deux projets touristiques livrés : une école de surf à Taghazout et un service de transfert privé à Agadir."
+          data-ar="مشروعان سياحيان مُنجزان: مدرسة لركوب الأمواج في تغازوت، وخدمة نقل خاصة من مطار أكادير.">Deux projets touristiques livrés : une école de surf à Taghazout et un service de transfert privé à Agadir.</p>
+      </div>
+
+      <!-- Decorative composition over the real Adventure Keys booking screen.
+           The rail illustrates the discover → explore → book flow described
+           below; no invented prices, dates or availability. -->
+      <div class="lp-compose reveal" aria-hidden="true">
+        <div class="lp-frame">
+          <div class="lp-frame-bar">
+            <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+            <span class="lp-frame-url"></span>
+          </div>
+          <div class="lp-frame-media">
+            <img src="./assets/images/projects/adventue-keys/booking.webp" alt="" width="932" height="640" loading="eager" fetchpriority="high">
+          </div>
+        </div>
+        <div class="lp-panel">
+          <div class="lp-journey">
+            <div class="lp-journey-step lp-journey-step--on">
+              <div class="lp-journey-num">01</div>
+              <div class="lp-journey-label" data-en="Discover" data-fr="Découvrir" data-ar="اكتشف">Découvrir</div>
+            </div>
+            <div class="lp-journey-step lp-journey-step--on">
+              <div class="lp-journey-num">02</div>
+              <div class="lp-journey-label" data-en="Explore" data-fr="Explorer" data-ar="استكشف">Explorer</div>
+            </div>
+            <div class="lp-journey-step">
+              <div class="lp-journey-num">03</div>
+              <div class="lp-journey-label" data-en="Book" data-fr="Réserver" data-ar="احجز">Réserver</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ CASE STUDIES — proof moved directly under the hero ════ -->
+<section class="lp-section lp-section--band" id="etudes-de-cas">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <div>
+          <div class="lp-eyebrow reveal" data-en="Case studies" data-fr="Études de cas" data-ar="دراسات الحالة">Études de cas</div>
+          <h2 class="lp-h2 reveal"
+            data-en="Two tourism projects, <em>shipped</em>"
+            data-fr="Deux projets touristiques, <em>livrés</em>"
+            data-ar="مشروعان سياحيان، <em>تم إنجازهما</em>">Deux projets touristiques, <em>livrés</em></h2>
+        </div>
+        <p class="lp-sub reveal"
+          data-en="Everything described on this page comes from these two projects. Both are live."
+          data-fr="Tout ce qui est décrit sur cette page provient de ces deux projets. Les deux sont en ligne."
+          data-ar="كل ما ورد في هذه الصفحة مستمد من هذين المشروعين. كلاهما على الإنترنت.">Tout ce qui est décrit sur cette page provient de ces deux projets. Les deux sont en ligne.</p>
+      </div>
+
+      <!-- Adventure Keys -->
+      <div class="lp-showcase reveal">
+        <div class="lp-showcase-visual">
+          <div class="lp-frame">
+            <div class="lp-frame-bar" aria-hidden="true">
+              <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+              <span class="lp-frame-url"></span>
+            </div>
+            <div class="lp-frame-media">
+              <img src="./assets/images/projects/adventue-keys/1.webp" alt="Adventure Keys, site web d'une école de surf à Taghazout" width="932" height="640" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="lp-showcase-body">
+          <div class="lp-showcase-tag" data-en="Taghazout · Surf School" data-fr="Taghazout · École de Surf" data-ar="تغازوت · مدرسة أمواج">Taghazout · École de Surf</div>
+          <div class="lp-showcase-title">Adventure Keys</div>
+          <p class="lp-showcase-desc"
+            data-en="Web design and full visual identity for a surf school on Morocco's Atlantic coast, built to feel premium but approachable: the kind of school international visitors trust to book their first lesson with."
+            data-fr="Design web et identité visuelle complète pour une école de surf sur la côte atlantique marocaine, pensée pour être premium mais accessible : le genre d'école à qui des visiteurs internationaux confient leur premier cours."
+            data-ar="تصميم ويب وهوية بصرية كاملة لمدرسة أمواج على الساحل الأطلسي المغربي، صُممت لتبدو راقية وقريبة في آن: المدرسة التي يثق بها الزوار الدوليون لحجز درسهم الأول.">Design web et identité visuelle complète pour une école de surf sur la côte atlantique marocaine, pensée pour être premium mais accessible : le genre d'école à qui des visiteurs internationaux confient leur premier cours.</p>
+          <ul class="lp-points">
+            <li class="lp-point">
+              <span class="lp-point-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span data-en="Session types shown with pricing, duration, and difficulty at a glance" data-fr="Types de sessions affichés avec tarif, durée et difficulté d'un coup d'œil" data-ar="أنواع الحصص معروضة بالسعر والمدة ومستوى الصعوبة بلمحة">Types de sessions affichés avec tarif, durée et difficulté d'un coup d'œil</span>
+            </li>
+            <li class="lp-point">
+              <span class="lp-point-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span data-en="A full multi-step booking flow: package, dates, room type, add-ons, payment" data-fr="Un parcours de réservation complet : forfait, dates, type de chambre, options, paiement" data-ar="مسار حجز كامل: الباقة، التواريخ، نوع الغرفة، الإضافات، الدفع">Un parcours de réservation complet : forfait, dates, type de chambre, options, paiement</span>
+            </li>
+            <li class="lp-point">
+              <span class="lp-point-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span data-en="Instructor profiles placed before the booking step to build trust" data-fr="Profils des moniteurs placés avant l'étape de réservation pour créer la confiance" data-ar="ملفات المدربين موضوعة قبل خطوة الحجز لبناء الثقة">Profils des moniteurs placés avant l'étape de réservation pour créer la confiance</span>
+            </li>
+          </ul>
+          <a href="/adventure-keys" class="lp-link" data-en="Read the Adventure Keys case study &rarr;" data-fr="Lire l'étude de cas Adventure Keys &rarr;" data-ar="اقرأ دراسة حالة Adventure Keys &larr;">Lire l'étude de cas Adventure Keys →</a>
+        </div>
+      </div>
+
+      <!-- Agadir Transfer -->
+      <div class="lp-showcase lp-showcase--flip reveal">
+        <div class="lp-showcase-visual">
+          <div class="lp-frame">
+            <div class="lp-frame-bar" aria-hidden="true">
+              <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+              <span class="lp-frame-url"></span>
+            </div>
+            <div class="lp-frame-media">
+              <img src="./assets/images/projects/agadir-transfer/1.webp" alt="Agadir Transfer, site web d'un service de transfert aéroport" width="932" height="640" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="lp-showcase-body">
+          <div class="lp-showcase-tag" data-en="Agadir · Airport Transfers" data-fr="Agadir · Transferts Aéroport" data-ar="أكادير · نقل من المطار">Agadir · Transferts Aéroport</div>
+          <div class="lp-showcase-title">Agadir Transfer</div>
+          <p class="lp-showcase-desc"
+            data-en="Web design and online booking for a private transfer service, built to communicate reliability and safety to travellers arriving in an unfamiliar city, and to convert airport arrivals into confirmed bookings."
+            data-fr="Design web et réservation en ligne pour un service de transfert privé, conçu pour communiquer fiabilité et sécurité à des voyageurs arrivant dans une ville inconnue, et transformer les arrivées à l'aéroport en réservations confirmées."
+            data-ar="تصميم ويب وحجز إلكتروني لخدمة نقل خاصة، صُمم لينقل الموثوقية والأمان لمسافرين يصلون مدينة لا يعرفونها، ولتحويل الوصول إلى المطار إلى حجوزات مؤكدة.">Design web et réservation en ligne pour un service de transfert privé, conçu pour communiquer fiabilité et sécurité à des voyageurs arrivant dans une ville inconnue, et transformer les arrivées à l'aéroport en réservations confirmées.</p>
+          <ul class="lp-points">
+            <li class="lp-point">
+              <span class="lp-point-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span data-en="Transfer options with clear pricing, vehicle types, and included services" data-fr="Options de transfert avec tarifs clairs, types de véhicules et services inclus" data-ar="خيارات نقل بأسعار واضحة وأنواع مركبات وخدمات مشمولة">Options de transfert avec tarifs clairs, types de véhicules et services inclus</span>
+            </li>
+            <li class="lp-point">
+              <span class="lp-point-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span data-en="A booking form condensed to the essentials, minimal friction to confirmation" data-fr="Un formulaire réduit à l'essentiel, friction minimale jusqu'à la confirmation" data-ar="نموذج حجز مختصر إلى الأساسي، بأقل عوائق حتى التأكيد">Un formulaire réduit à l'essentiel, friction minimale jusqu'à la confirmation</span>
+            </li>
+            <li class="lp-point">
+              <span class="lp-point-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span data-en="A layout that works for a tired traveller on a phone and an agent on desktop" data-fr="Une mise en page qui marche pour un voyageur fatigué au téléphone comme pour un agent sur ordinateur" data-ar="تصميم يصلح لمسافر متعب على هاتفه ولوكيل سفر على حاسوبه">Une mise en page qui marche pour un voyageur fatigué au téléphone comme pour un agent sur ordinateur</span>
+            </li>
+          </ul>
+          <a href="/agadir-transfer" class="lp-link" data-en="Read the Agadir Transfer case study &rarr;" data-fr="Lire l'étude de cas Agadir Transfer &rarr;" data-ar="اقرأ دراسة حالة Agadir Transfer &larr;">Lire l'étude de cas Agadir Transfer →</a>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:clamp(40px,5vw,64px);">
+        <a href="/projects" class="btn-primary" data-en="View all projects" data-fr="Voir tous les projets" data-ar="عرض كل المشاريع">Voir tous les projets</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CHALLENGES ════ -->
+<section class="lp-section" id="enjeux">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <div>
+          <div class="lp-eyebrow reveal" data-en="The problem" data-fr="Le problème" data-ar="المشكلة">Le problème</div>
+          <h2 class="lp-h2 reveal"
+            data-en="Why tourism websites <em>lose</em> bookings"
+            data-fr="Pourquoi les sites touristiques <em>perdent</em> des réservations"
+            data-ar="لماذا تفقد المواقع السياحية <em>الحجوزات</em>">Pourquoi les sites touristiques <em>perdent</em> des réservations</h2>
+        </div>
+        <p class="lp-sub reveal"
+          data-en="Travel buyers decide fast, often on a phone, often in a language that isn't yours. These are the four failure points we see most often."
+          data-fr="Les voyageurs décident vite, souvent sur un téléphone, souvent dans une langue qui n'est pas la vôtre. Voici les quatre points de rupture les plus fréquents."
+          data-ar="يقرر المسافرون بسرعة، غالباً عبر الهاتف، وغالباً بلغة ليست لغتك. هذه أكثر أربع نقاط فشل تكراراً.">Les voyageurs décident vite, souvent sur un téléphone, souvent dans une langue qui n'est pas la vôtre. Voici les quatre points de rupture les plus fréquents.</p>
+      </div>
+
+      <div class="lp-ledger reveal">
+        <div class="lp-ledger-row lp-ledger-row--flag">
+          <div class="lp-ledger-num">01</div>
+          <div class="lp-ledger-title" data-en="Booking buried behind a contact form" data-fr="La réservation cachée derrière un formulaire" data-ar="الحجز مخفي خلف نموذج اتصال">La réservation cachée derrière un formulaire</div>
+          <p class="lp-ledger-desc"
+            data-en="A traveller ready to book shouldn't have to send an email and wait. Every hour between intent and confirmation is an hour a competitor can fill the slot."
+            data-fr="Un voyageur prêt à réserver ne devrait pas avoir à envoyer un e-mail puis attendre. Chaque heure entre l'intention et la confirmation est une heure où un concurrent peut prendre la place."
+            data-ar="المسافر المستعد للحجز لا ينبغي أن يرسل بريداً وينتظر. كل ساعة بين النية والتأكيد هي ساعة يمكن لمنافس أن يملأ فيها المكان.">Un voyageur prêt à réserver ne devrait pas avoir à envoyer un e-mail puis attendre. Chaque heure entre l'intention et la confirmation est une heure où un concurrent peut prendre la place.</p>
+        </div>
+        <div class="lp-ledger-row lp-ledger-row--flag">
+          <div class="lp-ledger-num">02</div>
+          <div class="lp-ledger-title" data-en="Nothing to build trust before payment" data-fr="Rien pour rassurer avant le paiement" data-ar="لا شيء يبني الثقة قبل الدفع">Rien pour rassurer avant le paiement</div>
+          <p class="lp-ledger-desc"
+            data-en="Someone booking a surf lesson or an airport pickup in a country they've never visited is taking a risk. If the site doesn't answer that quietly, they'll book elsewhere."
+            data-fr="Réserver un cours de surf ou un transfert dans un pays jamais visité, c'est prendre un risque. Si le site n'y répond pas discrètement, le voyageur réservera ailleurs."
+            data-ar="حجز درس أمواج أو نقل من المطار في بلد لم تزره من قبل مخاطرة. إن لم يجب الموقع عن ذلك بهدوء، سيحجز الزائر في مكان آخر.">Réserver un cours de surf ou un transfert dans un pays jamais visité, c'est prendre un risque. Si le site n'y répond pas discrètement, le voyageur réservera ailleurs.</p>
+        </div>
+        <div class="lp-ledger-row lp-ledger-row--flag">
+          <div class="lp-ledger-num">03</div>
+          <div class="lp-ledger-title" data-en="Desktop layouts on a traveller's phone" data-fr="Une mise en page bureau sur le téléphone du voyageur" data-ar="تصميم مكتبي على هاتف المسافر">Une mise en page bureau sur le téléphone du voyageur</div>
+          <p class="lp-ledger-desc"
+            data-en="Much of travel browsing happens on a phone, sometimes in an airport with poor signal. A layout designed for a desktop first collapses exactly when it matters."
+            data-fr="Une grande partie de la recherche de voyage se fait sur téléphone, parfois dans un aéroport avec un mauvais réseau. Une mise en page pensée d'abord pour le bureau s'effondre précisément au mauvais moment."
+            data-ar="جزء كبير من البحث السياحي يتم عبر الهاتف، أحياناً في مطار بشبكة ضعيفة. التصميم الموجّه للحاسوب أولاً ينهار في اللحظة الحاسمة.">Une grande partie de la recherche de voyage se fait sur téléphone, parfois dans un aéroport avec un mauvais réseau. Une mise en page pensée d'abord pour le bureau s'effondre précisément au mauvais moment.</p>
+        </div>
+        <div class="lp-ledger-row lp-ledger-row--flag">
+          <div class="lp-ledger-num">04</div>
+          <div class="lp-ledger-title" data-en="One language for an international audience" data-fr="Une seule langue pour une audience internationale" data-ar="لغة واحدة لجمهور دولي">Une seule langue pour une audience internationale</div>
+          <p class="lp-ledger-desc"
+            data-en="Tourism in Morocco draws French, English, and Arabic speakers. A single-language site quietly turns away a share of the people already looking for you."
+            data-fr="Le tourisme au Maroc attire des visiteurs francophones, anglophones et arabophones. Un site monolingue écarte discrètement une partie des gens qui vous cherchent déjà."
+            data-ar="تجذب السياحة في المغرب زواراً بالفرنسية والإنجليزية والعربية. الموقع أحادي اللغة يصرف بهدوء جزءاً ممن يبحثون عنك أصلاً.">Le tourisme au Maroc attire des visiteurs francophones, anglophones et arabophones. Un site monolingue écarte discrètement une partie des gens qui vous cherchent déjà.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BOOKING & DISCOVERY UX ════ -->
+<section class="lp-section lp-section--deep" id="reservation">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head lp-head--solo">
+        <div>
+          <h2 class="lp-h2 reveal"
+            data-en="Discover, explore, <em>book</em>"
+            data-fr="Découvrir, explorer, <em>réserver</em>"
+            data-ar="اكتشف، استكشف، <em>احجز</em>">Découvrir, explorer, <em>réserver</em></h2>
+          <p class="lp-sub reveal" style="margin-top:18px;"
+            data-en="Both tourism projects were designed around a single user journey. Everything on the page either moves the visitor along it or gets cut."
+            data-fr="Nos deux projets touristiques ont été conçus autour d'un seul parcours utilisateur. Tout ce qui est sur la page fait avancer le visiteur ou disparaît."
+            data-ar="صُمم مشروعانا السياحيان حول مسار مستخدم واحد. كل عنصر في الصفحة إما يدفع الزائر للأمام أو يُحذف.">Nos deux projets touristiques ont été conçus autour d'un seul parcours utilisateur. Tout ce qui est sur la page fait avancer le visiteur ou disparaît.</p>
+        </div>
+      </div>
+
+      <div class="lp-journey lp-journey--lg reveal">
+        <div class="lp-journey-step lp-journey-step--on">
+          <div class="lp-journey-num">01</div>
+          <div class="lp-journey-label" data-en="Discover" data-fr="Découvrir" data-ar="اكتشف">Découvrir</div>
+        </div>
+        <div class="lp-journey-step lp-journey-step--on">
+          <div class="lp-journey-num">02</div>
+          <div class="lp-journey-label" data-en="Explore" data-fr="Explorer" data-ar="استكشف">Explorer</div>
+        </div>
+        <div class="lp-journey-step lp-journey-step--on">
+          <div class="lp-journey-num">03</div>
+          <div class="lp-journey-label" data-en="Book" data-fr="Réserver" data-ar="احجز">Réserver</div>
+        </div>
+      </div>
+
+      <div class="lp-showcase reveal">
+        <div class="lp-showcase-visual">
+          <div class="lp-frame">
+            <div class="lp-frame-bar" aria-hidden="true">
+              <span class="lp-frame-dot"></span><span class="lp-frame-dot"></span><span class="lp-frame-dot"></span>
+              <span class="lp-frame-url"></span>
+            </div>
+            <div class="lp-frame-media lp-frame-media--tall">
+              <img src="./assets/images/projects/adventue-keys/2.webp" alt="Adventure Keys, parcours de réservation multi-étapes" width="932" height="700" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="lp-showcase-body">
+          <div class="lp-ledger lp-ledger--tight">
+            <div class="lp-ledger-row">
+              <div class="lp-ledger-num">01</div>
+              <div class="lp-ledger-title" data-en="Offers laid out visually, with price and duration at a glance" data-fr="Des offres présentées visuellement, prix et durée d'un coup d'œil" data-ar="عروض معروضة بصرياً، السعر والمدة بلمحة">Des offres présentées visuellement, prix et durée d'un coup d'œil</div>
+            </div>
+            <div class="lp-ledger-row">
+              <div class="lp-ledger-num">02</div>
+              <div class="lp-ledger-title" data-en="A booking CTA that stays visible on scroll, mobile and desktop" data-fr="Un bouton de réservation visible au défilement, mobile et bureau" data-ar="زر حجز يبقى ظاهراً أثناء التمرير، على الهاتف والحاسوب">Un bouton de réservation visible au défilement, mobile et bureau</div>
+            </div>
+            <div class="lp-ledger-row">
+              <div class="lp-ledger-num">03</div>
+              <div class="lp-ledger-title" data-en="Multi-step booking: package, dates, options, payment" data-fr="Réservation multi-étapes : forfait, dates, options, paiement" data-ar="حجز متعدد الخطوات: الباقة، التواريخ، الخيارات، الدفع">Réservation multi-étapes : forfait, dates, options, paiement</div>
+            </div>
+            <div class="lp-ledger-row">
+              <div class="lp-ledger-num">04</div>
+              <div class="lp-ledger-title" data-en="Forms condensed to the essentials, no needless friction" data-fr="Des formulaires réduits à l'essentiel, sans friction inutile" data-ar="نماذج مختصرة إلى الأساسي، دون تعقيد لا داعي له">Des formulaires réduits à l'essentiel, sans friction inutile</div>
+            </div>
+            <div class="lp-ledger-row">
+              <div class="lp-ledger-num">05</div>
+              <div class="lp-ledger-title" data-en="Deliberately minimal navigation, so the path stays obvious" data-fr="Une navigation volontairement minimale, pour garder le chemin évident" data-ar="تنقل بسيط عن قصد، ليبقى المسار واضحاً">Une navigation volontairement minimale, pour garder le chemin évident</div>
+            </div>
+            <div class="lp-ledger-row">
+              <div class="lp-ledger-num">06</div>
+              <div class="lp-ledger-title" data-en="Mobile-first layouts, designed for the phone first" data-fr="Mise en page mobile-first, pensée d'abord pour le téléphone" data-ar="تصميم يبدأ من الهاتف أولاً">Mise en page mobile-first, pensée d'abord pour le téléphone</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHAT WE BUILD ════ -->
+<section class="lp-section" id="ce-que-nous-construisons">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="What we build for <em>tourism</em> businesses"
+          data-fr="Ce que nous construisons pour le <em>tourisme</em>"
+          data-ar="ما الذي نبنيه <em>لقطاع السياحة</em>">Ce que nous construisons pour le <em>tourisme</em></h2>
+        <p class="lp-sub reveal"
+          data-en="Four project types, each grounded in work we've actually shipped. For the studio's full service range, see our <a href='/services' class='inline-link'>services page</a>."
+          data-fr="Quatre types de projets, chacun fondé sur un travail réellement livré. Pour l'ensemble des services du studio, voir notre <a href='/services' class='inline-link'>page services</a>."
+          data-ar="أربعة أنواع من المشاريع، كل منها مبني على عمل أنجزناه فعلاً. للاطلاع على كامل خدمات الاستوديو، انظر <a href='/services' class='inline-link'>صفحة خدماتنا</a>.">Quatre types de projets, chacun fondé sur un travail réellement livré. Pour l'ensemble des services du studio, voir notre <a href="/services" class="inline-link">page services</a>.</p>
+      </div>
+
+      <div class="lp-ledger reveal">
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">01</div>
+          <h3 class="lp-ledger-title" data-en="Booking Platforms" data-fr="Plateformes de Réservation" data-ar="منصات الحجز">Plateformes de Réservation</h3>
+          <p class="lp-ledger-desc"
+            data-en="A guided multi-step flow: package selection, date picking, room type, add-ons, and payment, designed to reduce drop-off at every step."
+            data-fr="Un parcours guidé en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options et paiement, conçu pour réduire l'abandon à chaque étape."
+            data-ar="مسار موجه متعدد الخطوات: اختيار الباقة، التواريخ، نوع الغرفة، الإضافات، والدفع، مصمم لتقليل الانسحاب في كل خطوة.">Un parcours guidé en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options et paiement, conçu pour réduire l'abandon à chaque étape.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">02</div>
+          <h3 class="lp-ledger-title" data-en="Operator &amp; Hotel Sites" data-fr="Sites d'Opérateurs et d'Hôtels" data-ar="مواقع المشغلين والفنادق">Sites d'Opérateurs et d'Hôtels</h3>
+          <p class="lp-ledger-desc"
+            data-en="Presentation sites for tour operators, hotels, riads, and activity providers, where photography and credibility carry the decision."
+            data-fr="Des sites de présentation pour tour-opérateurs, hôtels, riads et prestataires d'activités, où la photographie et la crédibilité emportent la décision."
+            data-ar="مواقع تعريفية لمنظمي الرحلات والفنادق والرياضات ومقدمي الأنشطة، حيث تحسم الصورة والمصداقية القرار.">Des sites de présentation pour tour-opérateurs, hôtels, riads et prestataires d'activités, où la photographie et la crédibilité emportent la décision.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">03</div>
+          <h3 class="lp-ledger-title" data-en="Transfer &amp; Transport Sites" data-fr="Sites de Transfert et Transport" data-ar="مواقع النقل والتوصيل">Sites de Transfert et Transport</h3>
+          <p class="lp-ledger-desc"
+            data-en="Transfer options presented with clear pricing, vehicle types, and included services, with the booking form condensed to the essentials."
+            data-fr="Des options de transfert présentées avec tarifs clairs, types de véhicules et services inclus, avec un formulaire de réservation réduit à l'essentiel."
+            data-ar="خيارات نقل معروضة بأسعار واضحة وأنواع مركبات وخدمات مشمولة، مع نموذج حجز مختصر إلى الأساسي.">Des options de transfert présentées avec tarifs clairs, types de véhicules et services inclus, avec un formulaire de réservation réduit à l'essentiel.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">04</div>
+          <h3 class="lp-ledger-title" data-en="Brand &amp; Visual Identity" data-fr="Marque et Identité Visuelle" data-ar="العلامة والهوية البصرية">Marque et Identité Visuelle</h3>
+          <p class="lp-ledger-desc"
+            data-en="A full visual language, colour palette, typography pairing, and spacing system, carried consistently across every page and component."
+            data-fr="Un langage visuel complet : palette de couleurs, association typographique et système d'espacement, appliqués de façon cohérente sur chaque page et composant."
+            data-ar="لغة بصرية كاملة: لوحة ألوان، واقتران خطوط، ونظام تباعد، مطبقة باتساق عبر كل صفحة ومكوّن.">Un langage visuel complet : palette de couleurs, association typographique et système d'espacement, appliqués de façon cohérente sur chaque page et composant.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TRUST, LANGUAGES, VISIBILITY ════ -->
+<section class="lp-section lp-section--band" id="confiance">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="Trust, languages, and <em>being found</em>"
+          data-fr="Confiance, langues et <em>visibilité</em>"
+          data-ar="الثقة واللغات <em>وسهولة الوصول</em>">Confiance, langues et <em>visibilité</em></h2>
+        <p class="lp-sub reveal"
+          data-en="Three things a tourism site has to get right beyond the booking flow itself."
+          data-fr="Trois choses qu'un site touristique doit réussir au-delà du parcours de réservation lui-même."
+          data-ar="ثلاثة أمور يجب أن يتقنها الموقع السياحي إلى جانب مسار الحجز نفسه.">Trois choses qu'un site touristique doit réussir au-delà du parcours de réservation lui-même.</p>
+      </div>
+
+      <div class="lp-ledger reveal">
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">01</div>
+          <h3 class="lp-ledger-title" data-en="Trust at the right moment" data-fr="La confiance au bon moment" data-ar="الثقة في اللحظة المناسبة">La confiance au bon moment</h3>
+          <p class="lp-ledger-desc"
+            data-en="On Adventure Keys, instructor profiles appear before the booking step, so the visitor knows who they'll be in the water with before they commit."
+            data-fr="Sur Adventure Keys, les profils des moniteurs apparaissent avant l'étape de réservation : le visiteur sait avec qui il sera dans l'eau avant de s'engager."
+            data-ar="في Adventure Keys، تظهر ملفات المدربين قبل خطوة الحجز، ليعرف الزائر مع من سيكون في الماء قبل أن يلتزم.">Sur Adventure Keys, les profils des moniteurs apparaissent avant l'étape de réservation : le visiteur sait avec qui il sera dans l'eau avant de s'engager.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">02</div>
+          <h3 class="lp-ledger-title" data-en="French, English, Arabic" data-fr="Français, anglais, arabe" data-ar="الفرنسية والإنجليزية والعربية">Français, anglais, arabe</h3>
+          <p class="lp-ledger-desc"
+            data-en="We build multilingual sites with native right-to-left support for Arabic. Our multilingual work is documented in the <a href='/maison-monchef' class='inline-link'>Maison Monchef</a> case study, delivered in all three languages."
+            data-fr="Nous construisons des sites multilingues avec un support natif du droite-à-gauche pour l'arabe. Notre travail multilingue est documenté dans l'étude de cas <a href='/maison-monchef' class='inline-link'>Maison Monchef</a>, livrée dans les trois langues."
+            data-ar="نبني مواقع متعددة اللغات مع دعم أصلي للاتجاه من اليمين لليسار للعربية. عملنا متعدد اللغات موثق في دراسة حالة <a href='/maison-monchef' class='inline-link'>Maison Monchef</a>، المنجزة باللغات الثلاث.">Nous construisons des sites multilingues avec un support natif du droite-à-gauche pour l'arabe. Notre travail multilingue est documenté dans l'étude de cas <a href="/maison-monchef" class="inline-link">Maison Monchef</a>, livrée dans les trois langues.</p>
+        </div>
+        <div class="lp-ledger-row">
+          <div class="lp-ledger-num">03</div>
+          <h3 class="lp-ledger-title" data-en="On-page SEO as standard" data-fr="SEO on-page en standard" data-ar="تحسين محركات البحث افتراضياً">SEO on-page en standard</h3>
+          <p class="lp-ledger-desc"
+            data-en="Structured headings, meta tags, Open Graph, page speed work, and a sitemap ship with every project, so travellers searching for your destination can find you."
+            data-fr="Titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap sont livrés avec chaque projet, pour que les voyageurs qui cherchent votre destination vous trouvent."
+            data-ar="عناوين منظمة، ووسوم ميتا، وOpen Graph، وتحسين السرعة، وخريطة موقع، تُسلَّم مع كل مشروع، ليجدك المسافرون الباحثون عن وجهتك.">Titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap sont livrés avec chaque projet, pour que les voyageurs qui cherchent votre destination vous trouvent.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STATEMENT — a quiet band between the dense sections ════ -->
+<section class="lp-statement lp-section--deep">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-statement-grid">
+        <p class="lp-statement-text reveal"
+          data-en="Based abroad?"
+          data-fr="Vous êtes basé à l'étranger ?"
+          data-ar="هل مقرك في الخارج؟">Vous êtes basé à l'étranger ?</p>
+        <p class="lp-statement-body reveal"
+          data-en="See how we run <a href='/international-web-design' class='inline-link'>international projects</a> remotely."
+          data-fr="Voir comment nous menons les <a href='/international-web-design' class='inline-link'>projets internationaux</a> à distance."
+          data-ar="اطّلع على كيفية إدارتنا <a href='/international-web-design' class='inline-link'>المشاريع الدولية</a> عن بُعد.">Voir comment nous menons les <a href="/international-web-design" class="inline-link">projets internationaux</a> à distance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROCESS ════ -->
+<section class="lp-section" id="process">
+  <div class="container">
+    <div class="lp-narrow">
+      <div class="lp-head">
+        <h2 class="lp-h2 reveal"
+          data-en="How a tourism project <em>runs</em>"
+          data-fr="Comment se déroule un projet <em>touristique</em>"
+          data-ar="كيف يسير المشروع <em>السياحي</em>">Comment se déroule un projet <em>touristique</em></h2>
+        <p class="lp-sub reveal"
+          data-en="Four stages, whether you run a surf camp, a riad, or a transfer fleet."
+          data-fr="Quatre étapes, que vous dirigiez un surf camp, un riad ou une flotte de transferts."
+          data-ar="أربع مراحل، سواء كنت تدير مخيم أمواج أو رياضاً أو أسطول نقل.">Quatre étapes, que vous dirigiez un surf camp, un riad ou une flotte de transferts.</p>
+      </div>
+
+      <div class="lp-track reveal">
+        <div class="lp-track-step">
+          <div class="lp-track-num">01</div>
+          <div class="lp-track-title" data-en="Offer &amp; Discovery" data-fr="Offre &amp; Découverte" data-ar="العرض والاستكشاف">Offre &amp; Découverte</div>
+          <p class="lp-track-desc"
+            data-en="We map your packages, seasons, and pricing, and how your guests find you today."
+            data-fr="Nous cartographions vos forfaits, vos saisons, vos tarifs, et la façon dont vos clients vous trouvent aujourd'hui."
+            data-ar="نرسم باقاتك ومواسمك وأسعارك، وكيف يجدك ضيوفك اليوم.">Nous cartographions vos forfaits, vos saisons, vos tarifs, et la façon dont vos clients vous trouvent aujourd'hui.</p>
+        </div>
+        <div class="lp-track-step">
+          <div class="lp-track-num">02</div>
+          <div class="lp-track-title" data-en="Journey &amp; Design" data-fr="Parcours &amp; Design" data-ar="المسار والتصميم">Parcours &amp; Design</div>
+          <p class="lp-track-desc"
+            data-en="We design the discover → explore → book journey in Figma, reviewed together before any code."
+            data-fr="Nous concevons le parcours découvrir → explorer → réserver dans Figma, revu ensemble avant tout code."
+            data-ar="نصمم مسار اكتشف ← استكشف ← احجز في فيجما، ونراجعه معاً قبل أي كود.">Nous concevons le parcours découvrir → explorer → réserver dans Figma, revu ensemble avant tout code.</p>
+        </div>
+        <div class="lp-track-step">
+          <div class="lp-track-num">03</div>
+          <div class="lp-track-title" data-en="Build &amp; Booking Flow" data-fr="Développement &amp; Réservation" data-ar="التطوير ومسار الحجز">Développement &amp; Réservation</div>
+          <p class="lp-track-desc"
+            data-en="Development of the site and the booking flow, tested on mobile as the primary device."
+            data-fr="Développement du site et du parcours de réservation, testé sur mobile comme appareil principal."
+            data-ar="تطوير الموقع ومسار الحجز، مع اختباره على الهاتف كجهاز أساسي.">Développement du site et du parcours de réservation, testé sur mobile comme appareil principal.</p>
+        </div>
+        <div class="lp-track-step">
+          <div class="lp-track-num">04</div>
+          <div class="lp-track-title" data-en="Launch &amp; Support" data-fr="Lancement &amp; Support" data-ar="الإطلاق والدعم">Lancement &amp; Support</div>
+          <p class="lp-track-desc"
+            data-en="Deployment, domain, and DNS handled for you, with 30 days of post-launch support included."
+            data-fr="Déploiement, domaine et DNS gérés pour vous, avec 30 jours de support inclus après le lancement."
+            data-ar="النشر والنطاق وDNS نتولاها عنك، مع 30 يوماً من الدعم بعد الإطلاق.">Déploiement, domaine et DNS gérés pour vous, avec 30 jours de support inclus après le lancement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+  <div class="faq-inner">
+
+    <div class="faq-left reveal">
+      <div class="faq-label"><span class="faq-label-dot"></span> <span data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</span></div>
+      <h2 class="faq-title"
+        data-en="Questions about <em>tourism</em> websites?"
+        data-fr="Des questions sur les sites <em>touristiques</em> ?"
+        data-ar="أسئلة حول المواقع <em>السياحية</em>؟">Des questions sur les sites <em>touristiques</em> ?</h2>
+      <p class="faq-subtitle"
+        data-en="What tour operators, hotels, and transfer services usually ask us first."
+        data-fr="Ce que les tour-opérateurs, hôtels et services de transfert nous demandent en premier."
+        data-ar="ما يسألنا عنه منظمو الرحلات والفنادق وخدمات النقل أولاً.">Ce que les tour-opérateurs, hôtels et services de transfert nous demandent en premier.</p>
+    </div>
+
+    <div class="faq-list reveal" id="faqList">
+      <div class="faq-item open">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Can you integrate an online booking system?"
+            data-fr="Pouvez-vous intégrer un système de réservation en ligne ?"
+            data-ar="هل يمكنكم دمج نظام حجز إلكتروني؟">Pouvez-vous intégrer un système de réservation en ligne ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. For Adventure Keys we designed a full multi-step booking flow: package selection, date picking, room type, add-ons, and payment, in a guided experience that reduces drop-off at every step."
+            data-fr="Oui. Pour Adventure Keys, nous avons conçu un parcours de réservation complet en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée qui réduit l'abandon à chaque étape."
+            data-ar="نعم. في Adventure Keys صممنا مسار حجز كاملاً متعدد الخطوات: اختيار الباقة، والتواريخ، ونوع الغرفة، والإضافات، والدفع، ضمن تجربة موجهة تقلل الانسحاب في كل خطوة.">Oui. Pour <a href="/adventure-keys" class="inline-link">Adventure Keys</a>, nous avons conçu un parcours de réservation complet en plusieurs étapes : choix du forfait, sélection des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée qui réduit l'abandon à chaque étape.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Will the site work well on mobile?"
+            data-fr="Le site fonctionnera-t-il bien sur mobile ?"
+            data-ar="هل سيعمل الموقع جيداً على الهاتف؟">Le site fonctionnera-t-il bien sur mobile ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes, every site is designed mobile-first. For Agadir Transfer, the layout was built to work equally well for a tired traveller on a phone at the airport and a travel agent booking on desktop."
+            data-fr="Oui, tous nos sites sont conçus mobile-first. Pour Agadir Transfer, la mise en page a été pensée pour fonctionner aussi bien pour un voyageur fatigué sur son téléphone à l'aéroport que pour un agent de voyage sur ordinateur."
+            data-ar="نعم، كل مواقعنا مصممة بدءاً من الهاتف. في Agadir Transfer، بُني التصميم ليعمل بنفس الجودة لمسافر متعب على هاتفه في المطار ولوكيل سفر على حاسوبه.">Oui, tous nos sites sont conçus mobile-first. Pour <a href="/agadir-transfer" class="inline-link">Agadir Transfer</a>, la mise en page a été pensée pour fonctionner aussi bien pour un voyageur fatigué sur son téléphone à l'aéroport que pour un agent de voyage sur ordinateur.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="How does the site build trust with foreign travellers?"
+            data-fr="Comment le site inspire-t-il confiance aux voyageurs étrangers ?"
+            data-ar="كيف يبني الموقع الثقة لدى المسافرين الأجانب؟">Comment le site inspire-t-il confiance aux voyageurs étrangers ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Through design and structure. On Adventure Keys, instructor profiles appear before the booking step to build trust at the right moment. On Agadir Transfer, the visual direction answers the question 'can I trust this service?' before the visitor asks it."
+            data-fr="Par le design et par la structure. Sur Adventure Keys, les profils des moniteurs apparaissent avant l'étape de réservation pour créer la confiance au bon moment. Sur Agadir Transfer, la direction visuelle répond à la question « puis-je faire confiance à ce service ? » avant même que le visiteur ne la pose."
+            data-ar="عبر التصميم والبنية. في Adventure Keys تظهر ملفات المدربين قبل خطوة الحجز لبناء الثقة في اللحظة المناسبة. وفي Agadir Transfer، تجيب الهوية البصرية عن سؤال «هل أثق بهذه الخدمة؟» قبل أن يطرحه الزائر.">Par le design et par la structure. Sur Adventure Keys, les profils des moniteurs apparaissent avant l'étape de réservation pour créer la confiance au bon moment. Sur Agadir Transfer, la direction visuelle répond à la question « puis-je faire confiance à ce service ? » avant même que le visiteur ne la pose.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Can you build a multilingual tourism website?"
+            data-fr="Pouvez-vous créer un site touristique multilingue ?"
+            data-ar="هل يمكنكم بناء موقع سياحي متعدد اللغات؟">Pouvez-vous créer un site touristique multilingue ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. We build sites in French, English, and Arabic, with native right-to-left layout support. See the Maison Monchef case study for an example delivered in all three languages."
+            data-fr="Oui. Nous construisons des sites en français, anglais et arabe, avec un support natif de la mise en page droite-à-gauche. Voir l'étude de cas Maison Monchef pour un exemple livré dans les trois langues."
+            data-ar="نعم. نبني مواقع بالفرنسية والإنجليزية والعربية، مع دعم أصلي لتخطيط اليمين لليسار. انظر دراسة حالة Maison Monchef لمثال أُنجز باللغات الثلاث.">Oui. Nous construisons des sites en français, anglais et arabe, avec un support natif de la mise en page droite-à-gauche. Voir l'étude de cas <a href="/maison-monchef" class="inline-link">Maison Monchef</a> pour un exemple livré dans les trois langues.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Is SEO included?"
+            data-fr="Le référencement est-il inclus ?"
+            data-ar="هل تحسين محركات البحث مشمول؟">Le référencement est-il inclus ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="On-page SEO basics ship as standard with every project: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap."
+            data-fr="Les bases du SEO on-page sont livrées en standard avec chaque projet : titres structurés, balises meta, Open Graph, optimisation de la vitesse de chargement et sitemap."
+            data-ar="أساسيات تحسين محركات البحث تُسلَّم افتراضياً مع كل مشروع: عناوين منظمة، ووسوم ميتا، وOpen Graph، وتحسين سرعة التحميل، وخريطة موقع.">Les bases du SEO on-page sont livrées en standard avec chaque projet : titres structurés, balises meta, Open Graph, optimisation de la vitesse de chargement et sitemap.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="How long does a tourism project take?"
+            data-fr="Combien de temps prend un projet touristique ?"
+            data-ar="كم يستغرق المشروع السياحي؟">Combien de temps prend un projet touristique ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Usually 2 to 4 weeks after design sign-off. A project with a custom booking flow and multilingual content sits closer to the 4 to 6 week range."
+            data-fr="En général 2 à 4 semaines après validation du design. Un projet incluant un parcours de réservation sur mesure et du contenu multilingue se situe plutôt entre 4 et 6 semaines."
+            data-ar="عادة 2 إلى 4 أسابيع بعد اعتماد التصميم. المشروع الذي يتضمن مسار حجز مخصص ومحتوى متعدد اللغات أقرب إلى 4-6 أسابيع.">En général 2 à 4 semaines après validation du design. Un projet incluant un parcours de réservation sur mesure et du contenu multilingue se situe plutôt entre 4 et 6 semaines.</p>
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+  </div><!-- /faq-inner -->
+
+  <div class="faq-mobile-cta-wrap">
+    <a href="/contact#cal-embed" class="faq-cta" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+  </div>
+
+  </div><!-- /container -->
+</section>
+
+<!-- ════ CLOSING CTA ════ -->
+<section class="lp-cta" id="lets-talk">
+  <div class="glow-circle glow-c" style="opacity:0.12; width:700px; height:700px; --glow-peak:0.817; --glow-k:2.63;"></div>
+  <div class="container">
+    <div class="reveal">
+      <h2 class="lp-cta-title" data-en="Let's Talk About Your Season" data-fr="Parlons de Votre Saison" data-ar="لنتحدث عن موسمك">Parlons de Votre Saison</h2>
+      <p class="lp-cta-sub"
+        data-en="Tell us what you offer and how guests book today. We'll tell you what the site should do."
+        data-fr="Dites-nous ce que vous proposez et comment vos clients réservent aujourd'hui. Nous vous dirons ce que le site doit faire."
+        data-ar="أخبرنا بما تقدمه وكيف يحجز ضيوفك اليوم. سنخبرك بما يجب أن يفعله الموقع.">Dites-nous ce que vous proposez et comment vos clients réservent aujourd'hui. Nous vous dirons ce que le site doit faire.</p>
+      <div class="lp-cta-actions">
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+        <a href="/contact" class="btn-secondary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<!-- PARTIAL:footer:START -->
+<footer class="footer-section">
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
+  <div class="container">
+    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
+      </div>
+    </div>
+
+    <div class="footer-grid reveal">
+
+      <!-- Col 1: brand -->
+      <div class="footer-col">
+        <a href="/" class="logo">
+          <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark">
+          <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light">
+        </a>
+        <p class="footer-brand-tagline"
+          data-en="Premium websites that work for you, while you run your business."
+          data-fr="Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise."
+          data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء.">Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise.</p>
+        <p style="font-size:13px; font-weight:600; color:var(--muted); margin:-10px 0 20px;"
+          data-en="50+ projects delivered across Morocco"
+          data-fr="50+ projets livrés à travers le Maroc"
+          data-ar="أكثر من 50 مشروعًا تم إنجازه في جميع أنحاء المغرب">50+ projets livrés à travers le Maroc</p>
+        <div class="footer-socials" style="display:flex; gap:10px; margin-bottom:20px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social-btn" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--muted);">
+          <a href="tel:+212716490397" style="color:inherit; text-decoration:none;">+212 7 16 49 03 97</a>
+          <a href="mailto:contact@louisswebstudio.com" style="color:inherit; text-decoration:none;">contact@louisswebstudio.com</a>
+          <span data-en="Tanger, Morocco" data-fr="Tanger, Maroc" data-ar="طنجة، المغرب">Tanger, Maroc</span>
+        </div>
+      </div>
+
+      <!-- Col 2: services -->
+      <div class="footer-col">
+        <a href="/services" class="footer-col-title" style="display:block; color:inherit; text-decoration:none;" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <div class="footer-col-links">
+          <a href="/creation-site-e-commerce-maroc" data-en="E-commerce website Morocco" data-fr="Création site e-commerce Maroc" data-ar="إنشاء متجر إلكتروني بالمغرب">Création site e-commerce Maroc</a>
+          <a href="/creation-site-vitrine-maroc" data-en="Showcase website Morocco" data-fr="Création site vitrine Maroc" data-ar="إنشاء موقع تعريفي بالمغرب">Création site vitrine Maroc</a>
+          <a href="/real-estate-web-design" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Immobilier</a>
+          <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourisme</a>
+          <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+          <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
+          <!-- Add here once the page exists: <a href="/referencement-seo-maroc" data-en="SEO & Development" data-fr="Référencement SEO & Développement" data-ar="تحسين محركات البحث والتطوير">Référencement SEO & Développement</a> -->
+        </div>
+      </div>
+
+      <!-- Col 3: cities -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</div>
+        <div class="footer-col-links">
+          <a href="/creation-site-web-maroc" data-en="Website design Morocco" data-fr="Création site web Maroc" data-ar="إنشاء موقع ويب بالمغرب">Création site web Maroc</a>
+          <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+          <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+          <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+          <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+          <a href="/locations" data-en="See all cities →" data-fr="Voir toutes les villes →" data-ar="مشاهدة كل المدن ←">Voir toutes les villes →</a>
+        </div>
+      </div>
+
+      <!-- Col 4: studio -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Studio" data-fr="Studio" data-ar="الاستوديو">Studio</div>
+        <div class="footer-col-links">
+          <a href="/projects" data-en="Projects" data-fr="Projets" data-ar="مشاريعنا">Projets</a>
+          <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
+          <a href="/faq" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+          <a href="/contact" data-en="Contact" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
+      <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. Tous droits réservés.</p>
+      <div class="footer-legal" style="display:flex; gap:24px;">
+        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
+        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
+        <a href="/sitemap" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- PARTIAL:footer:END -->
+
+<!-- ════ WA FLOAT ════ -->
+<a href="https://wa.me/212716490397?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20tourism%20website." data-wa-type="generic" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-float-label" data-en="Get a Free Quote" data-fr="Devis Gratuit" data-ar="احصل على عرض مجاني">Devis Gratuit</span>
+  <div class="wa-float-btn">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.1 1.519 5.832L0 24l6.335-1.493A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.359-.214-3.72.876.893-3.619-.234-.372A9.818 9.818 0 1112 21.818z"/></svg>
+  </div>
+</a>
+
+<script>
+/* ══ FAQ accordion — one open at a time (mirrors index-main.js) ══ */
+document.querySelectorAll('.faq-question').forEach(function (q) {
+  q.addEventListener('click', function () {
+    var item = q.closest('.faq-item');
+    if (!item) return;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function (el) { el.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+
+<script defer src="assets/site-chrome.js"></script>
+<script defer src="assets/starfield.js"></script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
+</body>
+</html>

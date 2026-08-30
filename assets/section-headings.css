@@ -4,9 +4,9 @@
    One size for every h2-level section title across the site, taken
    from .testimonials-heading ("Trusted by businesses like yours"):
 
-     desktop  60px / 66px
-     ≤1100px  48px / 53px
-     ≤900px   48px / 53px
+     desktop  52px / 56px
+     ≤1100px  44px / 48px
+     ≤900px   40px / 44px
      ≤700px   34px / 40px
      ≤480px   28px / 34px
 
@@ -24,11 +24,11 @@
    ══════════════════════════════════════════════════════════════ */
 
 :root {
-  --h-section: 60px;
-  --h-section-lh: 66px;
+  --h-section: 52px;
+  --h-section-lh: 56px;
 }
-@media (max-width: 1100px) { :root { --h-section: 48px; --h-section-lh: 53px; } }
-@media (max-width: 900px)  { :root { --h-section: 48px; --h-section-lh: 53px; } }
+@media (max-width: 1100px) { :root { --h-section: 44px; --h-section-lh: 48px; } }
+@media (max-width: 900px)  { :root { --h-section: 40px; --h-section-lh: 44px; } }
 @media (max-width: 700px)  { :root { --h-section: 34px; --h-section-lh: 40px; } }
 @media (max-width: 480px)  { :root { --h-section: 28px; --h-section-lh: 34px; } }
 
@@ -42,7 +42,7 @@ html[lang] body .pricing-h,
 html[lang] body .svc-band-title {
   font-size: var(--h-section);
   line-height: var(--h-section-lh);
-  letter-spacing: -1.2px;
+  letter-spacing: -1.6px;
   text-wrap: balance;
 }
 

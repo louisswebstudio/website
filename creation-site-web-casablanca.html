@@ -29,23 +29,29 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="shortcut icon" href="favicon-192.png">
 <meta name="theme-color" content="#060607">
+<!-- Resolves the colour theme before first paint. Render-blocking on purpose:
+     a deferred script would let the dark palette paint once and then snap. -->
+<script src="assets/theme-init.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="dns-prefetch" href="https://flagcdn.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" media="print" data-async-font>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
 
 <!-- Shared chrome (nav, buttons, FAQ, footer, WA float) + unified heading scale -->
 <link rel="stylesheet" href="assets/site.css">
+<!-- Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+     theme is untouched. See assets/theme-init.js. -->
+<link rel="stylesheet" href="assets/theme.css">
 <link rel="stylesheet" href="assets/section-headings.css">
 
 <style>
@@ -57,7 +63,7 @@
 }
 .city-hero > .container { position: relative; z-index: 1; }
 .city-page-title {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-weight: 600; font-size: 60px;
   letter-spacing: -1.2px; line-height: 1.1;
   color: #fff; text-align: center;
@@ -76,26 +82,26 @@
 .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 
 /* ─── SECTION SHELL (mirrors services.html) ─────────── */
-.svc-section { padding: 88px 0 96px; position: relative; }
+.svc-section { padding: 96px 0; position: relative; }
 .svc-section > .container { position: relative; z-index: 1; }
 .svc-section--tint { background: rgba(3,3,3,0.22); border-top: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
 .svc-band-title {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   text-align: center; margin: 0 auto 20px;
   max-width: 720px; text-wrap: balance;
 }
 .svc-band-title em {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .svc-band-sub {
-  font-size: 17px; color: var(--muted); line-height: 1.7;
-  text-align: center; max-width: 640px; margin: 0 auto 56px;
+  font-size: 18px; color: var(--muted); line-height: 1.62;
+  text-align: center; max-width: 660px; margin: 0 auto 56px;
 }
 .svc-band-sub--tight { margin-bottom: 32px; }
 /* Longer headings need more room so they never spill onto a third line. */
@@ -342,11 +348,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
 
     <div class="nav-links">
       <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
-      <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
       <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
     </div>
 
@@ -377,6 +383,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). aria-label / aria-pressed are kept in sync by
+           assets/theme-toggle.js, which also localises them. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+
 
       <!-- Hamburger (mobile only) -->
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
@@ -395,15 +415,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
     <a href="/" class="mob-overlay-logo" aria-label="Home">
-      <img src="logo.png" alt="Logo" height="20" width="auto">
+      <img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light">
     </a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
     <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
-    <a href="/#faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
   </div>
+
+  <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+       button, so assets/theme-toggle.js binds both and keeps them in sync.
+       The label text is set from JS to match the active language. -->
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Dark mode</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+    </button>
+  </div>
+
+
   <div class="menu-bottom">
     <a href="https://wa.me/212716490397" data-wa-type="generic" class="mobile-menu-cta" target="_blank" rel="noopener"
        data-en="Message us on WhatsApp" data-fr="Nous écrire sur WhatsApp" data-ar="راسلنا على واتساب">Nous écrire sur WhatsApp</a>
@@ -412,7 +450,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ════ HERO ════ -->
 <section class="city-hero">
-  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(190px); width:700px; height:700px;"></div>
+  <div class="glow-circle glow-c" style="opacity:0.13; width:700px; height:700px; --glow-peak:0.817; --glow-k:2.63;"></div>
   <div class="container">
     <h1 class="city-page-title reveal"
       data-en="Website Design <span class='accent'>Casablanca</span>"
@@ -556,9 +594,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <p class="svc-band-note reveal"
-      data-en="Every sector has its own expectations. The design, content and structure are adapted accordingly."
-      data-fr="Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence."
-      data-ar="لكل قطاع توقعاته الخاصة. يتم تكييف التصميم والمحتوى والبنية وفقاً لذلك.">Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence.</p>
+      data-en="Every sector has its own expectations. The design, content and structure are adapted accordingly. We have dedicated pages for <a href='/real-estate-web-design'>real estate web design</a> and <a href='/tourism-web-design'>tourism web design</a>."
+      data-fr="Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>."
+      data-ar="لكل قطاع توقعاته الخاصة. يتم تكييف التصميم والمحتوى والبنية وفقاً لذلك. لدينا صفحات مخصصة لـ<a href='/real-estate-web-design'>تصميم المواقع العقارية</a> و<a href='/tourism-web-design'>تصميم المواقع السياحية</a>.">Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>.</p>
   </div>
 </section>
 
@@ -750,62 +788,99 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ════ FOOTER ════ -->
+<!-- PARTIAL:footer:START -->
 <footer class="footer-section">
-  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
   <div class="container">
-
-    <!-- Top: Contact CTA -->
-    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;"
-        data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
-      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Message us on WhatsApp" data-fr="Nous écrire sur WhatsApp" data-ar="راسلنا على واتساب">Nous écrire sur WhatsApp</a>
+    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
+      </div>
     </div>
 
-    <!-- Middle: Logo + Socials -->
-    <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
-      <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
-        <div class="footer-socials" style="display:flex; gap:12px;">
-          <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+    <div class="footer-grid reveal">
+
+      <!-- Col 1: brand -->
+      <div class="footer-col">
+        <a href="/" class="logo">
+          <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark">
+          <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light">
+        </a>
+        <p class="footer-brand-tagline"
+          data-en="Premium websites that work for you, while you run your business."
+          data-fr="Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise."
+          data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء.">Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise.</p>
+        <p style="font-size:13px; font-weight:600; color:var(--muted); margin:-10px 0 20px;"
+          data-en="50+ projects delivered across Morocco"
+          data-fr="50+ projets livrés à travers le Maroc"
+          data-ar="أكثر من 50 مشروعًا تم إنجازه في جميع أنحاء المغرب">50+ projets livrés à travers le Maroc</p>
+        <div class="footer-socials" style="display:flex; gap:10px; margin-bottom:20px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social-btn" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
           </a>
-          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
           </a>
         </div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--muted);">
+          <a href="tel:+212716490397" style="color:inherit; text-decoration:none;">+212 7 16 49 03 97</a>
+          <a href="mailto:contact@louisswebstudio.com" style="color:inherit; text-decoration:none;">contact@louisswebstudio.com</a>
+          <span data-en="Tanger, Morocco" data-fr="Tanger, Maroc" data-ar="طنجة، المغرب">Tanger, Maroc</span>
+        </div>
       </div>
+
+      <!-- Col 2: services -->
+      <div class="footer-col">
+        <a href="/services" class="footer-col-title" style="display:block; color:inherit; text-decoration:none;" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <div class="footer-col-links">
+          <a href="/creation-site-e-commerce-maroc" data-en="E-commerce website Morocco" data-fr="Création site e-commerce Maroc" data-ar="إنشاء متجر إلكتروني بالمغرب">Création site e-commerce Maroc</a>
+          <a href="/creation-site-vitrine-maroc" data-en="Showcase website Morocco" data-fr="Création site vitrine Maroc" data-ar="إنشاء موقع تعريفي بالمغرب">Création site vitrine Maroc</a>
+          <a href="/real-estate-web-design" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Immobilier</a>
+          <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourisme</a>
+          <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+          <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
+          <!-- Add here once the page exists: <a href="/referencement-seo-maroc" data-en="SEO & Development" data-fr="Référencement SEO & Développement" data-ar="تحسين محركات البحث والتطوير">Référencement SEO & Développement</a> -->
+        </div>
+      </div>
+
+      <!-- Col 3: cities -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</div>
+        <div class="footer-col-links">
+          <a href="/creation-site-web-maroc" data-en="Website design Morocco" data-fr="Création site web Maroc" data-ar="إنشاء موقع ويب بالمغرب">Création site web Maroc</a>
+          <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+          <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+          <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+          <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+          <a href="/locations" data-en="See all cities →" data-fr="Voir toutes les villes →" data-ar="مشاهدة كل المدن ←">Voir toutes les villes →</a>
+        </div>
+      </div>
+
+      <!-- Col 4: studio -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Studio" data-fr="Studio" data-ar="الاستوديو">Studio</div>
+        <div class="footer-col-links">
+          <a href="/projects" data-en="Projects" data-fr="Projets" data-ar="مشاريعنا">Projets</a>
+          <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
+          <a href="/faq" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+          <a href="/contact" data-en="Contact" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Cities: local landing pages -->
-    <div class="footer-cities reveal">
-      <span class="footer-cities-label" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</span>
-      <div class="footer-cities-links">
-        <a href="/creation-site-web-casablanca" aria-current="page" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
-        <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
-        <a href="/creation-site-web-agadir" data-en="Website design Agadir" data-fr="Création site web Agadir" data-ar="تصميم مواقع الويب بأكادير">Création site web Agadir</a>
-        <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
-        <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
-        <a href="/creation-site-web-fes" data-en="Website design Fès" data-fr="Création site web Fès" data-ar="تصميم مواقع الويب بفاس">Création site web Fès</a>
-        <a href="/creation-site-web-essaouira" data-en="Website design Essaouira" data-fr="Création site web Essaouira" data-ar="تصميم مواقع الويب بالصويرة">Création site web Essaouira</a>
-        <a href="/creation-site-web-kenitra" data-en="Website design Kénitra" data-fr="Création site web Kénitra" data-ar="تصميم مواقع الويب بالقنيطرة">Création site web Kénitra</a>
-        <a href="/creation-site-web-oujda" data-en="Website design Oujda" data-fr="Création site web Oujda" data-ar="تصميم مواقع الويب بوجدة">Création site web Oujda</a>
-      </div>
-    </div>
-
-    <!-- Bottom: Legal -->
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. Tous droits réservés.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
-        <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
-        <a href="/tarifs" data-en="Pricing" data-fr="Packages" data-ar="الأسعار">Packages</a>
-        <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
+        <a href="/sitemap" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
       </div>
     </div>
-
   </div>
 </footer>
+<!-- PARTIAL:footer:END -->
 
 <!-- ════ WA FLOAT ════ -->
 <a href="https://wa.me/212716490397" data-wa-type="generic" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
@@ -830,5 +905,9 @@ document.querySelectorAll('.faq-question').forEach(function (q) {
 
 <script defer src="assets/site-chrome.js"></script>
 <script defer src="assets/starfield.js"></script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 </body>
 </html>

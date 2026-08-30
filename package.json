@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build:blog": "node scripts/build-blog.js",
-    "build": "node scripts/build-blog.js"
+    "build": "node scripts/build-partials.js && node scripts/build-blog.js",
+    "build:partials": "node scripts/build-partials.js"
   },
   "dependencies": {
     "@portabletext/to-html": "^2.0.13",

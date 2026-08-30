@@ -1,5 +1,16 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     `clip` additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body {
   background: #060607;
   color: #fff;
@@ -7,6 +18,10 @@ body {
   overflow-x: hidden;
   max-width: 100%;
 }
+/* Form controls don't inherit the page font by default — without this they fall
+   back to the UA font (Arial), which put one stray family outside the type
+   system. Inheriting keeps them on Inter, and on Cairo under html[lang="ar"]. */
+button, input, select, textarea { font-family: inherit; }
 
 /* ── TOKENS ── */
 :root {
@@ -143,13 +158,68 @@ nav {
   display: flex; flex-direction: column;
   gap: 0;
 }
+/* ── DECORATIVE GLOWS ──────────────────────────────────────────────────────
+   Every glow on the site used to be a solid #2563eb circle run through
+   filter: blur(150–200px). A blur that wide is the most expensive paint the
+   page does: the kernel reaches ~3σ, so an 800px circle at blur(200px) makes
+   the compositor allocate and gaussian-blur a ~2400px offscreen surface, and
+   it redoes that on every repaint, resize and theme toggle.
+
+   A gaussian-blurred *solid* disc is nothing but a radial alpha ramp, so a
+   radial-gradient reproduces it exactly at zero paint cost. Three custom
+   properties drive it:
+
+     --glow-rgb   the glow colour (theme.css swaps this for light mode; it must
+                  stay a property rather than a `background` override, or it
+                  would replace the gradient with a hard-edged solid circle)
+     --glow-peak  alpha at the centre. A blurred disc does NOT reach full
+                  opacity once σ is comparable to the radius — e.g. a 700px
+                  circle at blur(160px) peaks at 0.909 — so this is baked in
+                  per size and the element's own `opacity` is left untouched.
+     --glow-k     scale factor. The blur bled out to radius+3σ, well past the
+                  element box; `closest-side` only reaches the box edge, so the
+                  box is scaled up to cover the same area. transform is safe
+                  here — the glows are position:absolute + pointer-events:none,
+                  and body already sets overflow-x:hidden.
+
+   The stop list is the numerically computed profile of a blurred disc,
+   normalised to that full extent. It is shape-invariant across every σ/R this
+   site uses (0.46–0.80): the largest normalised deviation is 0.12, which at
+   these opacities is under 0.01 of actual alpha, so one profile serves all. */
+.glow-circle,
+.hero-glow,
+.process-glow {
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.85;
+  --glow-k: 2.5;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+}
 .hero-glow {
   position: absolute;
   left: -100px; top: 0;
   width: 700px; height: 700px;
-  background: #2563eb;
+  /* was: background #2563eb + blur(160px) — R=350, σ=160 */
+  --glow-peak: 0.909;
+  --glow-k: 2.37;
+  transform: scale(var(--glow-k));
   border-radius: 50%;
-  filter: blur(160px);
   opacity: 0.18;
   pointer-events: none;
   z-index: 0;
@@ -184,9 +254,9 @@ nav {
   display: flex; align-items: center;
   gap: 32px; margin: 0;
 }
-/* "Websites" — gradient text, Poppins Bold */
+/* "Websites" — gradient text, Satoshi Bold */
 .hero-h1-italic {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 700;
   font-size: 96px; line-height: 96px;
   background: linear-gradient(to right, #2563eb, #3b82f6);
@@ -220,7 +290,7 @@ html[lang="fr"] .hero-h1-row { display: none; }
 /* ── FRENCH SECTION HEADING OVERRIDES ── */
 /* Hero H1: blue gradient on "des sites" */
 html[lang="fr"] .hero-h1-line1 em {
-  font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 700;
+  font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 700;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -356,7 +426,9 @@ html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unse
 /* ── GRID SYSTEM ── */
 /* Single source of truth for all section widths */
 .container {
-  max-width: 1440px;
+  /* 1280 rather than 1440: at 1440 the text measure ran long and card
+     grids spread thin. Narrower reads as more deliberately composed. */
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 80px;
   width: 100%;
@@ -406,11 +478,14 @@ html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unse
 .work-h-line1 {
   display: inline;
 }
-.work-h-see   { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; }
-.work-h-accent { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; margin-inline-start: 0.25em; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.work-h-see   { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; color: #fff; }
+.work-h-accent { font-family: 'Satoshi', 'Inter', sans-serif; font-weight: 600; font-size: 60px; letter-spacing: -1.2px; line-height: 1.1; margin-inline-start: 0.25em; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .work-desc {
   font-size: 18px; color: #d4d4d8; line-height: 29.25px; max-width: 520px;
 }
+.work-desc a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.work-desc a:hover { text-decoration-color: #3b82f6; }
+.work-desc + .work-desc { margin-top: 12px; }
 
 /* ── PORTFOLIO BENTO GRID ── */
 .bento-grid {
@@ -609,12 +684,12 @@ html[lang="ar"] .marquee-text  { font-family: 'Cairo', sans-serif; letter-spacin
 }
 .testimonials-section > * { position: relative; z-index: 1; }
 .testimonials-heading {
-  font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 600; color: #fff;
+  font-family: 'Satoshi', 'Inter', sans-serif; font-size: 60px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1; text-align: center;
   max-width: 672px; margin: 0 auto 20px;
   text-wrap: balance;
 }
-.testimonials-heading em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.testimonials-heading em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .testimonials-sub { font-size: 18px; color: #a1a1aa; line-height: 28px; text-align: center; margin: 0 auto 40px; }
 
 /* carousel nav — arrows sit at the top-right, above the cards */
@@ -697,11 +772,14 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 .process-section > * { position: relative; z-index: 1; }
 .process-glow {
   position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
   width: 700px; height: 700px;
   border-radius: 50%;
-  background: #2563eb;
-  filter: blur(180px);
+  /* was: background #2563eb + blur(180px) — R=350, σ=180.
+     The percentage translate resolves against the unscaled 700px border box,
+     so appending scale() keeps the circle centred exactly where it was. */
+  --glow-peak: 0.849;
+  --glow-k: 2.54;
+  transform: translate(-50%, -50%) scale(var(--glow-k));
   opacity: 0.12;
   pointer-events: none;
   z-index: 0;
@@ -722,8 +800,8 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
   display: flex; flex-direction: column;
   align-items: flex-start; gap: 24px;
 }
-.process-h { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
-.process-h em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.process-h { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
+.process-h em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .process-right-text { font-size: 18px; color: #a3a3a3; line-height: 29.25px; max-width: 560px; margin: 0 auto; text-align: center; }
 
 /* ── PROCESS BODY: steps + image panel ── */
@@ -854,13 +932,13 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 }
 .faq-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 .faq-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   margin-bottom: 20px; max-width: 480px;
 }
 .faq-title em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -953,11 +1031,14 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 .process-section > * { position: relative; z-index: 1; }
 .process-glow {
   position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
   width: 700px; height: 700px;
   border-radius: 50%;
-  background: #2563eb;
-  filter: blur(180px);
+  /* was: background #2563eb + blur(180px) — R=350, σ=180.
+     The percentage translate resolves against the unscaled 700px border box,
+     so appending scale() keeps the circle centred exactly where it was. */
+  --glow-peak: 0.849;
+  --glow-k: 2.54;
+  transform: translate(-50%, -50%) scale(var(--glow-k));
   opacity: 0.12;
   pointer-events: none;
   z-index: 0;
@@ -978,8 +1059,8 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
   display: flex; flex-direction: column;
   align-items: flex-start; gap: 24px;
 }
-.process-h { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
-.process-h em { font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.process-h { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #fff; letter-spacing: -1.2px; line-height: 1.15; margin: 0 auto; max-width: 1000px; text-align: center; text-wrap: balance; }
+.process-h em { font-family: 'Satoshi', 'Inter', sans-serif; font-style: normal; font-weight: 600; background: linear-gradient(to right, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .process-right-text { font-size: 18px; color: #a3a3a3; line-height: 29.25px; max-width: 560px; margin: 0 auto; text-align: center; }
 
 /* ── PROCESS BODY: steps + image panel ── */
@@ -1091,14 +1172,14 @@ html[dir="rtl"] .testi-nav { justify-content: flex-start; }
 }
 .faq-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
 .faq-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 52px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.15;
   margin: 0 auto 20px; max-width: 1000px;
   text-align: center; text-wrap: balance;
 }
 .faq-title em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -1195,7 +1276,7 @@ footer > * { position: relative; z-index: 1; }
 .footer-cta-small { font-size: 36px; font-weight: 500; color: var(--muted2); letter-spacing: -0.9px; }
 .footer-cta-row { display: flex; align-items: center; gap: 16px; }
 .footer-dot { width: 16px; height: 16px; background: var(--blue); border-radius: 9999px; flex-shrink: 0; }
-.footer-phone { font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -1.5px; line-height: 60px; }
+.footer-phone { font-family: 'Inter', sans-serif; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -1.5px; line-height: 60px; }
 .footer-ctas { display: flex; gap: 8px; }
 .footer-mid {
   display: flex; align-items: center; justify-content: space-between;
@@ -1226,6 +1307,68 @@ footer > * { position: relative; z-index: 1; }
 .footer-legal { display: flex; gap: 24px; }
 .footer-legal a { font-size: 16px; color: var(--muted2); text-decoration: none; transition: color .2s; }
 .footer-legal a:hover { color: #fff; }
+
+/* ── FOOTER: 4-column grid ──
+   Brand / Services / Villes / Studio. Colours and type all
+   come from the existing tokens — nothing new is introduced here. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr 1fr;
+  gap: 48px;
+  padding: 0 0 48px;
+}
+.footer-brand-tagline {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 300px; margin: 18px 0 22px;
+}
+/* Column headers carry more weight than the links beneath them, so the
+   columns read as structure at a glance. Sizes stay on the existing
+   13/14/15/16 scale. */
+.footer-col-title {
+  font-size: 14px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #fff;
+  margin-bottom: 26px;
+}
+.footer-col-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-links a {
+  font-size: 15px; color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-col-links a:hover { color: #fff; }
+/* Cities are de-emphasised (smaller + dimmer than Services/Contact) and
+   reflowed into two columns, so this column stops towering over its
+   neighbours. Order matters: these override .footer-col-links above. */
+.footer-col-links--cities {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+}
+.footer-col-links--cities a { font-size: 14px; color: var(--muted2); }
+.footer-col-links--cities a:hover { color: #fff; }
+/* Contact column: site navigation split off from the contact methods
+   above it by a hairline, reusing the .footer-bottom border value. */
+.footer-col-nav {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid rgba(38,38,38,.4);
+}
+/* Brand-column CTA. The button itself is .faq-cta (the site's existing
+   WhatsApp button) — this only positions it. */
+.footer-cta-wrap { margin-top: 22px; }
+/* Small rounded icon buttons — same visual language as .social-link above. */
+.footer-social-btn {
+  width: 38px; height: 38px; border-radius: 9999px;
+  border: 1px solid #262626;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.footer-social-btn:hover { border-color: var(--blue); color: var(--blue); }
+html[dir="rtl"] .footer-grid { direction: rtl; }
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 36px; }
+  .footer-brand-tagline { max-width: none; }
+}
 
 /* ── FOOTER: city landing pages ──
    Small internal-linking row for the per-city SEO pages. Sits between the
@@ -1531,7 +1674,7 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   margin-bottom: 64px;
 }
 .transformation-h {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 60px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   margin: 0 auto 24px;
@@ -1539,7 +1682,7 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   text-wrap: balance;
 }
 .transformation-h em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -1644,35 +1787,43 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
 .pricing-section > * { position: relative; z-index: 1; }
 .pricing-glow { display: none; }
 
-/* ── AMBIENT GLOW CIRCLES ── */
+/* ── AMBIENT GLOW CIRCLES ──
+   Gradient + --glow-* come from the DECORATIVE GLOWS block near the top of this
+   file. All of these were blur(160px); because σ was fixed while the diameter
+   varied, the centre coverage varies a lot between sizes (a 400px circle under
+   blur(160px) only reaches 0.542), so --glow-peak is set per modifier. */
 .glow-circle {
   position: absolute;
   border-radius: 50%;
-  background: #2563eb;
-  filter: blur(160px);
+  transform: scale(var(--glow-k));
   opacity: 0.18;
   pointer-events: none;
   z-index: 0;
 }
-.glow-tl { width: 500px; height: 500px; top: -100px; left: -80px; }
-.glow-tr { width: 400px; height: 400px; top: -60px; right: -60px; opacity: 0.12; }
-.glow-c  { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.15; }
-.glow-br { width: 450px; height: 450px; bottom: -80px; right: -60px; opacity: 0.13; }
-.glow-bl { width: 450px; height: 450px; bottom: -80px; left: -60px; opacity: 0.13; }
+/* R=250, σ=160 */
+.glow-tl { width: 500px; height: 500px; top: -100px; left: -80px; --glow-peak: 0.705; --glow-k: 2.92; }
+/* R=200, σ=160 */
+.glow-tr { width: 400px; height: 400px; top: -60px; right: -60px; opacity: 0.12; --glow-peak: 0.542; --glow-k: 3.40; }
+/* R=300, σ=160 */
+.glow-c  { width: 600px; height: 600px; top: 50%; left: 50%; opacity: 0.15; --glow-peak: 0.828; --glow-k: 2.60;
+           transform: translate(-50%,-50%) scale(var(--glow-k)); }
+/* R=225, σ=160 */
+.glow-br { width: 450px; height: 450px; bottom: -80px; right: -60px; opacity: 0.13; --glow-peak: 0.628; --glow-k: 3.13; }
+.glow-bl { width: 450px; height: 450px; bottom: -80px; left: -60px; opacity: 0.13; --glow-peak: 0.628; --glow-k: 3.13; }
 
 .pricing-header {
   text-align: center;
   margin-bottom: 64px;
 }
 .pricing-h {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 60px; font-weight: 600; color: #fff;
   letter-spacing: -1.2px; line-height: 1.1;
   margin: 0 auto 16px;
   max-width: 760px; text-wrap: balance;
 }
 .pricing-h em {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-style: normal; font-weight: 600;
   background: linear-gradient(to right, #2563eb, #3b82f6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -2103,7 +2254,6 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   letter-spacing: -1.2px;
   margin-bottom: 0;
 }
-.services-h-italic { font-family: 'Playfair Display', serif; font-style: italic; color: var(--blue); font-weight: 500; }
 .services-h-dash { color: var(--blue); }
 .services-h-bold { font-weight: 600; color: #fff; }
 .services-h-bottom { font-size: 48px; font-weight: 600; color: #fff; line-height: 48px; letter-spacing: -1.2px; }
@@ -3417,6 +3567,57 @@ html[lang="ar"] .hero-h1-line3 {
   font-family: 'Cairo', sans-serif;
 }
 html[lang="ar"] { font-family: 'Cairo', sans-serif; }
+/* ---- ARABIC: headings must use Cairo too ----
+   Every heading class declares its own font-family (Satoshi). A declaration on
+   the element itself always beats the inherited html[lang="ar"] rule above, and
+   Satoshi carries no Arabic glyphs — so without these overrides Arabic headings
+   fell through to the system sans-serif rather than Cairo.
+   Specificity: html[lang="ar"] + class = (0,2,x), which outranks the bare class. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] .hero-h1, html[lang="ar"] .hero-h1-italic,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .footer-phone, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .city-page-title, html[lang="ar"] .projects-page-title,
+html[lang="ar"] .svc-band-title, html[lang="ar"] .svc-band-title em,
+html[lang="ar"] .svc-card-title, html[lang="ar"] .svc-cta-title,
+html[lang="ar"] .case-block-title, html[lang="ar"] .feature-project-title,
+html[lang="ar"] .cs-hero-title, html[lang="ar"] .cs-section-title,
+html[lang="ar"] .cs-mid-cta-title, html[lang="ar"] .cs-other-title,
+html[lang="ar"] .cs-faq-title, html[lang="ar"] .cs-proj-card-name,
+html[lang="ar"] .lp-h1, html[lang="ar"] .lp-h2,
+html[lang="ar"] .lp-showcase-title, html[lang="ar"] .lp-ledger-title,
+html[lang="ar"] .lp-cta-title, html[lang="ar"] .lp-track-title,
+html[lang="ar"] .lp-statement-text, html[lang="ar"] .lp-work-name,
+html[lang="ar"] .lp-ledger-num, html[lang="ar"] .lp-journey-label {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* A handful of headings carry font-family in a style="" attribute (the footer
+   display line, the case-study section titles). Inline styles outrank every
+   selector, so these are the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+/* A few Latin-side rules pin Inter explicitly, which likewise beats the
+   inherited Cairo. Each override below mirrors the original selector's
+   specificity so it wins (.hero .hero-ctas .btn-* is three classes deep). */
+html[lang="ar"] .hero-desc,
+html[lang="ar"] .bento-title,
+html[lang="ar"] .flower-label,
+html[lang="ar"] .flower-num,
+html[lang="ar"] .hero .hero-ctas .btn-primary,
+html[lang="ar"] .hero .hero-ctas .btn-secondary {
+  font-family: 'Cairo', sans-serif;
+}
+
+
 
 /* ---- AR HERO SIZE OVERRIDES ---- */
 html[lang="ar"] .hero-h1-line1  { font-size: 80px; line-height: 86px; letter-spacing: -1.5px; }
@@ -3621,10 +3822,9 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 @media (max-width: 768px) {
   .hero .hero-h1 .blur-word { animation-delay: 0s !important; }
 }
-/* FR headline: capped at 58px so both lines stay on one row each. */
-html[lang="fr"] .hero .hero-h1 {
-  font-size: clamp(26px, 4.5vw, 58px);
-}
+/* FR headline shares the EN/AR scale — no separate cap, so the three languages
+   render at the same size and weight. The FR lines are short enough to stay on
+   one row each at 72px within the 920px max-width. */
 .hero .hero-desc {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -3652,6 +3852,46 @@ html[lang="fr"] .hero .hero-h1 {
   min-width: 0;
   font-family: 'Inter', sans-serif;
 }
+/* Short desktop viewports (15.6" 1366x768 laptops, and 1080p at 125–150% OS
+   scaling). The hero is sized off width alone, so on a wide-but-short screen
+   the 230px top padding + 72px headline + 128px strip margin push the mockup
+   cards entirely below the fold. Scale the vertical rhythm down by viewport
+   height so the cards stay in the first view, as they do on a tall monitor.
+   min-width guard keeps the mobile hero (absolute cards at 82vh) untouched. */
+@media (min-width: 769px) and (max-height: 900px) {
+  .hero {
+    padding-top: 150px;
+    padding-bottom: 0;
+    /* Anchor the strip at 78vh and let the hero box grow past the fold to
+       contain it, so only the top of the cards shows and the rest is
+       revealed on scroll — same pattern as the mobile hero. Without the
+       taller min-height, .hero's overflow:hidden would crop the cards for
+       good instead of merely placing them below the fold. */
+    min-height: calc(78vh + 329px);
+  }
+  .hero .hero-title-block { gap: 26px; }
+  .hero .hero-h1 { font-size: clamp(32px, 5vw, 56px); }
+  .hero .hero-desc { font-size: 16px; line-height: 26px; }
+  .hero .hero-bottom-mockups {
+    position: absolute;
+    left: 0; right: 0;
+    top: 78vh;
+    width: 100%;
+    margin-top: 0;
+    /* card height + the 20px nth-child(even) stagger, or the offset cards
+       get their bottoms clipped by the container. */
+    height: 305px;
+  }
+  .hero-bmock-item { width: 508px; height: 285px; }
+}
+@media (min-width: 769px) and (max-height: 760px) {
+  .hero { padding-top: 120px; min-height: calc(78vh + 284px); }
+  .hero .hero-title-block { gap: 20px; }
+  .hero .hero-h1 { font-size: clamp(30px, 4.6vw, 46px); }
+  .hero .hero-desc { font-size: 15px; line-height: 24px; }
+  .hero .hero-bottom-mockups { height: 260px; }
+  .hero-bmock-item { width: 428px; height: 240px; }
+}
 
 /* ════════════════════════════════════════════════════════════════════════
    CSP hardening: de-inlined index.html style="" attributes.
@@ -3674,9 +3914,13 @@ html[lang="fr"] .hero .hero-h1 {
 .bento-pos-4 { left: 166px;    top: 39px; }
 .bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 .bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
-.glow-tl-soft  { opacity: 0.12; filter: blur(180px); }
-.glow-c-soft   { opacity: 0.15; filter: blur(150px); }
-.glow-c-footer { opacity: 0.13; filter: blur(200px); width: 800px; height: 800px; }
+/* Softer variants of the ambient circles. Only the --glow-* values change —
+   the transform declared on .glow-circle/.glow-c reads var(--glow-k) off the
+   element, so overriding the property here is enough. */
+.glow-tl-soft  { opacity: 0.12; --glow-peak: 0.619; --glow-k: 3.16; } /* 500px, σ=180 */
+.glow-c-soft   { opacity: 0.15; --glow-peak: 0.865; --glow-k: 2.50; } /* 600px, σ=150 */
+.glow-c-footer { opacity: 0.13; width: 800px; height: 800px;
+                 --glow-peak: 0.865; --glow-k: 2.50; }                /* 800px, σ=200 */
 .compare-img {
   position: absolute; width: 100%; height: 100%;
   object-fit: cover; object-position: top center; top: 0; left: 0;
@@ -3688,7 +3932,7 @@ html[lang="fr"] .hero .hero-h1 {
 .pricing-currency.pc-unit { font-size: 0.6em; opacity: 0.7; }
 .btn-primary.btn-block { width: 100%; justify-content: center; }
 .footer-cta-h {
-  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(36px, 6.5vw, 72px);
   font-weight: 700; color: #fff;
   letter-spacing: -0.033em; line-height: 1.333;
@@ -3698,3 +3942,108 @@ html[lang="fr"] .hero .hero-h1 {
   border-radius: 50%; display: block;
 }
 .bento-hover-img.is-static { opacity: 1; transform: none; }
+
+/* Inline links inside the city-page sector note (markup lives in each city
+   page's inline <style>; only the anchor treatment is shared here). */
+.svc-band-note a { color: #fff; text-decoration: underline; text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.svc-band-note a:hover { text-decoration-color: var(--blue); }
+
+/* ═══════════════════════════════════════════════════
+   PORTFOLIO BENTO — TABLET & SMALL LAPTOP (769–1200px)
+   Between the ≤768px full-bleed patch and the 12-column
+   desktop bento there was a dead zone: the cards kept the
+   desktop layout, so each preview stayed a fixed 342px-wide
+   screenshot absolutely positioned at a hardcoded offset
+   (.bento-pos-1..4) inside a 420px-tall thumb. Once the
+   column narrows past ~1200px that image no longer fills
+   its card and leaves dead navy space around it.
+   Here the grid drops to two equal columns and every
+   preview fills its thumb (cover, cropped from the top),
+   which is the same treatment mobile and desktop already get.
+   Scoped as a range so neither neighbour is touched.
+═══════════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 24px;
+  }
+  /* Equal half-width cards across the whole set — the asymmetric
+     7/5 desktop spans give wildly different thumb heights once
+     there are only two columns. */
+  .bento-card,
+  .bento-card-1,
+  .bento-card-2,
+  .bento-card-3,
+  .bento-card-4,
+  .bento-card-5,
+  .bento-card-6 {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: start;
+    padding: 16px;
+    gap: 16px;
+  }
+  .bento-thumb {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    /* Forces a compositing layer so the rounded corners clip the
+       absolutely-positioned image (Safari otherwise ignores
+       overflow:hidden + border-radius for absolute children). */
+    transform: translateZ(0);
+  }
+  .bento-thumb img:not(.bento-hover-img) {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    border-radius: 16px;
+  }
+  .bento-title { font-size: 20px; line-height: 28px; }
+  .bento-cat   { font-size: 14px; line-height: 20px; }
+  /* The label inside the arrow button would wrap the info row at
+     this width, so keep the button at its collapsed size. */
+  .bento-card:hover .bento-btn-expand { width: 44px; gap: 0; }
+  .bento-card:hover .bento-btn-expand span { max-width: 0; opacity: 0; }
+}
+
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Below 767px site.css makes .nav-inner transparent with !important and moves
+     the colour to nav, so this only applies to the tablet pill. */
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
+}
+
+/* ══ STACK SECTION (partials/stack-section.html) ══════════════════════════
+   Shared so the partial can be dropped on any page. Everything inside the
+   grid is an existing component; only the column count and the dark-mark
+   inversion need rules of their own. */
+@media (max-width: 1000px) {
+  #stack .container > div[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 560px) {
+  #stack .container > div[style*="repeat(4"] { grid-template-columns: 1fr !important; }
+}
+[dir="rtl"] #stack .container > div[style*="repeat(4"] { text-align: right !important; }
+/* Marks drawn black-on-transparent (Next.js, GitHub) would disappear on the
+   dark tile. Inverting gives the official light-on-dark variant. */
+html[data-theme="dark"] .stack-logo--invert { filter: invert(1); }

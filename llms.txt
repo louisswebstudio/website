@@ -1,49 +1,42 @@
 # Louiss Web Studio
 
-> Web design and development studio based in Morocco, building custom websites
-> for businesses in Morocco and international clients abroad.
-
-## About
-
-Louiss Web Studio designs and builds custom, conversion-focused websites.
-Full-stack development using Next.js, Tailwind, Sanity CMS, and vanilla
-HTML/CSS/JS, deployed on Vercel or Netlify. Design work done in Figma.
+> Web design and development studio based in Tangier, Morocco, building fast, conversion-focused websites for local and regional businesses.
 
 ## Services
+Design-first web development: Figma to production, or a full build from scratch.
+- For direct clients: custom design in Figma, built end to end; Next.js, Tailwind or vanilla HTML/CSS/JS depending on project needs; headless CMS setup a non-developer team can manage; deployment, DNS and domain configuration handled.
+- For agencies: pixel-accurate implementation from Figma files, fast turnaround for client deadlines, clean handoff with documented code, white-label delivery available.
+- For international clients: multilingual builds in French, English and Arabic (RTL included); custom UI/UX and full-stack development, never a template; remote collaboration with clear deliverables.
 
-- Custom website design and development for small and medium businesses in Morocco
-- Full-stack web development for direct clients abroad (multilingual sites,
-  headless CMS, custom booking/e-commerce flows)
-- Figma-to-code development for design agencies that need execution capacity
-- Local SEO and Google Business Profile setup for Moroccan businesses
-
-## Industries served
-
-Restaurants, hospitality (riads, guesthouses), dental and medical clinics,
-car rental agencies, real estate, e-commerce, travel and tourism.
-
-## Notable projects
-
-- Maison Monchef: multilingual (French/English/Arabic, RTL) real estate
-  platform for a Dubai-based client, built with Next.js and Sanity CMS
-- El Majdoub Immobilier: short-term rental platform in Agadir, Morocco
-- Adventure Keys: travel and tourism booking website
-- Kosmeticas: e-commerce design for a Moroccan perfumery
-
-## Pages
-
-- Homepage: https://www.louisswebstudio.com
-- Services (agencies and direct clients abroad): https://www.louisswebstudio.com/services.html
-- Pricing: https://www.louisswebstudio.com/tarifs.html
-- Projects: https://www.louisswebstudio.com/projects.html
-- Création site web Casablanca (French, local): https://www.louisswebstudio.com/creation-site-web-casablanca
-- Blog: https://www.louisswebstudio.com/blog/
-- Contact: https://www.louisswebstudio.com/contact.html
-
-## Location
-
-Morocco. Serves clients across Morocco and international clients remotely.
+## Cities served
+- [Morocco — nationwide overview](https://www.louisswebstudio.com/creation-site-web-maroc)
+- [Tanger](https://www.louisswebstudio.com/creation-site-web-tanger)
+- [Casablanca](https://www.louisswebstudio.com/creation-site-web-casablanca)
+- [Rabat](https://www.louisswebstudio.com/creation-site-web-rabat)
+- [Agadir](https://www.louisswebstudio.com/creation-site-web-agadir)
+- [Marrakech](https://www.louisswebstudio.com/creation-site-web-marrakech)
+- [Fès](https://www.louisswebstudio.com/creation-site-web-fes)
+- [Essaouira](https://www.louisswebstudio.com/creation-site-web-essaouira)
+- [Kénitra](https://www.louisswebstudio.com/creation-site-web-kenitra)
+- [Oujda](https://www.louisswebstudio.com/creation-site-web-oujda)
 
 ## Contact
+- WhatsApp: +212 716490397
+- Website: https://www.louisswebstudio.com
 
-WhatsApp and contact form available at https://www.louisswebstudio.com/contact.html
+## Key pages
+- Homepage: https://www.louisswebstudio.com
+- Portfolio/Projects: https://www.louisswebstudio.com/projects
+- Pricing: https://www.louisswebstudio.com/tarifs
+- Blog: https://www.louisswebstudio.com/blog/
+
+## Specialist pages
+- [Real estate web design](https://www.louisswebstudio.com/real-estate-web-design)
+- [Tourism and travel web design](https://www.louisswebstudio.com/tourism-web-design)
+- [International web design and development](https://www.louisswebstudio.com/international-web-design)
+
+## Notable projects
+- [Adventure Keys](https://www.louisswebstudio.com/adventure-keys) — website redesign for a travel agency, built to turn visitors into bookings
+- [Maison Monchef](https://www.louisswebstudio.com/maison-monchef) — multilingual (French, English, Arabic) real estate platform for a Dubai-based client, built with Next.js and Sanity CMS
+- [El Majdoub Immobilier](https://www.louisswebstudio.com/el-majdoub) — real estate rental platform connecting owners and qualified tenants in Agadir
+- [Digiseo](https://www.louisswebstudio.com/digiseo) — website redesign for an SEO and digital marketing agency

@@ -6,6 +6,10 @@
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#060607">
+<!-- Resolves the colour theme before first paint. Render-blocking on purpose:
+     a deferred script would let the dark palette paint once and then snap. -->
+<script src="assets/theme-init.js"></script>
 <meta name="robots" content="index, follow">
 <title data-en="Travel Agency Website: Case Study | Louiss Web Studio" data-fr="Site Web Agence de Voyage : Étude de Cas | Louiss Web Studio" data-ar="موقع وكالة أسفار: دراسة حالة | Louiss Web Studio">Site Web Agence de Voyage : Étude de Cas | Louiss Web Studio</title>
 <link rel="canonical" href="https://www.louisswebstudio.com/adventure-keys">
@@ -22,10 +26,10 @@
 <meta name="twitter:image" content="https://www.louisswebstudio.com/assets/images/hover%20adventure%20keys.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
 </noscript>
 <script defer src="assets/fonts.js"></script>
@@ -33,7 +37,18 @@
 <style>
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* The decorative glows are scaled-up gradient boxes now (they used to be
+     small boxes with a wide filter: blur). A filter's ink overflow does not
+     count toward scrollable overflow, but a transform's does — so without this
+     the glows that sit in non-clipping sections inflate documentElement
+     .scrollWidth. body's overflow-x:hidden already stops the page being panned;
+     `clip` additionally makes the box non-scrollable so the width never grows.
+     Browsers without overflow:clip (Safari < 16) fall back to that same
+     body-level clipping, which is the behaviour they already shipped. */
+  overflow-x: clip;
+}
 body {
   background: #060607;
   color: #fff;
@@ -232,10 +247,47 @@ nav {
 }
 
 /* ─── SHARED ─────────────────────────────────────────── */
-.container { max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%; }
-.glow-circle { position: absolute; border-radius: 50%; background: #2563eb; filter: blur(160px); opacity: 0.18; pointer-events: none; z-index: 0; }
-.glow-tl { width: 500px; height: 500px; top: -100px; left: -80px; }
-.glow-c  { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.15; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 80px; width: 100%; }
+/* Decorative glow. Was a solid #2563eb circle under filter: blur(160px) — a
+   blur that wide forces a multi-pass gaussian over a ~3x oversized offscreen
+   surface on every repaint. A blurred solid disc is just a radial alpha ramp,
+   so these stops reproduce it at zero paint cost. --glow-peak is the centre
+   coverage the disc actually reaches at this radius/sigma, and --glow-k scales
+   the box out to the radius+3sigma the blur used to bleed into. Mirrored from
+   the DECORATIVE GLOWS block in assets/site.css (this page is self-contained). */
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+  --glow-rgb: 37, 99, 235;
+  --glow-peak: 0.85;
+  --glow-k: 2.5;
+  background: radial-gradient(circle closest-side,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 1))      0%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.984))  6.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.936))  12.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.858))  18.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.754))  25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.632))  31.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.501))  37.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.374))  43.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.262))  50%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.171))  56.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.103))  62.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.058))  68.75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.030))  75%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.014))  81.25%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.006))  87.5%,
+    rgba(var(--glow-rgb), calc(var(--glow-peak) * 0.003))  93.75%,
+    rgba(var(--glow-rgb), 0)                               100%);
+  transform: scale(var(--glow-k));
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-tl { width: 500px; height: 500px; top: -100px; left: -80px; --glow-peak: 0.705; --glow-k: 2.92; } /* R=250, sigma=160 */
+.glow-c  { width: 600px; height: 600px; top: 50%; left: 50%; opacity: 0.15;
+           --glow-peak: 0.828; --glow-k: 2.60; /* R=300, sigma=160 */
+           transform: translate(-50%,-50%) scale(var(--glow-k)); }
 
 /* Reveal */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
@@ -398,6 +450,67 @@ footer > * { position: relative; z-index: 1; }
 .footer-legal { display: flex; gap: 24px; }
 .footer-legal a { font-size: 16px; color: var(--muted2); text-decoration: none; transition: color .2s; }
 .footer-legal a:hover { color: #fff; }
+/* ── FOOTER: 4-column grid ──
+   Brand / Services / Villes / Studio. Colours and type all
+   come from the existing tokens — nothing new is introduced here. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr 1fr;
+  gap: 48px;
+  padding: 0 0 48px;
+}
+.footer-brand-tagline {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 300px; margin: 18px 0 22px;
+}
+/* Column headers carry more weight than the links beneath them, so the
+   columns read as structure at a glance. Sizes stay on the existing
+   13/14/15/16 scale. */
+.footer-col-title {
+  font-size: 14px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #fff;
+  margin-bottom: 26px;
+}
+.footer-col-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-links a {
+  font-size: 15px; color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-col-links a:hover { color: #fff; }
+/* Cities are de-emphasised (smaller + dimmer than Services/Contact) and
+   reflowed into two columns, so this column stops towering over its
+   neighbours. Order matters: these override .footer-col-links above. */
+.footer-col-links--cities {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+}
+.footer-col-links--cities a { font-size: 14px; color: var(--muted2); }
+.footer-col-links--cities a:hover { color: #fff; }
+/* Contact column: site navigation split off from the contact methods
+   above it by a hairline, reusing the .footer-bottom border value. */
+.footer-col-nav {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid rgba(38,38,38,.4);
+}
+/* Brand-column CTA. The button itself is .faq-cta (the site's existing
+   WhatsApp button) — this only positions it. */
+.footer-cta-wrap { margin-top: 22px; }
+/* Small rounded icon buttons — same visual language as .social-link above. */
+.footer-social-btn {
+  width: 38px; height: 38px; border-radius: 9999px;
+  border: 1px solid #262626;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.footer-social-btn:hover { border-color: var(--blue); color: var(--blue); }
+html[dir="rtl"] .footer-grid { direction: rtl; }
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 36px; }
+  .footer-brand-tagline { max-width: none; }
+}
 
 /* WA float */
 .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; align-items: center; gap: 10px; text-decoration: none; animation: waPop .5s cubic-bezier(.16,1,.3,1) 1.5s both; }
@@ -665,6 +778,9 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   }
 }
 </style>
+<!-- Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+     theme is untouched. See assets/theme-init.js. -->
+<link rel="stylesheet" href="assets/theme.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -719,6 +835,21 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Adventure Keys, Web Design & Visual Identity",
+  "description": "Étude de cas : comment nous avons refondu le site d'Adventure Keys, agence de voyage, pour transformer les visiteurs en réservations. Démo gratuite offerte.",
+  "url": "https://www.louisswebstudio.com/adventure-keys",
+  "image": "https://www.louisswebstudio.com/assets/images/hover%20adventure%20keys.webp",
+  "creator": {
+    "@type": "Organization",
+    "name": "Louiss Web Studio",
+    "url": "https://www.louisswebstudio.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
@@ -764,6 +895,69 @@ html[dir="rtl"] .footer-cities-links { flex-direction: row-reverse; }
   ]
 }
 </script>
+<!-- Type-system rules mirrored from assets/site.css. This page is self-contained
+     (it does not link site.css), so per CLAUDE.md the shared rules have to be
+     repeated here or they never reach it. -->
+<style>
+/* Form controls don't inherit the page font by default; without this they fall
+   back to the UA font (Arial), which puts a family outside the type system. */
+button, input, select, textarea { font-family: inherit; }
+
+/* ---- ARABIC: everything must resolve to Cairo ----
+   Heading rules declare their own family (Satoshi), and a declaration on the
+   element always beats the inherited html[lang="ar"] rule. Satoshi carries no
+   Arabic glyphs, so without these Arabic headings fell back to system sans. */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[lang="ar"] em, html[lang="ar"] .bento-title,
+html[lang="ar"] .faq-title, html[lang="ar"] .faq-title em,
+html[lang="ar"] .process-h, html[lang="ar"] .process-h em,
+html[lang="ar"] .pricing-h, html[lang="ar"] .pricing-h em,
+html[lang="ar"] .work-h-see, html[lang="ar"] .work-h-accent,
+html[lang="ar"] .testimonials-heading, html[lang="ar"] .testimonials-heading em,
+html[lang="ar"] .transformation-h, html[lang="ar"] .transformation-h em,
+html[lang="ar"] .projects-page-title, html[lang="ar"] .footer-cta-h,
+html[lang="ar"] .footer-phone, html[lang="ar"] .svc-band-title,
+html[lang="ar"] .svc-band-title em, html[lang="ar"] .svc-card-title,
+html[lang="ar"] .svc-cta-title, html[lang="ar"] .cs-hero-title,
+html[lang="ar"] .cs-section-title, html[lang="ar"] .cs-mid-cta-title,
+html[lang="ar"] .cs-other-title, html[lang="ar"] .cs-faq-title,
+html[lang="ar"] .cs-proj-card-name, html[lang="ar"] .cs-live-ring-text {
+  font-family: 'Cairo', sans-serif;
+}
+/* Catch-all: any element-level family declaration on a page-specific class
+   would otherwise keep Latin type on Arabic. (0,1,2) outranks a bare class. */
+html[lang="ar"] body * { font-family: 'Cairo', sans-serif; }
+
+/* Some headings carry font-family in a style="" attribute; inline styles
+   outrank every selector, so this is the one place !important is warranted. */
+html[lang="ar"] [style*="Satoshi"] { font-family: 'Cairo', sans-serif !important; }
+
+/* ── FIXED NAV: no backdrop blur on touch devices ──────────────────────────
+   nav is position:fixed, so backdrop-filter forces the compositor to re-sample
+   and re-blur the region behind it on every scroll frame — and on this site
+   that region is the animating starfield. It is the most expensive thing about
+   scrolling on a phone.
+
+   It also buys almost nothing here: both nav backgrounds are already 90–95%
+   opaque, so only 5–10% of the backdrop is visible to be frosted at all.
+   Dropping the blur on touch and closing that remaining alpha is visually a
+   wash. Pointer devices keep the effect. */
+@media (hover: none) {
+  nav,
+  .nav-inner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Below 767px site.css makes .nav-inner transparent with !important and moves
+     the colour to nav, so this only applies to the tablet pill. */
+  .nav-inner { background: rgba(18,18,18,0.94); }
+}
+@media (hover: none) and (max-width: 767px) {
+  nav { background: rgba(14,14,14,0.97); }
+}
+</style>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -780,11 +974,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════ NAV ════ -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
     <div class="nav-links">
-      <a href="/projects"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projects</a>
-      <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
-      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+      <a href="/projects"      class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+      <a href="/faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
     </div>
     <div class="nav-right">
       <div class="lang-switcher" id="langSwitcher">
@@ -801,12 +995,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="lang-option" id="opt-ar" onclick="setLang('ar')"><div class="lang-opt-flag"><img src="https://flagcdn.com/w40/sa.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div><span class="lang-opt-code">العربية</span></div>
         </div>
       </div>
+      <!-- Theme toggle (desktop navbar; the mobile nav has its own copy inside
+           the slide-in menu). aria-label / aria-pressed are kept in sync by
+           assets/theme-toggle.js, which also localises them. -->
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
       </button>
-      <a href="/contact" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Book a Call</a>
+      <a href="/contact" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
     </div>
   </div>
 </nav>
@@ -815,16 +1023,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
   <div class="menu-top">
-    <a href="/" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto"></a>
+    <a href="/" class="mob-overlay-logo" aria-label="Home"><img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light"></a>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
   </div>
   <div class="menu-center">
-    <a href="/projects"           class="mobile-menu-link" data-en="Projects"  data-fr="Projets" data-ar="المشاريع">Projects</a>
-    <a href="/#faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
-    <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"   data-fr="Contact" data-ar="تواصل معنا">Contact Us</a>
+    <a href="/projects"           class="mobile-menu-link" data-en="Projects"  data-fr="Projets" data-ar="المشاريع">Projets</a>
+    <a href="/faq"      class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/contact"      class="mobile-menu-link" data-en="Contact Us"   data-fr="Contact" data-ar="تواصل معنا">Contact</a>
   </div>
+
+  <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+       button, so assets/theme-toggle.js binds both and keeps them in sync.
+       The label text is set from JS to match the active language. -->
+  <div class="theme-toggle-row">
+    <span class="theme-toggle-label">Dark mode</span>
+    <button type="button" class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-pressed="true" aria-label="Switch to light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+    </button>
+  </div>
+
+
   <div class="menu-bottom">
-    <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Start a Project</a>
+    <a href="/contact#cal-embed" class="mobile-menu-cta" data-en="Start a Project" data-fr="Démarrer un Projet" data-ar="ابدأ مشروعك">Démarrer un Projet</a>
   </div>
 </div>
 
@@ -833,24 +1059,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="glow-circle glow-tl" style="opacity:0.12;"></div>
   <div class="container">
     <h1 class="cs-hero-title reveal" style="text-wrap:balance;"
-      data-en="Adventure Keys — Web Design<br>&amp; Visual Identity"
-      data-fr="Adventure Keys — Design Web<br>&amp; Identité Visuelle"
-      data-ar="آدفنتشر كيز — تصميم ويب<br>وهوية بصرية">Adventure Keys — Web Design<br>&amp; Visual Identity</h1>
+      data-en="Adventure Keys, Web Design<br>&amp; Visual Identity"
+      data-fr="Adventure Keys, Design Web<br>&amp; Identité Visuelle"
+      data-ar="آدفنتشر كيز، تصميم ويب<br>وهوية بصرية">Adventure Keys, Design Web<br>&amp; Identité Visuelle</h1>
     <p class="cs-hero-sub reveal"
       data-en="Web design for a surf school in Taghazout, Morocco. Full visual identity, UX design, and mobile-first layout built to turn visitors into bookings."
       data-fr="Design web pour une école de surf à Taghazout, Maroc. Identité visuelle complète, design UX et mise en page mobile-first conçus pour transformer les visiteurs en réservations."
-      data-ar="تصميم موقع لمدرسة ركوب الأمواج في تغازوت، المغرب. هوية بصرية متكاملة، تصميم تجربة المستخدم، وتخطيط متوافق مع الجوال، مصمم لتحويل الزوار إلى حجوزات.">Web design for a surf school in Taghazout, Morocco. Full visual identity, UX design, and mobile-first layout built to turn visitors into bookings.</p>
+      data-ar="تصميم موقع لمدرسة ركوب الأمواج في تغازوت، المغرب. هوية بصرية متكاملة، تصميم تجربة المستخدم، وتخطيط متوافق مع الجوال، مصمم لتحويل الزوار إلى حجوزات.">Design web pour une école de surf à Taghazout, Maroc. Identité visuelle complète, design UX et mise en page mobile-first conçus pour transformer les visiteurs en réservations.</p>
     <div class="cs-meta-bar reveal" style="padding:25px 0; justify-content:center; gap:48px;">
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
         <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Client" data-fr="Client" data-ar="العميل">Client</span>
-        <span style="font-size:20px; font-weight:600; color:rgba(255,255,255,0.85);">Adventure Keys</span>
+        <span class="cs-meta-value" style="font-size:20px; font-weight:600;">Adventure Keys</span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-        <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Year" data-fr="Année" data-ar="السنة">Year</span>
-        <span style="font-size:20px; font-weight:600; color:rgba(255,255,255,0.85);">2024</span>
+        <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Year" data-fr="Année" data-ar="السنة">Année</span>
+        <span class="cs-meta-value" style="font-size:20px; font-weight:600;">2024</span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-        <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Scope" data-fr="Périmètre" data-ar="النطاق">Scope</span>
+        <span style="font-size:10px; font-weight:700; letter-spacing:1.4px; color:#737373; text-transform:uppercase;" data-en="Scope" data-fr="Périmètre" data-ar="النطاق">Périmètre</span>
         <span style="font-size:20px; font-weight:600; color:rgba(255,255,255,0.85);" data-en="Web Design · UI/UX" data-fr="Web Design · UI/UX" data-ar="تصميم ويب · واجهة المستخدم">Web Design · UI/UX</span>
       </div>
     </div>
@@ -871,9 +1097,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <textPath href="#cs-live-circle" startOffset="0%"
                 data-en="VISIT LIVE · VISIT LIVE · VISIT LIVE · "
                 data-fr="VOIR EN LIGNE · VOIR EN LIGNE · VOIR EN LIGNE · "
-                data-ar="زيارة الموقع · زيارة الموقع · زيارة الموقع · ">
-                VISIT LIVE · VISIT LIVE · VISIT LIVE ·
-              </textPath>
+                data-ar="زيارة الموقع · زيارة الموقع · زيارة الموقع · ">VOIR EN LIGNE · VOIR EN LIGNE · VOIR EN LIGNE · </textPath>
             </text>
           </svg>
           <span class="cs-live-icon" aria-hidden="true">
@@ -895,14 +1119,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 style="font-family:'Satoshi','Inter',sans-serif; font-weight:700; color:#fff; letter-spacing:-1px; text-align:center; margin-bottom:20px;"
         data-en="Visual Direction &amp; Design System"
         data-fr="Direction Visuelle &amp; Système de Design"
-        data-ar="التوجه البصري ونظام التصميم">Visual Direction &amp; Design System</h2>
+        data-ar="التوجه البصري ونظام التصميم">Direction Visuelle &amp; Système de Design</h2>
       <div style="color:#A3A3A3; font-size:16px; line-height:1.85; max-width:748px; margin:0 auto; text-align:center;"
         data-en="&lt;p&gt;The design needed to feel like the Atlantic coast without falling into generic surf-shop clichés. I built a warm, cohesive visual language colour palette, typography pairing, spacing system, that carries consistently across every page and component.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;The result is a website that feels premium but approachable: the kind of surf school international visitors trust to book their first lesson with.&lt;/p&gt;"
         data-fr="&lt;p&gt;Le design devait évoquer la côte atlantique sans tomber dans les clichés génériques des boutiques de surf. J'ai construit un langage visuel chaleureux et cohérent, palette de couleurs, association typographique, système d'espacement, qui se maintient de manière constante sur chaque page et composant.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;Le résultat est un site qui se sent premium mais accessible : le genre d'école de surf auquel les visiteurs internationaux font confiance pour réserver leur première leçon.&lt;/p&gt;"
-        data-ar="&lt;p&gt;كان التصميم بحاجة إلى أن يعكس روح ساحل الأطلسي دون الوقوع في كليشيهات محلات ركوب الأمواج المعتادة. بنيت لغة بصرية دافئة ومتماسكة، لوحة ألوان، ومزاوجة خطية، ونظام تباعد، تحافظ على اتساقها عبر كل صفحة ومكون.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;النتيجة موقع يبدو احترافياً وفي متناول الجميع في آنٍ واحد: النوع الذي يثق به الزوار الدوليون لحجز درسهم الأول.&lt;/p&gt;">
-        <p>The design needed to feel like the Atlantic coast without falling into generic surf-shop clichés. I built a warm, cohesive visual language colour palette, typography pairing, spacing system, that carries consistently across every page and component.</p>
-        <p style="margin-top:16px;">The result is a website that feels premium but approachable: the kind of surf school international visitors trust to book their first lesson with.</p>
-      </div>
+        data-ar="&lt;p&gt;كان التصميم بحاجة إلى أن يعكس روح ساحل الأطلسي دون الوقوع في كليشيهات محلات ركوب الأمواج المعتادة. بنيت لغة بصرية دافئة ومتماسكة، لوحة ألوان، ومزاوجة خطية، ونظام تباعد، تحافظ على اتساقها عبر كل صفحة ومكون.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;النتيجة موقع يبدو احترافياً وفي متناول الجميع في آنٍ واحد: النوع الذي يثق به الزوار الدوليون لحجز درسهم الأول.&lt;/p&gt;"><p>Le design devait évoquer la côte atlantique sans tomber dans les clichés génériques des boutiques de surf. J'ai construit un langage visuel chaleureux et cohérent, palette de couleurs, association typographique, système d'espacement, qui se maintient de manière constante sur chaque page et composant.</p><p style="margin-top:16px;">Le résultat est un site qui se sent premium mais accessible : le genre d'école de surf auquel les visiteurs internationaux font confiance pour réserver leur première leçon.</p></div>
     </div>
     <div class="reveal" style="display:flex; justify-content:center;">
       <div style="background:linear-gradient(107deg,#0D1A2E,#1E3A5F,#0B1F3A); border-radius:20px; width:932px; aspect-ratio:16/9; overflow:hidden; position:relative; max-width:100%;">
@@ -921,14 +1142,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 style="font-family:'Satoshi','Inter',sans-serif; font-weight:700; color:#fff; letter-spacing:-1px; text-align:center; margin-bottom:20px;"
         data-en="Conversion-Focused Layout"
         data-fr="Mise en Page Orientée Conversion"
-        data-ar="تخطيط موجه نحو التحويل">Conversion-Focused Layout</h2>
+        data-ar="تخطيط موجه نحو التحويل">Mise en Page Orientée Conversion</h2>
       <div style="color:#A3A3A3; font-size:16px; line-height:1.85; max-width:748px; margin:0 auto; text-align:center;"
         data-en="&lt;p&gt;Every screen was designed around one user journey: discover → explore → book. Session types are laid out visually with pricing, duration, and difficulty at a glance. Instructor profiles appear before the booking step to build trust at the right moment.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;Navigation is intentionally minimal. The booking CTA stays visible on scroll across mobile and desktop, always present, never intrusive.&lt;/p&gt;"
         data-fr="&lt;p&gt;Chaque écran a été conçu autour d'un seul parcours utilisateur : découvrir → explorer → réserver. Les types de sessions sont présentés visuellement avec le prix, la durée et le niveau de difficulté en un coup d'œil. Les profils des instructeurs apparaissent avant l'étape de réservation pour instaurer la confiance au bon moment.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;La navigation est intentionnellement minimale. Le CTA de réservation reste visible au défilement sur mobile et desktop, toujours présent, jamais intrusif.&lt;/p&gt;"
-        data-ar="&lt;p&gt;صُمِّمت كل شاشة حول رحلة مستخدم واحدة: اكتشاف ← استكشاف ← حجز. أنواع الجلسات معروضة بصرياً مع الأسعار والمدة ومستوى الصعوبة دفعةً واحدة. تظهر ملفات تعريف المدربين قبل خطوة الحجز لبناء الثقة في اللحظة المناسبة.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;التنقل بسيط ومتعمد. يظل زر الحجز مرئياً عند التمرير عبر الجوال وسطح المكتب، حاضر دائماً، غير مزعج أبداً.&lt;/p&gt;">
-        <p>Every screen was designed around one user journey: discover → explore → book. Session types are laid out visually with pricing, duration, and difficulty at a glance. Instructor profiles appear before the booking step to build trust at the right moment.</p>
-        <p style="margin-top:16px;">Navigation is intentionally minimal. The booking CTA stays visible on scroll across mobile and desktop, always present, never intrusive.</p>
-      </div>
+        data-ar="&lt;p&gt;صُمِّمت كل شاشة حول رحلة مستخدم واحدة: اكتشاف ← استكشاف ← حجز. أنواع الجلسات معروضة بصرياً مع الأسعار والمدة ومستوى الصعوبة دفعةً واحدة. تظهر ملفات تعريف المدربين قبل خطوة الحجز لبناء الثقة في اللحظة المناسبة.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;التنقل بسيط ومتعمد. يظل زر الحجز مرئياً عند التمرير عبر الجوال وسطح المكتب، حاضر دائماً، غير مزعج أبداً.&lt;/p&gt;"><p>Chaque écran a été conçu autour d'un seul parcours utilisateur : découvrir → explorer → réserver. Les types de sessions sont présentés visuellement avec le prix, la durée et le niveau de difficulté en un coup d'œil. Les profils des instructeurs apparaissent avant l'étape de réservation pour instaurer la confiance au bon moment.</p><p style="margin-top:16px;">La navigation est intentionnellement minimale. Le CTA de réservation reste visible au défilement sur mobile et desktop, toujours présent, jamais intrusif.</p></div>
     </div>
     <div class="reveal" style="display:flex; justify-content:center;">
       <div style="background:linear-gradient(107deg,#0D1A2E,#1E3A5F,#0B1F3A); border-radius:20px; width:932px; aspect-ratio:16/9; overflow:hidden; position:relative; max-width:100%;">
@@ -946,14 +1164,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 style="font-family:'Satoshi','Inter',sans-serif; font-weight:700; color:#fff; letter-spacing:-1px; text-align:center; margin-bottom:20px;"
         data-en="A Complete Booking System"
         data-fr="Un Système de Réservation Complet"
-        data-ar="نظام حجز متكامل">A Complete Booking System</h2>
+        data-ar="نظام حجز متكامل">Un Système de Réservation Complet</h2>
       <div style="color:#A3A3A3; font-size:16px; line-height:1.85; max-width:748px; margin:0 auto; text-align:center;"
         data-en="&lt;p&gt;Beyond the marketing site, Adventure Keys needed a way to manage bookings end to end. The design includes a full multi-step booking flow, package selection, date picking, room type, add-ons, and payment, all in a clean, guided experience that reduces drop-off at every step.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;The system was designed to work seamlessly across desktop and mobile, giving both guests and the team a reliable tool to manage reservations without friction.&lt;/p&gt;"
         data-fr="&lt;p&gt;Au-delà du site marketing, Adventure Keys avait besoin d'un outil pour gérer les réservations de bout en bout. Le design intègre un parcours de réservation complet en plusieurs étapes, sélection du forfait, choix des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée et claire qui réduit l'abandon à chaque étape.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;Le système a été conçu pour fonctionner parfaitement sur desktop et mobile, offrant aux clients comme à l'équipe un outil fiable pour gérer les réservations sans friction.&lt;/p&gt;"
-        data-ar="&lt;p&gt;بعيداً عن الموقع التسويقي، كانت Adventure Keys بحاجة إلى أداة لإدارة الحجوزات من الألف إلى الياء. يتضمن التصميم مسار حجز متعدد الخطوات، اختيار الباقة، وتحديد التواريخ، ونوع الغرفة، والإضافات، والدفع، في تجربة موجهة وواضحة تقلل من التخلي في كل خطوة.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;صُمِّم النظام للعمل بسلاسة على الكمبيوتر والجوال، مما يمنح الضيوف والفريق أداة موثوقة لإدارة الحجوزات دون عوائق.&lt;/p&gt;">
-        <p>Beyond the marketing site, Adventure Keys needed a way to manage bookings end to end. The design includes a full multi-step booking flow, package selection, date picking, room type, add-ons, and payment, all in a clean, guided experience that reduces drop-off at every step.</p>
-        <p style="margin-top:16px;">The system was designed to work seamlessly across desktop and mobile, giving both guests and the team a reliable tool to manage reservations without friction.</p>
-      </div>
+        data-ar="&lt;p&gt;بعيداً عن الموقع التسويقي، كانت Adventure Keys بحاجة إلى أداة لإدارة الحجوزات من الألف إلى الياء. يتضمن التصميم مسار حجز متعدد الخطوات، اختيار الباقة، وتحديد التواريخ، ونوع الغرفة، والإضافات، والدفع، في تجربة موجهة وواضحة تقلل من التخلي في كل خطوة.&lt;/p&gt;&lt;p style=&quot;margin-top:16px;&quot;&gt;صُمِّم النظام للعمل بسلاسة على الكمبيوتر والجوال، مما يمنح الضيوف والفريق أداة موثوقة لإدارة الحجوزات دون عوائق.&lt;/p&gt;"><p>Au-delà du site marketing, Adventure Keys avait besoin d'un outil pour gérer les réservations de bout en bout. Le design intègre un parcours de réservation complet en plusieurs étapes, sélection du forfait, choix des dates, type de chambre, options supplémentaires et paiement, dans une expérience guidée et claire qui réduit l'abandon à chaque étape.</p><p style="margin-top:16px;">Le système a été conçu pour fonctionner parfaitement sur desktop et mobile, offrant aux clients comme à l'équipe un outil fiable pour gérer les réservations sans friction.</p></div>
     </div>
     <div class="reveal" style="display:flex; justify-content:center;">
       <div style="background:linear-gradient(107deg,#0D1A2E,#1E3A5F,#0B1F3A); border-radius:20px; width:932px; aspect-ratio:16/9; overflow:hidden; position:relative; max-width:100%;">
@@ -969,11 +1184,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="glow-circle glow-c" style="opacity:0.09;"></div>
   <div class="container">
     <div class="reveal">
-      <p class="cs-mid-cta-eyebrow" data-en="Ready to grow?" data-fr="Prêt à grandir ?" data-ar="مستعد للنمو؟">Ready to grow?</p>
-      <h2 class="cs-mid-cta-title" data-en="Need a website<br>like this?" data-fr="Besoin d'un site<br>comme celui-ci ?" data-ar="تحتاج موقعاً<br>مثل هذا؟">Need a website like this?</h2>
-      <p class="cs-mid-cta-sub" data-en="We build fast, conversion-focused websites for growing businesses. Let's talk about yours." data-fr="Nous créons des sites rapides et orientés conversion pour les entreprises en croissance. Parlons du vôtre." data-ar="نبني مواقع سريعة وموجهة نحو التحويل للأعمال النامية. دعنا نتحدث عن مشروعك.">We build fast, conversion-focused websites for growing businesses. Let's talk about yours.</p>
-      <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20to%20start%20a%20project." data-wa-type="casestudy" class="cs-mid-cta-btn" data-en="Book a free call →" data-fr="Réserver un appel gratuit →" data-ar="← احجز مكالمة مجانية">Book a free call →</a>
-      <a href="https://wa.me/212716490397" class="cs-mid-cta-secondary" data-en="Or chat on WhatsApp" data-fr="Ou discuter sur WhatsApp" data-ar="أو تحدث عبر واتساب">Or chat on WhatsApp</a>
+      <p class="cs-mid-cta-eyebrow" data-en="Ready to grow?" data-fr="Prêt à grandir ?" data-ar="مستعد للنمو؟">Prêt à grandir ?</p>
+      <h2 class="cs-mid-cta-title" data-en="Need a website<br>like this?" data-fr="Besoin d'un site<br>comme celui-ci ?" data-ar="تحتاج موقعاً<br>مثل هذا؟">Besoin d'un site<br>comme celui-ci ?</h2>
+      <p class="cs-mid-cta-sub" data-en="We build fast, conversion-focused websites for growing businesses. Let's talk about yours." data-fr="Nous créons des sites rapides et orientés conversion pour les entreprises en croissance. Parlons du vôtre." data-ar="نبني مواقع سريعة وموجهة نحو التحويل للأعمال النامية. دعنا نتحدث عن مشروعك.">Nous créons des sites rapides et orientés conversion pour les entreprises en croissance. Parlons du vôtre.</p>
+      <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20to%20start%20a%20project." data-wa-type="casestudy" class="cs-mid-cta-btn" data-en="Book a free call →" data-fr="Réserver un appel gratuit →" data-ar="← احجز مكالمة مجانية">Réserver un appel gratuit →</a>
     </div>
   </div>
 </section>
@@ -982,7 +1196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="cs-other">
   <div class="container">
     <div class="cs-other-header reveal">
-      <h2 class="cs-other-title" data-en="Other Projects" data-fr="Autres Projets" data-ar="مشاريع أخرى">Other Projects</h2>
+      <h2 class="cs-other-title" data-en="Other Projects" data-fr="Autres Projets" data-ar="مشاريع أخرى">Autres Projets</h2>
     </div>
     <div class="cs-proj-grid">
       <a href="/agadir-transfer" class="cs-proj-card reveal">
@@ -992,7 +1206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="cs-proj-card-info">
           <div>
-            <div class="cs-proj-card-cat" data-en="Transport · Booking" data-fr="Transport · Réservation" data-ar="نقل · حجز">Transport · Booking</div>
+            <div class="cs-proj-card-cat" data-en="Transport · Booking" data-fr="Transport · Réservation" data-ar="نقل · حجز">Transport · Réservation</div>
             <div class="cs-proj-card-name">Agadir Transfer</div>
             <div class="cs-proj-card-sub">Meilleure présentation de l'offre</div>
           </div>
@@ -1009,7 +1223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="cs-proj-card-info">
           <div>
-            <div class="cs-proj-card-cat" data-en="Construction · Roofing" data-fr="Construction · Toiture" data-ar="بناء · أعمال السقف">Construction · Roofing</div>
+            <div class="cs-proj-card-cat" data-en="Construction · Roofing" data-fr="Construction · Toiture" data-ar="بناء · أعمال السقف">Construction · Toiture</div>
             <div class="cs-proj-card-name">Supreme Toiture</div>
             <div class="cs-proj-card-sub">Structure pensée pour générer des demandes</div>
           </div>
@@ -1026,7 +1240,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="cs-proj-card-info">
           <div>
-            <div class="cs-proj-card-cat" data-en="SEO · Digital Marketing" data-fr="SEO · Marketing Digital" data-ar="تحسين محركات البحث · التسويق الرقمي">SEO · Digital Marketing</div>
+            <div class="cs-proj-card-cat" data-en="SEO · Digital Marketing" data-fr="SEO · Marketing Digital" data-ar="تحسين محركات البحث · التسويق الرقمي">SEO · Marketing Digital</div>
             <div class="cs-proj-card-name">Digiseo</div>
             <div class="cs-proj-card-sub">Expérience plus fluide pour convertir</div>
           </div>
@@ -1045,105 +1259,147 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="cs-faq-header reveal">
       <span class="cs-faq-eyebrow">FAQ</span>
-      <h2 class="cs-faq-title" data-en="Answers to your questions" data-fr="Réponses à vos questions" data-ar="إجابات على أسئلتك">Answers to your questions</h2>
-      <p class="cs-faq-sub" data-en="We've answered the most common questions we get from potential clients." data-fr="Nous avons répondu aux questions les plus fréquentes de nos futurs clients." data-ar="أجبنا على أكثر الأسئلة شيوعاً التي نتلقاها من العملاء المحتملين.">We've answered the most common questions we get from potential clients.</p>
+      <h2 class="cs-faq-title" data-en="Answers to your questions" data-fr="Réponses à vos questions" data-ar="إجابات على أسئلتك">Réponses à vos questions</h2>
+      <p class="cs-faq-sub" data-en="We've answered the most common questions we get from potential clients." data-fr="Nous avons répondu aux questions les plus fréquentes de nos futurs clients." data-ar="أجبنا على أكثر الأسئلة شيوعاً التي نتلقاها من العملاء المحتملين.">Nous avons répondu aux questions les plus fréquentes de nos futurs clients.</p>
     </div>
     <div class="cs-faq-list reveal">
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
-          <span data-en="What type of websites do you build?" data-fr="Quel type de sites web construisez-vous ?" data-ar="ما نوع المواقع التي تبنونها؟">What type of websites do you build?</span>
+          <span data-en="What type of websites do you build?" data-fr="Quel type de sites web construisez-vous ?" data-ar="ما نوع المواقع التي تبنونها؟">Quel type de sites web construisez-vous ?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries, not just look good." data-fr="Nous créons des sites vitrines axés conversion et des plateformes de réservation pour les entreprises de services, les opérateurs touristiques et les marques locales. Chaque site est conçu sur mesure, mobile-first, et construit pour générer de vraies demandes, pas juste faire joli." data-ar="نبني مواقع عرض موجهة نحو التحويل ومنصات حجز للأعمال الخدمية ومشغلي السياحة والعلامات التجارية المحلية. كل موقع مصمم بشكل مخصص، متوافق مع الجوال أولاً، ومبني لتوليد استفسارات حقيقية، ليس مجرد مظهر جميل.">We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries, not just look good.</div>
+        <div class="cs-faq-a" data-en="We build conversion-focused vitrine sites and booking platforms for service businesses, tourism operators, and local brands. Every site is custom-designed, mobile-first, and built to generate real enquiries, not just look good." data-fr="Nous créons des sites vitrines axés conversion et des plateformes de réservation pour les entreprises de services, les opérateurs touristiques et les marques locales. Chaque site est conçu sur mesure, mobile-first, et construit pour générer de vraies demandes, pas juste faire joli." data-ar="نبني مواقع عرض موجهة نحو التحويل ومنصات حجز للأعمال الخدمية ومشغلي السياحة والعلامات التجارية المحلية. كل موقع مصمم بشكل مخصص، متوافق مع الجوال أولاً، ومبني لتوليد استفسارات حقيقية، ليس مجرد مظهر جميل.">Nous créons des sites vitrines axés conversion et des plateformes de réservation pour les entreprises de services, les opérateurs touristiques et les marques locales. Chaque site est conçu sur mesure, mobile-first, et construit pour générer de vraies demandes, pas juste faire joli.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
-          <span data-en="How long does a typical project take?" data-fr="Combien de temps prend un projet type ?" data-ar="كم يستغرق المشروع النموذجي؟">How long does a typical project take?</span>
+          <span data-en="How long does a typical project take?" data-fr="Combien de temps prend un projet type ?" data-ar="كم يستغرق المشروع النموذجي؟">Combien de temps prend un projet type ?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="Most projects are delivered in 2–4 weeks from kick-off. A simple vitrine site takes 2 weeks; a larger project with custom booking flows, multilingual content, and design system delivery can take 4–6 weeks." data-fr="La plupart des projets sont livrés en 2 à 4 semaines. Un site vitrine simple prend 2 semaines ; un projet plus complexe avec des parcours de réservation, du contenu multilingue et un système de design peut prendre 4 à 6 semaines." data-ar="معظم المشاريع تُسلَّم في 2–4 أسابيع من انطلاقة المشروع. موقع العرض البسيط يستغرق أسبوعين؛ مشروع أكبر مع تدفقات حجز مخصصة ومحتوى متعدد اللغات ونظام تصميم قد يستغرق 4–6 أسابيع.">Most projects are delivered in 2–4 weeks from kick-off. A simple vitrine site takes 2 weeks; a larger project with custom booking flows, multilingual content, and design system delivery can take 4–6 weeks.</div>
+        <div class="cs-faq-a" data-en="Most projects are delivered in 2–4 weeks from kick-off. A simple vitrine site takes 2 weeks; a larger project with custom booking flows, multilingual content, and design system delivery can take 4–6 weeks." data-fr="La plupart des projets sont livrés en 2 à 4 semaines. Un site vitrine simple prend 2 semaines ; un projet plus complexe avec des parcours de réservation, du contenu multilingue et un système de design peut prendre 4 à 6 semaines." data-ar="معظم المشاريع تُسلَّم في 2–4 أسابيع من انطلاقة المشروع. موقع العرض البسيط يستغرق أسبوعين؛ مشروع أكبر مع تدفقات حجز مخصصة ومحتوى متعدد اللغات ونظام تصميم قد يستغرق 4–6 أسابيع.">La plupart des projets sont livrés en 2 à 4 semaines. Un site vitrine simple prend 2 semaines ; un projet plus complexe avec des parcours de réservation, du contenu multilingue et un système de design peut prendre 4 à 6 semaines.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
-          <span data-en="Can you work with our existing brand identity?" data-fr="Pouvez-vous travailler avec notre identité de marque existante ?" data-ar="هل يمكنكم العمل مع هويتنا البصرية الحالية؟">Can you work with our existing brand identity?</span>
+          <span data-en="Can you work with our existing brand identity?" data-fr="Pouvez-vous travailler avec notre identité de marque existante ?" data-ar="هل يمكنكم العمل مع هويتنا البصرية الحالية؟">Pouvez-vous travailler avec notre identité de marque existante ?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="Absolutely. We can work from an existing logo and brand guide, refine and extend what you have, or build a full identity from scratch. We'll recommend what makes sense for your project during the discovery call." data-fr="Absolument. Nous pouvons travailler à partir d'un logo et d'une charte graphique existants, affiner et étendre ce que vous avez, ou construire une identité complète de zéro. Nous vous conseillerons sur la meilleure approche lors de l'appel découverte." data-ar="بالتأكيد. يمكننا العمل من شعار وإرشادات علامة تجارية موجودة، أو تحسين وتوسيع ما لديك، أو بناء هوية كاملة من الصفر. سنوصي بما يناسب مشروعك خلال مكالمة الاستكشاف.">Absolutely. We can work from an existing logo and brand guide, refine and extend what you have, or build a full identity from scratch. We'll recommend what makes sense for your project during the discovery call.</div>
+        <div class="cs-faq-a" data-en="Absolutely. We can work from an existing logo and brand guide, refine and extend what you have, or build a full identity from scratch. We'll recommend what makes sense for your project during the discovery call." data-fr="Absolument. Nous pouvons travailler à partir d'un logo et d'une charte graphique existants, affiner et étendre ce que vous avez, ou construire une identité complète de zéro. Nous vous conseillerons sur la meilleure approche lors de l'appel découverte." data-ar="بالتأكيد. يمكننا العمل من شعار وإرشادات علامة تجارية موجودة، أو تحسين وتوسيع ما لديك، أو بناء هوية كاملة من الصفر. سنوصي بما يناسب مشروعك خلال مكالمة الاستكشاف.">Absolument. Nous pouvons travailler à partir d'un logo et d'une charte graphique existants, affiner et étendre ce que vous avez, ou construire une identité complète de zéro. Nous vous conseillerons sur la meilleure approche lors de l'appel découverte.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
-          <span data-en="Do you handle SEO and post-launch support?" data-fr="Gérez-vous le SEO et le support après lancement ?" data-ar="هل تتعاملون مع تحسين محركات البحث والدعم بعد الإطلاق؟">Do you handle SEO and post-launch support?</span>
+          <span data-en="Do you handle SEO and post-launch support?" data-fr="Gérez-vous le SEO et le support après lancement ?" data-ar="هل تتعاملون مع تحسين محركات البحث والدعم بعد الإطلاق؟">Gérez-vous le SEO et le support après lancement ?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="Yes, every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes." data-fr="Oui, chaque site est livré avec les bases du SEO on-page : titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap. Nous proposons des forfaits de support continu pour les clients souhaitant des mises à jour mensuelles et des corrections prioritaires." data-ar="نعم، كل موقع يُسلَّم مع أساسيات تحسين محركات البحث على الصفحة: عناوين منظمة وبيانات وصفية وOpen Graph وتحسين سرعة الصفحة وخريطة الموقع. نقدم حزم دعم مستمر للعملاء الراغبين في تحديثات شهرية وإصلاحات ذات أولوية.">Yes, every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes.</div>
+        <div class="cs-faq-a" data-en="Yes, every site ships with on-page SEO basics: structured headings, meta tags, Open Graph, page speed optimisation, and a sitemap. We offer ongoing support packages for clients who want monthly updates and priority fixes." data-fr="Oui, chaque site est livré avec les bases du SEO on-page : titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap. Nous proposons des forfaits de support continu pour les clients souhaitant des mises à jour mensuelles et des corrections prioritaires." data-ar="نعم، كل موقع يُسلَّم مع أساسيات تحسين محركات البحث على الصفحة: عناوين منظمة وبيانات وصفية وOpen Graph وتحسين سرعة الصفحة وخريطة الموقع. نقدم حزم دعم مستمر للعملاء الراغبين في تحديثات شهرية وإصلاحات ذات أولوية.">Oui, chaque site est livré avec les bases du SEO on-page : titres structurés, balises meta, Open Graph, optimisation de la vitesse et sitemap. Nous proposons des forfaits de support continu pour les clients souhaitant des mises à jour mensuelles et des corrections prioritaires.</div>
       </div>
       <div class="cs-faq-item">
         <button class="cs-faq-q" aria-expanded="false">
-          <span data-en="What happens after launch?" data-fr="Que se passe-t-il après le lancement ?" data-ar="ماذا يحدث بعد الإطلاق؟">What happens after launch?</span>
+          <span data-en="What happens after launch?" data-fr="Que se passe-t-il après le lancement ?" data-ar="ماذا يحدث بعد الإطلاق؟">Que se passe-t-il après le lancement ?</span>
           <span class="cs-faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="cs-faq-a" data-en="You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages, or you can manage the site independently. We hand over full access to everything." data-fr="Vous bénéficiez de 30 jours de support gratuit après le lancement pour les corrections de bugs et ajustements mineurs. Ensuite, nous proposons des forfaits flexibles, ou vous pouvez gérer le site de manière autonome. Nous vous transmettons l'accès complet à tout." data-ar="تحصل على 30 يوماً من الدعم المجاني بعد الإطلاق لإصلاح الأخطاء والتعديلات الطفيفة. بعد ذلك نقدم حزم استبقاء مرنة، أو يمكنك إدارة الموقع بشكل مستقل. نسلمك وصولاً كاملاً لكل شيء.">You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages, or you can manage the site independently. We hand over full access to everything.</div>
+        <div class="cs-faq-a" data-en="You get 30 days of free post-launch support for bug fixes and minor adjustments. After that, we offer flexible retainer packages, or you can manage the site independently. We hand over full access to everything." data-fr="Vous bénéficiez de 30 jours de support gratuit après le lancement pour les corrections de bugs et ajustements mineurs. Ensuite, nous proposons des forfaits flexibles, ou vous pouvez gérer le site de manière autonome. Nous vous transmettons l'accès complet à tout." data-ar="تحصل على 30 يوماً من الدعم المجاني بعد الإطلاق لإصلاح الأخطاء والتعديلات الطفيفة. بعد ذلك نقدم حزم استبقاء مرنة، أو يمكنك إدارة الموقع بشكل مستقل. نسلمك وصولاً كاملاً لكل شيء.">Vous bénéficiez de 30 jours de support gratuit après le lancement pour les corrections de bugs et ajustements mineurs. Ensuite, nous proposons des forfaits flexibles, ou vous pouvez gérer le site de manière autonome. Nous vous transmettons l'accès complet à tout.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════ FOOTER ════ -->
+<!-- PARTIAL:footer:START -->
 <footer class="footer-section">
-  <div class="glow-circle glow-c" style="opacity:0.13; filter:blur(200px); width:800px; height:800px;"></div>
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
   <div class="container">
     <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
-      <div style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; color:#fff; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Let's Start Your Project</div>
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Contact Us</a>
-      </div>
-    </div>
-    <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"></a>
-      <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
-        <div class="footer-socials" style="display:flex; gap:12px;">
-          <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- Cities: local landing pages. Internal links so the per-city SEO pages
-         are reachable from every page, not just the homepage and /services. -->
-    <div class="footer-cities reveal">
-      <span class="footer-cities-label" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</span>
-      <div class="footer-cities-links">
-        <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
-        <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
-        <a href="/creation-site-web-agadir" data-en="Website design Agadir" data-fr="Création site web Agadir" data-ar="تصميم مواقع الويب بأكادير">Création site web Agadir</a>
-        <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
-        <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
-        <a href="/creation-site-web-fes" data-en="Website design Fès" data-fr="Création site web Fès" data-ar="تصميم مواقع الويب بفاس">Création site web Fès</a>
-        <a href="/creation-site-web-essaouira" data-en="Website design Essaouira" data-fr="Création site web Essaouira" data-ar="تصميم مواقع الويب بالصويرة">Création site web Essaouira</a>
-        <a href="/creation-site-web-kenitra" data-en="Website design Kénitra" data-fr="Création site web Kénitra" data-ar="تصميم مواقع الويب بالقنيطرة">Création site web Kénitra</a>
-        <a href="/creation-site-web-oujda" data-en="Website design Oujda" data-fr="Création site web Oujda" data-ar="تصميم مواقع الويب بوجدة">Création site web Oujda</a>
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
       </div>
     </div>
 
+    <div class="footer-grid reveal">
+
+      <!-- Col 1: brand -->
+      <div class="footer-col">
+        <a href="/" class="logo">
+          <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark">
+          <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light">
+        </a>
+        <p class="footer-brand-tagline"
+          data-en="Premium websites that work for you, while you run your business."
+          data-fr="Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise."
+          data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء.">Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise.</p>
+        <p style="font-size:13px; font-weight:600; color:var(--muted); margin:-10px 0 20px;"
+          data-en="50+ projects delivered across Morocco"
+          data-fr="50+ projets livrés à travers le Maroc"
+          data-ar="أكثر من 50 مشروعًا تم إنجازه في جميع أنحاء المغرب">50+ projets livrés à travers le Maroc</p>
+        <div class="footer-socials" style="display:flex; gap:10px; margin-bottom:20px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social-btn" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--muted);">
+          <a href="tel:+212716490397" style="color:inherit; text-decoration:none;">+212 7 16 49 03 97</a>
+          <a href="mailto:contact@louisswebstudio.com" style="color:inherit; text-decoration:none;">contact@louisswebstudio.com</a>
+          <span data-en="Tanger, Morocco" data-fr="Tanger, Maroc" data-ar="طنجة، المغرب">Tanger, Maroc</span>
+        </div>
+      </div>
+
+      <!-- Col 2: services -->
+      <div class="footer-col">
+        <a href="/services" class="footer-col-title" style="display:block; color:inherit; text-decoration:none;" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <div class="footer-col-links">
+          <a href="/creation-site-e-commerce-maroc" data-en="E-commerce website Morocco" data-fr="Création site e-commerce Maroc" data-ar="إنشاء متجر إلكتروني بالمغرب">Création site e-commerce Maroc</a>
+          <a href="/creation-site-vitrine-maroc" data-en="Showcase website Morocco" data-fr="Création site vitrine Maroc" data-ar="إنشاء موقع تعريفي بالمغرب">Création site vitrine Maroc</a>
+          <a href="/real-estate-web-design" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Immobilier</a>
+          <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourisme</a>
+          <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+          <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
+          <!-- Add here once the page exists: <a href="/referencement-seo-maroc" data-en="SEO & Development" data-fr="Référencement SEO & Développement" data-ar="تحسين محركات البحث والتطوير">Référencement SEO & Développement</a> -->
+        </div>
+      </div>
+
+      <!-- Col 3: cities -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</div>
+        <div class="footer-col-links">
+          <a href="/creation-site-web-maroc" data-en="Website design Morocco" data-fr="Création site web Maroc" data-ar="إنشاء موقع ويب بالمغرب">Création site web Maroc</a>
+          <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+          <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+          <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+          <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+          <a href="/locations" data-en="See all cities →" data-fr="Voir toutes les villes →" data-ar="مشاهدة كل المدن ←">Voir toutes les villes →</a>
+        </div>
+      </div>
+
+      <!-- Col 4: studio -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Studio" data-fr="Studio" data-ar="الاستوديو">Studio</div>
+        <div class="footer-col-links">
+          <a href="/projects" data-en="Projects" data-fr="Projets" data-ar="مشاريعنا">Projets</a>
+          <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
+          <a href="/faq" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+          <a href="/contact" data-en="Contact" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
-      <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. All rights reserved.</p>
+      <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. Tous droits réservés.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
-        <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
-        <a href="/tarifs" data-en="Pricing" data-fr="Packages" data-ar="الأسعار">Packages</a>
-        <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
-        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Privacy Policy</a>
-        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Terms of Service</a>
+        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
+        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
+        <a href="/sitemap" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
       </div>
     </div>
   </div>
 </footer>
+<!-- PARTIAL:footer:END -->
 
 <!-- ════ WA FLOAT ════ -->
 <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20to%20start%20a%20project." data-wa-type="generic" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-  <span class="wa-float-label" data-en="Get a Free Quote" data-fr="Devis Gratuit" data-ar="احصل على عرض مجاني">Get a Free Quote</span>
+  <span class="wa-float-label" data-en="Get a Free Quote" data-fr="Devis Gratuit" data-ar="احصل على عرض مجاني">Devis Gratuit</span>
   <div class="wa-float-btn">
     <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.1 1.519 5.832L0 24l6.335-1.493A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.359-.214-3.72.876.893-3.619-.234-.372A9.818 9.818 0 1112 21.818z"/></svg>
   </div>
@@ -1433,5 +1689,9 @@ document.querySelectorAll('.cs-faq-q').forEach(function(q) {
   }
 })();
 </script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
 </body>
 </html>
