@@ -43,9 +43,9 @@ html[data-theme="light"] {
   --muted2:  #646b79;
 
   /* ── Light-only helpers (not present in the dark theme) ── */
-  --l-bg:          #f6f7f9;  /* soft off-white — not stark #fff, so white
+  --l-bg:          #f4f3f1;  /* soft off-white — not stark #fff, so white
                                 cards have something to lift off of          */
-  --l-bg-band:     #eef1f5;  /* alternating section band                     */
+  --l-bg-band:     #fbfaf9;  /* alternating section band                     */
   --l-surface:     #ffffff;
   --l-text:        #14161a;  /* near-black body/heading copy                 */
   --l-text-soft:   #3f4653;

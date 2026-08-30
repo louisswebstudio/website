@@ -81,7 +81,7 @@
 .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 
 /* ─── SECTION SHELL (mirrors services.html) ─────────── */
-.svc-section { padding: 88px 0 96px; position: relative; }
+.svc-section { padding: 96px 0; position: relative; }
 .svc-section > .container { position: relative; z-index: 1; }
 .svc-section--tint { background: rgba(3,3,3,0.22); border-top: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
 .svc-band-title {
@@ -99,8 +99,8 @@
   background-clip: text;
 }
 .svc-band-sub {
-  font-size: 17px; color: var(--muted); line-height: 1.7;
-  text-align: center; max-width: 640px; margin: 0 auto 56px;
+  font-size: 18px; color: var(--muted); line-height: 1.62;
+  text-align: center; max-width: 660px; margin: 0 auto 56px;
 }
 .svc-band-sub--tight { margin-bottom: 32px; }
 /* Longer headings need more room so they never spill onto a third line. */
@@ -292,30 +292,11 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
   background: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.18);
 }
 
-.city-signals { display: flex; flex-direction: column; gap: 14px; }
-/* The city hero sits on a photographic background, so these need their own
-   opaque surface rather than the translucent --card used elsewhere. */
-.city-signal {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 20px 22px; border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(12,14,18,.72);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+.city-hero-shot {
+  border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--border); box-shadow: 0 24px 60px rgba(0,0,0,.4);
 }
-.city-signal-ico {
-  flex: none; width: 34px; height: 34px; border-radius: 10px;
-  display: grid; place-items: center;
-  background: rgba(59,130,246,.16); color: #93c0fd;
-}
-.city-signal-txt { display: block; min-width: 0; }
-.city-signal-t {
-  display: block; font-size: 15px; font-weight: 650;
-  line-height: 1.35; color: #fff;
-}
-.city-signal-s {
-  display: block; font-size: 13px; line-height: 1.5;
-  color: rgba(255,255,255,.66); margin-top: 3px;
-}
+.city-hero-shot img { display: block; width: 100%; height: auto; }
 
 /* ── Numbered service cards ── */
 .svc-grid--numbered .svc-card { position: relative; padding-top: 26px; }
@@ -331,25 +312,6 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
 }
 .svc-card-more svg { transition: transform .18s ease; }
 .svc-card-more:hover svg { transform: translateX(3px); }
-
-/* ── Dark feature band ── */
-.city-band {
-  background: #0a0a0a; border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: clamp(56px, 8vw, 104px) 0;
-}
-.city-band-grid {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 64px); align-items: center;
-}
-.city-band .svc-band-title,
-.city-band .svc-band-sub { text-align: left; margin-left: 0; margin-right: 0; }
-.city-band-list { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
-.city-band-shot {
-  border-radius: 18px; overflow: hidden;
-  border: 1px solid var(--border); box-shadow: 0 24px 60px rgba(0,0,0,.4);
-}
-.city-band-shot img { display: block; width: 100%; height: auto; }
 
 /* ── Testimonials ── */
 .ct-grid {
@@ -407,22 +369,16 @@ html[data-theme="light"] .city-chip { background: rgba(59,130,246,.09); border-c
 html[data-theme="light"] .ct-role { color: #6b7280; }
 html[data-theme="light"] .ct-quote { color: #4b5262; }
 html[data-theme="light"] .city-cover-link { color: #4b5262; }
-html[data-theme="light"] .city-band,
 html[data-theme="light"] .city-cta-band { background: #0f1115; border-color: rgba(255,255,255,.06); }
-html[data-theme="light"] .city-band .svc-band-title,
-html[data-theme="light"] .city-band .city-band-list,
 html[data-theme="light"] .city-cta-band .svc-band-title { color: #fff; }
-html[data-theme="light"] .city-band .svc-band-sub,
 html[data-theme="light"] .city-cta-band .svc-band-sub { color: rgba(255,255,255,.62); }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .city-hero--split .city-hero-grid,
-  .city-band-grid { grid-template-columns: 1fr; }
-  .city-band-shot { order: -1; }
+  .city-hero--split .city-hero-grid { grid-template-columns: 1fr; }
+  .city-hero-shot { order: -1; }
 }
 @media (max-width: 560px) {
-  .city-signal { padding: 16px 18px; }
   .svc-num { font-size: 24px; top: 14px; right: 18px; }
 }
 
@@ -526,6 +482,99 @@ html[data-theme="light"] .budget-item-d { color: #4b5262; }
 [dir="rtl"] .budget-grid { text-align: right; }
 [dir="rtl"] .solo-list li { flex-direction: row-reverse; }
 
+/* ─── MARKET FIGURES ─────────────────────────────────────
+   Same meta bar the case study pages use for client / year /
+   scope (see adventure-keys.html); assets/theme.css already
+   carries its light-mode rules. --figures only enlarges the
+   value, since here it holds a headline number. */
+.cs-meta-bar {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 24px 0; display: flex; align-items: center;
+  justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.cs-meta-col { display: flex; flex-direction: column; gap: 4px; padding: 0 48px 0 0; }
+.cs-meta-col:first-child { padding-left: 0; }
+.cs-meta-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--muted2);
+}
+.cs-meta-value { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.85); }
+
+.cs-meta-bar--figures { align-items: flex-start; padding: 30px 0; }
+.cs-meta-bar--figures .cs-meta-col { flex: 1; min-width: 200px; padding-right: 32px; gap: 10px; }
+.cs-meta-bar--figures .cs-meta-value {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: clamp(32px, 4.4vw, 44px); font-weight: 700;
+  letter-spacing: -1.4px; line-height: 1; color: #fff;
+}
+.cs-meta-bar--figures .cs-meta-label {
+  font-size: 13.5px; font-weight: 400; line-height: 1.6;
+  text-transform: none; letter-spacing: 0; color: var(--muted);
+}
+html[data-theme="light"] .cs-meta-bar--figures .cs-meta-label { color: #4b5262; }
+
+@media (max-width: 700px) {
+  .cs-meta-bar--figures { gap: 26px; }
+  .cs-meta-bar--figures .cs-meta-col { flex: 1 1 100%; padding-right: 0; }
+}
+
+[dir="rtl"] .cs-meta-col { padding: 0 0 0 48px; }
+[dir="rtl"] .cs-meta-bar--figures .cs-meta-col { padding-left: 32px; padding-right: 0; }
+
+/* ─── COMPARISON TABLE — Low-Cost vs Louiss Web Studio ──── */
+.vs-badge-wrap { display: flex; justify-content: center; }
+.vs-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 0 0 22px; padding: 7px 16px;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: var(--card);
+  font-size: 13px; font-weight: 600; color: var(--muted);
+}
+.vs-badge-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--blue); flex: none; }
+
+.vs-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.vs-table {
+  display: grid; grid-template-columns: minmax(110px,190px) 1fr 1fr;
+  column-gap: 14px; margin-top: 44px;
+}
+.vs-row-label {
+  display: flex; align-items: center;
+  padding: 16px 14px;
+  font-size: 14.5px; font-weight: 600; color: var(--muted);
+}
+.vs-cell { display: flex; align-items: center; gap: 10px; padding: 16px 20px; font-size: 14px; line-height: 1.5; font-weight: 500; }
+.vs-val1 { background: rgba(255,255,255,0.035); color: #fca5a5; }
+.vs-val1.vs-alt { background: rgba(255,255,255,0.06); }
+.vs-val1 svg { color: #f87171; flex: none; }
+.vs-val2 { background: rgba(59,130,246,0.08); color: #bfdbfe; }
+.vs-val2.vs-alt { background: rgba(59,130,246,0.13); }
+.vs-val2 svg { color: #60a5fa; flex: none; }
+.vs-val2.vs-last { border-radius: 0 0 16px 16px; }
+.vs-val1.vs-last { border-radius: 0 0 16px 16px; }
+
+.vs-head1, .vs-head2 { flex-direction: column; text-align: center; gap: 10px; padding: 24px 18px 22px; font-weight: 650; font-size: 15.5px; }
+.vs-head1 { background: rgba(255,255,255,0.06); color: #e5e7eb; border-radius: 16px 16px 0 0; }
+.vs-head2 { background: linear-gradient(135deg, var(--blue), #2563eb); color: #fff; border-radius: 16px 16px 0 0; }
+.vs-icon { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px; flex: none; }
+.vs-head1 .vs-icon { background: rgba(248,113,113,0.16); }
+.vs-head2 .vs-icon { background: rgba(255,255,255,0.22); }
+
+/* ── Light mode ── */
+html[data-theme="light"] .vs-val1 { background: rgba(17,24,39,0.035); color: #b91c1c; }
+html[data-theme="light"] .vs-val1.vs-alt { background: rgba(17,24,39,0.06); }
+html[data-theme="light"] .vs-val2 { background: rgba(59,130,246,0.06); color: #1d4ed8; }
+html[data-theme="light"] .vs-val2.vs-alt { background: rgba(59,130,246,0.11); }
+html[data-theme="light"] .vs-head1 { background: rgba(17,24,39,0.05); color: #374151; }
+
+@media (max-width: 700px) {
+  .vs-table { min-width: 560px; }
+}
+
+/* ── RTL ── */
+[dir="rtl"] .vs-badge { flex-direction: row-reverse; }
+[dir="rtl"] .vs-row-label { text-align: right; }
+[dir="rtl"] .vs-val1, [dir="rtl"] .vs-val2 { flex-direction: row-reverse; text-align: right; }
 </style>
 
 <!-- Structured data: ProfessionalService covering Morocco as a whole (the nine
@@ -607,6 +656,21 @@ html[data-theme="light"] .budget-item-d { color: #4b5262; }
           "@type": "Question",
           "name": "Pourquoi travailler avec un studio indépendant plutôt qu'une agence ?",
           "acceptedAnswer": { "@type": "Answer", "text": "Vous parlez directement à la personne qui conçoit et développe votre site : pas de chef de projet intermédiaire, pas de brief qui se déforme en chemin. En contrepartie, nous ne prenons pas de projets qui exigeraient une équipe de plusieurs dizaines de personnes." }
+        },
+        {
+          "@type": "Question",
+          "name": "Proposez-vous l'hébergement et le nom de domaine ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "L'hébergement est inclus dans nos formules, sur le réseau mondial de Vercel, avec le certificat SSL émis et renouvelé automatiquement. Nous gérons l'enregistrement du domaine et la configuration DNS de bout en bout, et les deux sont mis à votre nom : vous en gardez le contrôle quoi qu'il arrive ensuite." }
+        },
+        {
+          "@type": "Question",
+          "name": "Puis-je modifier mon site moi-même après la livraison ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Les sites qui ont besoin d'être mis à jour régulièrement sont livrés avec un CMS, et nous vous formons à sa prise en main à la remise des accès : vous modifiez vous-même textes, images, produits ou articles. Pour les changements de structure, comme un nouveau gabarit de page ou une nouvelle fonctionnalité, nous restons joignables sur WhatsApp." }
+        },
+        {
+          "@type": "Question",
+          "name": "Travaillez-vous avec des entreprises en dehors de Tanger ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Nous sommes basés à Tanger et travaillons avec des entreprises partout au Maroc : Casablanca, Rabat, Marrakech, Agadir, Fès et au-delà. Tout le processus se déroule par appels, Figma et WhatsApp, la ville ne change donc rien aux délais. Chacune de ces villes dispose de sa propre page dédiée." }
         }
       ]
     }
@@ -754,74 +818,258 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="city-signals reveal">
-        <div class="city-signal">
-          <span class="city-signal-ico"><svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.4" stroke="currentColor" stroke-width="1.6"/><path d="M10 6v4.2l2.6 1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-          <span class="city-signal-txt">
-            <span class="city-signal-t" data-en="Showcase site live in 7 to 14 days" data-fr="Site vitrine en ligne en 7 à 14 jours" data-ar="موقع تعريفي منشور في 7 إلى 14 يوماً">Site vitrine en ligne en 7 à 14 jours</span>
-            <span class="city-signal-s" data-en="From the Figma design to the live site." data-fr="Du design Figma à la mise en ligne." data-ar="من تصميم Figma إلى النشر المباشر.">Du design Figma à la mise en ligne.</span>
-          </span>
-        </div>
-        <div class="city-signal">
-          <span class="city-signal-ico"><svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.4" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 10h14.4M10 2.6c1.9 2.1 2.9 4.7 2.9 7.4s-1 5.3-2.9 7.4c-1.9-2.1-2.9-4.7-2.9-7.4s1-5.3 2.9-7.4z" stroke="currentColor" stroke-width="1.4"/></svg></span>
-          <span class="city-signal-txt">
-            <span class="city-signal-t" data-en="Sites in French, English and Arabic" data-fr="Sites en français, anglais et arabe" data-ar="مواقع بالفرنسية والإنجليزية والعربية">Sites en français, anglais et arabe</span>
-            <span class="city-signal-s" data-en="With full right-to-left support." data-fr="Avec un support complet de droite à gauche." data-ar="مع دعم كامل للكتابة من اليمين إلى اليسار.">Avec un support complet de droite à gauche.</span>
-          </span>
-        </div>
-        <div class="city-signal">
-          <span class="city-signal-ico"><svg width="17" height="17" viewBox="0 0 20 20" fill="none"><path d="M10 17.5s5.6-4.6 5.6-9a5.6 5.6 0 10-11.2 0c0 4.4 5.6 9 5.6 9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="8.4" r="2" stroke="currentColor" stroke-width="1.5"/></svg></span>
-          <span class="city-signal-txt">
-            <span class="city-signal-t" data-en="Based in Tanger, working nationwide" data-fr="Basé à Tanger, au service de tout le Maroc" data-ar="مقره طنجة، في خدمة المغرب بأكمله">Basé à Tanger, au service de tout le Maroc</span>
-            <span class="city-signal-s" data-en="And with clients abroad, remotely." data-fr="Et de clients à l'étranger, à distance." data-ar="وعملاء في الخارج، عن بُعد.">Et de clients à l'étranger, à distance.</span>
-          </span>
-        </div>
+      <div class="city-hero-shot reveal">
+        <img src="./assets/images/hero mockup img site maroc.png" width="1024" height="680" loading="eager" decoding="async"
+             alt="Aperçu d'un site web avec les outils de performance et sécurité utilisés : GTmetrix, HTTPS, SEO">
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ════ TECH STACK / TRUST BAND ════ -->
-<section class="city-band" id="approche">
+<!-- ════ WHY VISIBILITY MATTERS IN MOROCCO (sourced figures) ════ -->
+<section class="svc-section" id="marche">
   <div class="container">
-    <div class="city-band-grid">
-      <div class="city-band-copy">
-        <div class="section-label reveal">
-          <span class="section-label-dot"></span>
-          <span data-en="Our approach" data-fr="Notre approche" data-ar="منهجنا">Notre approche</span>
-        </div>
-        <h2 class="svc-band-title reveal"
-          data-en="Designed in Figma, <em>then</em> built"
-          data-fr="Conçu dans Figma, <em>puis</em> développé"
-          data-ar="يُصمَّم في Figma، <em>ثم</em> يُطوَّر">Conçu dans Figma, <em>puis</em> développé</h2>
-        <p class="svc-band-sub reveal"
-          data-en="No off-the-shelf theme filled in for an hour. Every project starts as a design you validate before a single line of code is written, then gets built with tools that are standard in the industry, not exotic ones you would be locked into later."
-          data-fr="Pas de thème du commerce rempli en une heure. Chaque projet démarre par un design que vous validez avant la moindre ligne de code, puis se développe avec des outils standards du métier, pas des technologies exotiques qui vous enfermeraient plus tard."
-          data-ar="لا قوالب جاهزة تُملأ في ساعة. كل مشروع يبدأ بتصميم تصادق عليه قبل كتابة أي سطر برمجي، ثم يُطوَّر بأدوات معيارية في المجال، لا بتقنيات غريبة تقيّدك لاحقاً.">Pas de thème du commerce rempli en une heure. Chaque projet démarre par un design que vous validez avant la moindre ligne de code, puis se développe avec des outils standards du métier, pas des technologies exotiques qui vous enfermeraient plus tard.</p>
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="The Moroccan market" data-fr="Le marché marocain" data-ar="السوق المغربي">Le marché marocain</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="Your customers are already <em>online</em>"
+      data-fr="Vos clients sont déjà <em>en ligne</em>"
+      data-ar="عملاؤك <em>على الإنترنت</em> بالفعل">Vos clients sont déjà <em>en ligne</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Morocco is now one of the most connected markets on the continent. Almost everyone looking for a service like yours searches from a phone — and a Facebook page is no longer enough to earn their trust before the first call."
+      data-fr="Le Maroc est aujourd'hui l'un des marchés les plus connectés du continent. La quasi-totalité des personnes qui cherchent un prestataire comme vous le font depuis un téléphone — et une page Facebook ne suffit plus à installer la confiance avant le premier appel."
+      data-ar="المغرب اليوم من أكثر الأسواق اتصالاً في القارة. معظم من يبحثون عن مزوّد مثلك يفعلون ذلك من هواتفهم — وصفحة فيسبوك لم تعد كافية لبناء الثقة قبل المكالمة الأولى.">Le Maroc est aujourd'hui l'un des marchés les plus connectés du continent. La quasi-totalité des personnes qui cherchent un prestataire comme vous le font depuis un téléphone — et une page Facebook ne suffit plus à installer la confiance avant le premier appel.</p>
 
-        <div class="tech-list reveal">
-          <span class="tech-pill"><span class="tech-pill-dot"></span>Figma</span>
-          <span class="tech-pill"><span class="tech-pill-dot"></span>Next.js</span>
-          <span class="tech-pill"><span class="tech-pill-dot"></span>Tailwind CSS</span>
-          <span class="tech-pill"><span class="tech-pill-dot"></span>Sanity CMS</span>
-          <span class="tech-pill"><span class="tech-pill-dot"></span>Vercel</span>
-        </div>
-
-        <p class="svc-band-note reveal" style="text-align:left;"
-          data-en="The stack is chosen per project: a five-page showcase site does not need the same foundations as a multilingual booking platform. Full detail on our <a href='/services'>services page</a>."
-          data-fr="La stack est choisie selon le projet : un site vitrine de cinq pages n'a pas besoin des mêmes fondations qu'une plateforme de réservation multilingue. Le détail est sur notre <a href='/services'>page services</a>."
-          data-ar="تُختار التقنيات حسب المشروع: موقع تعريفي من خمس صفحات لا يحتاج نفس الأسس التي تحتاجها منصة حجز متعددة اللغات. التفاصيل في <a href='/services'>صفحة خدماتنا</a>.">La stack est choisie selon le projet : un site vitrine de cinq pages n'a pas besoin des mêmes fondations qu'une plateforme de réservation multilingue. Le détail est sur notre <a href="/services">page services</a>.</p>
+    <div class="cs-meta-bar cs-meta-bar--figures reveal">
+      <div class="cs-meta-col">
+        <span class="cs-meta-value" data-en="92.2%" data-fr="92,2 %" data-ar="92,2 %">92,2 %</span>
+        <span class="cs-meta-label"
+          data-en="of the Moroccan population were internet users in October 2025"
+          data-fr="de la population marocaine utilisait internet en octobre 2025"
+          data-ar="من سكان المغرب كانوا يستعملون الإنترنت في أكتوبر 2025">de la population marocaine utilisait internet en octobre 2025</span>
       </div>
+      <div class="cs-meta-col">
+        <span class="cs-meta-value" data-en="35.5M" data-fr="35,5 M" data-ar="35,5 M">35,5 M</span>
+        <span class="cs-meta-label"
+          data-en="internet users in Morocco, around 749 000 more than a year earlier"
+          data-fr="d'internautes au Maroc, soit environ 749 000 de plus qu'un an plus tôt"
+          data-ar="مستخدم إنترنت في المغرب، بزيادة نحو 749 ألفاً عن السنة السابقة">d'internautes au Maroc, soit environ 749 000 de plus qu'un an plus tôt</span>
+      </div>
+      <div class="cs-meta-col">
+        <span class="cs-meta-value" data-en="+48%" data-fr="+48 %" data-ar="+48 %">+48 %</span>
+        <span class="cs-meta-label"
+          data-en="mobile data used per customer in a year, now above 60 GB a month"
+          data-fr="de data mobile consommée par client en un an, désormais au-dessus de 60 Go par mois"
+          data-ar="زيادة في استهلاك البيانات المتنقلة لكل عميل في سنة، بما يتجاوز 60 غيغابايت شهرياً">de data mobile consommée par client en un an, désormais au-dessus de 60 Go par mois</span>
+      </div>
+    </div>
 
-      <div class="city-band-shot reveal">
-        <img src="./assets/images/figma-agadir.webp"
-             width="900" height="600" loading="lazy" decoding="async"
-             alt="Maquette Figma d'un site client à côté de la version développée et mise en ligne">
+    <p class="svc-band-note reveal"
+      data-en="Sources: DataReportal, Digital 2026 Morocco (internet users, October 2025) and ANRT, quarterly telecoms dashboard, Q1 2026 (mobile data use per customer)."
+      data-fr="Sources : DataReportal, Digital 2026 Morocco (internautes, octobre 2025) et ANRT, tableau de bord trimestriel des télécoms, T1 2026 (usage data mobile par client)."
+      data-ar="المصادر: DataReportal، تقرير Digital 2026 Morocco (مستخدمو الإنترنت، أكتوبر 2025) وANRT، لوحة القيادة الفصلية للاتصالات، الربع الأول 2026 (استهلاك البيانات لكل عميل).">Sources : DataReportal, Digital 2026 Morocco (internautes, octobre 2025) et ANRT, tableau de bord trimestriel des télécoms, T1 2026 (usage data mobile par client).</p>
+  </div>
+</section>
+
+<!-- PARTIAL:stack-section:START -->
+<!-- ════ TECH STACK ════ -->
+<section class="svc-section svc-section--tint" id="stack">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Our stack" data-fr="Notre stack" data-ar="أدواتنا">Notre stack</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="The tools your site is <em>built</em> with"
+      data-fr="Les outils avec lesquels votre site est <em>construit</em>"
+      data-ar="الأدوات التي <em>يُبنى</em> بها موقعك">Les outils avec lesquels votre site est <em>construit</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Standard, widely used tools rather than exotic ones. Any developer can pick your site up later, which is the point."
+      data-fr="Des outils standards et largement utilisés, pas des technologies exotiques. N'importe quel développeur peut reprendre votre site plus tard, et c'est bien l'objectif."
+      data-ar="أدوات معيارية وواسعة الاستعمال، لا تقنيات غريبة. أي مطوّر يمكنه استلام موقعك لاحقاً، وهذا هو المقصود.">Des outils standards et largement utilisés, pas des technologies exotiques. N'importe quel développeur peut reprendre votre site plus tard, et c'est bien l'objectif.</p>
+
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-items:start;text-align:left;">
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Frontend" data-fr="Frontend" data-ar="الواجهة الأمامية">Frontend</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/nextjs.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Next.js</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="React framework" data-fr="Framework React" data-ar="إطار عمل React">Framework React</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/react.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">React</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="UI library" data-fr="Bibliothèque d'interface" data-ar="مكتبة الواجهات">Bibliothèque d'interface</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/typescript.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">TypeScript</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Type safety" data-fr="Typage statique" data-ar="أمان الأنواع">Typage statique</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/tailwind.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Tailwind CSS</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Styling" data-fr="Styles" data-ar="الأنماط">Styles</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/framer.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Framer Motion</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Animations" data-fr="Animations" data-ar="الحركات">Animations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Backend and CMS" data-fr="Backend et CMS" data-ar="الخلفية ونظام المحتوى">Backend et CMS</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/strapi.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Strapi</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Headless CMS" data-fr="CMS headless" data-ar="نظام محتوى بلا واجهة">CMS headless</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/wordpress.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">WordPress</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Takeovers and migrations" data-fr="Reprises et migrations" data-ar="الاستلام والترحيل">Reprises et migrations</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/postgresql.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">PostgreSQL</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Database" data-fr="Base de données" data-ar="قاعدة البيانات">Base de données</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/nodejs.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Node.js</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Blog generation" data-fr="Génération du blog" data-ar="توليد المدونة">Génération du blog</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/prisma.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Prisma</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="ORM" data-fr="ORM" data-ar="ORM">ORM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Tools and analytics" data-fr="Outils et analytics" data-ar="الأدوات والتحليلات">Outils et analytics</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/figma.png" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Figma</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Mockups and design system" data-fr="Maquettes et design system" data-ar="النماذج ونظام التصميم">Maquettes et design system</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/google-analytics.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Google Analytics 4</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Analytics" data-fr="Analytics" data-ar="التحليلات">Analytics</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/google-tag-manager.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Google Tag Manager</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Tracking" data-fr="Tracking" data-ar="التتبع">Tracking</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/search-console.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Search Console</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="SEO monitoring" data-fr="Suivi SEO" data-ar="متابعة تحسين البحث">Suivi SEO</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/semrush.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Semrush</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="SEO tools" data-fr="Outils SEO" data-ar="أدوات SEO">Outils SEO</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Infrastructure" data-fr="Infrastructure" data-ar="البنية التحتية">Infrastructure</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 0l12 20.785H0L12 0z"/></svg></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Vercel</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Hosting and deployment" data-fr="Hébergement et déploiement" data-ar="الاستضافة والنشر">Hébergement et déploiement</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/github.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">GitHub</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Version control and CI" data-fr="Versioning et déploiement continu" data-ar="إدارة الإصدارات والنشر المستمر">Versioning et déploiement continu</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/cloudflare.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Cloudflare</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="CDN and security" data-fr="CDN et sécurité" data-ar="شبكة توصيل وأمان">CDN et sécurité</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/aws.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">AWS</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Cloud services" data-fr="Services cloud" data-ar="خدمات سحابية">Services cloud</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/docker.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Docker</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Containers" data-fr="Conteneurs" data-ar="الحاويات">Conteneurs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-card reveal" style="margin-top:34px;padding:24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span class="svc-feature-icon" style="width:44px;height:44px;border-radius:12px;margin-top:0;background:var(--blue);"><svg style="color:#fff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+        <div style="flex:1;min-width:0;">
+          <span class="budget-item-t" style="font-size:17px;margin-bottom:6px;"
+            data-en="Why this matters to you" data-fr="Pourquoi cela vous concerne" data-ar="لماذا يهمك هذا">Pourquoi cela vous concerne</span>
+          <p class="budget-item-d" style="font-size:14px;"
+            data-en="We pick the foundation that suits the project, then configure it ourselves rather than filling in a theme as it comes. That is what keeps pages light, keeps the SEO structure under our control, and spares you surprises after launch."
+            data-fr="Nous choisissons la fondation qui convient au projet, puis nous la configurons nous-mêmes plutôt que de remplir un thème tel quel. C'est ce qui garde les pages légères, la structure SEO sous notre contrôle, et vous évite les mauvaises surprises après la livraison."
+            data-ar="نختار الأساس المناسب للمشروع ثم نضبطه بأنفسنا بدل ملء قالب كما هو. هذا ما يبقي الصفحات خفيفة وبنية SEO تحت سيطرتنا، ويجنّبك المفاجآت بعد التسليم.">Nous choisissons la fondation qui convient au projet, puis nous la configurons nous-mêmes plutôt que de remplir un thème tel quel. C'est ce qui garde les pages légères, la structure SEO sous notre contrôle, et vous évite les mauvaises surprises après la livraison.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
+<!-- PARTIAL:stack-section:END -->
 
 <!-- ════ OFFERS ════ -->
 <section class="svc-section svc-section--tint" id="offres">
@@ -990,54 +1238,115 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ════ BUDGET ════ -->
-<section class="svc-section" id="budget">
+<!-- ════ WHAT EVERY SITE SHIPS WITH ════ -->
+<section class="svc-section" id="inclus">
   <div class="container">
-    <h2 class="svc-band-title svc-band-title--wide reveal"
-      data-en="What actually drives the <em>price</em>"
-      data-fr="Ce qui fait vraiment le <em>prix</em>"
-      data-ar="ما الذي يحدد <em>السعر</em> فعلاً">Ce qui fait vraiment le <em>prix</em></h2>
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Included as standard" data-fr="Inclus de série" data-ar="مشمول بشكل قياسي">Inclus de série</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="What every site <em>ships</em> with"
+      data-fr="Ce que chaque site <em>embarque</em>"
+      data-ar="ما يتضمنه <em>كل</em> موقع">Ce que chaque site <em>embarque</em></h2>
     <p class="svc-band-sub reveal"
-      data-en="Not the raw page count. Twenty pages built from three templates cost less than five pages that each need their own design."
-      data-fr="Pas le nombre de pages brut. Vingt pages construites à partir de trois gabarits coûtent moins cher que cinq pages qui demandent chacune son propre design."
-      data-ar="ليس عدد الصفحات الخام. عشرون صفحة مبنية على ثلاثة قوالب أقل كلفة من خمس صفحات يحتاج كل منها تصميماً خاصاً.">Pas le nombre de pages brut. Vingt pages construites à partir de trois gabarits coûtent moins cher que cinq pages qui demandent chacune son propre design.</p>
+      data-en="Not an options list to tick and pay for. These are the foundations of every project we deliver, on the smallest showcase site as much as on a booking platform:"
+      data-fr="Pas une liste d'options à cocher et à payer. Ce sont les fondations de chaque projet que nous livrons, sur le plus petit site vitrine comme sur une plateforme de réservation :"
+      data-ar="ليست قائمة خيارات تُحدَّد ويُدفع ثمنها. إنها أسس كل مشروع نسلّمه، من أصغر موقع تعريفي إلى منصة حجز:">Pas une liste d'options à cocher et à payer. Ce sont les fondations de chaque projet que nous livrons, sur le plus petit site vitrine comme sur une plateforme de réservation :</p>
 
-    <div class="budget-grid">
-      <div class="budget-item reveal">
-        <span class="budget-item-t" data-en="Number of templates" data-fr="Le nombre de gabarits" data-ar="عدد القوالب">Le nombre de gabarits</span>
-        <p class="budget-item-d"
-          data-en="Each distinct layout has to be designed and built once. Pages that reuse an existing template add almost nothing."
-          data-fr="Chaque mise en page distincte doit être conçue et développée une fois. Les pages qui réutilisent un gabarit existant n'ajoutent presque rien."
-          data-ar="كل تخطيط مختلف يجب تصميمه وتطويره مرة واحدة. الصفحات التي تعيد استعمال قالب قائم لا تضيف شيئاً تقريباً.">Chaque mise en page distincte doit être conçue et développée une fois. Les pages qui réutilisent un gabarit existant n'ajoutent presque rien.</p>
+    <div class="benefit-grid reveal">
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Fast hosting set up on Vercel's global network, billed separately by Vercel" data-fr="Hébergement rapide configuré sur le réseau mondial de Vercel, facturé séparément par Vercel" data-ar="استضافة سريعة تُعدّ على شبكة Vercel العالمية، وتُفوتَر بشكل منفصل من Vercel">Hébergement rapide configuré sur le réseau mondial de Vercel, facturé séparément par Vercel</span>
       </div>
-      <div class="budget-item reveal" style="transition-delay:.06s">
-        <span class="budget-item-t" data-en="Who writes the content" data-fr="Qui rédige le contenu" data-ar="من يكتب المحتوى">Qui rédige le contenu</span>
-        <p class="budget-item-d"
-          data-en="Texts and photos you supply cost nothing. Content we have to produce or restructure is real work, and it is also what most often delays a launch."
-          data-fr="Les textes et photos que vous fournissez ne coûtent rien. Le contenu que nous devons produire ou restructurer est un vrai travail, et c'est aussi ce qui retarde le plus souvent une mise en ligne."
-          data-ar="النصوص والصور التي توفّرها لا تكلّف شيئاً. المحتوى الذي يتعين علينا إنتاجه أو إعادة هيكلته عمل حقيقي، وهو أيضاً أكثر ما يؤخر النشر.">Les textes et photos que vous fournissez ne coûtent rien. Le contenu que nous devons produire ou restructurer est un vrai travail, et c'est aussi ce qui retarde le plus souvent une mise en ligne.</p>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="SSL certificate issued and renewed automatically" data-fr="Certificat SSL émis et renouvelé automatiquement" data-ar="شهادة SSL تُصدر وتُجدَّد تلقائياً">Certificat SSL émis et renouvelé automatiquement</span>
       </div>
-      <div class="budget-item reveal" style="transition-delay:.12s">
-        <span class="budget-item-t" data-en="Multilingual or not" data-fr="Multilingue ou non" data-ar="متعدد اللغات أم لا">Multilingue ou non</span>
-        <p class="budget-item-d"
-          data-en="A trilingual site is not one site times three, but every string, every layout and the right-to-left Arabic version have to be handled."
-          data-fr="Un site trilingue n'est pas un site multiplié par trois, mais chaque texte, chaque mise en page et la version arabe de droite à gauche doivent être traités."
-          data-ar="الموقع الثلاثي اللغات ليس موقعاً مضروباً في ثلاثة، لكن كل نص وكل تخطيط والنسخة العربية من اليمين إلى اليسار تحتاج معالجة.">Un site trilingue n'est pas un site multiplié par trois, mais chaque texte, chaque mise en page et la version arabe de droite à gauche doivent être traités.</p>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Designed on mobile first, then tablet and desktop" data-fr="Conçu sur mobile d'abord, puis tablette et desktop" data-ar="مصمم للجوال أولاً، ثم اللوحي والحاسوب">Conçu sur mobile d'abord, puis tablette et desktop</span>
       </div>
-      <div class="budget-item reveal" style="transition-delay:.18s">
-        <span class="budget-item-t" data-en="Integrations" data-fr="Les intégrations" data-ar="التكاملات">Les intégrations</span>
-        <p class="budget-item-d"
-          data-en="Online booking, payments, a CMS your team manages, a connection to software you already use. This is where a showcase site turns into a custom build."
-          data-fr="Réservation en ligne, paiements, un CMS que votre équipe gère, une connexion à un logiciel que vous utilisez déjà. C'est là qu'un site vitrine devient un projet sur mesure."
-          data-ar="الحجز عبر الإنترنت، المدفوعات، نظام إدارة محتوى يديره فريقك، الربط ببرنامج تستعمله أصلاً. هنا يتحول الموقع التعريفي إلى مشروع حسب الطلب.">Réservation en ligne, paiements, un CMS que votre équipe gère, une connexion à un logiciel que vous utilisez déjà. C'est là qu'un site vitrine devient un projet sur mesure.</p>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="Page weight and loading speed watched from the first screen" data-fr="Poids des pages et vitesse de chargement surveillés dès le premier écran" data-ar="وزن الصفحات وسرعة التحميل مراقبان منذ الشاشة الأولى">Poids des pages et vitesse de chargement surveillés dès le premier écran</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="French, Arabic and English with real right-to-left support" data-fr="Français, arabe et anglais avec un vrai support droite-à-gauche" data-ar="الفرنسية والعربية والإنجليزية بدعم حقيقي للكتابة من اليمين إلى اليسار">Français, arabe et anglais avec un vrai support droite-à-gauche</span>
+      </div>
+      <div class="benefit-item">
+        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-en="SEO structure, meta tags, sitemap and structured data from the start" data-fr="Structure SEO, balises meta, sitemap et données structurées dès le départ" data-ar="بنية SEO ووسوم ميتا وخريطة موقع وبيانات مهيكلة منذ البداية">Structure SEO, balises meta, sitemap et données structurées dès le départ</span>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="price-callout reveal" style="margin-top:36px;">
-      <p data-en="Our packages start at 1 400 DH for a showcase site, 2 500 DH for a business site and 5 000 DH for a premium site — what each one includes is listed on the &lt;a class='inline-link' href='/tarifs'&gt;packages page&lt;/a&gt;. For the market as a whole, see our guide: &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;How much does a website cost in Morocco in 2026?&lt;/a&gt;"
-         data-fr="Nos formules démarrent à 1 400 DH pour un site vitrine, 2 500 DH pour un site business et 5 000 DH pour un site premium — le détail de ce que chacune comprend est sur la &lt;a class='inline-link' href='/tarifs'&gt;page packages&lt;/a&gt;. Pour situer le marché dans son ensemble, voir notre guide : &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;Combien coûte un site web au Maroc en 2026 ?&lt;/a&gt;"
-         data-ar="تبدأ صيغنا من 1400 درهم لموقع تعريفي، و2500 درهم لموقع أعمال، و5000 درهم لموقع بريميوم — تفاصيل كل صيغة في &lt;a class='inline-link' href='/tarifs'&gt;صفحة الباقات&lt;/a&gt;. ولتقدير السوق ككل، اطّلع على دليلنا: &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;كم يكلف موقع ويب في المغرب سنة 2026؟&lt;/a&gt;">Nos formules démarrent à 1 400 DH pour un site vitrine, 2 500 DH pour un site business et 5 000 DH pour un site premium — le détail de ce que chacune comprend est sur la <a class="inline-link" href="/tarifs">page packages</a>. Pour situer le marché dans son ensemble, voir notre guide : <a class="inline-link" href="/blog/prix-creation-site-web-maroc/">Combien coûte un site web au Maroc en 2026 ?</a></p>
-      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Get a free quote" data-fr="Obtenir un devis gratuit" data-ar="احصل على عرض سعر مجاني">Obtenir un devis gratuit</a>
+<!-- ════ TEMPLATE SITE vs STUDIO BUILD ════ -->
+<section class="svc-section svc-section--tint" id="comparatif">
+  <div class="container">
+    <div class="vs-badge-wrap reveal">
+      <span class="vs-badge">
+        <span class="vs-badge-dot"></span>
+        <span data-en="Comparison" data-fr="Comparatif" data-ar="مقارنة">Comparatif</span>
+      </span>
+    </div>
+    <h2 class="svc-band-title svc-band-title--wide reveal"
+      data-en="A template site, <em>or</em> this"
+      data-fr="Un site template, <em>ou</em> ceci"
+      data-ar="موقع بقالب جاهز، <em>أو</em> هذا">Un site template, <em>ou</em> ceci</h2>
+    <p class="svc-band-sub reveal"
+      data-en="Both approaches produce a website. They do not produce the same result three months later, when you are trying to work out why nobody calls."
+      data-fr="Les deux approches produisent un site web. Elles ne produisent pas le même résultat trois mois plus tard, au moment où vous cherchez pourquoi personne n'appelle."
+      data-ar="كلا النهجين ينتج موقعاً. لكنهما لا ينتجان النتيجة نفسها بعد ثلاثة أشهر، حين تبحث عن سبب غياب الاتصالات.">Les deux approches produisent un site web. Elles ne produisent pas le même résultat trois mois plus tard, au moment où vous cherchez pourquoi personne n'appelle.</p>
+
+    <div class="vs-table-wrap reveal">
+      <div class="vs-table">
+
+        <div class="vs-row-label" aria-hidden="true"></div>
+        <div class="vs-cell vs-head1">
+          <span class="vs-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M14 6l-8 8" stroke="#f87171" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span data-en="Low-Cost Sites" data-fr="Sites Low-Cost" data-ar="مواقع منخفضة التكلفة">Sites Low-Cost</span>
+        </div>
+        <div class="vs-cell vs-head2">
+          <span class="vs-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Louiss Web Studio</span>
+        </div>
+
+        <div class="vs-row-label" data-en="Design" data-fr="Design" data-ar="التصميم">Design</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Generic templates" data-fr="Templates génériques" data-ar="قوالب عامة جاهزة">Templates génériques</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Custom-designed in Figma" data-fr="Sur-mesure, dessiné dans Figma" data-ar="تصميم حصري عبر Figma">Sur-mesure, dessiné dans Figma</span></div>
+
+        <div class="vs-row-label" data-en="Performance" data-fr="Performance" data-ar="الأداء">Performance</div>
+        <div class="vs-cell vs-val1 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Slow, unoptimized loading" data-fr="Chargement lent, non optimisé" data-ar="تحميل بطيء وغير محسّن">Chargement lent, non optimisé</span></div>
+        <div class="vs-cell vs-val2 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Speed optimized from day one" data-fr="Vitesse optimisée dès la conception" data-ar="سرعة محسّنة منذ التصميم">Vitesse optimisée dès la conception</span></div>
+
+        <div class="vs-row-label" data-en="SEO" data-fr="SEO" data-ar="تحسين محركات البحث">SEO</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Basic, bolted on later" data-fr="Basique, ajouté après coup" data-ar="أساسي، يُضاف لاحقاً">Basique, ajouté après coup</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Structure and data from the start" data-fr="Structure et données dès le départ" data-ar="بنية وبيانات منذ البداية">Structure et données dès le départ</span></div>
+
+        <div class="vs-row-label" data-en="Security" data-fr="Sécurité" data-ar="الأمان">Sécurité</div>
+        <div class="vs-cell vs-val1 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Standard setup" data-fr="Configuration standard" data-ar="إعداد قياسي">Configuration standard</span></div>
+        <div class="vs-cell vs-val2 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="HTTPS and best practices applied" data-fr="HTTPS et bonnes pratiques appliquées" data-ar="HTTPS وأفضل الممارسات مطبّقة">HTTPS et bonnes pratiques appliquées</span></div>
+
+        <div class="vs-row-label" data-en="Support" data-fr="Support" data-ar="الدعم">Support</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Email ticket only" data-fr="Ticket e-mail uniquement" data-ar="عبر تذكرة بريد فقط">Ticket e-mail uniquement</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Direct WhatsApp with the developer" data-fr="WhatsApp direct avec le développeur" data-ar="واتساب مباشر مع المطوّر">WhatsApp direct avec le développeur</span></div>
+
+        <div class="vs-row-label" data-en="Technologies" data-fr="Technologies" data-ar="التقنيات">Technologies</div>
+        <div class="vs-cell vs-val1 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Generic WordPress/Wix" data-fr="WordPress/Wix générique" data-ar="ووردبريس أو ويكس عام">WordPress/Wix générique</span></div>
+        <div class="vs-cell vs-val2 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Next.js, Tailwind, or native HTML/CSS/JS" data-fr="Next.js, Tailwind ou HTML/CSS/JS natif" data-ar="Next.js أو Tailwind أو HTML/CSS/JS خالص">Next.js, Tailwind ou HTML/CSS/JS natif</span></div>
+
+        <div class="vs-row-label" data-en="Mobile" data-fr="Mobile" data-ar="الجوال">Mobile</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Basic responsive" data-fr="Responsive basique" data-ar="تجاوب أساسي">Responsive basique</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Built mobile-first" data-fr="Pensé mobile-first" data-ar="مصمم أولاً للجوال">Pensé mobile-first</span></div>
+
+        <div class="vs-row-label" data-en="Scalability" data-fr="Évolutivité" data-ar="قابلية التطور">Évolutivité</div>
+        <div class="vs-cell vs-val1 vs-alt vs-last"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Limited, means starting over" data-fr="Limitée, il faut recommencer" data-ar="محدودة، تتطلب البدء من جديد">Limitée, il faut recommencer</span></div>
+        <div class="vs-cell vs-val2 vs-alt vs-last"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Built to grow with you" data-fr="Pensé pour évoluer avec vous" data-ar="مصمم للتطور معك">Pensé pour évoluer avec vous</span></div>
+
+      </div>
     </div>
   </div>
 </section>
@@ -1152,9 +1461,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         data-fr="Avant de vous <em>lancer</em>"
         data-ar="قبل أن <em>تبدأ</em>">Avant de vous <em>lancer</em></h2>
       <p class="faq-subtitle"
-        data-en="The five questions we are asked most often about building a website in Morocco."
-        data-fr="Les cinq questions qu'on nous pose le plus souvent sur la création d'un site web au Maroc."
-        data-ar="الأسئلة الخمسة الأكثر تكراراً حول إنشاء موقع ويب في المغرب.">Les cinq questions qu'on nous pose le plus souvent sur la création d'un site web au Maroc.</p>
+        data-en="The questions we are asked most often about building a website in Morocco."
+        data-fr="Les questions qu'on nous pose le plus souvent sur la création d'un site web au Maroc."
+        data-ar="الأسئلة الأكثر تكراراً حول إنشاء موقع ويب في المغرب.">Les questions qu'on nous pose le plus souvent sur la création d'un site web au Maroc.</p>
     </div>
 
     <div class="faq-list reveal" id="faqList">
@@ -1237,6 +1546,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             data-ar="تتحدث مباشرة إلى من يصمم موقعك ويطوره: لا مدير مشروع وسيط، ولا طلب يتشوه في الطريق. في المقابل، لا نقبل مشاريع تتطلب فعلاً فريقاً من عشرات الأشخاص.">Vous parlez directement à la personne qui conçoit et développe votre site : pas de chef de projet intermédiaire, pas de brief qui se déforme en chemin. En contrepartie, nous ne prenons pas les projets qui exigeraient réellement une équipe de plusieurs dizaines de personnes.</p>
         </div>
       </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Do you provide hosting and the domain name?"
+            data-fr="Proposez-vous l'hébergement et le nom de domaine ?"
+            data-ar="هل توفّرون الاستضافة واسم النطاق؟">Proposez-vous l'hébergement et le nom de domaine ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="We set up hosting on Vercel's global network for every project; the hosting itself is billed directly by Vercel, not bundled into our price. The SSL certificate is issued and renewed automatically. We handle domain registration and DNS configuration from end to end, and both are registered in your name — so you keep control of them whatever happens next."
+            data-fr="Nous configurons l'hébergement sur le réseau mondial de Vercel pour chaque projet ; l'hébergement lui-même est facturé directement par Vercel, il n'est pas inclus dans notre prix. Le certificat SSL est émis et renouvelé automatiquement. Nous gérons l'enregistrement du domaine et la configuration DNS de bout en bout, et les deux sont mis à votre nom : vous en gardez le contrôle quoi qu'il arrive ensuite."
+            data-ar="نقوم بإعداد الاستضافة على شبكة Vercel العالمية لكل مشروع؛ تُفوتَر الاستضافة نفسها مباشرة من Vercel وليست مشمولة في سعرنا. تصدر شهادة SSL وتُجدَّد تلقائياً. نتولى تسجيل النطاق وضبط DNS من الألف إلى الياء، ويُسجَّل كلاهما باسمك، فتحتفظ بالتحكم الكامل فيهما مهما حدث لاحقاً.">Nous configurons l'hébergement sur le réseau mondial de Vercel pour chaque projet ; l'hébergement lui-même est facturé directement par Vercel, il n'est pas inclus dans notre prix. Le certificat SSL est émis et renouvelé automatiquement. Nous gérons l'enregistrement du domaine et la configuration DNS de bout en bout, et les deux sont mis à votre nom : vous en gardez le contrôle quoi qu'il arrive ensuite.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Can I edit the site myself after delivery?"
+            data-fr="Puis-je modifier mon site moi-même après la livraison ?"
+            data-ar="هل يمكنني تعديل موقعي بنفسي بعد التسليم؟">Puis-je modifier mon site moi-même après la livraison ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. Sites that need regular updating ship with a CMS, and we walk you through it at handover so you can change texts, images, products or blog posts yourself. For structural changes — a new page template, a new feature — we are on WhatsApp."
+            data-fr="Oui. Les sites qui ont besoin d'être mis à jour régulièrement sont livrés avec un CMS, et nous vous formons à sa prise en main à la remise des accès : vous modifiez vous-même textes, images, produits ou articles. Pour les changements de structure — un nouveau gabarit de page, une nouvelle fonctionnalité — nous restons joignables sur WhatsApp."
+            data-ar="نعم. المواقع التي تحتاج تحديثاً منتظماً تُسلَّم مع نظام لإدارة المحتوى، وندرّبك على استعماله عند تسليم الوصول: تعدّل بنفسك النصوص والصور والمنتجات والمقالات. أما التغييرات البنيوية — قالب صفحة جديد أو ميزة جديدة — فنبقى متاحين على واتساب.">Oui. Les sites qui ont besoin d'être mis à jour régulièrement sont livrés avec un CMS, et nous vous formons à sa prise en main à la remise des accès : vous modifiez vous-même textes, images, produits ou articles. Pour les changements de structure — un nouveau gabarit de page, une nouvelle fonctionnalité — nous restons joignables sur WhatsApp.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Do you work with businesses outside Tanger?"
+            data-fr="Travaillez-vous avec des entreprises en dehors de Tanger ?"
+            data-ar="هل تعملون مع شركات خارج طنجة؟">Travaillez-vous avec des entreprises en dehors de Tanger ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. We are based in Tanger and work with businesses across Morocco — Casablanca, Rabat, Marrakech, Agadir, Fès and beyond. The whole process runs on calls, Figma and WhatsApp, so the city changes nothing to the timeline. Each of those cities has its own &lt;a class='inline-link' href='#couverture'&gt;dedicated page&lt;/a&gt;."
+            data-fr="Oui. Nous sommes basés à Tanger et travaillons avec des entreprises partout au Maroc — Casablanca, Rabat, Marrakech, Agadir, Fès et au-delà. Tout le processus se déroule par appels, Figma et WhatsApp : la ville ne change rien aux délais. Chacune de ces villes a sa &lt;a class='inline-link' href='#couverture'&gt;page dédiée&lt;/a&gt;."
+            data-ar="نعم. مقرّنا طنجة ونعمل مع شركات في كل المغرب — الدار البيضاء والرباط ومراكش وأكادير وفاس وغيرها. تجري العملية كلها عبر المكالمات وFigma وواتساب: المدينة لا تغيّر شيئاً في الآجال. لكل مدينة من هذه المدن &lt;a class='inline-link' href='#couverture'&gt;صفحتها الخاصة&lt;/a&gt;.">Oui. Nous sommes basés à Tanger et travaillons avec des entreprises partout au Maroc — Casablanca, Rabat, Marrakech, Agadir, Fès et au-delà. Tout le processus se déroule par appels, Figma et WhatsApp : la ville ne change rien aux délais. Chacune de ces villes a sa <a class="inline-link" href="#couverture">page dédiée</a>.</p>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1295,63 +1652,99 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 <!-- ════ FOOTER ════ -->
+<!-- PARTIAL:footer:START -->
 <footer class="footer-section">
   <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
   <div class="container">
-
-    <!-- Top: Contact CTA -->
-    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
-      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;"
-        data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
-      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Message us on WhatsApp" data-fr="Nous écrire sur WhatsApp" data-ar="راسلنا على واتساب">Nous écrire sur WhatsApp</a>
+    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
+      </div>
     </div>
 
-    <!-- Middle: Logo + Socials -->
-    <div class="footer-mid reveal" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:24px;">
-      <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
-      <div style="display:flex; align-items:center; gap:32px; margin-left:auto;">
-        <div class="footer-socials" style="display:flex; gap:12px;">
-          <a href="https://dribbble.com/kuro3245" class="footer-social" aria-label="Dribbble" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+    <div class="footer-grid reveal">
+
+      <!-- Col 1: brand -->
+      <div class="footer-col">
+        <a href="/" class="logo">
+          <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark">
+          <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light">
+        </a>
+        <p class="footer-brand-tagline"
+          data-en="Premium websites that work for you, while you run your business."
+          data-fr="Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise."
+          data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء.">Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise.</p>
+        <p style="font-size:13px; font-weight:600; color:var(--muted); margin:-10px 0 20px;"
+          data-en="50+ projects delivered across Morocco"
+          data-fr="50+ projets livrés à travers le Maroc"
+          data-ar="أكثر من 50 مشروعًا تم إنجازه في جميع أنحاء المغرب">50+ projets livrés à travers le Maroc</p>
+        <div class="footer-socials" style="display:flex; gap:10px; margin-bottom:20px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social-btn" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
           </a>
-          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
           </a>
         </div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--muted);">
+          <a href="tel:+212716490397" style="color:inherit; text-decoration:none;">+212 7 16 49 03 97</a>
+          <a href="mailto:contact@louisswebstudio.com" style="color:inherit; text-decoration:none;">contact@louisswebstudio.com</a>
+          <span data-en="Tanger, Morocco" data-fr="Tanger, Maroc" data-ar="طنجة، المغرب">Tanger, Maroc</span>
+        </div>
       </div>
+
+      <!-- Col 2: services -->
+      <div class="footer-col">
+        <a href="/services" class="footer-col-title" style="display:block; color:inherit; text-decoration:none;" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <div class="footer-col-links">
+          <a href="/creation-site-e-commerce-maroc" data-en="E-commerce website Morocco" data-fr="Création site e-commerce Maroc" data-ar="إنشاء متجر إلكتروني بالمغرب">Création site e-commerce Maroc</a>
+          <a href="/creation-site-vitrine-maroc" data-en="Showcase website Morocco" data-fr="Création site vitrine Maroc" data-ar="إنشاء موقع تعريفي بالمغرب">Création site vitrine Maroc</a>
+          <a href="/real-estate-web-design" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Immobilier</a>
+          <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourisme</a>
+          <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+          <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
+          <!-- Add here once the page exists: <a href="/referencement-seo-maroc" data-en="SEO & Development" data-fr="Référencement SEO & Développement" data-ar="تحسين محركات البحث والتطوير">Référencement SEO & Développement</a> -->
+        </div>
+      </div>
+
+      <!-- Col 3: cities -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</div>
+        <div class="footer-col-links">
+          <a href="/creation-site-web-maroc" data-en="Website design Morocco" data-fr="Création site web Maroc" data-ar="إنشاء موقع ويب بالمغرب">Création site web Maroc</a>
+          <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+          <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+          <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+          <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+          <a href="/locations" data-en="See all cities →" data-fr="Voir toutes les villes →" data-ar="مشاهدة كل المدن ←">Voir toutes les villes →</a>
+        </div>
+      </div>
+
+      <!-- Col 4: studio -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Studio" data-fr="Studio" data-ar="الاستوديو">Studio</div>
+        <div class="footer-col-links">
+          <a href="/projects" data-en="Projects" data-fr="Projets" data-ar="مشاريعنا">Projets</a>
+          <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
+          <a href="/faq" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+          <a href="/contact" data-en="Contact" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Cities: local landing pages -->
-    <div class="footer-cities reveal">
-      <span class="footer-cities-label" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</span>
-      <div class="footer-cities-links">
-        <a href="/creation-site-web-maroc" aria-current="page" data-en="Website design Morocco" data-fr="Création site web Maroc" data-ar="إنشاء موقع ويب بالمغرب">Création site web Maroc</a>
-        <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
-        <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
-        <a href="/creation-site-web-agadir" data-en="Website design Agadir" data-fr="Création site web Agadir" data-ar="تصميم مواقع الويب بأكادير">Création site web Agadir</a>
-        <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
-        <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
-        <a href="/creation-site-web-fes" data-en="Website design Fès" data-fr="Création site web Fès" data-ar="تصميم مواقع الويب بفاس">Création site web Fès</a>
-        <a href="/creation-site-web-essaouira" data-en="Website design Essaouira" data-fr="Création site web Essaouira" data-ar="تصميم مواقع الويب بالصويرة">Création site web Essaouira</a>
-        <a href="/creation-site-web-kenitra" data-en="Website design Kénitra" data-fr="Création site web Kénitra" data-ar="تصميم مواقع الويب بالقنيطرة">Création site web Kénitra</a>
-        <a href="/creation-site-web-oujda" data-en="Website design Oujda" data-fr="Création site web Oujda" data-ar="تصميم مواقع الويب بوجدة">Création site web Oujda</a>
-      </div>
-    </div>
-
-    <!-- Bottom: Legal -->
     <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
       <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. Tous droits réservés.</p>
       <div class="footer-legal" style="display:flex; gap:24px;">
-        <a href="/services" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
-        <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
-        <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
+        <a href="/sitemap.xml" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
       </div>
     </div>
-
   </div>
 </footer>
+<!-- PARTIAL:footer:END -->
 
 <!-- ════ WA FLOAT ════ -->
 <a href="https://wa.me/212716490397" data-wa-type="generic" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">

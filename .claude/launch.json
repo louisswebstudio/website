@@ -4,8 +4,9 @@
     {
       "name": "site",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", ".", "-l", "3123"],
-      "port": 3123
+      "runtimeArgs": ["serve", "."],
+      "port": 3123,
+      "autoPort": true
     }
   ]
 }

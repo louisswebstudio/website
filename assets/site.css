@@ -426,7 +426,9 @@ html[lang="fr"] .faq-title { font-size: 52px; max-width: 1000px; text-wrap: unse
 /* ── GRID SYSTEM ── */
 /* Single source of truth for all section widths */
 .container {
-  max-width: 1440px;
+  /* 1280 rather than 1440: at 1440 the text measure ran long and card
+     grids spread thin. Narrower reads as more deliberately composed. */
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 80px;
   width: 100%;
@@ -1274,7 +1276,7 @@ footer > * { position: relative; z-index: 1; }
 .footer-cta-small { font-size: 36px; font-weight: 500; color: var(--muted2); letter-spacing: -0.9px; }
 .footer-cta-row { display: flex; align-items: center; gap: 16px; }
 .footer-dot { width: 16px; height: 16px; background: var(--blue); border-radius: 9999px; flex-shrink: 0; }
-.footer-phone { font-family: 'Satoshi', 'Inter', sans-serif; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -1.5px; line-height: 60px; }
+.footer-phone { font-family: 'Inter', sans-serif; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -1.5px; line-height: 60px; }
 .footer-ctas { display: flex; gap: 8px; }
 .footer-mid {
   display: flex; align-items: center; justify-content: space-between;
@@ -1307,12 +1309,11 @@ footer > * { position: relative; z-index: 1; }
 .footer-legal a:hover { color: #fff; }
 
 /* ── FOOTER: 4-column grid ──
-   Brand / Services / Cities / Contact. Replaces the old stacked
-   footer-mid + footer-cities rows. Colours and type all come from the
-   existing tokens — nothing new is introduced here. */
+   Brand / Services / Villes / Studio. Colours and type all
+   come from the existing tokens — nothing new is introduced here. */
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1.2fr;
+  grid-template-columns: 1.4fr 1fr 1.4fr 1fr;
   gap: 48px;
   padding: 0 0 48px;
 }
@@ -1326,7 +1327,7 @@ footer > * { position: relative; z-index: 1; }
 .footer-col-title {
   font-size: 14px; font-weight: 700; letter-spacing: .12em;
   text-transform: uppercase; color: #fff;
-  margin-bottom: 18px;
+  margin-bottom: 26px;
 }
 .footer-col-links { display: flex; flex-direction: column; gap: 10px; }
 .footer-col-links a {
@@ -3931,7 +3932,7 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 .pricing-currency.pc-unit { font-size: 0.6em; opacity: 0.7; }
 .btn-primary.btn-block { width: 100%; justify-content: center; }
 .footer-cta-h {
-  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(36px, 6.5vw, 72px);
   font-weight: 700; color: #fff;
   letter-spacing: -0.033em; line-height: 1.333;
@@ -4031,3 +4032,18 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 @media (hover: none) and (max-width: 767px) {
   nav { background: rgba(14,14,14,0.97); }
 }
+
+/* ══ STACK SECTION (partials/stack-section.html) ══════════════════════════
+   Shared so the partial can be dropped on any page. Everything inside the
+   grid is an existing component; only the column count and the dark-mark
+   inversion need rules of their own. */
+@media (max-width: 1000px) {
+  #stack .container > div[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 560px) {
+  #stack .container > div[style*="repeat(4"] { grid-template-columns: 1fr !important; }
+}
+[dir="rtl"] #stack .container > div[style*="repeat(4"] { text-align: right !important; }
+/* Marks drawn black-on-transparent (Next.js, GitHub) would disappear on the
+   dark tile. Inverting gives the official light-on-dark variant. */
+html[data-theme="dark"] .stack-logo--invert { filter: invert(1); }
