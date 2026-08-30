@@ -695,8 +695,8 @@ html[data-theme="light"] .qf-trust-item { color: #4b5262; }
         },
         {
           "@type": "Question",
-          "name": "L'hébergement et le nom de domaine sont-ils inclus ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "L'hébergement est inclus dans nos formules, avec le certificat SSL émis et renouvelé automatiquement. Nous gérons l'enregistrement du domaine et la configuration DNS de bout en bout, et les deux sont mis à votre nom." }
+          "name": "Proposez-vous l'hébergement et le nom de domaine ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Nous configurons l'hébergement pour chaque projet ; l'hébergement lui-même est facturé directement par le fournisseur, il n'est pas inclus dans notre prix. Le certificat SSL est émis et renouvelé automatiquement. Nous gérons l'enregistrement du domaine et la configuration DNS de bout en bout, et les deux sont mis à votre nom." }
         },
         {
           "@type": "Question",
@@ -725,7 +725,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="nav-links">
       <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
-      <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
       <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
     </div>
 
@@ -794,7 +794,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <div class="menu-center">
     <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
-    <a href="/#faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
   </div>
 
@@ -1765,7 +1765,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
-        <a href="/sitemap.xml" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
+        <a href="/sitemap" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
       </div>
     </div>
   </div>
@@ -1962,4 +1962,20 @@ document.querySelectorAll('.faq-question').forEach(function (q) {
       + t.name + ': ' + form.name.value.trim() + '\n'
       + t.email + ': ' + form.email.value.trim() + '\n'
       + t.phone + ': ' + form.phone.value.trim() + '\n'
-      + t.ms
+      + t.msg + ': ' + form.message.value.trim();
+
+    window.open('https://wa.me/' + NUMBER + '?text=' + encodeURIComponent(body),
+                '_blank', 'noopener');
+  });
+})();
+</script>
+
+<script defer src="assets/site-chrome.js"></script>
+<script defer src="assets/city-testimonials.js"></script>
+<script defer src="assets/starfield.js"></script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
+</body>
+</html>

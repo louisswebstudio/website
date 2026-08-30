@@ -292,11 +292,11 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
   background: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.18);
 }
 
-.city-hero-shot {
-  border-radius: 18px; overflow: hidden;
-  border: 1px solid var(--border); box-shadow: 0 24px 60px rgba(0,0,0,.4);
+.city-hero-shot img { display: block; width: 100%; height: auto; transform: scaleX(-1); }
+
+@media (min-width: 901px) {
+  .city-hero-shot img { width: 122%; max-width: 122%; margin-left: -22%; }
 }
-.city-hero-shot img { display: block; width: 100%; height: auto; }
 
 /* ── Numbered service cards ── */
 .svc-grid--numbered .svc-card { position: relative; padding-top: 26px; }
@@ -312,6 +312,7 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
 }
 .svc-card-more svg { transition: transform .18s ease; }
 .svc-card-more:hover svg { transform: translateX(3px); }
+.svc-card-cta { margin-top: auto; align-self: flex-start; padding-top: 18px; }
 
 /* ── Testimonials ── */
 .ct-grid {
@@ -694,7 +695,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="nav-links">
       <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
-      <a href="/#faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
       <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
     </div>
 
@@ -763,7 +764,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <div class="menu-center">
     <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
-    <a href="/#faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
     <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
   </div>
 
@@ -1091,7 +1092,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-en="Your digital business card. Built for professionals who close on the phone or in a meeting: the site has to establish credibility, answer the obvious questions, and make getting in touch effortless."
           data-fr="Votre carte de visite digitale. Pensé pour les pros qui concluent au téléphone ou en rendez-vous : le site doit installer la crédibilité, répondre aux questions évidentes et rendre la prise de contact immédiate."
           data-ar="بطاقتك التعريفية الرقمية. مصمم للمهنيين الذين يبرمون الصفقات عبر الهاتف أو في اللقاءات: على الموقع أن يبني المصداقية ويجيب عن الأسئلة البديهية ويجعل التواصل فورياً.">Votre carte de visite digitale. Pensé pour les pros qui concluent au téléphone ou en rendez-vous : le site doit installer la crédibilité, répondre aux questions évidentes et rendre la prise de contact immédiate.</p>
-        <a href="/tarifs" class="svc-card-more" data-en="See what is included" data-fr="Voir ce qui est inclus" data-ar="اطّلع على ما يشمله">Voir ce qui est inclus<svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/creation-site-vitrine-maroc" class="btn-secondary svc-card-cta" data-en="See what is included" data-fr="Voir ce qui est inclus" data-ar="اطّلع على ما يشمله">Voir ce qui est inclus</a>
       </div>
       <div class="svc-card reveal" style="transition-delay:.06s">
         <span class="svc-num" aria-hidden="true">02</span>
@@ -1100,7 +1101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-en="Selling online, around the clock. Catalogue, product pages, a purchase journey that does not lose people at checkout, and a back office you can actually run yourself."
           data-fr="Vendre en ligne, 24h/24. Catalogue, fiches produits, un parcours d'achat qui ne perd personne au moment de payer, et un back-office que vous pouvez réellement gérer vous-même."
           data-ar="البيع عبر الإنترنت على مدار الساعة. كتالوج وصفحات منتجات ورحلة شراء لا تُفقد العميل عند الدفع، ولوحة تحكم يمكنك إدارتها بنفسك فعلاً.">Vendre en ligne, 24h/24. Catalogue, fiches produits, un parcours d'achat qui ne perd personne au moment de payer, et un back-office que vous pouvez réellement gérer vous-même.</p>
-        <a href="/services" class="svc-card-more" data-en="How we build it" data-fr="Comment nous le construisons" data-ar="كيف ننجزه">Comment nous le construisons<svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/creation-site-e-commerce-maroc" class="btn-secondary svc-card-cta" data-en="How we build it" data-fr="Comment nous le construisons" data-ar="كيف ننجزه">Comment nous le construisons</a>
       </div>
       <div class="svc-card reveal" style="transition-delay:.12s">
         <span class="svc-num" aria-hidden="true">03</span>
@@ -1109,7 +1110,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-en="Web apps, back offices and specific integrations: online booking, property management, client areas, dashboards. For businesses with a real flow to automate rather than a brochure to publish."
           data-fr="Applications web, back-office et intégrations spécifiques : réservation en ligne, gestion de biens, espace client, tableau de bord. Pour les activités qui ont un vrai flux à automatiser, pas une plaquette à publier."
           data-ar="تطبيقات ويب ولوحات إدارة وتكاملات خاصة: الحجز عبر الإنترنت، إدارة العقارات، فضاء العملاء، لوحات المعلومات. لأنشطة لديها تدفق حقيقي للأتمتة، لا مجرد كتيّب للنشر.">Applications web, back-office et intégrations spécifiques : réservation en ligne, gestion de biens, espace client, tableau de bord. Pour les activités qui ont un vrai flux à automatiser, pas une plaquette à publier.</p>
-        <a href="/el-majdoub" class="svc-card-more" data-en="See a custom project" data-fr="Voir un projet sur mesure" data-ar="شاهد مشروعاً حسب الطلب">Voir un projet sur mesure<svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/el-majdoub" class="btn-secondary svc-card-cta" data-en="See a custom project" data-fr="Voir un projet sur mesure" data-ar="شاهد مشروعاً حسب الطلب">Voir un projet sur mesure</a>
       </div>
     </div>
   </div>
@@ -1190,51 +1191,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ════ PROCESS ════ -->
-<section class="svc-section svc-section--tint" id="process">
+<section class="process-section" id="process">
+  <div class="process-glow"></div>
   <div class="container">
-    <h2 class="svc-band-title reveal"
-      data-en="How a project <em>runs</em>"
-      data-fr="Comment se <em>déroule</em> un projet"
-      data-ar="كيف <em>يسير</em> المشروع">Comment se <em>déroule</em> un projet</h2>
-    <p class="svc-band-sub reveal"
-      data-en="Four steps, in this order. The design is validated before development starts, so you never discover the result at the end."
-      data-fr="Quatre étapes, dans cet ordre. Le design est validé avant que le développement commence : vous ne découvrez jamais le résultat à la fin."
-      data-ar="أربع مراحل، بهذا الترتيب. يُصادق على التصميم قبل بدء التطوير: لن تكتشف النتيجة في النهاية أبداً.">Quatre étapes, dans cet ordre. Le design est validé avant que le développement commence : vous ne découvrez jamais le résultat à la fin.</p>
+  <div class="process-header reveal">
+    <h2 class="process-h" data-en="A simple process to build a high-performing <em>website</em>" data-fr="Un <em>processus simple</em>, sans mauvaises surprises" data-ar="مراحل بسيطة لبناء موقع <em>عالي الأداء</em>">Un <em>processus simple</em>, sans mauvaises surprises</h2>
+    <p class="process-right-text" data-en="We handle everything, from idea to launch, so you can focus on your business." data-fr="De l'idée au lancement, on s'occupe de tout." data-ar="نتولى كل شيء، من الفكرة حتى الإطلاق، حتى تتمكن من التركيز على عملك.">De l'idée au lancement, on s'occupe de tout.</p>
+  </div>
 
-    <div class="step-grid">
-      <div class="step-card reveal">
-        <span class="step-n" aria-hidden="true">1</span>
-        <span class="step-t" data-en="Discovery call" data-fr="Appel de découverte" data-ar="مكالمة استكشافية">Appel de découverte</span>
-        <p class="step-d"
-          data-en="What the site has to accomplish, who it speaks to, what content already exists. A free quote follows within 24 hours."
-          data-fr="Ce que le site doit accomplir, à qui il s'adresse, quels contenus existent déjà. Un devis gratuit suit sous 24h."
-          data-ar="ما الذي يجب أن يحققه الموقع، ولمن يتوجه، وما المحتوى المتوفر أصلاً. يليه عرض سعر مجاني خلال 24 ساعة.">Ce que le site doit accomplir, à qui il s'adresse, quels contenus existent déjà. Un devis gratuit suit sous 24h.</p>
+  <div class="process-body reveal">
+    <div class="process-steps" id="cityProcessSteps"></div>
+
+    <div class="process-image-panel" id="cityProcessImagePanel">
+      <div class="process-img-slide active" id="city-proc-slide-0">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop" alt="Discovery, Strategy session" width="800" height="600" loading="lazy">
       </div>
-      <div class="step-card reveal" style="transition-delay:.06s">
-        <span class="step-n" aria-hidden="true">2</span>
-        <span class="step-t" data-en="Design in Figma" data-fr="Design dans Figma" data-ar="التصميم في Figma">Design dans Figma</span>
-        <p class="step-d"
-          data-en="You see your actual screens before any code exists. Revisions happen here, where they are cheap, not after development."
-          data-fr="Vous voyez vos écrans réels avant qu'une ligne de code existe. Les retours se font ici, là où ils ne coûtent rien, pas après le développement."
-          data-ar="ترى شاشاتك الفعلية قبل وجود أي شيفرة. تتم التعديلات هنا، حيث لا تكلّف شيئاً، لا بعد التطوير.">Vous voyez vos écrans réels avant qu'une ligne de code existe. Les retours se font ici, là où ils ne coûtent rien, pas après le développement.</p>
+      <div class="process-img-slide" id="city-proc-slide-1">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80&auto=format&fit=crop" alt="Design, UI design work" width="800" height="600" loading="lazy">
       </div>
-      <div class="step-card reveal" style="transition-delay:.12s">
-        <span class="step-n" aria-hidden="true">3</span>
-        <span class="step-t" data-en="Development" data-fr="Développement" data-ar="التطوير">Développement</span>
-        <p class="step-d"
-          data-en="The validated design becomes a fast, responsive, multilingual site, with SEO foundations built in rather than bolted on."
-          data-fr="Le design validé devient un site rapide, responsive et multilingue, avec les fondations SEO intégrées et non ajoutées après coup."
-          data-ar="يتحول التصميم المُصادق عليه إلى موقع سريع ومتجاوب ومتعدد اللغات، بأسس تحسين محركات البحث مدمجة لا مضافة لاحقاً.">Le design validé devient un site rapide, responsive et multilingue, avec les fondations SEO intégrées et non ajoutées après coup.</p>
+      <div class="process-img-slide" id="city-proc-slide-2">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop" alt="Development, Coding" width="800" height="600" loading="lazy">
       </div>
-      <div class="step-card reveal" style="transition-delay:.18s">
-        <span class="step-n" aria-hidden="true">4</span>
-        <span class="step-t" data-en="Launch and handover" data-fr="Mise en ligne et remise des accès" data-ar="النشر وتسليم الوصول">Mise en ligne et remise des accès</span>
-        <p class="step-d"
-          data-en="Domain, hosting and CMS accounts are put in your name and handed over. The site belongs to you, not to us."
-          data-fr="Domaine, hébergement et accès au CMS sont mis à votre nom et vous sont remis. Le site vous appartient, pas à nous."
-          data-ar="يُسجَّل النطاق والاستضافة وحسابات نظام إدارة المحتوى باسمك وتُسلَّم إليك. الموقع ملك لك، لا لنا.">Domaine, hébergement et accès au CMS sont mis à votre nom et vous sont remis. Le site vous appartient, pas à nous.</p>
+      <div class="process-img-slide" id="city-proc-slide-3">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&auto=format&fit=crop" alt="Launch, Going live" width="800" height="600" loading="lazy">
       </div>
     </div>
+  </div>
+  <div class="process-cta-wrap">
+    <a href="https://wa.me/212716490397?text=Hi%2C%20I%20want%20to%20start%20a%20project." data-wa-type="generic" class="btn-primary" data-en="Book a Call" data-fr="Réserver un Appel" data-ar="احجز مكالمة">Réserver un Appel</a>
+  </div>
   </div>
 </section>
 
@@ -1739,7 +1724,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
         <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
-        <a href="/sitemap.xml" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
+        <a href="/sitemap" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
       </div>
     </div>
   </div>
@@ -1768,6 +1753,126 @@ document.querySelectorAll('.faq-question').forEach(function (q) {
 </script>
 
 <script defer src="assets/site-chrome.js"></script>
+<script defer>
+/* ══ PROCESS — auto-advancing steps + image panel (mirrors index-main.js) ══ */
+(function () {
+  var stepDataEn = [
+    { title: 'Discovery', body: 'We start by understanding your business, goals, and audience. Deep discovery ensures everything we build is purposeful and targeted.' },
+    { title: 'Ideas & Design', body: 'We translate insights into beautiful, high-fidelity designs in Figma, every pixel, spacing, and interaction crafted before a line of code is written.' },
+    { title: 'Development', body: 'Pixel-perfect implementation. Fast, clean, semantic code optimised for performance, SEO, and every device and browser.' },
+    { title: 'Launch', body: 'We test thoroughly, then go live. Post-launch support included, your site is monitored and ready from day one.' }
+  ];
+  var stepDataFr = [
+    { title: 'Découverte', body: "Nous commençons par comprendre votre activité, vos objectifs et votre audience. Une découverte approfondie pour bâtir quelque chose de ciblé et efficace." },
+    { title: 'Idées & Design', body: "Nous transformons vos insights en designs haute-fidélité sur Figma, chaque pixel, espacement et interaction pensés avant d'écrire une seule ligne de code." },
+    { title: 'Développement', body: "Intégration pixel-perfect. Code propre, rapide et sémantique, optimisé pour la performance, le SEO et tous les appareils." },
+    { title: 'Mise en ligne', body: "Nous testons rigoureusement, puis nous mettons en ligne. Support post-lancement inclus, votre site est suivi et opérationnel dès le premier jour." }
+  ];
+  var stepDataAr = [
+    { title: 'الاستكشاف', body: 'نبدأ بفهم عملك وأهدافك وجمهورك المستهدف. الاستكشاف العميق يضمن أن كل ما نبنيه هادف ومُوجَّه نحو النتائج.' },
+    { title: 'الأفكار والتصميم', body: 'نحوّل الأفكار إلى تصاميم عالية الدقة في Figma، كل بكسل ومسافة وتفاعل مُصمَّم بعناية قبل كتابة سطر واحد من الكود.' },
+    { title: 'التطوير', body: 'تنفيذ دقيق وكامل. كود نظيف وسريع ومُحسَّن للأداء وSEO وجميع الأجهزة والمتصفحات.' },
+    { title: 'الإطلاق', body: 'نختبر بشكل شامل ثم ننشر الموقع. دعم ما بعد الإطلاق مشمول، موقعك مُراقَب وجاهز من اليوم الأول.' }
+  ];
+  function getStepData() {
+    var lang = document.documentElement.lang;
+    if (lang === 'fr') return stepDataFr;
+    if (lang === 'ar') return stepDataAr;
+    return stepDataEn;
+  }
+
+  var stepImages = [
+    'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80&auto=format&fit=crop'
+  ];
+
+  var STEP_DURATION = 8000, TICK = 50;
+  var activeStep = 0, progressTimer = null, elapsed = 0, isPaused = false;
+
+  function renderSteps(idx) {
+    var container = document.getElementById('cityProcessSteps');
+    if (!container) return;
+    container.innerHTML = getStepData().map(function (s, i) {
+      if (i === idx) {
+        return '<div class="process-step active" data-step-index="' + i + '">' +
+          '<div class="step-title-row"><div class="step-num-circle">0' + (i + 1) + '</div><div class="step-title">' + s.title + '</div></div>' +
+          '<img class="step-card-img" src="' + stepImages[i] + '" alt="' + s.title + '" width="800" height="600" loading="lazy">' +
+          '<p class="step-body">' + s.body + '</p>' +
+          '<div class="step-progress-bar"><div class="step-progress-fill" id="cityStepProgressFill"></div></div>' +
+        '</div>';
+      }
+      return '<div class="process-step" data-step-index="' + i + '"><div class="step-num-circle">0' + (i + 1) + '</div><div class="step-title">' + s.title + '</div></div>';
+    }).join('');
+  }
+
+  function switchImage(idx) {
+    document.querySelectorAll('#cityProcessImagePanel .process-img-slide').forEach(function (el, i) {
+      el.classList.toggle('active', i === idx);
+    });
+  }
+
+  function setStep(idx, resetProgress) {
+    if (resetProgress === undefined) resetProgress = true;
+    activeStep = idx;
+    renderSteps(idx);
+    switchImage(idx);
+    if (resetProgress) {
+      elapsed = 0;
+      if (progressTimer) clearInterval(progressTimer);
+      if (!isPaused) startProgress();
+    }
+  }
+
+  function startProgress() {
+    progressTimer = setInterval(function () {
+      if (isPaused) return;
+      elapsed += TICK;
+      var pct = Math.min((elapsed / STEP_DURATION) * 100, 100);
+      var fill = document.getElementById('cityStepProgressFill');
+      if (fill) fill.style.width = pct + '%';
+      if (elapsed >= STEP_DURATION) {
+        elapsed = 0;
+        activeStep = (activeStep + 1) % getStepData().length;
+        setStep(activeStep, false);
+      }
+    }, TICK);
+  }
+
+  function pauseAuto() { isPaused = true; }
+  function resumeAuto() { isPaused = false; }
+
+  var processSection = document.getElementById('process');
+  if (processSection && 'IntersectionObserver' in window) {
+    var procObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { isPaused = !e.isIntersecting; });
+    }, { threshold: 0.2 });
+    procObs.observe(processSection);
+  }
+
+  var stepsContainer = document.getElementById('cityProcessSteps');
+  if (stepsContainer) {
+    stepsContainer.addEventListener('click', function (e) {
+      var step = e.target.closest('.process-step');
+      if (step && step.dataset.stepIndex != null) setStep(Number(step.dataset.stepIndex));
+    });
+    stepsContainer.addEventListener('mouseenter', pauseAuto);
+    stepsContainer.addEventListener('mouseleave', resumeAuto);
+  }
+
+  // Re-render the active step's text when the visitor switches language.
+  if (typeof window.setLang === 'function') {
+    var originalSetLang = window.setLang;
+    window.setLang = function (lang) {
+      originalSetLang(lang);
+      setStep(activeStep, false);
+    };
+  }
+
+  setStep(0);
+})();
+</script>
 <script defer src="assets/city-testimonials.js"></script>
 <script defer src="assets/starfield.js"></script>
 

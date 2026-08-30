@@ -484,7 +484,7 @@ const navHtml = (R) => `
     <a href="/" class="logo">${logoImgs(R, 'alt="Louiss Web Studio" style="height:32px;width:auto;display:block;"')}</a>
     <div class="nav-links">
       <a href="/projects" class="nav-link">Projets</a>
-      <a href="/#faq" class="nav-link">FAQ</a>
+      <a href="/faq" class="nav-link">FAQ</a>
       <a href="/contact" class="nav-link">Contact</a>
     </div>
     <div class="nav-right">
@@ -506,7 +506,7 @@ const navHtml = (R) => `
   </div>
   <div class="menu-center">
     <a href="/projects" class="mobile-menu-link">Projets</a>
-    <a href="/#faq" class="mobile-menu-link">FAQ</a>
+    <a href="/faq" class="mobile-menu-link">FAQ</a>
     <a href="/contact" class="mobile-menu-link">Contact</a>
   </div>
   <div class="theme-toggle-row">
@@ -590,7 +590,7 @@ const footerHtml = (R) => `
       <div class="footer-legal" style="display:flex; gap:24px;">
         <a href="/privacy">Politique de Confidentialité</a>
         <a href="/terms">Conditions d'Utilisation</a>
-        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/sitemap">Sitemap</a>
       </div>
     </div>
   </div>
