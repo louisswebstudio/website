@@ -3471,6 +3471,7 @@ html[dir="rtl"] .hero-bmock-track {
     object-fit: cover !important;
     object-position: top center !important;
     border-radius: 16px;
+    transform: none !important;
   }
   /* Standardise card radius to match thumb */
   .bento-card { border-radius: 16px !important; }
@@ -3906,12 +3907,15 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
 .mob-logo-img { width: auto; height: 20px; }
 .hero-container { flex: 0 0 auto; }
 .section-label.section-label--center { justify-content: center; }
-/* Project bento thumbnail offsets (desktop). The mobile media query for
-   `.bento-thumb img:not(.bento-hover-img)` resets these with !important. */
-.bento-pos-1 { left: 166.67px; top: 36px; }
-.bento-pos-2 { left: 61.33px;  top: 46px; }
-.bento-pos-3 { left: 62px;     top: 35px; }
-.bento-pos-4 { left: 166px;    top: 39px; }
+/* Project bento thumbnail offsets (desktop). Centered horizontally, anchored
+   near the top with a small gap so the navy frame stays visible above the
+   screenshot (matching .bento-pos-5/-6's breathing room) instead of the
+   screenshot bleeding into — or being cropped flush against — the card edge.
+   The mobile media query for `.bento-thumb img:not(.bento-hover-img)` resets
+   these with !important. */
+.bento-pos-1, .bento-pos-2, .bento-pos-3, .bento-pos-4 {
+  left: 50%; top: 28px; transform: translateX(-50%);
+}
 .bento-pos-5 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 .bento-pos-6 { left: 0; top: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top; }
 /* Softer variants of the ambient circles. Only the --glow-* values change —
@@ -4000,6 +4004,7 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
     object-fit: cover !important;
     object-position: top center !important;
     border-radius: 16px;
+    transform: none !important;
   }
   .bento-title { font-size: 20px; line-height: 28px; }
   .bento-cat   { font-size: 14px; line-height: 20px; }

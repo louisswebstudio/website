@@ -332,7 +332,9 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
   display: grid; place-items: center;
   background: rgba(59,130,246,.14); color: var(--blue);
   font-size: 14px; font-weight: 700;
+  overflow: hidden;
 }
+.ct-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .ct-who { display: flex; flex-direction: column; line-height: 1.3; }
 .ct-name { font-size: 14px; font-weight: 650; }
 .ct-role { font-size: 12.5px; color: var(--muted2); }
@@ -1415,22 +1417,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ════ TESTIMONIALS ════ -->
-<section class="svc-section" id="cityTesti" hidden>
+<section class="testimonials-section" id="cityTesti" hidden>
+  <div class="glow-circle glow-c glow-c-soft"></div>
   <div class="container">
-    <div class="section-label section-label--center reveal" style="justify-content:center;">
-      <span class="section-label-dot"></span>
-      <span data-en="Testimonials" data-fr="Témoignages" data-ar="آراء العملاء">Témoignages</span>
+    <h2 class="testimonials-heading reveal" data-en="Trusted by businesses like <em>yours</em>" data-fr="La confiance des entreprises<br>comme la <em>vôtre</em>" data-ar="موثوق به من شركات مثل <em>شركتك</em>">La confiance des entreprises<br>comme la <em>vôtre</em></h2>
+    <p class="testimonials-sub reveal" data-en="Websites designed to bring more clarity, more trust, and more inquiries." data-fr="Des sites pensés pour renforcer votre image, rassurer vos visiteurs et générer plus de demandes." data-ar="مواقع مصممة لتوفير وضوح أكبر وثقة أكبر واستفسارات أكثر.">Des sites pensés pour renforcer votre image, rassurer vos visiteurs et générer plus de demandes.</p>
+    <div class="testi-nav reveal">
+      <button type="button" class="testi-arrow" id="cityTestiPrev" aria-label="Previous testimonials" disabled>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="testi-arrow" id="cityTestiNext" aria-label="Next testimonials">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
-    <h2 class="svc-band-title reveal"
-      data-en="What our <em>clients</em> say"
-      data-fr="Ce que disent nos <em>clients</em>"
-      data-ar="ماذا يقول <em>عملاؤنا</em>">Ce que disent nos <em>clients</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="Reviews from clients across our projects in Morocco and abroad."
-      data-fr="Avis de clients issus de l'ensemble de nos projets, au Maroc et à l'étranger."
-      data-ar="آراء عملاء من مجموع مشاريعنا داخل المغرب وخارجه.">Avis de clients issus de l'ensemble de nos projets, au Maroc et à l'étranger.</p>
-
-    <div class="ct-grid" id="cityTestiGrid"></div>
+    <div class="testimonial-grid" id="cityTestiGrid"></div>
   </div>
 </section>
 
