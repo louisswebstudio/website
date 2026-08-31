@@ -157,19 +157,6 @@
 }
 .svc-card-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
 
-/* ─── SECTOR PILLS ──────────────────────────────────── */
-.sector-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-.sector-pill {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 9999px; padding: 12px 22px;
-  font-size: 15px; font-weight: 500; color: #d4d4d4;
-  transition: background .25s, border-color .25s, color .25s, transform .25s;
-}
-.sector-pill:hover { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.35); color: #fff; transform: translateY(-2px); }
-.sector-pill-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--blue); flex-shrink: 0; }
-
 /* ─── PROJECT CARDS (same component as the case study pages) ── */
 .section-cta-bar { text-align: center; margin-top: 56px; }
 .cs-proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -190,21 +177,13 @@
 .cs-proj-card:hover .cs-proj-card-btn span { max-width: 120px; opacity: 1; }
 html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
 
-/* ─── PRICE CALLOUT ─────────────────────────────────── */
-.price-callout {
-  background: rgba(9,9,11,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 20px; padding: 44px 40px;
-  max-width: 760px; margin: 0 auto; text-align: center;
-  backdrop-filter: blur(12px);
-}
-.price-callout p { font-size: 16px; color: #d4d4d8; line-height: 1.75; margin: 0 0 28px; }
-.price-callout a.inline-link {
+/* ─── INLINE LINKS (band notes, FAQ answers) ─────────── */
+a.inline-link {
   color: #fff; text-decoration: underline;
   text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px;
   transition: text-decoration-color .2s;
 }
-.price-callout a.inline-link:hover { text-decoration-color: var(--blue); }
+a.inline-link:hover { text-decoration-color: var(--blue); }
 
 /* ─── CLOSING CTA ───────────────────────────────────── */
 .svc-cta { padding: 96px 0; text-align: center; position: relative; overflow: hidden; }
@@ -230,7 +209,7 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
   .svc-band-title { font-size: 34px; }
   .city-page-title { font-size: 38px; }
   .city-hero { padding: 120px 0 90px; }
-  .price-callout { padding: 36px 28px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 700px) {
   .svc-section { padding: 56px 0; }
@@ -245,12 +224,10 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
   .benefit-grid { grid-template-columns: 1fr; }
   .svc-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
   .cs-proj-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .stat-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto 28px; }
   .section-cta-bar { margin-top: 40px; }
   .svc-card { padding: 26px 22px; }
   .svc-card-title { font-size: 20px; }
-  .sector-pill { font-size: 14px; padding: 10px 18px; }
-  .price-callout { padding: 30px 22px; }
-  .price-callout p { font-size: 15px; }
   .svc-cta { padding: 56px 0; }
   .hero-actions .btn-primary, .hero-actions .btn-secondary,
   .svc-cta-actions .btn-primary, .svc-cta-actions .btn-secondary { width: 100%; }
@@ -258,8 +235,8 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
 
 /* ─── RTL ───────────────────────────────────────────── */
 html[dir="rtl"] .benefit-item { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .seo-check { flex-direction: row-reverse; text-align: right; }
 html[dir="rtl"] .svc-card { text-align: right; }
-html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
 
 
 /* ══════════════════════════════════════════════════════════════
@@ -294,30 +271,47 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
   background: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.18);
 }
 
-.city-signals { display: flex; flex-direction: column; gap: 14px; }
-/* The city hero sits on a photographic background, so these need their own
-   opaque surface rather than the translucent --card used elsewhere. */
-.city-signal {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 20px 22px; border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(12,14,18,.72);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+/* ── Story section: plain narrative copy, no card/image split ── */
+.city-story-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+.city-story .section-label { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; }
+.city-story-title {
+  text-align: center; margin: 0 auto 28px; max-width: none;
 }
-.city-signal-ico {
-  flex: none; width: 34px; height: 34px; border-radius: 10px;
-  display: grid; place-items: center;
-  background: rgba(59,130,246,.16); color: #93c0fd;
+.city-story-p {
+  font-size: 16px; color: var(--muted); line-height: 1.8;
+  text-align: center; margin: 0 0 22px;
 }
-.city-signal-txt { display: block; min-width: 0; }
-.city-signal-t {
-  display: block; font-size: 15px; font-weight: 650;
-  line-height: 1.35; color: #fff;
+.city-story-p:last-of-type { margin-bottom: 0; }
+
+.industry-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(59,130,246,.12); color: var(--blue);
+  margin-bottom: 18px;
 }
-.city-signal-s {
-  display: block; font-size: 13px; line-height: 1.5;
-  color: rgba(255,255,255,.66); margin-top: 3px;
+.industry-icon svg { width: 26px; height: 26px; }
+
+/* ── Sourced stat cards ── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 18px; margin-bottom: 28px;
 }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 30px 20px; text-align: center;
+}
+.stat-value {
+  display: block; font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 32px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--blue); margin-bottom: 10px;
+}
+.stat-label { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+.city-hero-shot img { display: block; width: 100%; height: auto; transform: scaleX(-1); }
+@media (min-width: 901px) {
+  .city-hero-shot img { width: 122%; max-width: 122%; margin-left: -22%; }
+}
+
 
 /* ── Numbered service cards ── */
 .svc-grid--numbered .svc-card { position: relative; padding-top: 26px; }
@@ -352,6 +346,15 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
   border: 1px solid var(--border); box-shadow: 0 24px 60px rgba(0,0,0,.4);
 }
 .city-band-shot img { display: block; width: 100%; height: auto; }
+
+/* Simple check rows for the SEO band — no card treatment, so they stay
+   correct on .city-band's always-dark surface regardless of site theme. */
+.seo-check { display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: #fff; }
+.seo-check-ico {
+  flex: none; width: 22px; height: 22px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--blue); color: #fff;
+}
 
 /* ── Testimonials ── */
 .ct-grid {
@@ -421,10 +424,10 @@ html[data-theme="light"] .city-cta-band .svc-band-sub { color: rgba(255,255,255,
 @media (max-width: 900px) {
   .city-hero--split .city-hero-grid,
   .city-band-grid { grid-template-columns: 1fr; }
+  .city-hero-shot,
   .city-band-shot { order: -1; }
 }
 @media (max-width: 560px) {
-  .city-signal { padding: 16px 18px; }
   .svc-num { font-size: 24px; top: 14px; right: 18px; }
 }
 
@@ -748,91 +751,137 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="city-signals reveal">
-        <div class="city-signal">
-          <span class="city-signal-ico"><svg width="17" height="17" viewBox="0 0 20 20" fill="none"><path d="M10 17.5s5.6-4.6 5.6-9a5.6 5.6 0 10-11.2 0c0 4.4 5.6 9 5.6 9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="8.4" r="2" stroke="currentColor" stroke-width="1.5"/></svg></span>
-          <span class="city-signal-txt">
-            <span class="city-signal-t" data-en="A studio actually in Tanger" data-fr="Un studio réellement à Tanger" data-ar="استوديو موجود فعلاً بطنجة">Un studio réellement à Tanger</span>
-            <span class="city-signal-s" data-en="We can meet in person when it helps." data-fr="On peut se rencontrer quand c'est utile." data-ar="يمكننا اللقاء حين يكون ذلك مفيداً.">On peut se rencontrer quand c'est utile.</span>
-          </span>
-        </div>
-        <div class="city-signal">
-          <span class="city-signal-ico"><svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.4" stroke="currentColor" stroke-width="1.6"/><path d="M10 6v4.2l2.6 1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-          <span class="city-signal-txt">
-            <span class="city-signal-t" data-en="Delivered in 7 to 14 days" data-fr="Livraison en 7 à 14 jours" data-ar="التسليم في 7 إلى 14 يوماً">Livraison en 7 à 14 jours</span>
-            <span class="city-signal-s" data-en="From Figma design to a live site." data-fr="Du design Figma à la mise en ligne." data-ar="من تصميم Figma إلى الموقع المباشر.">Du design Figma à la mise en ligne.</span>
-          </span>
-        </div>
-        <div class="city-signal">
-          <span class="city-signal-ico"><svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.4" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 10h14.4M10 2.6c1.9 2.1 2.9 4.7 2.9 7.4s-1 5.3-2.9 7.4c-1.9-2.1-2.9-4.7-2.9-7.4s1-5.3 2.9-7.4z" stroke="currentColor" stroke-width="1.4"/></svg></span>
-          <span class="city-signal-txt">
-            <span class="city-signal-t" data-en="Sites in French, English and Arabic" data-fr="Sites en français, anglais et arabe" data-ar="مواقع بالفرنسية والإنجليزية والعربية">Sites en français, anglais et arabe</span>
-            <span class="city-signal-s" data-en="Useful when your clients are in Europe." data-fr="Utile quand vos clients sont en Europe." data-ar="مفيد حين يكون عملاؤك في أوروبا.">Utile quand vos clients sont en Europe.</span>
-          </span>
-        </div>
+      <div class="city-hero-shot reveal">
+        <img src="./assets/images/hero mockup img site maroc.png" width="1024" height="680" loading="eager" decoding="async"
+             alt="Aperçu d'un site web avec les outils de performance et sécurité utilisés : GTmetrix, HTTPS, SEO">
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ════ WHY A WEBSITE IN TANGER ════ -->
-<section class="city-band" id="pourquoi">
+<!-- ════ WHY A WEBSITE IN TANGER — STORY ════ -->
+<section class="svc-section svc-section--tint city-story" id="pourquoi">
   <div class="container">
-    <div class="city-band-grid">
-      <div class="city-band-copy">
-    <div class="section-label reveal">
+    <div class="city-story-inner">
+      <div class="section-label reveal">
+        <span class="section-label-dot"></span>
+        <span data-en="Tanger" data-fr="Tanger" data-ar="طنجة">Tanger</span>
+      </div>
+      <h2 class="svc-band-title city-story-title reveal"
+        data-en="Why digital is a growth lever in <em>Tanger</em>"
+        data-fr="Pourquoi le digital est un levier de croissance à <em>Tanger</em>"
+        data-ar="لماذا يُعد الرقمي رافعة نمو في <em>طنجة</em>">Pourquoi le digital est un levier de croissance à <em>Tanger</em></h2>
+
+      <p class="city-story-p reveal"
+        data-en="Tanger has become Morocco's gateway to Europe, powered by its deep-water port and its position at the crossroads of two continents. That proximity draws industrial groups, exporters and tech companies that all need an online presence to match their international ambitions."
+        data-fr="Tanger est devenue la porte d'entrée du Maroc vers l'Europe, portée par son port en eaux profondes et sa position stratégique au carrefour de deux continents. Cette proximité attire des groupes industriels, des exportateurs et des entreprises technologiques qui ont toutes besoin d'une présence en ligne à la hauteur de leurs ambitions internationales."
+        data-ar="أصبحت طنجة بوابة المغرب نحو أوروبا، بفضل مينائها العميق وموقعها الاستراتيجي عند ملتقى قارتين. هذا القرب يجذب مجموعات صناعية ومصدّرين وشركات تقنية، وكلها بحاجة إلى حضور رقمي يليق بطموحاتها الدولية.">Tanger est devenue la porte d'entrée du Maroc vers l'Europe, portée par son port en eaux profondes et sa position stratégique au carrefour de deux continents. Cette proximité attire des groupes industriels, des exportateurs et des entreprises technologiques qui ont toutes besoin d'une présence en ligne à la hauteur de leurs ambitions internationales.</p>
+
+      <p class="city-story-p reveal"
+        data-en="The city's free zones and industrial areas host hundreds of logistics and manufacturing companies, while the city centre and newer districts are seeing more shops and service businesses invest in going digital to stand out."
+        data-fr="Les zones franches et les zones industrielles de la ville concentrent des centaines d'entreprises logistiques et manufacturières, tandis que le centre-ville et les nouveaux quartiers voient émerger des commerces et des services qui investissent de plus en plus dans le digital pour se démarquer."
+        data-ar="تُركّز المناطق الحرة والمناطق الصناعية في المدينة مئات الشركات اللوجستية والصناعية، بينما يشهد وسط المدينة والأحياء الجديدة ظهور محلات وخدمات تستثمر أكثر فأكثر في الرقمنة للتميز.">Les zones franches et les zones industrielles de la ville concentrent des centaines d'entreprises logistiques et manufacturières, tandis que le centre-ville et les nouveaux quartiers voient émerger des commerces et des services qui investissent de plus en plus dans le digital pour se démarquer.</p>
+
+      <p class="city-story-p reveal"
+        data-en="Tanger is also a real SEO opportunity: online competition stays lower than in the country's biggest cities, even as the local economy keeps expanding. Ranking now for searches like &laquo;&nbsp;agence web Tanger&nbsp;&raquo; means capturing that growing demand at a lower cost."
+        data-fr="Tanger présente aussi une réelle opportunité SEO : la concurrence en ligne y reste plus faible que dans les grandes métropoles du pays, alors que le tissu économique local est en pleine expansion. Se positionner dès maintenant sur des recherches comme &laquo;&nbsp;agence web Tanger&nbsp;&raquo; permet de capter cette demande grandissante à moindre coût."
+        data-ar="تمثل طنجة أيضاً فرصة حقيقية على صعيد تحسين محركات البحث: المنافسة عبر الإنترنت لا تزال أقل مما هي عليه في كبرى مدن المغرب، في حين يشهد النسيج الاقتصادي المحلي توسعاً مستمراً. التموضع الآن على عبارات بحث مثل «وكالة مواقع طنجة» يتيح التقاط هذا الطلب المتنامي بتكلفة أقل.">Tanger présente aussi une réelle opportunité SEO : la concurrence en ligne y reste plus faible que dans les grandes métropoles du pays, alors que le tissu économique local est en pleine expansion. Se positionner dès maintenant sur des recherches comme «&nbsp;agence web Tanger&nbsp;» permet de capter cette demande grandissante à moindre coût.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INDUSTRIES ════ -->
+<section class="svc-section" id="secteurs">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
       <span class="section-label-dot"></span>
-      <span data-en="Tanger" data-fr="Tanger" data-ar="طنجة">Tanger</span>
+      <span data-en="Sectors" data-fr="Secteurs" data-ar="القطاعات">Secteurs</span>
     </div>
     <h2 class="svc-band-title reveal"
-      data-en="Why build a website in <em>Tanger</em>?"
-      data-fr="Pourquoi créer un site web à <em>Tanger</em> ?"
-      data-ar="لماذا تنشئ موقع ويب في <em>طنجة</em>؟">Pourquoi créer un site web à <em>Tanger</em> ?</h2>
+      data-en="Key industries in <em>Tanger</em>"
+      data-fr="Industries Clés à <em>Tanger</em>"
+      data-ar="القطاعات الرئيسية في <em>طنجة</em>">Industries Clés à Tanger</h2>
     <p class="svc-band-sub reveal"
-      data-en="Tanger is Morocco's gateway to Europe, a fast-growing economic crossroads shaped by its port, free zones and automotive industry. A professional website helps you stand out to a clientele that's more international and more demanding than elsewhere."
-      data-fr="Tanger est la porte d'entrée du Maroc vers l'Europe, un carrefour économique façonné par son port, ses zones franches et son industrie automobile. Un site web professionnel vous aide à vous démarquer auprès d'une clientèle plus internationale et plus exigeante qu'ailleurs."
-      data-ar="طنجة هي بوابة المغرب نحو أوروبا، مفترق طرق اقتصادي يتشكل بميناءها ومناطقها الحرة وصناعتها للسيارات. يساعدك الموقع الاحترافي على التميز أمام عملاء أكثر انفتاحًا على العالم وأكثر تطلبًا من غيرهم.">Tanger est la porte d'entrée du Maroc vers l'Europe, un carrefour économique façonné par son port, ses zones franches et son industrie automobile. Un site web professionnel vous aide à vous démarquer auprès d'une clientèle plus internationale et plus exigeante qu'ailleurs.</p>
+      data-en="The sectors that shape Tanger's economy, from the port to the city centre."
+      data-fr="Les secteurs qui structurent l'économie de Tanger, du port au centre-ville."
+      data-ar="القطاعات التي تشكّل اقتصاد طنجة، من الميناء إلى وسط المدينة.">Les secteurs qui structurent l'économie de Tanger, du port au centre-ville.</p>
 
-    <div class="city-band-list reveal">
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Gain visibility on Google" data-fr="Gagner en visibilité sur Google" data-ar="اكتساب ظهور أكبر على جوجل">Gagner en visibilité sur Google</span>
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 6.5L10 3l7 3.5M3 6.5v7L10 17l7-3.5v-7M3 6.5L10 10m0 0l7-3.5M10 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3 class="svc-card-title" data-en="Industry & export" data-fr="Industrie & Export" data-ar="الصناعة والتصدير">Industrie & Export</h3>
+        <p class="svc-card-desc" data-en="B2B sites and digital catalogues for the region's manufacturers and exporters." data-fr="Sites B2B et catalogues numériques pour les industriels et exportateurs de la région." data-ar="مواقع B2B وكتالوجات رقمية للصناعيين والمصدّرين في المنطقة.">Sites B2B et catalogues numériques pour les industriels et exportateurs de la région.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Reflect the seriousness of your business" data-fr="Refléter le sérieux de votre entreprise" data-ar="عكس جدية شركتك">Refléter le sérieux de votre entreprise</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M2 5h9v8H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 8h4l3 3v2h-7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="6" cy="15" r="1.6" stroke="currentColor" stroke-width="1.4"/><circle cx="15" cy="15" r="1.6" stroke="currentColor" stroke-width="1.4"/></svg></span>
+        <h3 class="svc-card-title" data-en="Logistics & transport" data-fr="Logistique & Transport" data-ar="اللوجستيك والنقل">Logistique & Transport</h3>
+        <p class="svc-card-desc" data-en="Digital presence and tracking tools for port and Tanger Med operators." data-fr="Présence digitale et outils de suivi pour les acteurs du port et de Tanger Med." data-ar="حضور رقمي وأدوات تتبع لفاعلي الميناء ومنطقة طنجة المتوسط.">Présence digitale et outils de suivi pour les acteurs du port et de Tanger Med.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Convert your visitors into clients" data-fr="Convertir vos visiteurs en clients" data-ar="تحويل زوارك إلى عملاء">Convertir vos visiteurs en clients</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3.5 12l1.3-4.2A2 2 0 0 1 6.7 6.4h6.6a2 2 0 0 1 1.9 1.4L16.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="2.5" y="12" width="15" height="3.6" rx="1" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="15.8" r="1.3" stroke="currentColor" stroke-width="1.3"/><circle cx="14" cy="15.8" r="1.3" stroke="currentColor" stroke-width="1.3"/></svg></span>
+        <h3 class="svc-card-title" data-en="Automotive" data-fr="Automobile" data-ar="السيارات">Automobile</h3>
+        <p class="svc-card-desc" data-en="Showcase and B2B sites for automotive suppliers and subcontractors." data-fr="Sites vitrine et B2B pour les équipementiers et sous-traitants automobiles." data-ar="مواقع تعريفية وB2B لموردي ومقاولي قطاع السيارات.">Sites vitrine et B2B pour les équipementiers et sous-traitants automobiles.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Increase quote requests and WhatsApp messages" data-fr="Augmenter les demandes de devis et messages WhatsApp" data-ar="زيادة طلبات عروض الأسعار ورسائل واتساب">Augmenter les demandes de devis et messages WhatsApp</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2.5L17 6.5H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 8.5v6M8 8.5v6M12 8.5v6M16 8.5v6" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 17h15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <h3 class="svc-card-title" data-en="Cultural tourism" data-fr="Tourisme Culturel" data-ar="السياحة الثقافية">Tourisme Culturel</h3>
+        <p class="svc-card-desc" data-en="Sites for hotels, riads, restaurants and tourist activities." data-fr="Sites pour hôtels, riads, restaurants et activités touristiques." data-ar="مواقع للفنادق والرياضات والمطاعم والأنشطة السياحية.">Sites pour hôtels, riads, restaurants et activités touristiques.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Reassure more demanding partners" data-fr="Rassurer des partenaires plus exigeants" data-ar="طمأنة شركاء أكثر تطلبًا">Rassurer des partenaires plus exigeants</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.4" stroke="currentColor" stroke-width="1.5"/><path d="M2.8 10h14.4M10 2.6c1.9 2.1 2.9 4.7 2.9 7.4s-1 5.3-2.9 7.4c-1.9-2.1-2.9-4.7-2.9-7.4s1-5.3 2.9-7.4z" stroke="currentColor" stroke-width="1.4"/></svg></span>
+        <h3 class="svc-card-title" data-en="International trade" data-fr="Commerce International" data-ar="التجارة الدولية">Commerce International</h3>
+        <p class="svc-card-desc" data-en="Multi-currency e-commerce and multilingual sites built for export." data-fr="E-commerce multidevise et sites multilingues pour vendre à l'export." data-ar="تجارة إلكترونية متعددة العملات ومواقع متعددة اللغات للتصدير.">E-commerce multidevise et sites multilingues pour vendre à l'export.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Consolidate your brand image" data-fr="Consolider votre image de marque" data-ar="توطيد صورة علامتك التجارية">Consolider votre image de marque</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="6.5" width="15" height="9.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M7 6.5V5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 13 5v1.5" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 10.5h15" stroke="currentColor" stroke-width="1.5"/></svg></span>
+        <h3 class="svc-card-title" data-en="Services & consulting" data-fr="Services & Consulting" data-ar="الخدمات والاستشارات">Services & Consulting</h3>
+        <p class="svc-card-desc" data-en="Showcase sites and lead generation for firms and service providers." data-fr="Sites vitrine et génération de leads pour cabinets et prestataires de services." data-ar="مواقع تعريفية وتوليد عملاء محتملين للمكاتب ومقدمي الخدمات.">Sites vitrine et génération de leads pour cabinets et prestataires de services.</p>
       </div>
     </div>
 
     <p class="svc-band-note reveal"
-      data-en="Your website becomes a digital salesperson available 24/7."
-      data-fr="Votre site devient un commercial digital disponible 24h/24."
-      data-ar="يصبح موقعك مندوب مبيعات رقمي متاح على مدار الساعة.">Votre site devient un commercial digital disponible 24h/24.</p>
-      </div><!-- /city-band-copy -->
+      data-en="Every sector has its own expectations. The design, content and structure are adapted accordingly. We have dedicated pages for <a href='/real-estate-web-design'>real estate web design</a> and <a href='/tourism-web-design'>tourism web design</a>."
+      data-fr="Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>."
+      data-ar="لكل قطاع توقعاته الخاصة. يتم تكييف التصميم والمحتوى والبنية وفقاً لذلك. لدينا صفحات مخصصة لـ<a href='/real-estate-web-design'>تصميم المواقع العقارية</a> و<a href='/tourism-web-design'>تصميم المواقع السياحية</a>.">Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>.</p>
 
-      <div class="city-band-shot reveal">
-        <img src="./assets/images/figma-roofing.webp"
-             width="900" height="600" loading="lazy" decoding="async"
-             alt="Maquette Figma d'un site client à côté de sa version développée et mise en ligne">
+    <div class="section-cta-bar reveal">
+      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Tell us about your sector" data-fr="Parlez-nous de votre secteur" data-ar="أخبرنا عن قطاعك">Parlez-nous de votre secteur</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TANGER IN NUMBERS (sourced figures) ════ -->
+<section class="svc-section svc-section--tint" id="chiffres">
+  <div class="container">
+    <h2 class="svc-band-title reveal" style="margin-bottom:40px;"
+      data-en="<em>Tanger's</em> digital economy in numbers"
+      data-fr="Le Digital à <em>Tanger</em> en Chiffres"
+      data-ar="الرقمنة في <em>طنجة</em> بالأرقام">Le Digital à <em>Tanger</em> en Chiffres</h2>
+
+    <div class="stat-grid reveal">
+      <div class="stat-card">
+        <span class="stat-value">11 M+</span>
+        <span class="stat-label" data-en="Containers (TEU) handled by Tanger Med in 2025 — Africa's #1 port" data-fr="Conteneurs (EVP) traités par Tanger Med en 2025 — 1ᵉʳ port d'Afrique" data-ar="حاوية (وحدة معادلة) عالجها ميناء طنجة المتوسط سنة 2025 — أول ميناء في أفريقيا">Conteneurs (EVP) traités par Tanger Med en 2025 — 1ᵉʳ port d'Afrique</span>
       </div>
-    </div><!-- /city-band-grid -->
+      <div class="stat-card">
+        <span class="stat-value">500+</span>
+        <span class="stat-label" data-en="Companies established in the Tanger Free Zone" data-fr="Entreprises installées à la Tanger Free Zone" data-ar="شركة مستقرة في المنطقة الحرة لطنجة">Entreprises installées à la Tanger Free Zone</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">1,27 M</span>
+        <span class="stat-label" data-en="Residents in Tanger, Morocco's 2nd largest city (2024 census)" data-fr="Habitants à Tanger, 2ᵉ ville du Maroc (RGPH 2024)" data-ar="نسمة في طنجة، ثاني أكبر مدينة بالمغرب (إحصاء 2024)">Habitants à Tanger, 2ᵉ ville du Maroc (RGPH 2024)</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">92 %</span>
+        <span class="stat-label" data-en="of Moroccans were online in 2025" data-fr="des Marocains étaient connectés à internet en 2025" data-ar="من المغاربة كانوا متصلين بالإنترنت سنة 2025">des Marocains étaient connectés à internet en 2025</span>
+      </div>
+    </div>
+
+    <p class="svc-band-note reveal"
+      data-en="Sources: Tanger Med Port Authority (2025 traffic figures); Tanger Free Zone / AMDIE; HCP, RGPH 2024 census; DataReportal, Digital 2026 Morocco."
+      data-fr="Sources : Autorité du port Tanger Med (trafic 2025) ; Tanger Free Zone / AMDIE ; HCP, recensement RGPH 2024 ; DataReportal, Digital 2026 Morocco."
+      data-ar="المصادر: سلطة ميناء طنجة المتوسط (بيانات حركة 2025)؛ Tanger Free Zone / AMDIE؛ المندوبية السامية للتخطيط، إحصاء RGPH 2024؛ DataReportal، تقرير Digital 2026 Morocco.">Sources : Autorité du port Tanger Med (trafic 2025) ; Tanger Free Zone / AMDIE ; HCP, recensement RGPH 2024 ; DataReportal, Digital 2026 Morocco.</p>
   </div>
 </section>
 
@@ -893,99 +942,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ════ SECTORS ════ -->
-<section class="svc-section" id="secteurs">
+<!-- ════ LOCAL SEO ════ -->
+<section class="city-band" id="seo-local">
   <div class="container">
-    <h2 class="svc-band-title reveal"
-      data-en="Which sectors in <em>Tanger</em>?"
-      data-fr="Pour quels secteurs à <em>Tanger</em> ?"
-      data-ar="لأي قطاعات في <em>طنجة</em>؟">Pour quels secteurs à <em>Tanger</em> ?</h2>
-    <p class="svc-band-sub svc-band-sub--tight reveal"
-      data-en="We work across the sectors that drive the city's economy."
-      data-fr="Nous intervenons dans les secteurs qui font l'économie de la ville."
-      data-ar="نعمل في القطاعات التي تحرّك اقتصاد المدينة.">Nous intervenons dans les secteurs qui font l'économie de la ville.</p>
+    <div class="city-band-grid">
+      <div class="city-band-copy">
+        <div class="city-chip reveal">
+          <span class="city-chip-dot"></span>
+          <span data-en="Local SEO" data-fr="SEO Local" data-ar="تحسين محركات البحث المحلي">SEO Local</span>
+        </div>
 
-    <div class="sector-list reveal">
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Medical and dental practices" data-fr="Cabinets médicaux et dentaires" data-ar="العيادات الطبية وطب الأسنان">Cabinets médicaux et dentaires</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Real estate agencies" data-fr="Agences immobilières" data-ar="الوكالات العقارية">Agences immobilières</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Restaurants and cafés" data-fr="Restaurants et cafés" data-ar="المطاعم والمقاهي">Restaurants et cafés</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Industrial and logistics companies" data-fr="Entreprises industrielles et logistiques" data-ar="الشركات الصناعية واللوجستية">Entreprises industrielles et logistiques</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Independent professionals" data-fr="Professions libérales" data-ar="المهن الحرة">Professions libérales</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Riads and accommodation" data-fr="Riads et hébergements" data-ar="الرياضات وأماكن الإقامة">Riads et hébergements</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="E-commerce" data-fr="E-commerce" data-ar="التجارة الإلكترونية">E-commerce</span></span>
-    </div>
+        <h2 class="svc-band-title reveal" style="margin-bottom:20px;"
+          data-en="Local and <em>international</em> search visibility"
+          data-fr="Référencement Local et <em>International</em>"
+          data-ar="تحسين محلي و<em>دولي</em> لمحركات البحث">Référencement Local et <em>International</em></h2>
 
-    <p class="svc-band-note reveal"
-      data-en="Every sector has its own expectations. The design, content and structure are adapted accordingly. We have dedicated pages for <a href='/real-estate-web-design'>real estate web design</a> and <a href='/tourism-web-design'>tourism web design</a>."
-      data-fr="Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>."
-      data-ar="لكل قطاع توقعاته الخاصة. يتم تكييف التصميم والمحتوى والبنية وفقاً لذلك. لدينا صفحات مخصصة لـ<a href='/real-estate-web-design'>تصميم المواقع العقارية</a> و<a href='/tourism-web-design'>تصميم المواقع السياحية</a>.">Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>.</p>
-  </div>
-</section>
+        <p class="svc-band-sub reveal" style="text-align:left;margin:0 0 8px;max-width:none;"
+          data-en="Ranking on local Tanger searches as well as European and African markets, for businesses that export."
+          data-fr="Positionnement sur les recherches locales à Tanger ainsi que sur les marchés européens et africains pour les entreprises exportatrices."
+          data-ar="التموضع على عمليات البحث المحلية بطنجة وكذلك في الأسواق الأوروبية والأفريقية للشركات المصدّرة.">Positionnement sur les recherches locales à Tanger ainsi que sur les marchés européens et africains pour les entreprises exportatrices.</p>
 
-<!-- ════ STUDIO IN TANGER ════ -->
-<section class="svc-section" id="studio">
-  <div class="container">
-    <div class="section-label section-label--center reveal" style="justify-content:center;">
-      <span class="section-label-dot"></span>
-      <span data-en="Independent studio" data-fr="Studio indépendant" data-ar="استوديو مستقل">Studio indépendant</span>
-    </div>
-    <h2 class="svc-band-title reveal"
-      data-en="One person, <em>here</em> in Tanger"
-      data-fr="Un interlocuteur, <em>ici</em> à Tanger"
-      data-ar="متحدث واحد، <em>هنا</em> في طنجة">Un interlocuteur, <em>ici</em> à Tanger</h2>
-    <p class="svc-band-sub reveal"
-      data-en="Louiss Web Studio is an independent studio, not an agency with thirty people and a project manager between you and the work. Worth being upfront about, because it changes the project in your favour on most counts and against you on one."
-      data-fr="Louiss Web Studio est un studio indépendant, pas une agence de trente personnes avec un chef de projet entre vous et le travail. Autant l'annoncer, parce que cela change le projet en votre faveur sur la plupart des points, et en votre défaveur sur un seul."
-      data-ar="Louiss Web Studio استوديو مستقل، لا وكالة من ثلاثين شخصاً بمدير مشروع يفصل بينك وبين العمل. من الأفضل قول ذلك، لأنه يغيّر المشروع لصالحك في معظم النقاط، وضدك في نقطة واحدة.">Louiss Web Studio est un studio indépendant, pas une agence de trente personnes avec un chef de projet entre vous et le travail. Autant l'annoncer, parce que cela change le projet en votre faveur sur la plupart des points, et en votre défaveur sur un seul.</p>
-
-    <div class="solo-grid">
-      <div class="solo-card reveal">
-        <span class="solo-card-h" data-en="What that gives you" data-fr="Ce que cela vous apporte" data-ar="ما يمنحك إياه ذلك">Ce que cela vous apporte</span>
-        <ul class="solo-list">
-          <li>
-            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span data-en="The person who takes your brief is the person who designs the screens and writes the code. Nothing is relayed and reinterpreted along the way."
-                  data-fr="La personne qui prend votre brief est celle qui dessine les écrans et écrit le code. Rien n'est relayé puis réinterprété en chemin."
-                  data-ar="من يتلقى طلبك هو نفسه من يصمم الشاشات ويكتب الشيفرة. لا شيء يُنقل ثم يُعاد تفسيره في الطريق.">La personne qui prend votre brief est celle qui dessine les écrans et écrit le code. Rien n'est relayé puis réinterprété en chemin.</span>
-          </li>
-          <li>
-            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span data-en="Being based in Tanger, we can meet at your office when a project genuinely calls for it — rather than describing a showroom or a workshop over a call."
-                  data-fr="Basés à Tanger, nous pouvons nous déplacer chez vous quand un projet le justifie vraiment — plutôt que de décrire un showroom ou un atelier par téléphone."
-                  data-ar="بحكم وجودنا بطنجة، يمكننا القدوم إليك حين يستدعي المشروع ذلك فعلاً — بدل وصف صالة عرض أو ورشة عبر الهاتف.">Basés à Tanger, nous pouvons nous déplacer chez vous quand un projet le justifie vraiment — plutôt que de décrire un showroom ou un atelier par téléphone.</span>
-          </li>
-          <li>
-            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span data-en="A more controlled cost: you are not paying for a sales team and offices on top of your website."
-                  data-fr="Un coût plus maîtrisé : vous ne payez pas, en plus de votre site, une équipe commerciale et des bureaux."
-                  data-ar="تكلفة أكثر انضباطاً: أنت لا تدفع، إضافة إلى موقعك، ثمن فريق مبيعات ومكاتب.">Un coût plus maîtrisé : vous ne payez pas, en plus de votre site, une équipe commerciale et des bureaux.</span>
-          </li>
-        </ul>
+        <div class="city-band-list reveal">
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Google My Business optimisation" data-fr="Optimisation Google My Business" data-ar="تحسين ملف Google My Business">Optimisation Google My Business</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="&quot;Near me&quot; local search ranking" data-fr="Référencement &quot;près de chez moi&quot;" data-ar="الظهور في عمليات بحث &quot;بالقرب مني&quot;">Référencement "près de chez moi"</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Citations and local directories" data-fr="Citations et annuaires locaux" data-ar="الاستشهادات والأدلة المحلية">Citations et annuaires locaux</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Customer reviews and e-reputation" data-fr="Avis clients et e-réputation" data-ar="آراء العملاء والسمعة الرقمية">Avis clients et e-réputation</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="LocalBusiness schema markup" data-fr="Schema markup LocalBusiness" data-ar="ترميز Schema من نوع LocalBusiness">Schema markup LocalBusiness</span>
+          </div>
+        </div>
       </div>
 
-      <div class="solo-card solo-card--limit reveal" style="transition-delay:.08s">
-        <span class="solo-card-h" data-en="And the honest limit" data-fr="Et la limite honnête" data-ar="والحد الصريح">Et la limite honnête</span>
-        <ul class="solo-list">
-          <li>
-            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.6v3.8M6 8.8v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.2"/></svg>
-            <span data-en="A studio this size will not run a year-long programme for a large industrial group with several teams working in parallel. If that is your project, an agency is the right call and we will say so at the first call."
-                  data-fr="Un studio de cette taille ne mènera pas un chantier d'un an pour un grand groupe industriel avec plusieurs équipes en parallèle. Si c'est votre projet, une agence est le bon choix, et nous vous le dirons dès le premier appel."
-                  data-ar="استوديو بهذا الحجم لن يقود مشروعاً يمتد سنة لمجموعة صناعية كبرى بعدة فرق متوازية. إن كان هذا مشروعك، فالوكالة هي الخيار الصحيح، وسنقول لك ذلك في المكالمة الأولى.">Un studio de cette taille ne mènera pas un chantier d'un an pour un grand groupe industriel avec plusieurs équipes en parallèle. Si c'est votre projet, une agence est le bon choix, et nous vous le dirons dès le premier appel.</span>
-          </li>
-          <li>
-            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span data-en="The right fit here: PMEs, independent professionals and small structures in Tanger, and agencies looking for someone to build their designs properly."
-                  data-fr="Le bon profil ici : les PME, les indépendants et les petites structures de Tanger, ainsi que les agences qui cherchent quelqu'un pour développer proprement leurs maquettes."
-                  data-ar="الملف المناسب هنا: الشركات الصغيرة والمتوسطة والمستقلون والهياكل الصغيرة بطنجة، والوكالات التي تبحث عمّن يطوّر تصاميمها بإتقان.">Le bon profil ici : les PME, les indépendants et les petites structures de Tanger, ainsi que les agences qui cherchent quelqu'un pour développer proprement leurs maquettes.</span>
-          </li>
-        </ul>
+      <div class="city-band-shot reveal">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-5.95%2C35.68%2C-5.72%2C35.83&amp;layer=mapnik&amp;marker=35.7595%2C-5.8340"
+                style="width:100%; height:420px; border:0; display:block;"
+                loading="lazy" title="Carte de Tanger"></iframe>
       </div>
     </div>
-
-    <p class="svc-band-note reveal"
-      data-en="The same approach applies everywhere else we work: see <a href='/creation-site-web-maroc'>website design across Morocco</a>."
-      data-fr="La même approche s'applique partout ailleurs : voir <a href='/creation-site-web-maroc'>la création de site web au Maroc</a>."
-      data-ar="ينطبق المنهج نفسه في كل مكان آخر: انظر <a href='/creation-site-web-maroc'>إنشاء موقع ويب في المغرب</a>.">La même approche s'applique partout ailleurs : voir <a href="/creation-site-web-maroc">la création de site web au Maroc</a>.</p>
   </div>
 </section>
 
@@ -1034,6 +1040,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-fr="Domaine, hébergement et accès au CMS sont enregistrés à votre nom et vous sont remis. Le site est le vôtre."
           data-ar="النطاق والاستضافة وحسابات نظام إدارة المحتوى تُسجَّل باسمك وتُسلَّم إليك. الموقع لك.">Domaine, hébergement et accès au CMS sont enregistrés à votre nom et vous sont remis. Le site est le vôtre.</p>
       </div>
+    </div>
+
+    <div class="section-cta-bar reveal">
+      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Start with a free quote" data-fr="Démarrer avec un devis gratuit" data-ar="ابدأ بعرض سعر مجاني">Démarrer avec un devis gratuit</a>
     </div>
   </div>
 </section>
@@ -1117,22 +1127,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ════ TESTIMONIALS ════ -->
-<section class="svc-section" id="cityTesti" hidden>
+<section class="testimonials-section" id="cityTesti" hidden>
+  <div class="glow-circle glow-c glow-c-soft"></div>
   <div class="container">
-    <div class="section-label section-label--center reveal" style="justify-content:center;">
-      <span class="section-label-dot"></span>
-      <span data-en="Testimonials" data-fr="Témoignages" data-ar="آراء العملاء">Témoignages</span>
+    <h2 class="testimonials-heading reveal" data-en="Trusted by businesses like <em>yours</em>" data-fr="La confiance des entreprises<br>comme la <em>vôtre</em>" data-ar="موثوق به من شركات مثل <em>شركتك</em>">La confiance des entreprises<br>comme la <em>vôtre</em></h2>
+    <p class="testimonials-sub reveal" data-en="Websites designed to bring more clarity, more trust, and more inquiries." data-fr="Des sites pensés pour renforcer votre image, rassurer vos visiteurs et générer plus de demandes." data-ar="مواقع مصممة لتوفير وضوح أكبر وثقة أكبر واستفسارات أكثر.">Des sites pensés pour renforcer votre image, rassurer vos visiteurs et générer plus de demandes.</p>
+    <div class="testi-nav reveal">
+      <button type="button" class="testi-arrow" id="cityTestiPrev" aria-label="Previous testimonials" disabled>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="testi-arrow" id="cityTestiNext" aria-label="Next testimonials">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
-    <h2 class="svc-band-title reveal"
-      data-en="What our <em>clients</em> say"
-      data-fr="Ce que disent nos <em>clients</em>"
-      data-ar="ماذا يقول <em>عملاؤنا</em>">Ce que disent nos <em>clients</em></h2>
-    <p class="svc-band-sub reveal"
-      data-en="Reviews from clients across our projects in Morocco and abroad."
-      data-fr="Avis de clients issus de l'ensemble de nos projets, au Maroc et à l'étranger."
-      data-ar="آراء عملاء من مجموع مشاريعنا داخل المغرب وخارجه.">Avis de clients issus de l'ensemble de nos projets, au Maroc et à l'étranger.</p>
-
-    <div class="ct-grid" id="cityTestiGrid"></div>
+    <div class="testimonial-grid" id="cityTestiGrid"></div>
   </div>
 </section>
 
@@ -1179,10 +1187,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div class="price-callout reveal" style="margin-top:36px;">
-      <p data-en="Our packages start at 1 400 DH for a showcase site, 2 500 DH for a business site and 5 000 DH for a premium site — see the &lt;a class='inline-link' href='/tarifs'&gt;packages page&lt;/a&gt; for what each includes, or our full guide: &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;How much does a website cost in Morocco in 2026?&lt;/a&gt;"
-         data-fr="Nos formules démarrent à 1 400 DH pour un site vitrine, 2 500 DH pour un site business et 5 000 DH pour un site premium — voir la &lt;a class='inline-link' href='/tarifs'&gt;page packages&lt;/a&gt; pour le détail de chacune, ou notre guide complet : &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;Combien coûte un site web au Maroc en 2026 ?&lt;/a&gt;"
-         data-ar="تبدأ صيغنا من 1400 درهم لموقع تعريفي، و2500 درهم لموقع أعمال، و5000 درهم لموقع بريميوم — انظر &lt;a class='inline-link' href='/tarifs'&gt;صفحة الباقات&lt;/a&gt; لتفاصيل كل صيغة، أو دليلنا الكامل: &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;كم يكلف موقع ويب في المغرب سنة 2026؟&lt;/a&gt;">Nos formules démarrent à 1 400 DH pour un site vitrine, 2 500 DH pour un site business et 5 000 DH pour un site premium — voir la <a class="inline-link" href="/tarifs">page packages</a> pour le détail de chacune, ou notre guide complet : <a class="inline-link" href="/blog/prix-creation-site-web-maroc/">Combien coûte un site web au Maroc en 2026 ?</a></p>
+    <div class="section-cta-bar reveal" style="margin-top:36px;">
       <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Get a free quote" data-fr="Obtenir un devis gratuit" data-ar="احصل على عرض سعر مجاني">Obtenir un devis gratuit</a>
     </div>
   </div>

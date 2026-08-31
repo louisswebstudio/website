@@ -157,19 +157,6 @@
 }
 .svc-card-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
 
-/* ─── SECTOR PILLS ──────────────────────────────────── */
-.sector-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-.sector-pill {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 9999px; padding: 12px 22px;
-  font-size: 15px; font-weight: 500; color: #d4d4d4;
-  transition: background .25s, border-color .25s, color .25s, transform .25s;
-}
-.sector-pill:hover { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.35); color: #fff; transform: translateY(-2px); }
-.sector-pill-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--blue); flex-shrink: 0; }
-
 /* ─── PROJECT CARDS (same component as the case study pages) ── */
 .section-cta-bar { text-align: center; margin-top: 56px; }
 .cs-proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -190,21 +177,13 @@
 .cs-proj-card:hover .cs-proj-card-btn span { max-width: 120px; opacity: 1; }
 html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
 
-/* ─── PRICE CALLOUT ─────────────────────────────────── */
-.price-callout {
-  background: rgba(9,9,11,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 20px; padding: 44px 40px;
-  max-width: 760px; margin: 0 auto; text-align: center;
-  backdrop-filter: blur(12px);
-}
-.price-callout p { font-size: 16px; color: #d4d4d8; line-height: 1.75; margin: 0 0 28px; }
-.price-callout a.inline-link {
+/* ─── INLINE LINKS (band notes, FAQ answers) ─────────── */
+a.inline-link {
   color: #fff; text-decoration: underline;
   text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px;
   transition: text-decoration-color .2s;
 }
-.price-callout a.inline-link:hover { text-decoration-color: var(--blue); }
+a.inline-link:hover { text-decoration-color: var(--blue); }
 
 /* ─── CLOSING CTA ───────────────────────────────────── */
 .svc-cta { padding: 96px 0; text-align: center; position: relative; overflow: hidden; }
@@ -230,7 +209,7 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
   .svc-band-title { font-size: 34px; }
   .city-page-title { font-size: 38px; }
   .city-hero { padding: 120px 0 90px; }
-  .price-callout { padding: 36px 28px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 700px) {
   .svc-section { padding: 56px 0; }
@@ -245,12 +224,10 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
   .benefit-grid { grid-template-columns: 1fr; }
   .svc-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
   .cs-proj-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .stat-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto 28px; }
   .section-cta-bar { margin-top: 40px; }
   .svc-card { padding: 26px 22px; }
   .svc-card-title { font-size: 20px; }
-  .sector-pill { font-size: 14px; padding: 10px 18px; }
-  .price-callout { padding: 30px 22px; }
-  .price-callout p { font-size: 15px; }
   .svc-cta { padding: 56px 0; }
   .hero-actions .btn-primary, .hero-actions .btn-secondary,
   .svc-cta-actions .btn-primary, .svc-cta-actions .btn-secondary { width: 100%; }
@@ -258,8 +235,301 @@ html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
 
 /* ─── RTL ───────────────────────────────────────────── */
 html[dir="rtl"] .benefit-item { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .seo-check { flex-direction: row-reverse; text-align: right; }
 html[dir="rtl"] .svc-card { text-align: right; }
-html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   CITY PAGE — banded layout
+   Dark is the base, like the rest of the site; every light-mode
+   rule is scoped to html[data-theme="light"] so it outranks the
+   base on the attribute, independent of source order (see the
+   specificity note at the top of assets/theme.css).
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Hero: copy left, factual signal cards right ── */
+.city-hero--split .city-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.city-hero--split .city-page-title,
+.city-hero--split .city-hero-lead { text-align: left; margin-left: 0; margin-right: 0; }
+.city-hero--split .hero-actions { justify-content: flex-start; }
+
+.city-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 10px; margin-bottom: 20px;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: rgba(59,130,246,.08);
+  font-size: 12px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blue);
+}
+.city-chip-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.18);
+}
+
+/* ── Story section: plain narrative copy, no card/image split ── */
+.city-story-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+.city-story .section-label { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; }
+.city-story-title {
+  text-align: center; margin: 0 auto 28px; max-width: none;
+}
+.city-story-p {
+  font-size: 16px; color: var(--muted); line-height: 1.8;
+  text-align: center; margin: 0 0 22px;
+}
+.city-story-p:last-of-type { margin-bottom: 0; }
+
+.industry-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(59,130,246,.12); color: var(--blue);
+  margin-bottom: 18px;
+}
+.industry-icon svg { width: 26px; height: 26px; }
+
+/* ── Sourced stat cards ── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 18px; margin-bottom: 28px;
+}
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 30px 20px; text-align: center;
+}
+.stat-value {
+  display: block; font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 32px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--blue); margin-bottom: 10px;
+}
+.stat-label { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+.city-hero-shot img { display: block; width: 100%; height: auto; transform: scaleX(-1); }
+@media (min-width: 901px) {
+  .city-hero-shot img { width: 122%; max-width: 122%; margin-left: -22%; }
+}
+
+
+/* ── Numbered service cards ── */
+.svc-grid--numbered .svc-card { position: relative; padding-top: 26px; }
+.svc-num {
+  position: absolute; top: 18px; right: 22px;
+  font-family: 'Satoshi','Inter',sans-serif;
+  font-size: 30px; font-weight: 700; line-height: 1;
+  color: var(--blue); opacity: .16; letter-spacing: -.02em;
+}
+.svc-card-more {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none;
+}
+.svc-card-more svg { transition: transform .18s ease; }
+.svc-card-more:hover svg { transform: translateX(3px); }
+
+/* ── Dark feature band ── */
+.city-band {
+  background: #0a0a0a; border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(56px, 8vw, 104px) 0;
+}
+.city-band-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 64px); align-items: center;
+}
+.city-band .svc-band-title,
+.city-band .svc-band-sub { text-align: left; margin-left: 0; margin-right: 0; }
+.city-band-list { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
+.city-band-shot {
+  border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--border); box-shadow: 0 24px 60px rgba(0,0,0,.4);
+}
+.city-band-shot img { display: block; width: 100%; height: auto; }
+
+/* Simple check rows for the SEO band — no card treatment, so they stay
+   correct on .city-band's always-dark surface regardless of site theme. */
+.seo-check { display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: #fff; }
+.seo-check-ico {
+  flex: none; width: 22px; height: 22px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--blue); color: #fff;
+}
+
+/* ── Testimonials ── */
+.ct-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px; margin-top: 36px;
+}
+.ct-card {
+  margin: 0; padding: 24px; border-radius: 16px;
+  border: 1px solid var(--border); background: var(--card);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.ct-stars { display: flex; gap: 3px; color: #f5b301; }
+.ct-quote { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+.ct-meta { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.ct-avatar {
+  flex: none; width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(59,130,246,.14); color: var(--blue);
+  font-size: 14px; font-weight: 700;
+}
+.ct-who { display: flex; flex-direction: column; line-height: 1.3; }
+.ct-name { font-size: 14px; font-weight: 650; }
+.ct-role { font-size: 12.5px; color: var(--muted2); }
+
+/* ── National coverage ── */
+.city-cover-list {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px; margin-top: 28px;
+}
+.city-cover-link {
+  padding: 9px 18px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--card);
+  font-size: 14px; font-weight: 550; color: var(--muted);
+  text-decoration: none; transition: border-color .18s ease, color .18s ease;
+}
+.city-cover-link:hover { border-color: var(--blue); color: var(--blue); }
+.city-cover-link[aria-current="page"] {
+  background: rgba(59,130,246,.12); border-color: var(--blue); color: var(--blue);
+}
+
+/* ── Closing CTA band ── */
+.city-cta-band { background: #0a0a0a; padding: clamp(56px, 8vw, 100px) 0; text-align: center; }
+.city-cta-actions {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  justify-content: center; margin-top: 28px;
+}
+
+/* ── Light mode ── */
+html[data-theme="light"] .ct-card,
+html[data-theme="light"] .city-cover-link {
+  background: #fff; border-color: rgba(17,24,39,.08);
+  box-shadow: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.05);
+}
+html[data-theme="light"] .city-chip { background: rgba(59,130,246,.09); border-color: rgba(59,130,246,.22); }
+html[data-theme="light"] .ct-role { color: #6b7280; }
+html[data-theme="light"] .ct-quote { color: #4b5262; }
+html[data-theme="light"] .city-cover-link { color: #4b5262; }
+html[data-theme="light"] .city-band,
+html[data-theme="light"] .city-cta-band { background: #0f1115; border-color: rgba(255,255,255,.06); }
+html[data-theme="light"] .city-band .svc-band-title,
+html[data-theme="light"] .city-band .city-band-list,
+html[data-theme="light"] .city-cta-band .svc-band-title { color: #fff; }
+html[data-theme="light"] .city-band .svc-band-sub,
+html[data-theme="light"] .city-cta-band .svc-band-sub { color: rgba(255,255,255,.62); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .city-hero--split .city-hero-grid,
+  .city-band-grid { grid-template-columns: 1fr; }
+  .city-hero-shot,
+  .city-band-shot { order: -1; }
+}
+@media (max-width: 560px) {
+  .svc-num { font-size: 24px; top: 14px; right: 18px; }
+}
+
+/* RTL: the arrow and numbering flip with the document direction */
+[dir="rtl"] .svc-num { right: auto; left: 22px; }
+[dir="rtl"] .svc-card-more:hover svg { transform: translateX(-3px); }
+[dir="rtl"] .city-hero--split .city-page-title,
+[dir="rtl"] .city-hero--split .city-hero-lead,
+[dir="rtl"] .city-band .svc-band-title,
+[dir="rtl"] .city-band .svc-band-sub { text-align: right; }
+
+/* ══════════════════════════════════════════════════════════════
+   PILLAR / CITY EXTRAS — tech stack, process steps, solo studio
+   Same convention as the block above: dark is the base, every
+   light-mode rule is scoped to html[data-theme="light"].
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Tech stack pills ── */
+.tech-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.tech-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  font-size: 13.5px; font-weight: 600; color: #e5e7eb;
+}
+.tech-pill-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); flex: none;
+}
+
+/* ── Process steps ── */
+.step-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px; margin-top: 36px;
+}
+.step-card {
+  position: relative; padding: 26px 22px 24px;
+  border-radius: 16px; border: 1px solid var(--border);
+  background: var(--card);
+}
+.step-n {
+  display: inline-grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 9px; margin-bottom: 14px;
+  background: rgba(59,130,246,.14); color: var(--blue);
+  font-family: 'Satoshi','Inter',sans-serif;
+  font-size: 14px; font-weight: 700;
+}
+.step-t { display: block; font-size: 16px; font-weight: 650; margin-bottom: 8px; }
+.step-d { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+/* ── Solo studio: two honest columns ── */
+.solo-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px; margin-top: 36px; text-align: left;
+}
+.solo-card {
+  padding: 28px 26px; border-radius: 18px;
+  border: 1px solid var(--border); background: var(--card);
+}
+.solo-card--limit { border-style: dashed; }
+.solo-card-h {
+  display: block; font-size: 17px; font-weight: 650; margin-bottom: 16px;
+}
+.solo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.solo-list li {
+  display: flex; align-items: flex-start; gap: 11px;
+  font-size: 14.5px; line-height: 1.6; color: var(--muted);
+}
+.solo-list li svg { flex: none; margin-top: 4px; color: var(--blue); }
+.solo-card--limit .solo-list li svg { color: var(--muted2); }
+
+/* ── Budget drivers ── */
+.budget-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px; margin-top: 34px; text-align: left;
+}
+.budget-item {
+  padding: 22px 20px; border-radius: 14px;
+  border: 1px solid var(--border); background: var(--card);
+}
+.budget-item-t { display: block; font-size: 15px; font-weight: 650; margin-bottom: 7px; }
+.budget-item-d { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+/* ── Light mode ── */
+html[data-theme="light"] .step-card,
+html[data-theme="light"] .solo-card,
+html[data-theme="light"] .budget-item {
+  background: #fff; border-color: rgba(17,24,39,.08);
+  box-shadow: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.05);
+}
+html[data-theme="light"] .solo-card--limit { border-style: dashed; box-shadow: none; }
+html[data-theme="light"] .step-d,
+html[data-theme="light"] .solo-list li,
+html[data-theme="light"] .budget-item-d { color: #4b5262; }
+/* The tech pills only ever sit inside .city-band, which stays dark in both themes. */
+
+/* ── RTL ── */
+[dir="rtl"] .solo-grid,
+[dir="rtl"] .budget-grid { text-align: right; }
+[dir="rtl"] .solo-list li { flex-direction: row-reverse; }
+
 </style>
 
 <!-- Structured data: LocalBusiness for the Casablanca service area, the page
@@ -312,12 +582,12 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Un site web est-il important pour le référencement sur Google ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Un site optimisé permet d'améliorer votre visibilité et d'attirer des clients qui recherchent activement vos services." }
+          "name": "Un bon référencement Google fait-il une vraie différence à Casablanca ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Dans un marché aussi dense, être bien référencé vous rend visible auprès de clients qui comparent déjà plusieurs prestataires en ligne." }
         },
         {
           "@type": "Question",
-          "name": "Un site web peut-il vraiment générer des clients ?",
+          "name": "Un site web peut-il vraiment générer des clients à Casablanca ?",
           "acceptedAnswer": { "@type": "Answer", "text": "Oui, un site bien structuré attire du trafic qualifié et convertit les visiteurs en demandes concrètes." }
         },
         {
@@ -327,8 +597,13 @@ html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
         },
         {
           "@type": "Question",
-          "name": "Peut-on modifier le site après sa création ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Oui, selon la structure du projet, vous pourrez gérer votre contenu vous-même ou passer par nous pour les mises à jour." }
+          "name": "Le site peut-il évoluer avec mon activité ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, selon la structure du projet, vous pourrez ajuster le contenu vous-même ou nous confier les mises à jour." }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien coûte un site web à Casablanca ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Le prix dépend du nombre de gabarits, du contenu, des langues et des intégrations, pas de la ville. Nos formules démarrent à 1 400 DH pour un site vitrine, 2 500 DH pour un site business et 5 000 DH pour un site premium." }
         }
       ]
     }
@@ -449,73 +724,167 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- ════ HERO ════ -->
-<section class="city-hero">
+<section class="city-hero city-hero--split">
   <div class="glow-circle glow-c" style="opacity:0.13; width:700px; height:700px; --glow-peak:0.817; --glow-k:2.63;"></div>
   <div class="container">
-    <h1 class="city-page-title reveal"
-      data-en="Website Design <span class='accent'>Casablanca</span>"
-      data-fr="Création Site Web <span class='accent'>Casablanca</span>"
-      data-ar="تصميم مواقع الويب <span class='accent'>بالدار البيضاء</span>">Création Site Web <span class="accent">Casablanca</span></h1>
+    <div class="city-hero-grid">
 
-    <p class="city-hero-lead reveal"
-      data-en="Your web design agency in Casablanca. Modern, fast websites built to convert, because in a market this competitive, your site has to convince before the first contact."
-      data-fr="Votre agence de création de site web à Casablanca. Des sites modernes, rapides et pensés pour convertir, car dans un marché aussi concurrentiel, votre site doit convaincre avant le premier contact."
-      data-ar="وكالتك لتصميم مواقع الويب بالدار البيضاء. مواقع عصرية وسريعة مبنية للتحويل، ففي سوق بهذه التنافسية، على موقعك أن يقنع قبل أول تواصل.">Votre agence de création de site web à Casablanca. Des sites modernes, rapides et pensés pour convertir, car dans un marché aussi concurrentiel, votre site doit convaincre avant le premier contact.</p>
+      <div class="city-hero-copy">
+        <div class="city-chip reveal">
+          <span class="city-chip-dot"></span>
+          <span data-en="Casablanca-Settat" data-fr="Casablanca-Settat" data-ar="الدار البيضاء سطات">Casablanca-Settat</span>
+        </div>
 
-    <div class="hero-actions reveal">
-      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Tell us about your project" data-fr="Parlez-nous de votre projet" data-ar="أخبرنا عن مشروعك">Parlez-nous de votre projet</a>
-      <a href="/projects" class="btn-secondary" data-en="View our work" data-fr="Voir nos réalisations" data-ar="شاهد أعمالنا">Voir nos réalisations</a>
+        <h1 class="city-page-title reveal"
+          data-en="Website Design <span class='accent'>Casablanca</span>"
+          data-fr="Création Site Web <span class='accent'>Casablanca</span>"
+          data-ar="تصميم مواقع الويب <span class='accent'>بالدار البيضاء</span>">Création Site Web <span class="accent">Casablanca</span></h1>
+
+        <p class="city-hero-lead reveal"
+          data-en="Casablanca is Morocco's economic capital: banks, corporate headquarters, industry and a dense, competitive market where clients compare several providers before choosing. Modern, fast websites built to convert, because here a mediocre site is invisible."
+          data-fr="Casablanca est la capitale économique du Maroc : banques, sièges sociaux, industrie et un marché dense et concurrentiel où les clients comparent plusieurs prestataires avant de choisir. Des sites modernes, rapides et pensés pour convertir, car ici un site médiocre est invisible."
+          data-ar="الدار البيضاء هي العاصمة الاقتصادية للمغرب: بنوك، مقرات شركات، صناعة، وسوق كثيف وتنافسي يقارن فيه العملاء بين عدة مزودين قبل الاختيار. مواقع عصرية وسريعة مبنية للتحويل، فهنا الموقع الرديء غير مرئي.">Casablanca est la capitale économique du Maroc : banques, sièges sociaux, industrie et un marché dense et concurrentiel où les clients comparent plusieurs prestataires avant de choisir. Des sites modernes, rapides et pensés pour convertir, car ici un site médiocre est invisible.</p>
+
+        <div class="hero-actions reveal">
+          <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Tell us about your project" data-fr="Parlez-nous de votre projet" data-ar="أخبرنا عن مشروعك">Parlez-nous de votre projet</a>
+          <a href="/projects" class="btn-secondary" data-en="View our work" data-fr="Voir nos réalisations" data-ar="شاهد أعمالنا">Voir nos réalisations</a>
+        </div>
+      </div>
+
+      <div class="city-hero-shot reveal">
+        <img src="./assets/images/hero mockup img site maroc.png" width="1024" height="680" loading="eager" decoding="async"
+             alt="Aperçu d'un site web avec les outils de performance et sécurité utilisés : GTmetrix, HTTPS, SEO">
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ════ WHY A WEBSITE IN CASABLANCA ════ -->
-<section class="svc-section" id="pourquoi">
+<!-- ════ WHY A WEBSITE IN CASABLANCA — STORY ════ -->
+<section class="svc-section svc-section--tint city-story" id="pourquoi">
+  <div class="container">
+    <div class="city-story-inner">
+      <div class="section-label reveal">
+        <span class="section-label-dot"></span>
+        <span data-en="Casablanca" data-fr="Casablanca" data-ar="الدار البيضاء">Casablanca</span>
+      </div>
+      <h2 class="svc-band-title city-story-title reveal"
+        data-en="Why digital is a growth lever in <em>Casablanca</em>"
+        data-fr="Pourquoi le digital est un levier de croissance à <em>Casablanca</em>"
+        data-ar="لماذا يُعد الرقمي رافعة نمو في <em>الدار البيضاء</em>">Pourquoi le digital est un levier de croissance à <em>Casablanca</em></h2>
+
+      <p class="city-story-p reveal"
+        data-en="Casablanca is Morocco's economic capital: the country's main banks, insurers, industrial groups and multinationals run their operations from here. That concentration means clients expect a level of digital polish that matches the seriousness of the businesses around them."
+        data-fr="Casablanca est la capitale économique du Maroc : les principales banques, compagnies d'assurance, groupes industriels et multinationales du pays y pilotent leurs opérations. Cette concentration fait que les clients attendent un niveau de finition digitale à la hauteur du sérieux des entreprises qui les entourent."
+        data-ar="الدار البيضاء هي العاصمة الاقتصادية للمغرب: أهم البنوك وشركات التأمين والمجموعات الصناعية والشركات متعددة الجنسيات تدير عملياتها من هنا. هذا التركز يجعل العملاء يتوقعون مستوى من الإتقان الرقمي يليق بجدية الشركات المحيطة بهم."
+        >Casablanca est la capitale économique du Maroc : les principales banques, compagnies d'assurance, groupes industriels et multinationales du pays y pilotent leurs opérations. Cette concentration fait que les clients attendent un niveau de finition digitale à la hauteur du sérieux des entreprises qui les entourent.</p>
+
+      <p class="city-story-p reveal"
+        data-en="The flip side of this scale is competition: with more businesses per sector than anywhere else in the country, a showcase site that looks like everyone else's simply disappears in the search results. Standing out here means a site built to be found, not just built to exist."
+        data-fr="Le revers de cette échelle, c'est la concurrence : avec plus d'entreprises par secteur que partout ailleurs dans le pays, un site vitrine qui ressemble à tous les autres disparaît tout simplement dans les résultats de recherche. Se démarquer ici veut dire un site pensé pour être trouvé, pas seulement pour exister."
+        data-ar="الوجه الآخر لهذا الحجم هو المنافسة: بوجود شركات أكثر في كل قطاع مقارنة بأي مكان آخر في البلاد، يختفي الموقع التعريفي الذي يشبه غيره ببساطة من نتائج البحث. التميز هنا يعني موقعاً مصمَّماً ليُوجَد، لا فقط ليتواجد."
+        >Le revers de cette échelle, c'est la concurrence : avec plus d'entreprises par secteur que partout ailleurs dans le pays, un site vitrine qui ressemble à tous les autres disparaît tout simplement dans les résultats de recherche. Se démarquer ici veut dire un site pensé pour être trouvé, pas seulement pour exister.</p>
+
+      <p class="city-story-p reveal"
+        data-en="Casablanca is also a real local SEO opportunity: with so much economic activity concentrated in one city, ranking well on searches like &laquo;&nbsp;agence web Casablanca&nbsp;&raquo; puts you in front of a much larger volume of buyers actively comparing providers online."
+        data-fr="Casablanca représente aussi une réelle opportunité de référencement local : avec autant d'activité économique concentrée dans une seule ville, bien se positionner sur des recherches comme &laquo;&nbsp;agence web Casablanca&nbsp;&raquo; vous place devant un volume bien plus large d'acheteurs qui comparent activement des prestataires en ligne."
+        data-ar="تمثل الدار البيضاء أيضاً فرصة حقيقية لتحسين محركات البحث المحلي: مع هذا التركز الكبير للنشاط الاقتصادي في مدينة واحدة، فإن التموضع الجيد على عبارات بحث مثل «وكالة مواقع الدار البيضاء» يضعك أمام حجم أكبر بكثير من المشترين الذين يقارنون مزودي الخدمة بنشاط عبر الإنترنت."
+        >Casablanca représente aussi une réelle opportunité de référencement local : avec autant d'activité économique concentrée dans une seule ville, bien se positionner sur des recherches comme «&nbsp;agence web Casablanca&nbsp;» vous place devant un volume bien plus large d'acheteurs qui comparent activement des prestataires en ligne.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INDUSTRIES ════ -->
+<section class="svc-section" id="secteurs">
   <div class="container">
     <div class="section-label section-label--center reveal" style="justify-content:center;">
       <span class="section-label-dot"></span>
-      <span data-en="Casablanca" data-fr="Casablanca" data-ar="الدار البيضاء">Casablanca</span>
+      <span data-en="Sectors" data-fr="Secteurs" data-ar="القطاعات">Secteurs</span>
     </div>
     <h2 class="svc-band-title reveal"
-      data-en="Why build a website in <em>Casablanca</em>?"
-      data-fr="Pourquoi créer un site web à <em>Casablanca</em> ?"
-      data-ar="لماذا تنشئ موقع ويب في <em>الدار البيضاء</em>؟">Pourquoi créer un site web à <em>Casablanca</em> ?</h2>
+      data-en="Key industries in <em>Casablanca</em>"
+      data-fr="Industries Clés à <em>Casablanca</em>"
+      data-ar="القطاعات الرئيسية في <em>الدار البيضاء</em>">Industries Clés à Casablanca</h2>
     <p class="svc-band-sub reveal"
-      data-en="Casablanca is Morocco's main economic hub. Businesses are numerous, sectors are competitive, and your clients compare several providers before choosing."
-      data-fr="Casablanca est le principal centre économique du Maroc. Les entreprises y sont nombreuses, les secteurs sont compétitifs, et vos clients comparent plusieurs prestataires avant de choisir."
-      data-ar="الدار البيضاء هي المركز الاقتصادي الرئيسي بالمغرب. الشركات كثيرة والقطاعات تنافسية، وعملاؤك يقارنون بين عدة مزودين قبل الاختيار.">Casablanca est le principal centre économique du Maroc. Les entreprises y sont nombreuses, les secteurs sont compétitifs, et vos clients comparent plusieurs prestataires avant de choisir.</p>
+      data-en="The sectors that make up Morocco's economic capital."
+      data-fr="Les secteurs qui composent la capitale économique du Maroc."
+      data-ar="القطاعات التي تشكّل العاصمة الاقتصادية للمغرب.">Les secteurs qui composent la capitale économique du Maroc.</p>
 
-    <div class="benefit-grid reveal">
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Improve your presence on Google" data-fr="Améliorer votre présence sur Google" data-ar="تحسين حضورك على جوجل">Améliorer votre présence sur Google</span>
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 6.5L10 3l7 3.5M3 6.5v7L10 17l7-3.5v-7M3 6.5L10 10m0 0l7-3.5M10 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3 class="svc-card-title" data-en="Finance & banking" data-fr="Finance & Banque" data-ar="المالية والبنوك">Finance & Banque</h3>
+        <p class="svc-card-desc" data-en="Sites and web platforms for banks, insurers and financial firms headquartered in the city." data-fr="Sites et plateformes web pour les banques, assurances et sociétés financières dont le siège est dans la ville." data-ar="مواقع ومنصات ويب للبنوك وشركات التأمين والمؤسسات المالية التي يوجد مقرها في المدينة.">Sites et plateformes web pour les banques, assurances et sociétés financières dont le siège est dans la ville.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Present your business credibly" data-fr="Présenter votre entreprise de façon crédible" data-ar="تقديم شركتك بمصداقية">Présenter votre entreprise de façon crédible</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="9.5" width="15" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 9.5V6.5a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5v3" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 15.5v1.6M17.5 15.5v1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <h3 class="svc-card-title" data-en="Corporate & consulting" data-fr="Corporate & Consulting" data-ar="الشركات والاستشارات">Corporate & Consulting</h3>
+        <p class="svc-card-desc" data-en="B2B and credibility-first sites for firms, agencies and consultancies serving other businesses." data-fr="Sites B2B et orientés crédibilité pour cabinets, agences et sociétés de conseil qui servent d'autres entreprises." data-ar="مواقع B2B تركّز على المصداقية للمكاتب والوكالات وشركات الاستشارة التي تخدم شركات أخرى.">Sites B2B et orientés crédibilité pour cabinets, agences et sociétés de conseil qui servent d'autres entreprises.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Turn your visitors into clients" data-fr="Convertir vos visiteurs en clients" data-ar="تحويل زوارك إلى عملاء">Convertir vos visiteurs en clients</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 6h12l-1.2 8.4a1.5 1.5 0 0 1-1.5 1.3H6.7a1.5 1.5 0 0 1-1.5-1.3L4 6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 6V4.5A1.5 1.5 0 0 1 8.5 3h3A1.5 1.5 0 0 1 13 4.5V6" stroke="currentColor" stroke-width="1.5"/></svg></span>
+        <h3 class="svc-card-title" data-en="Retail & shopping" data-fr="Commerce & Retail" data-ar="التجارة والبيع بالتجزئة">Commerce & Retail</h3>
+        <p class="svc-card-desc" data-en="Showcase and e-commerce sites for shops and brands competing in Morocco's largest retail market." data-fr="Sites vitrine et e-commerce pour les commerces et marques qui se disputent le plus grand marché de détail du Maroc." data-ar="مواقع تعريفية وتجارة إلكترونية للمحلات والعلامات التي تتنافس في أكبر سوق للتجزئة بالمغرب.">Sites vitrine et e-commerce pour les commerces et marques qui se disputent le plus grand marché de détail du Maroc.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Receive more WhatsApp messages and quote requests" data-fr="Recevoir plus de messages WhatsApp et de demandes de devis" data-ar="تلقّي المزيد من رسائل واتساب وطلبات عروض الأسعار">Recevoir plus de messages WhatsApp et de demandes de devis</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 16v-4h4v4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        <h3 class="svc-card-title" data-en="Real estate" data-fr="Immobilier" data-ar="العقارات">Immobilier</h3>
+        <p class="svc-card-desc" data-en="Property listings and agency sites for a market that keeps attracting residents and investors." data-fr="Sites de biens et d'agences pour un marché qui continue d'attirer résidents et investisseurs." data-ar="مواقع عروض عقارية ووكالات لسوق لا يزال يجذب السكان والمستثمرين.">Sites de biens et d'agences pour un marché qui continue d'attirer résidents et investisseurs.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Reassure your prospects before the first contact" data-fr="Rassurer vos prospects avant le premier contact" data-ar="طمأنة عملائك المحتملين قبل أول تواصل">Rassurer vos prospects avant le premier contact</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M2.5 12l1.3-4.2A2 2 0 0 1 5.5 6.4h9a2 2 0 0 1 1.9 1.4L17.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="1.5" y="12" width="17" height="3.6" rx="1" stroke="currentColor" stroke-width="1.5"/><circle cx="5.5" cy="15.8" r="1.3" stroke="currentColor" stroke-width="1.3"/><circle cx="14.5" cy="15.8" r="1.3" stroke="currentColor" stroke-width="1.3"/></svg></span>
+        <h3 class="svc-card-title" data-en="Logistics & import-export" data-fr="Logistique & Import-Export" data-ar="اللوجستيك والاستيراد والتصدير">Logistique & Import-Export</h3>
+        <p class="svc-card-desc" data-en="B2B sites and digital catalogues for companies moving goods through the country's busiest port and industrial zones." data-fr="Sites B2B et catalogues numériques pour les entreprises qui font transiter des marchandises par le port et les zones industrielles les plus actifs du pays." data-ar="مواقع B2B وكتالوجات رقمية للشركات التي تُمرّر بضائعها عبر الميناء والمناطق الصناعية الأكثر نشاطاً في البلاد.">Sites B2B et catalogues numériques pour les entreprises qui font transiter des marchandises par le port et les zones industrielles les plus actifs du pays.</p>
       </div>
-      <div class="benefit-item">
-        <span class="svc-feature-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span data-en="Grow your brand image" data-fr="Développer votre image de marque" data-ar="تطوير صورة علامتك التجارية">Développer votre image de marque</span>
+      <div class="svc-card">
+        <span class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 17.5s5.6-4.6 5.6-9a5.6 5.6 0 10-11.2 0c0 4.4 5.6 9 5.6 9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 6v5M7.5 8.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <h3 class="svc-card-title" data-en="Restaurants & hospitality" data-fr="Restauration & Hôtellerie" data-ar="المطاعم والفندقة">Restauration & Hôtellerie</h3>
+        <p class="svc-card-desc" data-en="Menus, galleries and booking-ready sites for a fast-growing food and hospitality scene." data-fr="Menus, galeries et sites prêts pour la réservation pour une scène de la restauration et de l'hôtellerie en pleine croissance." data-ar="قوائم طعام ومعارض ومواقع جاهزة للحجز لمشهد مطاعم وفندقة في نمو سريع.">Menus, galeries et sites prêts pour la réservation pour une scène de la restauration et de l'hôtellerie en pleine croissance.</p>
       </div>
     </div>
 
     <p class="svc-band-note reveal"
-      data-en="Your website becomes a digital salesperson available 24/7."
-      data-fr="Votre site devient un commercial digital disponible 24h/24."
-      data-ar="يصبح موقعك مندوب مبيعات رقمي متاح على مدار الساعة.">Votre site devient un commercial digital disponible 24h/24.</p>
+      data-en="Every sector has its own expectations. The design, content and structure are adapted accordingly. We have dedicated pages for <a href='/real-estate-web-design'>real estate web design</a> and <a href='/tourism-web-design'>tourism web design</a>."
+      data-fr="Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>."
+      data-ar="لكل قطاع توقعاته الخاصة. يتم تكييف التصميم والمحتوى والبنية وفقاً لذلك. لدينا صفحات مخصصة لـ<a href='/real-estate-web-design'>تصميم المواقع العقارية</a> و<a href='/tourism-web-design'>تصميم المواقع السياحية</a>.">Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>.</p>
+
+    <div class="section-cta-bar reveal">
+      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Tell us about your sector" data-fr="Parlez-nous de votre secteur" data-ar="أخبرنا عن قطاعك">Parlez-nous de votre secteur</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CASABLANCA IN NUMBERS (sourced figures) ════ -->
+<section class="svc-section svc-section--tint" id="chiffres">
+  <div class="container">
+    <h2 class="svc-band-title reveal" style="margin-bottom:40px;"
+      data-en="<em>Casablanca's</em> economy in numbers"
+      data-fr="L'Économie de <em>Casablanca</em> en Chiffres"
+      data-ar="اقتصاد <em>الدار البيضاء</em> بالأرقام">L'Économie de <em>Casablanca</em> en Chiffres</h2>
+
+    <div class="stat-grid reveal">
+      <div class="stat-card">
+        <span class="stat-value">3,21 M</span>
+        <span class="stat-label" data-en="Residents in Casablanca, Morocco's largest city (RGPH 2024 census)" data-fr="Habitants à Casablanca, plus grande ville du Maroc (RGPH 2024)" data-ar="نسمة في الدار البيضاء، أكبر مدينة بالمغرب (إحصاء RGPH 2024)">Habitants à Casablanca, plus grande ville du Maroc (RGPH 2024)</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">32,3 %</span>
+        <span class="stat-label" data-en="Share of national GDP produced by the Casablanca-Settat region" data-fr="Part du PIB national produite par la région Casablanca-Settat" data-ar="حصة الدار البيضاء سطات من الناتج الداخلي الإجمالي الوطني">Part du PIB national produite par la région Casablanca-Settat</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">79</span>
+        <span class="stat-label" data-en="Companies listed on the Casablanca Stock Exchange" data-fr="Sociétés cotées à la Bourse de Casablanca" data-ar="شركة مدرجة في بورصة الدار البيضاء">Sociétés cotées à la Bourse de Casablanca</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">92 %</span>
+        <span class="stat-label" data-en="of Moroccans were online in 2025" data-fr="des Marocains étaient connectés à internet en 2025" data-ar="من المغاربة كانوا متصلين بالإنترنت سنة 2025">des Marocains étaient connectés à internet en 2025</span>
+      </div>
+    </div>
+
+    <p class="svc-band-note reveal"
+      data-en="Sources: HCP, RGPH 2024 census; HCP, regional GDP accounts (Casablanca-Settat, 2024); Casablanca Stock Exchange, listed companies (2025); DataReportal, Digital 2026 Morocco."
+      data-fr="Sources : HCP, recensement RGPH 2024 ; HCP, comptes régionaux (Casablanca-Settat, 2024) ; Bourse de Casablanca, sociétés cotées (2025) ; DataReportal, Digital 2026 Morocco."
+      data-ar="المصادر: المندوبية السامية للتخطيط، إحصاء RGPH 2024؛ المندوبية السامية للتخطيط، الحسابات الجهوية (الدار البيضاء سطات، 2024)؛ بورصة الدار البيضاء، الشركات المدرجة (2025)؛ DataReportal، تقرير Digital 2026 Morocco.">Sources : HCP, recensement RGPH 2024 ; HCP, comptes régionaux (Casablanca-Settat, 2024) ; Bourse de Casablanca, sociétés cotées (2025) ; DataReportal, Digital 2026 Morocco.</p>
   </div>
 </section>
 
@@ -531,8 +900,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       data-fr="Cinq façons d'aider les entreprises casablancaises à mieux exister en ligne."
       data-ar="خمس طرق نساعد بها شركات الدار البيضاء على الحضور بشكل أفضل عبر الإنترنت.">Cinq façons d'aider les entreprises casablancaises à mieux exister en ligne.</p>
 
-    <div class="svc-grid">
+    <div class="svc-grid svc-grid--numbered">
       <div class="svc-card reveal">
+        <span class="svc-num" aria-hidden="true">01</span>
         <h3 class="svc-card-title" data-en="Professional showcase site" data-fr="Site vitrine professionnel" data-ar="موقع تعريفي احترافي">Site vitrine professionnel</h3>
         <p class="svc-card-desc"
           data-en="Ideal for companies, practices, agencies, restaurants, clinics and service providers in Casablanca. A clear, modern site designed to generate enquiries."
@@ -540,6 +910,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-ar="مثالي للشركات والمكاتب والوكالات والمطاعم والعيادات ومقدمي الخدمات بالدار البيضاء. موقع واضح وعصري مصمَّم لتوليد الطلبات.">Idéal pour les entreprises, cabinets, agences, restaurants, cliniques et prestataires de services à Casablanca. Un site clair, moderne et pensé pour générer des demandes.</p>
       </div>
       <div class="svc-card reveal" style="transition-delay:.06s">
+        <span class="svc-num" aria-hidden="true">02</span>
         <h3 class="svc-card-title" data-en="E-commerce site" data-fr="Site e-commerce" data-ar="متجر إلكتروني">Site e-commerce</h3>
         <p class="svc-card-desc"
           data-en="Online stores adapted to the Moroccan market, with a simple, reassuring purchase journey."
@@ -547,13 +918,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-ar="متاجر إلكترونية مهيّأة للسوق المغربية، مع رحلة شراء بسيطة ومطمئنة.">Boutiques en ligne adaptées au marché marocain, avec un parcours d'achat simple et rassurant.</p>
       </div>
       <div class="svc-card reveal" style="transition-delay:.12s">
+        <span class="svc-num" aria-hidden="true">03</span>
         <h3 class="svc-card-title" data-en="Landing page for ad campaigns" data-fr="Landing page pour campagnes publicitaires" data-ar="صفحة هبوط للحملات الإعلانية">Landing page pour campagnes publicitaires</h3>
         <p class="svc-card-desc"
-          data-en="Running Google Ads or Meta Ads? We build landing pages designed to turn your visitors into leads."
+          data-en="Running Google Ads or Meta Ads campaigns? We build landing pages designed to turn your visitors into leads."
           data-fr="Vous lancez des campagnes Google Ads ou Meta Ads ? Nous créons des landing pages pensées pour convertir vos visiteurs en prospects."
           data-ar="هل تطلق حملات Google Ads أو Meta Ads؟ ننشئ صفحات هبوط مصممة لتحويل زوارك إلى عملاء محتملين.">Vous lancez des campagnes Google Ads ou Meta Ads ? Nous créons des landing pages pensées pour convertir vos visiteurs en prospects.</p>
       </div>
       <div class="svc-card reveal" style="transition-delay:.18s">
+        <span class="svc-num" aria-hidden="true">04</span>
         <h3 class="svc-card-title" data-en="Redesign of an existing site" data-fr="Refonte de site existant" data-ar="إعادة تصميم موقع قائم">Refonte de site existant</h3>
         <p class="svc-card-desc"
           data-en="We modernise your current site to improve its design, speed and conversion rate."
@@ -561,6 +934,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           data-ar="نقوم بتحديث موقعك الحالي لتحسين تصميمه وسرعته ومعدل تحويله.">Nous modernisons votre site actuel pour améliorer son design, sa vitesse et son taux de conversion.</p>
       </div>
       <div class="svc-card reveal" style="transition-delay:.24s">
+        <span class="svc-num" aria-hidden="true">05</span>
         <h3 class="svc-card-title" data-en="Custom development" data-fr="Développement sur mesure" data-ar="تطوير حسب الطلب">Développement sur mesure</h3>
         <p class="svc-card-desc"
           data-en="Features tailored to your business: booking, catalogue, client area, dashboard."
@@ -571,32 +945,109 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ════ SECTORS ════ -->
-<section class="svc-section" id="secteurs">
+<!-- ════ LOCAL SEO ════ -->
+<section class="city-band" id="seo-local">
+  <div class="container">
+    <div class="city-band-grid">
+      <div class="city-band-copy">
+        <div class="city-chip reveal">
+          <span class="city-chip-dot"></span>
+          <span data-en="Local SEO" data-fr="SEO Local" data-ar="تحسين محركات البحث المحلي">SEO Local</span>
+        </div>
+
+        <h2 class="svc-band-title reveal" style="margin-bottom:20px;"
+          data-en="Local visibility in a <em>crowded</em> market"
+          data-fr="Une visibilité locale dans un marché <em>dense</em>"
+          data-ar="حضور محلي في سوق <em>مزدحم</em>">Une visibilité locale dans un marché <em>dense</em></h2>
+
+        <p class="svc-band-sub reveal" style="text-align:left;margin:0 0 8px;max-width:none;"
+          data-en="Ranking on Casablanca searches so your business is found before the competitors sitting right next to it."
+          data-fr="Positionnement sur les recherches Casablanca pour que votre entreprise soit trouvée avant les concurrents installés juste à côté."
+          data-ar="التموضع على عمليات البحث المتعلقة بالدار البيضاء ليتم العثور على شركتك قبل المنافسين المجاورين لها مباشرة.">Positionnement sur les recherches Casablanca pour que votre entreprise soit trouvée avant les concurrents installés juste à côté.</p>
+
+        <div class="city-band-list reveal">
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Google My Business optimisation" data-fr="Optimisation Google My Business" data-ar="تحسين ملف Google My Business">Optimisation Google My Business</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="&quot;Near me&quot; local search ranking" data-fr="Référencement &quot;près de chez moi&quot;" data-ar="الظهور في عمليات بحث &quot;بالقرب مني&quot;">Référencement "près de chez moi"</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Citations and local directories" data-fr="Citations et annuaires locaux" data-ar="الاستشهادات والأدلة المحلية">Citations et annuaires locaux</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="Customer reviews and e-reputation" data-fr="Avis clients et e-réputation" data-ar="آراء العملاء والسمعة الرقمية">Avis clients et e-réputation</span>
+          </div>
+          <div class="seo-check">
+            <span class="seo-check-ico"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span data-en="LocalBusiness schema markup" data-fr="Schema markup LocalBusiness" data-ar="ترميز Schema من نوع LocalBusiness">Schema markup LocalBusiness</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-band-shot reveal">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-7.71%2C33.49%2C-7.47%2C33.65&amp;layer=mapnik&amp;marker=33.5731%2C-7.5898"
+                style="width:100%; height:420px; border:0; display:block;"
+                loading="lazy" title="Carte de Casablanca"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROCESS ════ -->
+<section class="svc-section svc-section--tint" id="process">
   <div class="container">
     <h2 class="svc-band-title reveal"
-      data-en="Which sectors in <em>Casablanca</em>?"
-      data-fr="Pour quels secteurs à <em>Casablanca</em> ?"
-      data-ar="لأي قطاعات في <em>الدار البيضاء</em>؟">Pour quels secteurs à <em>Casablanca</em> ?</h2>
-    <p class="svc-band-sub svc-band-sub--tight reveal"
-      data-en="We work across the sectors that drive the city's economy."
-      data-fr="Nous intervenons dans les secteurs qui font l'économie de la ville."
-      data-ar="نعمل في القطاعات التي تحرّك اقتصاد المدينة.">Nous intervenons dans les secteurs qui font l'économie de la ville.</p>
+      data-en="From first call to <em>launch</em>"
+      data-fr="Du premier appel à la <em>mise en ligne</em>"
+      data-ar="من المكالمة الأولى إلى <em>النشر</em>">Du premier appel à la <em>mise en ligne</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="The design is signed off before development starts, so the finished site is never a surprise."
+      data-fr="Le design est validé avant que le développement commence : le site final n'est jamais une surprise."
+      data-ar="يُصادق على التصميم قبل بدء التطوير: الموقع النهائي ليس مفاجأة أبداً.">Le design est validé avant que le développement commence : le site final n'est jamais une surprise.</p>
 
-    <div class="sector-list reveal">
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Medical and dental practices" data-fr="Cabinets médicaux et dentaires" data-ar="العيادات الطبية وطب الأسنان">Cabinets médicaux et dentaires</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Restaurants and cafés" data-fr="Restaurants et cafés" data-ar="المطاعم والمقاهي">Restaurants et cafés</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Real estate agencies" data-fr="Agences immobilières" data-ar="الوكالات العقارية">Agences immobilières</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Riads and accommodation" data-fr="Riads et hébergements" data-ar="الرياضات وأماكن الإقامة">Riads et hébergements</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Car rental agencies" data-fr="Agences de location de véhicules" data-ar="وكالات كراء السيارات">Agences de location de véhicules</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="Independent professionals" data-fr="Professions libérales" data-ar="المهن الحرة">Professions libérales</span></span>
-      <span class="sector-pill"><span class="sector-pill-dot"></span><span data-en="E-commerce" data-fr="E-commerce" data-ar="التجارة الإلكترونية">E-commerce</span></span>
+    <div class="step-grid">
+      <div class="step-card reveal">
+        <span class="step-n" aria-hidden="true">1</span>
+        <span class="step-t" data-en="We talk" data-fr="On se parle" data-ar="نتحدث">On se parle</span>
+        <p class="step-d"
+          data-en="By call or on WhatsApp. Goal, audience, existing content. A free quote follows within 24 hours."
+          data-fr="Par appel ou sur WhatsApp. Objectif, audience, contenus existants. Un devis gratuit suit sous 24h."
+          data-ar="عبر مكالمة أو واتساب. الهدف، الجمهور، المحتوى المتوفر. يليه عرض سعر مجاني خلال 24 ساعة.">Par appel ou sur WhatsApp. Objectif, audience, contenus existants. Un devis gratuit suit sous 24h.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.06s">
+        <span class="step-n" aria-hidden="true">2</span>
+        <span class="step-t" data-en="You see the design" data-fr="Vous voyez le design" data-ar="ترى التصميم">Vous voyez le design</span>
+        <p class="step-d"
+          data-en="Your real screens in Figma, before any code. This is where changes are free."
+          data-fr="Vos écrans réels dans Figma, avant toute ligne de code. C'est ici que les modifications ne coûtent rien."
+          data-ar="شاشاتك الحقيقية في Figma، قبل أي شيفرة. هنا تكون التعديلات مجانية.">Vos écrans réels dans Figma, avant toute ligne de code. C'est ici que les modifications ne coûtent rien.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.12s">
+        <span class="step-n" aria-hidden="true">3</span>
+        <span class="step-t" data-en="We build it" data-fr="On développe" data-ar="ننفّذ">On développe</span>
+        <p class="step-d"
+          data-en="Fast, responsive, and in French, English and Arabic if your clients need it. SEO foundations included, not sold separately."
+          data-fr="Rapide, responsive, et en français, anglais et arabe si vos clients en ont besoin. Fondations SEO comprises, pas vendues à part."
+          data-ar="سريع ومتجاوب، وبالفرنسية والإنجليزية والعربية إن احتاج عملاؤك ذلك. أسس تحسين محركات البحث مشمولة، لا تُباع منفصلة.">Rapide, responsive, et en français, anglais et arabe si vos clients en ont besoin. Fondations SEO comprises, pas vendues à part.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.18s">
+        <span class="step-n" aria-hidden="true">4</span>
+        <span class="step-t" data-en="It goes live, in your name" data-fr="Mise en ligne, à votre nom" data-ar="النشر، باسمك">Mise en ligne, à votre nom</span>
+        <p class="step-d"
+          data-en="Domain, hosting and CMS accounts are registered to you and handed over. The site is yours."
+          data-fr="Domaine, hébergement et accès au CMS sont enregistrés à votre nom et vous sont remis. Le site est le vôtre."
+          data-ar="النطاق والاستضافة وحسابات نظام إدارة المحتوى تُسجَّل باسمك وتُسلَّم إليك. الموقع لك.">Domaine, hébergement et accès au CMS sont enregistrés à votre nom et vous sont remis. Le site est le vôtre.</p>
+      </div>
     </div>
 
-    <p class="svc-band-note reveal"
-      data-en="Every sector has its own expectations. The design, content and structure are adapted accordingly. We have dedicated pages for <a href='/real-estate-web-design'>real estate web design</a> and <a href='/tourism-web-design'>tourism web design</a>."
-      data-fr="Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>."
-      data-ar="لكل قطاع توقعاته الخاصة. يتم تكييف التصميم والمحتوى والبنية وفقاً لذلك. لدينا صفحات مخصصة لـ<a href='/real-estate-web-design'>تصميم المواقع العقارية</a> و<a href='/tourism-web-design'>تصميم المواقع السياحية</a>.">Chaque secteur a ses propres attentes. Le design, le contenu et la structure sont adaptés en conséquence. Nous avons des pages dédiées à la <a href='/real-estate-web-design'>création de sites immobiliers</a> et aux <a href='/tourism-web-design'>sites web pour le tourisme</a>.</p>
+    <div class="section-cta-bar reveal">
+      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Start with a free quote" data-fr="Démarrer avec un devis gratuit" data-ar="ابدأ بعرض سعر مجاني">Démarrer avec un devis gratuit</a>
+    </div>
   </div>
 </section>
 
@@ -678,6 +1129,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ════ TESTIMONIALS ════ -->
+<section class="testimonials-section" id="cityTesti" hidden>
+  <div class="glow-circle glow-c glow-c-soft"></div>
+  <div class="container">
+    <h2 class="testimonials-heading reveal" data-en="Trusted by businesses like <em>yours</em>" data-fr="La confiance des entreprises<br>comme la <em>vôtre</em>" data-ar="موثوق به من شركات مثل <em>شركتك</em>">La confiance des entreprises<br>comme la <em>vôtre</em></h2>
+    <p class="testimonials-sub reveal" data-en="Websites designed to bring more clarity, more trust, and more inquiries." data-fr="Des sites pensés pour renforcer votre image, rassurer vos visiteurs et générer plus de demandes." data-ar="مواقع مصممة لتوفير وضوح أكبر وثقة أكبر واستفسارات أكثر.">Des sites pensés pour renforcer votre image, rassurer vos visiteurs et générer plus de demandes.</p>
+    <div class="testi-nav reveal">
+      <button type="button" class="testi-arrow" id="cityTestiPrev" aria-label="Previous testimonials" disabled>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="testi-arrow" id="cityTestiNext" aria-label="Next testimonials">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="testimonial-grid" id="cityTestiGrid"></div>
+  </div>
+</section>
+
 <!-- ════ PRICING ════ -->
 <section class="svc-section" id="prix">
   <div class="container">
@@ -685,11 +1154,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       data-en="How much does a website cost in <em>Casablanca</em>?"
       data-fr="Combien coûte un site web à <em>Casablanca</em> ?"
       data-ar="كم يكلف موقع ويب في <em>الدار البيضاء</em>؟">Combien coûte un site web à <em>Casablanca</em> ?</h2>
+    <p class="svc-band-sub reveal"
+      data-en="There is no Casablanca price and an Agadir price. What moves the number is the shape of the project, not the city it is in."
+      data-fr="Il n'y a pas un tarif Casablanca et un tarif Agadir. Ce qui fait bouger le chiffre, c'est la forme du projet, pas la ville où il se trouve."
+      data-ar="لا يوجد سعر خاص بالدار البيضاء وآخر بأكادير. ما يحرّك الرقم هو طبيعة المشروع، لا المدينة التي يوجد فيها.">Il n'y a pas un tarif Casablanca et un tarif Agadir. Ce qui fait bouger le chiffre, c'est la forme du projet, pas la ville où il se trouve.</p>
 
-    <div class="price-callout reveal">
-      <p data-en="The price depends on the type of project: showcase site, online store, landing page or custom platform. See our full guide: &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;How much does a website cost in Morocco in 2026?&lt;/a&gt;"
-         data-fr="Le prix dépend du type de projet : site vitrine, boutique en ligne, landing page ou plateforme sur mesure. Voir notre guide complet : &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;Combien coûte un site web au Maroc en 2026 ?&lt;/a&gt;"
-         data-ar="يعتمد السعر على نوع المشروع: موقع تعريفي، متجر إلكتروني، صفحة هبوط أو منصة حسب الطلب. اطّلع على دليلنا الكامل: &lt;a class='inline-link' href='/blog/prix-creation-site-web-maroc/'&gt;كم يكلف موقع ويب في المغرب سنة 2026؟&lt;/a&gt;">Le prix dépend du type de projet : site vitrine, boutique en ligne, landing page ou plateforme sur mesure. Voir notre guide complet : <a class="inline-link" href="/blog/prix-creation-site-web-maroc/">Combien coûte un site web au Maroc en 2026 ?</a></p>
+    <div class="budget-grid">
+      <div class="budget-item reveal">
+        <span class="budget-item-t" data-en="Number of templates" data-fr="Le nombre de gabarits" data-ar="عدد القوالب">Le nombre de gabarits</span>
+        <p class="budget-item-d"
+          data-en="Each distinct layout is designed and built once. Extra pages reusing an existing template add almost nothing."
+          data-fr="Chaque mise en page distincte est conçue et développée une fois. Les pages supplémentaires qui réutilisent un gabarit n'ajoutent presque rien."
+          data-ar="كل تخطيط مختلف يُصمَّم ويُطوَّر مرة واحدة. الصفحات الإضافية التي تعيد استعمال قالب قائم لا تضيف شيئاً تقريباً.">Chaque mise en page distincte est conçue et développée une fois. Les pages supplémentaires qui réutilisent un gabarit n'ajoutent presque rien.</p>
+      </div>
+      <div class="budget-item reveal" style="transition-delay:.06s">
+        <span class="budget-item-t" data-en="Who writes the content" data-fr="Qui rédige le contenu" data-ar="من يكتب المحتوى">Qui rédige le contenu</span>
+        <p class="budget-item-d"
+          data-en="Texts and photos you already have cost nothing. Content to produce is real work — and the most common cause of a late launch."
+          data-fr="Les textes et photos que vous avez déjà ne coûtent rien. Le contenu à produire est un vrai travail — et la cause la plus fréquente d'une mise en ligne en retard."
+          data-ar="النصوص والصور التي تملكها أصلاً لا تكلّف شيئاً. المحتوى الذي يجب إنتاجه عمل حقيقي — وهو أكثر أسباب تأخر النشر.">Les textes et photos que vous avez déjà ne coûtent rien. Le contenu à produire est un vrai travail — et la cause la plus fréquente d'une mise en ligne en retard.</p>
+      </div>
+      <div class="budget-item reveal" style="transition-delay:.12s">
+        <span class="budget-item-t" data-en="Languages" data-fr="Les langues" data-ar="اللغات">Les langues</span>
+        <p class="budget-item-d"
+          data-en="Many Casablanca businesses serve a bilingual French/Arabic corporate clientele, and firms dealing with international partners or investors often need a proper English version too."
+          data-fr="Beaucoup d'entreprises casablancaises servent une clientèle corporate bilingue français/arabe, et celles qui traitent avec des partenaires ou investisseurs internationaux ont souvent besoin d'une version anglaise soignée en plus."
+          data-ar="كثير من شركات الدار البيضاء تخدم عملاء من الشركات ثنائيي اللغة (فرنسية وعربية)، والشركات التي تتعامل مع شركاء أو مستثمرين دوليين غالباً ما تحتاج أيضاً نسخة إنجليزية متقنة.">Beaucoup d'entreprises casablancaises servent une clientèle corporate bilingue français/arabe, et celles qui traitent avec des partenaires ou investisseurs internationaux ont souvent besoin d'une version anglaise soignée en plus.</p>
+      </div>
+      <div class="budget-item reveal" style="transition-delay:.18s">
+        <span class="budget-item-t" data-en="Integrations" data-fr="Les intégrations" data-ar="التكاملات">Les intégrations</span>
+        <p class="budget-item-d"
+          data-en="Online booking, payments, a CMS your team runs, a link to software you already use. This is where a showcase site becomes a custom build."
+          data-fr="Réservation en ligne, paiements, un CMS que votre équipe gère, une liaison avec un logiciel que vous utilisez déjà. C'est là qu'un site vitrine devient du sur-mesure."
+          data-ar="الحجز عبر الإنترنت، المدفوعات، نظام إدارة محتوى يديره فريقك، ربط ببرنامج تستعمله أصلاً. هنا يصبح الموقع التعريفي مشروعاً حسب الطلب.">Réservation en ligne, paiements, un CMS que votre équipe gère, une liaison avec un logiciel que vous utilisez déjà. C'est là qu'un site vitrine devient du sur-mesure.</p>
+      </div>
+    </div>
+
+    <p class="svc-band-note reveal">
+      <a class="inline-link" href="/blog/prix-creation-site-web-maroc/" data-en="Full guide: how much does a website cost in Morocco in 2026?" data-fr="Guide complet : combien coûte un site web au Maroc en 2026 ?" data-ar="دليل كامل: كم يكلف موقع ويب في المغرب سنة 2026؟">Guide complet : combien coûte un site web au Maroc en 2026 ?</a>
+    </p>
+
+    <div class="section-cta-bar reveal" style="margin-top:12px;">
       <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Get a free quote" data-fr="Obtenir un devis gratuit" data-ar="احصل على عرض سعر مجاني">Obtenir un devis gratuit</a>
     </div>
   </div>
@@ -716,25 +1221,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="faq-item open">
         <div class="faq-question">
           <span class="faq-q-text"
-            data-en="Is a website important for Google rankings?"
-            data-fr="Un site web est-il important pour le référencement sur Google ?"
-            data-ar="هل الموقع الإلكتروني مهم للظهور في نتائج جوجل؟">Un site web est-il important pour le référencement sur Google ?</span>
+            data-en="Does good Google ranking really make a difference in Casablanca?"
+            data-fr="Un bon référencement Google fait-il une vraie différence à Casablanca ?"
+            data-ar="هل الظهور الجيد في جوجل يُحدث فرقاً فعلاً بالدار البيضاء؟">Un bon référencement Google fait-il une vraie différence à Casablanca ?</span>
           <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
         <div class="faq-answer">
           <p class="faq-answer-inner"
-            data-en="Yes. An optimised site improves your visibility and attracts clients who are actively searching for your services."
-            data-fr="Oui. Un site optimisé permet d'améliorer votre visibilité et d'attirer des clients qui recherchent activement vos services."
-            data-ar="نعم. الموقع المُحسَّن يرفع من ظهورك ويجذب عملاء يبحثون فعلياً عن خدماتك.">Oui. Un site optimisé permet d'améliorer votre visibilité et d'attirer des clients qui recherchent activement vos services.</p>
+            data-en="Yes. In a market this dense, being well ranked makes you visible to clients who are already comparing several providers online."
+            data-fr="Oui. Dans un marché aussi dense, être bien référencé vous rend visible auprès de clients qui comparent déjà plusieurs prestataires en ligne."
+            data-ar="نعم. في سوق بهذا الازدحام، الظهور الجيد يجعلك مرئياً أمام عملاء يقارنون بالفعل بين عدة مزودين عبر الإنترنت.">Oui. Dans un marché aussi dense, être bien référencé vous rend visible auprès de clients qui comparent déjà plusieurs prestataires en ligne.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
           <span class="faq-q-text"
-            data-en="Can a website really generate clients?"
-            data-fr="Un site web peut-il vraiment générer des clients ?"
-            data-ar="هل يمكن للموقع أن يجلب عملاء فعلاً؟">Un site web peut-il vraiment générer des clients ?</span>
+            data-en="Can a website really generate clients in Casablanca?"
+            data-fr="Un site web peut-il vraiment générer des clients à Casablanca ?"
+            data-ar="هل يمكن للموقع أن يجلب عملاء فعلاً بالدار البيضاء؟">Un site web peut-il vraiment générer des clients à Casablanca ?</span>
           <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
         <div class="faq-answer">
@@ -755,25 +1260,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="faq-answer">
           <p class="faq-answer-inner"
-            data-en="Yes, the whole project (discovery, design, development, launch) runs remotely over calls and WhatsApp."
-            data-fr="Oui, l'ensemble du projet (découverte, design, développement, lancement) se fait à distance via appel et WhatsApp."
-            data-ar="نعم، المشروع بأكمله (الاستكشاف، التصميم، التطوير، الإطلاق) يتم عن بُعد عبر المكالمات وواتساب.">Oui, l'ensemble du projet (découverte, design, développement, lancement) se fait à distance via appel et WhatsApp.</p>
+            data-en="Yes, the whole project (discovery, design, development, launch) runs remotely over calls and WhatsApp. The studio is based in Tanger."
+            data-fr="Oui, l'ensemble du projet (découverte, design, développement, lancement) se fait à distance via appel et WhatsApp. Le studio est basé à Tanger."
+            data-ar="نعم، المشروع بأكمله (الاستكشاف، التصميم، التطوير، الإطلاق) يتم عن بُعد عبر المكالمات وواتساب. الاستوديو مقره طنجة.">Oui, l'ensemble du projet (découverte, design, développement, lancement) se fait à distance via appel et WhatsApp. Le studio est basé à Tanger.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
           <span class="faq-q-text"
-            data-en="Can the site be modified after it is built?"
-            data-fr="Peut-on modifier le site après sa création ?"
-            data-ar="هل يمكن تعديل الموقع بعد إنشائه؟">Peut-on modifier le site après sa création ?</span>
+            data-en="Can the site evolve with my business?"
+            data-fr="Le site peut-il évoluer avec mon activité ?"
+            data-ar="هل يمكن للموقع أن يتطور مع نشاطي؟">Le site peut-il évoluer avec mon activité ?</span>
           <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
         <div class="faq-answer">
           <p class="faq-answer-inner"
-            data-en="Yes. Depending on how the project is structured, you can manage the content yourself or go through us for updates."
-            data-fr="Oui, selon la structure du projet, vous pourrez gérer votre contenu vous-même ou passer par nous pour les mises à jour."
-            data-ar="نعم، حسب بنية المشروع، يمكنك إدارة المحتوى بنفسك أو الاعتماد علينا للتحديثات.">Oui, selon la structure du projet, vous pourrez gérer votre contenu vous-même ou passer par nous pour les mises à jour.</p>
+            data-en="Yes, depending on the project structure, you can adjust the content yourself or hand the updates over to us."
+            data-fr="Oui, selon la structure du projet, vous pourrez ajuster le contenu vous-même ou nous confier les mises à jour."
+            data-ar="نعم، حسب بنية المشروع، يمكنك تعديل المحتوى بنفسك أو تفويضنا بالتحديثات.">Oui, selon la structure du projet, vous pourrez ajuster le contenu vous-même ou nous confier les mises à jour.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="How much does a website cost in Casablanca?"
+            data-fr="Combien coûte un site web à Casablanca ?"
+            data-ar="كم يكلف موقع ويب في الدار البيضاء؟">Combien coûte un site web à Casablanca ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="It depends on the templates, the content, the languages and the integrations — not on the city. Our packages start at 1 400 DH; see the &lt;a class='inline-link' href='/tarifs'&gt;packages page&lt;/a&gt;."
+            data-fr="Cela dépend des gabarits, du contenu, des langues et des intégrations — pas de la ville. Nos formules démarrent à 1 400 DH ; voir la &lt;a class='inline-link' href='/tarifs'&gt;page packages&lt;/a&gt;."
+            data-ar="يعتمد ذلك على القوالب والمحتوى واللغات والتكاملات — لا على المدينة. تبدأ صيغنا من 1400 درهم؛ انظر &lt;a class='inline-link' href='/tarifs'&gt;صفحة الباقات&lt;/a&gt;.">Cela dépend des gabarits, du contenu, des langues et des intégrations — pas de la ville. Nos formules démarrent à 1 400 DH ; voir la <a class="inline-link" href="/tarifs">page packages</a>.</p>
         </div>
       </div>
 
@@ -785,6 +1306,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   </div><!-- /container -->
+</section>
+
+<!-- ════ NATIONAL COVERAGE ════ -->
+<section class="svc-section svc-section--tint" id="couverture">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="Nationwide <em>coverage</em>"
+      data-fr="Couverture <em>nationale</em>"
+      data-ar="تغطية <em>وطنية</em>">Couverture <em>nationale</em></h2>
+    <p class="svc-band-sub svc-band-sub--tight reveal"
+      data-en="The studio is based in Tanger, but clients aren't only there. Start with the <a href='/creation-site-web-maroc'>nationwide overview</a>, or stay on Casablanca."
+      data-fr="Le studio est basé à Tanger, mais les clients ne sont pas tous là-bas. Commencez par la <a href='/creation-site-web-maroc'>vue d'ensemble nationale</a>, ou restez sur Casablanca."
+      data-ar="الاستوديو مقره طنجة، لكن العملاء ليسوا كلهم هناك. ابدأ بـ<a href='/creation-site-web-maroc'>النظرة الوطنية العامة</a>، أو ابقَ على الدار البيضاء.">Le studio est basé à Tanger, mais les clients ne sont pas tous là-bas. Commencez par la <a href="/creation-site-web-maroc">vue d'ensemble nationale</a>, ou restez sur Casablanca.</p>
+
+    <div class="city-cover-list reveal">
+      <a href="/creation-site-web-tanger" class="city-cover-link" data-en="Tanger" data-fr="Tanger" data-ar="طنجة">Tanger</a>
+      <a href="/creation-site-web-casablanca" class="city-cover-link" aria-current="page" data-en="Casablanca" data-fr="Casablanca" data-ar="الدار البيضاء">Casablanca</a>
+      <a href="/creation-site-web-rabat" class="city-cover-link" data-en="Rabat" data-fr="Rabat" data-ar="الرباط">Rabat</a>
+      <a href="/creation-site-web-marrakech" class="city-cover-link" data-en="Marrakech" data-fr="Marrakech" data-ar="مراكش">Marrakech</a>
+      <a href="/creation-site-web-agadir" class="city-cover-link" data-en="Agadir" data-fr="Agadir" data-ar="أكادير">Agadir</a>
+      <a href="/creation-site-web-fes" class="city-cover-link" data-en="Fès" data-fr="Fès" data-ar="فاس">Fès</a>
+      <a href="/creation-site-web-essaouira" class="city-cover-link" data-en="Essaouira" data-fr="Essaouira" data-ar="الصويرة">Essaouira</a>
+      <a href="/creation-site-web-kenitra" class="city-cover-link" data-en="Kénitra" data-fr="Kénitra" data-ar="القنيطرة">Kénitra</a>
+      <a href="/creation-site-web-oujda" class="city-cover-link" data-en="Oujda" data-fr="Oujda" data-ar="وجدة">Oujda</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CLOSING CTA ════ -->
+<section class="city-cta-band">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="Grow your business in <em>Casablanca</em>"
+      data-fr="Développez votre activité à <em>Casablanca</em>"
+      data-ar="طوّر نشاطك في <em>الدار البيضاء</em>">Développez votre activité à <em>Casablanca</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Free quote, and a clear answer on timing and budget."
+      data-fr="Devis gratuit, et une réponse claire sur les délais et le budget."
+      data-ar="عرض سعر مجاني، وجواب واضح حول الآجال والميزانية.">Devis gratuit, et une réponse claire sur les délais et le budget.</p>
+
+    <div class="city-cta-actions reveal">
+      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener"
+        data-en="Request a quote" data-fr="Demander un devis" data-ar="اطلب عرض سعر">Demander un devis</a>
+      <a href="/contact" class="btn-secondary"
+        data-en="Contact us" data-fr="Nous contacter" data-ar="تواصل معنا">Nous contacter</a>
+    </div>
+  </div>
 </section>
 
 <!-- ════ FOOTER ════ -->
@@ -904,6 +1472,7 @@ document.querySelectorAll('.faq-question').forEach(function (q) {
 </script>
 
 <script defer src="assets/site-chrome.js"></script>
+<script defer src="assets/city-testimonials.js"></script>
 <script defer src="assets/starfield.js"></script>
 
 <!-- Theme switch. Deferred: the initial theme is already applied pre-paint

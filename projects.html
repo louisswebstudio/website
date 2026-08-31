@@ -425,10 +425,9 @@ nav {
   padding: 8px 16px; border-radius: 9999px; white-space: nowrap;
 }
 /* Bento thumbnail positions */
-.bento-pos-1 { left: 166.67px; top: 36px; }
-.bento-pos-2 { left: 61.33px;  top: 46px; }
-.bento-pos-3 { left: 62px;     top: 35px; }
-.bento-pos-4 { left: 166px;    top: 39px; }
+.bento-pos-1, .bento-pos-2, .bento-pos-3, .bento-pos-4 {
+  left: 50%; top: 28px; transform: translateX(-50%);
+}
 /* Full-bleed thumbnails. `height` needs !important the same way `width` does:
    `.bento-thumb img` (0,1,1) outranks a bare `.bento-pos-N` (0,1,0), so its
    `height: auto` would otherwise win and let a landscape screenshot shrink to
@@ -579,6 +578,7 @@ html[lang="ar"] .wa-float-label { transform: translateX(-8px); }
     object-fit: cover;
     object-position: top;
     border-radius: 16px;
+    transform: none !important;
   }
   .footer-top { flex-direction: column; align-items: flex-start; gap: 28px; }
   .footer-mid { flex-direction: column; gap: 20px; }
