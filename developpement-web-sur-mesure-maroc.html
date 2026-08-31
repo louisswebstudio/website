@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google Tag Manager (deferred; loads gtm.js on first interaction — see assets/gtm-init.js) -->
+<script src="assets/gtm-init.js" defer></script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title data-en="Custom Web Development in Morocco | Louiss Web Studio" data-fr="Développement Web Sur-Mesure au Maroc | Louiss Web Studio" data-ar="تطوير ويب حسب الطلب في المغرب | Louiss Web Studio">Développement Web Sur-Mesure au Maroc | Louiss Web Studio</title>
+<link rel="canonical" href="https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc">
+<meta name="description" content="Développement web sur-mesure au Maroc : applications métier, plateformes de réservation, dashboards et espaces client. Next.js, React, TypeScript. Cadrage gratuit.">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Louiss Web Studio">
+<meta property="og:url" content="https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc">
+<meta property="og:title" content="Développement Web Sur-Mesure au Maroc | Louiss Web Studio">
+<meta property="og:description" content="Développement web sur-mesure au Maroc : applications métier, plateformes de réservation, dashboards et espaces client. Next.js, React, TypeScript. Cadrage gratuit.">
+<meta property="og:image" content="https://www.louisswebstudio.com/logo.png">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ar_MA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Développement Web Sur-Mesure au Maroc | Louiss Web Studio">
+<meta name="twitter:description" content="Développement web sur-mesure au Maroc : applications métier, plateformes de réservation, dashboards et espaces client. Next.js, React, TypeScript. Cadrage gratuit.">
+<meta name="twitter:image" content="https://www.louisswebstudio.com/logo.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon-192.png">
+<meta name="theme-color" content="#060607">
+<!-- Resolves the colour theme before first paint. Render-blocking on purpose:
+     a deferred script would let the dark palette paint once and then snap. -->
+<script src="assets/theme-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="dns-prefetch" href="https://flagcdn.com">
+<!-- Fonts load non-blocking (media="print" → activated by assets/fonts.js). -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-async-font>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet" media="print" data-async-font>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" rel="stylesheet">
+</noscript>
+<script defer src="assets/fonts.js"></script>
+
+<!-- Shared chrome (nav, buttons, FAQ, footer, WA float) + unified heading scale -->
+<link rel="stylesheet" href="assets/site.css">
+<!-- Light mode. Every rule is scoped to html[data-theme="light"], so the dark
+     theme is untouched. See assets/theme-init.js. -->
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/section-headings.css">
+<style>
+/* This page reuses the pillar-page shell already carried by
+   creation-site-web-maroc.html and the nine city pages. Same class names,
+   same tokens; only the copy is specific to custom development. */
+
+/* ─── PAGE HEADER ────────────────────────────────────── */
+.city-hero {
+  padding: 160px 0 120px; position: relative;
+  background-image: radial-gradient(1100px 620px at 50% -10%, rgba(37,99,235,0.16), transparent 70%), linear-gradient(rgba(6,6,7,0.55), rgba(6,6,7,0.85));
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+}
+.city-hero > .container { position: relative; z-index: 1; }
+.city-page-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-weight: 600; font-size: 60px;
+  letter-spacing: -1.2px; line-height: 1.1;
+  color: #fff; text-align: center;
+  margin: 0 auto 20px; max-width: 900px; text-wrap: balance;
+}
+.city-page-title .accent {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.city-hero-lead {
+  font-size: 18px; color: #d4d4d8; line-height: 29.25px;
+  text-align: center; max-width: 680px; margin: 0 auto 16px;
+}
+.city-hero-lead:last-of-type { margin-bottom: 0; }
+.hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+
+.city-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 10px; margin: 0 auto 20px;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: rgba(59,130,246,.08);
+  font-size: 12px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blue);
+}
+.city-chip-wrap { display: flex; justify-content: center; }
+.city-chip-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.18);
+}
+
+/* ─── SECTION SHELL (mirrors services.html) ─────────── */
+.svc-section { padding: 96px 0; position: relative; }
+.svc-section > .container { position: relative; z-index: 1; }
+.svc-section--tint { background: rgba(3,3,3,0.22); border-top: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
+.svc-band-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 52px; font-weight: 600; color: #fff;
+  letter-spacing: -1.2px; line-height: 1.1;
+  text-align: center; margin: 0 auto 20px;
+  max-width: 720px; text-wrap: balance;
+}
+.svc-band-title em {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-style: normal; font-weight: 600;
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.svc-band-sub {
+  font-size: 18px; color: var(--muted); line-height: 1.62;
+  text-align: center; max-width: 680px; margin: 0 auto 56px;
+}
+.svc-band-sub--tight { margin-bottom: 32px; }
+.svc-band-title--wide { max-width: 980px; }
+.svc-band-note {
+  font-size: 16px; color: #d4d4d8; line-height: 1.7;
+  text-align: center; max-width: 660px; margin: 40px auto 0;
+}
+.svc-band-note a {
+  color: #fff; text-decoration: underline;
+  text-decoration-color: rgba(59,130,246,0.5); text-underline-offset: 3px;
+  transition: text-decoration-color .2s;
+}
+.svc-band-note a:hover { text-decoration-color: var(--blue); }
+html[data-theme="light"] .svc-band-note { color: #4b5262; }
+html[data-theme="light"] .svc-band-note a { color: #111827; }
+
+/* ─── BENEFIT GRID ──────────────────────────────────── */
+.benefit-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; align-items: stretch;
+}
+.benefit-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: rgba(9,9,11,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px; padding: 20px 22px;
+  font-size: 15px; color: #d4d4d4; line-height: 1.6;
+  backdrop-filter: blur(12px);
+  transition: border-color .3s, transform .3s;
+}
+.benefit-item:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-3px); }
+.svc-feature-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(59,130,246,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.svc-feature-icon svg { color: var(--blue); }
+
+/* ─── SERVICE CARDS ─────────────────────────────────── */
+.svc-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; align-items: stretch;
+}
+/* Four project types read better on a 2×2 than a 3+1 orphan row. */
+.svc-grid--4 { grid-template-columns: repeat(2, 1fr); }
+.svc-card {
+  background: rgba(9,9,11,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 34px 30px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: border-color .3s, transform .3s;
+}
+.svc-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); }
+.svc-card-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: -0.5px; line-height: 1.2;
+  margin-bottom: 12px;
+}
+.svc-card-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
+.svc-grid--numbered .svc-card { position: relative; padding-top: 26px; }
+.svc-num {
+  position: absolute; top: 18px; right: 22px;
+  font-family: 'Satoshi','Inter',sans-serif;
+  font-size: 30px; font-weight: 700; line-height: 1;
+  color: var(--blue); opacity: .16; letter-spacing: -.02em;
+}
+.svc-card-cta { margin-top: auto; align-self: flex-start; padding-top: 18px; }
+
+/* ─── STACK PILLS ───────────────────────────────────── */
+.sector-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.sector-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 9999px; padding: 12px 22px;
+  font-size: 15px; font-weight: 500; color: #d4d4d4;
+  transition: background .25s, border-color .25s, color .25s, transform .25s;
+}
+.sector-pill:hover { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.35); color: #fff; transform: translateY(-2px); }
+.sector-pill-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--blue); flex-shrink: 0; }
+
+/* ─── TWO HONEST COLUMNS (what custom is / is not) ──── */
+.solo-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px; margin-top: 36px; text-align: left;
+}
+.solo-card {
+  padding: 28px 26px; border-radius: 18px;
+  border: 1px solid var(--border); background: var(--card);
+}
+.solo-card--limit { border-style: dashed; }
+.solo-card-h { display: block; font-size: 17px; font-weight: 650; margin-bottom: 16px; }
+.solo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.solo-list li {
+  display: flex; align-items: flex-start; gap: 11px;
+  font-size: 14.5px; line-height: 1.6; color: var(--muted);
+}
+.solo-list li svg { flex: none; margin-top: 4px; color: var(--blue); }
+.solo-card--limit .solo-list li svg { color: var(--muted2); }
+
+/* ─── PROCESS STEPS ─────────────────────────────────── */
+.step-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px; margin-top: 36px;
+}
+.step-card {
+  position: relative; padding: 26px 22px 24px;
+  border-radius: 16px; border: 1px solid var(--border);
+  background: var(--card);
+}
+.step-n {
+  display: inline-grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 9px; margin-bottom: 14px;
+  background: rgba(59,130,246,.14); color: var(--blue);
+  font-family: 'Satoshi','Inter',sans-serif;
+  font-size: 14px; font-weight: 700;
+}
+.step-t { display: block; font-size: 16px; font-weight: 650; margin-bottom: 8px; }
+.step-d { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+/* ── Tech stack section (shared partial: partials/stack-section.html) ── */
+.budget-item-t { display: block; font-size: 15px; font-weight: 650; margin-bottom: 7px; }
+.budget-item-d { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+html[data-theme="light"] .step-card,
+html[data-theme="light"] .solo-card {
+  background: #fff; border-color: rgba(17,24,39,.08);
+  box-shadow: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.05);
+}
+html[data-theme="light"] .solo-card--limit { border-style: dashed; box-shadow: none; }
+html[data-theme="light"] .step-d,
+html[data-theme="light"] .solo-list li,
+html[data-theme="light"] .budget-item-d { color: #4b5262; }
+html[data-theme="light"] .city-chip { background: rgba(59,130,246,.09); border-color: rgba(59,130,246,.22); }
+
+/* ─── PROJECT CARDS (same component as the case study pages) ── */
+.section-cta-bar { text-align: center; margin-top: 56px; }
+.cs-proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cs-proj-card { text-decoration: none; display: flex; flex-direction: column; gap: 20px; border-radius: 24px; overflow: hidden; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.05); transition: border-color .3s; padding: 17px; }
+.cs-proj-card:hover { border-color: rgba(59,130,246,0.2); }
+.cs-proj-card-img { width: 100%; aspect-ratio: 4/3; border-radius: 16px; overflow: hidden; background: #1a1f2e; position: relative; flex-shrink: 0; }
+.cs-proj-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+.cs-proj-card:hover .cs-proj-card-img img { transform: scale(1.04); }
+.cs-proj-card-img .cs-proj-hover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.06); transition: opacity .38s ease, transform .5s cubic-bezier(.16,1,.3,1); z-index: 2; }
+.cs-proj-card:hover .cs-proj-card-img .cs-proj-hover-img { opacity: 1; transform: scale(1); }
+.cs-proj-card-info { display: flex; align-items: flex-end; justify-content: space-between; padding: 0 8px 8px; }
+.cs-proj-card-cat { font-size: 14px; color: #a3a3a3; line-height: 20px; margin-bottom: 6px; }
+.cs-proj-card-name { font-size: 20px; font-weight: 500; font-family: 'Inter', sans-serif; color: #fff; letter-spacing: -0.5px; line-height: 28px; }
+.cs-proj-card-sub { font-size: 12px; color: #6b6b6f; margin-top: 3px; line-height: 1.4; }
+.cs-proj-card-btn { background: linear-gradient(to right, #2563eb, #3b82f6); width: 44px; height: 44px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; gap: 0; opacity: 0; transform: scale(0.8); transition: opacity .25s ease, transform .3s cubic-bezier(.16,1,.3,1), width .35s cubic-bezier(.16,1,.3,1), gap .35s cubic-bezier(.16,1,.3,1); box-shadow: 0 0 15px -3px rgba(37,99,235,0.15); }
+.cs-proj-card:hover .cs-proj-card-btn { opacity: 1; transform: scale(1); width: 148px; gap: 8px; }
+.cs-proj-card-btn span { white-space: nowrap; font-size: 15px; font-weight: 600; color: #fff; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .3s cubic-bezier(.16,1,.3,1), opacity .2s ease; }
+.cs-proj-card:hover .cs-proj-card-btn span { max-width: 120px; opacity: 1; }
+html[dir="rtl"] .cs-proj-card-btn { flex-direction: row-reverse; }
+
+/* ─── COMPARISON TABLE — Solution toute faite vs sur-mesure ── */
+.vs-badge-wrap { display: flex; justify-content: center; }
+.vs-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 0 0 22px; padding: 7px 16px;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: var(--card);
+  font-size: 13px; font-weight: 600; color: var(--muted);
+}
+.vs-badge-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--blue); flex: none; }
+
+.vs-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.vs-table {
+  display: grid; grid-template-columns: minmax(110px,190px) 1fr 1fr;
+  column-gap: 14px; margin-top: 44px;
+}
+.vs-row-label {
+  display: flex; align-items: center;
+  padding: 16px 14px;
+  font-size: 14.5px; font-weight: 600; color: var(--muted);
+}
+.vs-cell { display: flex; align-items: center; gap: 10px; padding: 16px 20px; font-size: 14px; line-height: 1.5; font-weight: 500; }
+.vs-val1 { background: rgba(255,255,255,0.035); color: #fca5a5; }
+.vs-val1.vs-alt { background: rgba(255,255,255,0.06); }
+.vs-val1 svg { color: #f87171; flex: none; }
+.vs-val2 { background: rgba(59,130,246,0.08); color: #bfdbfe; }
+.vs-val2.vs-alt { background: rgba(59,130,246,0.13); }
+.vs-val2 svg { color: #60a5fa; flex: none; }
+.vs-val2.vs-last { border-radius: 0 0 16px 16px; }
+.vs-val1.vs-last { border-radius: 0 0 16px 16px; }
+
+.vs-head1, .vs-head2 { flex-direction: column; text-align: center; gap: 10px; padding: 24px 18px 22px; font-weight: 650; font-size: 15.5px; }
+.vs-head1 { background: rgba(255,255,255,0.06); color: #e5e7eb; border-radius: 16px 16px 0 0; }
+.vs-head2 { background: linear-gradient(135deg, var(--blue), #2563eb); color: #fff; border-radius: 16px 16px 0 0; }
+.vs-icon { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px; flex: none; }
+.vs-head1 .vs-icon { background: rgba(248,113,113,0.16); }
+.vs-head2 .vs-icon { background: rgba(255,255,255,0.22); }
+
+html[data-theme="light"] .vs-val1 { background: rgba(17,24,39,0.035); color: #b91c1c; }
+html[data-theme="light"] .vs-val1.vs-alt { background: rgba(17,24,39,0.06); }
+html[data-theme="light"] .vs-val2 { background: rgba(59,130,246,0.06); color: #1d4ed8; }
+html[data-theme="light"] .vs-val2.vs-alt { background: rgba(59,130,246,0.11); }
+html[data-theme="light"] .vs-head1 { background: rgba(17,24,39,0.05); color: #374151; }
+
+/* ─── CLOSING CTA BAND ──────────────────────────────── */
+.city-cta-band { background: #0a0a0a; padding: clamp(56px, 8vw, 100px) 0; text-align: center; }
+.city-cta-actions {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  justify-content: center; margin-top: 28px;
+}
+html[data-theme="light"] .city-cta-band { background: #0f1115; border-color: rgba(255,255,255,.06); }
+html[data-theme="light"] .city-cta-band .svc-band-title { color: #fff; }
+html[data-theme="light"] .city-cta-band .svc-band-sub { color: rgba(255,255,255,.62); }
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .city-page-title { font-size: 44px; }
+  .svc-band-title { font-size: 38px; }
+  .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-proj-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .svc-section { padding: 72px 0; }
+  .svc-band-title { font-size: 34px; }
+  .city-page-title { font-size: 38px; }
+  .city-hero { padding: 120px 0 90px; }
+}
+@media (max-width: 700px) {
+  .svc-section { padding: 56px 0; }
+  .city-hero { padding: 88px 0 64px; }
+  .city-page-title { font-size: 29px; line-height: 36px; }
+  .city-hero-lead { font-size: 15px; line-height: 26px; }
+  .svc-band-title { font-size: 28px; line-height: 34px; }
+  html[lang] body .svc-band-title--wide { font-size: 28px; line-height: 34px; }
+  .svc-band-sub { font-size: 14.5px; }
+  .benefit-grid { grid-template-columns: 1fr; }
+  .svc-grid, .svc-grid--4 { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  .cs-proj-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .section-cta-bar { margin-top: 40px; }
+  .svc-card { padding: 26px 22px; }
+  .svc-card-title { font-size: 20px; }
+  .sector-pill { font-size: 14px; padding: 10px 18px; }
+  .vs-table { min-width: 560px; }
+  .hero-actions .btn-primary, .hero-actions .btn-secondary,
+  .city-cta-actions .btn-primary, .city-cta-actions .btn-secondary { width: 100%; }
+}
+@media (max-width: 560px) {
+  .svc-num { font-size: 24px; top: 14px; right: 18px; }
+}
+
+/* ─── RTL ───────────────────────────────────────────── */
+html[dir="rtl"] .benefit-item { flex-direction: row-reverse; text-align: right; }
+html[dir="rtl"] .svc-card { text-align: right; }
+html[dir="rtl"] .sector-pill { flex-direction: row-reverse; }
+[dir="rtl"] .svc-num { right: auto; left: 22px; }
+[dir="rtl"] .solo-grid { text-align: right; }
+[dir="rtl"] .solo-list li { flex-direction: row-reverse; }
+[dir="rtl"] .vs-badge { flex-direction: row-reverse; }
+[dir="rtl"] .vs-row-label { text-align: right; }
+[dir="rtl"] .vs-val1, [dir="rtl"] .vs-val2 { flex-direction: row-reverse; text-align: right; }
+</style>
+
+<!-- Structured data: the custom-development Service, the page breadcrumb, and
+     the on-page FAQ (eligible for FAQ rich results). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc#service",
+      "name": "Développement web sur-mesure",
+      "serviceType": "Custom web application development",
+      "url": "https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc",
+      "description": "Développement d'applications métier, plateformes de réservation, dashboards, espaces client et intégrations sur mesure, en Next.js, React et TypeScript, pour des entreprises au Maroc et à l'international.",
+      "areaServed": { "@type": "Country", "name": "Maroc" },
+      "availableLanguage": ["fr", "en", "ar"],
+      "provider": {
+        "@type": ["ProfessionalService", "LocalBusiness"],
+        "@id": "https://www.louisswebstudio.com/#business",
+        "name": "Louiss Web Studio",
+        "url": "https://www.louisswebstudio.com/",
+        "logo": "https://www.louisswebstudio.com/logo.png",
+        "telephone": "+212716490397",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Tanger",
+          "addressRegion": "Tanger-Tétouan-Al Hoceïma",
+          "addressCountry": "MA"
+        },
+        "sameAs": ["https://www.instagram.com/louiss.webstudio/"]
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.louisswebstudio.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Développement web sur-mesure au Maroc", "item": "https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quelle est la différence entre un site vitrine et une application sur mesure ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Un site vitrine présente votre activité : il informe et déclenche un appel ou un message. Une application sur mesure fait tourner votre activité : elle enregistre des réservations, gère des stocks ou des dossiers, calcule des disponibilités, envoie des confirmations et donne à vos clients un espace où suivre leur commande. Le premier est un support de communication, le second est un outil de travail." }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien de temps prend un projet de développement sur mesure ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Une première version utilisable d'un outil métier ciblé prend en général de 4 à 8 semaines, cadrage compris. Une plateforme complète avec paiement, back-office et espace client demande davantage. Nous découpons volontairement le projet en lots livrés au fur et à mesure, pour que vous puissiez tester tôt plutôt que découvrir l'ensemble à la fin." }
+        },
+        {
+          "@type": "Question",
+          "name": "Avec quelles technologies développez-vous ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Next.js et React avec TypeScript pour les applications, un CMS découplé quand le contenu doit rester éditable, et un hébergement Vercel avec HTTPS et déploiements automatiques. Nous privilégions des technologies répandues et documentées : si un jour vous changez de prestataire, n'importe quel développeur React peut reprendre le code." }
+        },
+        {
+          "@type": "Question",
+          "name": "Pouvez-vous connecter l'outil à mes systèmes existants ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, dès lors que le système expose une API ou permet un export exploitable : passerelles de paiement, outils de facturation ou de comptabilité, CRM, Google Sheets, envoi d'e-mails ou de notifications WhatsApp. Nous vérifions la faisabilité de chaque intégration pendant le cadrage, avant de l'inscrire au devis." }
+        },
+        {
+          "@type": "Question",
+          "name": "Le code et les données m'appartiennent-ils ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Le dépôt de code, le nom de domaine, l'hébergement et la base de données sont enregistrés à votre nom et vous sont remis à la livraison, avec une session de formation. Vous n'êtes lié à nous par aucun système propriétaire fermé." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBCPKSJV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ════ GLOBAL STARFIELD BACKGROUND ════ -->
+<canvas id="global-starfield" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block;"></canvas>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark"><img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light"></a>
+
+    <div class="nav-links">
+      <a href="/projects" class="nav-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+      <a href="/faq" class="nav-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="/contact" class="nav-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <div class="lang-btn" onclick="toggleLang()">
+          <div class="lang-flag" id="activeLangFlag"><img id="activeFlagImg" src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <span class="lang-code" id="activeLangCode">FR</span>
+          <span class="lang-chevron">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#a3a3a3" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <div class="lang-dropdown">
+          <div class="lang-option" id="opt-en" onclick="setLang('en')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">English</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option active" id="opt-fr" onclick="setLang('fr')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">Français</span>
+          </div>
+          <div class="lang-divider"></div>
+          <div class="lang-option" id="opt-ar" onclick="setLang('ar')">
+            <div class="lang-opt-flag"><img src="https://flagcdn.com/w40/sa.png" alt="AR" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <span class="lang-opt-code">العربية</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      <button class="theme-toggle" type="button" aria-label="Switch theme">
+        <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <a href="https://wa.me/212716490397" data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Message us on WhatsApp" data-fr="Nous écrire sur WhatsApp" data-ar="راسلنا على واتساب">Nous écrire sur WhatsApp</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MOBILE MENU ════ -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <div class="menu-top">
+    <a href="/" class="mob-overlay-logo" aria-label="Home">
+      <img src="logo.png" alt="Logo" height="20" width="auto" class="logo-img-dark"><img src="logo-black.png" alt="Logo" height="20" width="auto" class="logo-img-light">
+    </a>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <div class="menu-center">
+    <a href="/projects" class="mobile-menu-link" data-en="Projects" data-fr="Projets" data-ar="المشاريع">Projets</a>
+    <a href="/faq" class="mobile-menu-link" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+    <a href="/contact" class="mobile-menu-link" data-en="Contact Us" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+  </div>
+
+  <!-- Theme toggle (mobile nav). Same .theme-toggle class as the navbar
+       button, so assets/theme-toggle.js binds both and keeps them in sync. -->
+  <div class="theme-toggle-row">
+    <button class="theme-toggle" type="button" aria-label="Switch theme">
+      <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <span class="theme-toggle-label"></span>
+    </button>
+  </div>
+
+  <div class="menu-bottom">
+    <a href="https://wa.me/212716490397" data-wa-type="generic" class="mobile-menu-cta" target="_blank" rel="noopener"
+       data-en="Message us on WhatsApp" data-fr="Nous écrire sur WhatsApp" data-ar="راسلنا على واتساب">Nous écrire sur WhatsApp</a>
+  </div>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="city-hero">
+  <div class="glow-circle glow-c" style="opacity:0.13; width:700px; height:700px; --glow-peak:0.817; --glow-k:2.63;"></div>
+  <div class="container">
+    <div class="city-chip-wrap reveal">
+      <span class="city-chip">
+        <span class="city-chip-dot"></span>
+        <span data-en="Custom development" data-fr="Développement sur-mesure" data-ar="تطوير حسب الطلب">Développement sur-mesure</span>
+      </span>
+    </div>
+
+    <h1 class="city-page-title reveal"
+      data-en="Custom web development in <span class='accent'>Morocco</span>"
+      data-fr="Développement web sur-mesure au <span class='accent'>Maroc</span>"
+      data-ar="تطوير ويب حسب الطلب في <span class='accent'>المغرب</span>">Développement web sur-mesure au <span class="accent">Maroc</span></h1>
+
+    <p class="city-hero-lead reveal"
+      data-en="Business applications, booking platforms, dashboards and client areas. Not a brochure to publish — a tool your team opens every morning, built around how your business actually runs."
+      data-fr="Applications métier, plateformes de réservation, dashboards et espaces client. Pas une plaquette à publier : un outil que votre équipe ouvre chaque matin, construit autour de la façon dont votre activité fonctionne réellement."
+      data-ar="تطبيقات مهنية، منصات حجز، لوحات معلومات وفضاءات عملاء. ليس كتيّباً للنشر، بل أداة يفتحها فريقك كل صباح، مبنية حول طريقة عمل نشاطك فعلاً.">Applications métier, plateformes de réservation, dashboards et espaces client. Pas une plaquette à publier : un outil que votre équipe ouvre chaque matin, construit autour de la façon dont votre activité fonctionne réellement.</p>
+
+    <p class="city-hero-lead reveal"
+      data-en="Next.js, React and TypeScript, hosted on Vercel. You talk to the person who scopes the tool and writes its code."
+      data-fr="Next.js, React et TypeScript, hébergés sur Vercel. Vous parlez à la personne qui cadre l'outil et qui écrit son code."
+      data-ar="Next.js وReact وTypeScript، مستضافة على Vercel. أنت تتحدث إلى من يؤطّر الأداة ويكتب شيفرتها.">Next.js, React et TypeScript, hébergés sur Vercel. Vous parlez à la personne qui cadre l'outil et qui écrit son code.</p>
+
+    <div class="hero-actions reveal">
+      <a href="https://wa.me/212716490397?text=Bonjour%2C%20j%27aimerais%20un%20cadrage%20pour%20un%20projet%20sur-mesure." data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener" data-en="Book a free scoping call" data-fr="Demander un cadrage gratuit" data-ar="اطلب جلسة تأطير مجانية">Demander un cadrage gratuit</a>
+      <a href="/projects" class="btn-secondary" data-en="View our work" data-fr="Voir nos réalisations" data-ar="شاهد أعمالنا">Voir nos réalisations</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHAT WE MEAN BY CUSTOM ════ -->
+<section class="svc-section" id="definition">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Definition" data-fr="Définition" data-ar="تعريف">Définition</span>
+    </div>
+    <h2 class="svc-band-title svc-band-title--wide reveal"
+      data-en="What we mean by <em>custom</em>"
+      data-fr="Ce qu'on entend par <em>sur-mesure</em>"
+      data-ar="ما نعنيه بـ<em>حسب الطلب</em>">Ce qu'on entend par <em>sur-mesure</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="The word gets used for anything, so here is the line we draw. A showcase site communicates; a custom build operates. Different work, different questions, different budget."
+      data-fr="Le mot est employé à toutes les sauces, alors voici la ligne que nous traçons. Un site vitrine communique ; un développement sur-mesure fait fonctionner. Ce n'est pas le même travail, ni les mêmes questions, ni le même budget."
+      data-ar="تُستعمل الكلمة في كل شيء، لذا هذا هو الخط الذي نرسمه. الموقع التعريفي يتواصل؛ التطوير حسب الطلب يشغّل. عمل مختلف، وأسئلة مختلفة، وميزانية مختلفة.">Le mot est employé à toutes les sauces, alors voici la ligne que nous traçons. Un site vitrine communique ; un développement sur-mesure fait fonctionner. Ce n'est pas le même travail, ni les mêmes questions, ni le même budget.</p>
+
+    <div class="solo-grid">
+      <div class="solo-card solo-card--limit reveal">
+        <span class="solo-card-h" data-en="A showcase site — what it is not" data-fr="Un site vitrine — ce que ce n'est pas" data-ar="موقع تعريفي — ما ليس عليه الأمر">Un site vitrine — ce que ce n'est pas</span>
+        <ul class="solo-list">
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.6v3.8M6 8.8v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span data-en="The content is fixed. Pages, sections and text are written once, then edited occasionally through a CMS."
+                  data-fr="Le contenu est figé. Pages, sections et textes sont écrits une fois, puis modifiés de temps en temps via un CMS."
+                  data-ar="المحتوى ثابت. الصفحات والأقسام والنصوص تُكتب مرة واحدة ثم تُعدَّل أحياناً عبر نظام إدارة محتوى.">Le contenu est figé. Pages, sections et textes sont écrits une fois, puis modifiés de temps en temps via un CMS.</span>
+          </li>
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.6v3.8M6 8.8v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span data-en="There is no state to hold. Nobody logs in, nothing is reserved, no stock goes down, no invoice is generated."
+                  data-fr="Il n'y a pas d'état à conserver. Personne ne se connecte, rien n'est réservé, aucun stock ne descend, aucune facture n'est générée."
+                  data-ar="لا توجد حالة يجب حفظها. لا أحد يسجّل الدخول، ولا شيء يُحجز، ولا مخزون ينقص، ولا فاتورة تُنشأ.">Il n'y a pas d'état à conserver. Personne ne se connecte, rien n'est réservé, aucun stock ne descend, aucune facture n'est générée.</span>
+          </li>
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.6v3.8M6 8.8v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span data-en="Success is measured in calls and messages received. That is a perfectly good objective — and often the right one. If it describes your project, our showcase and website pages are the place to start."
+                  data-fr="Le succès se mesure en appels et en messages reçus. C'est un objectif parfaitement valable — et souvent le bon. Si cela décrit votre projet, nos pages site vitrine et création de site web sont le bon point de départ."
+                  data-ar="يُقاس النجاح بعدد المكالمات والرسائل الواردة. هدف مشروع تماماً — وغالباً هو الصحيح. إن كان ذلك يصف مشروعك، فصفحاتنا حول الموقع التعريفي وإنشاء المواقع هي نقطة البداية.">Le succès se mesure en appels et en messages reçus. C'est un objectif parfaitement valable — et souvent le bon. Si cela décrit votre projet, nos pages site vitrine et création de site web sont le bon point de départ.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="solo-card reveal" style="transition-delay:.08s">
+        <span class="solo-card-h" data-en="A custom build — what it is" data-fr="Du sur-mesure — ce que c'est" data-ar="تطوير حسب الطلب — ما هو">Du sur-mesure — ce que c'est</span>
+        <ul class="solo-list">
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-en="Data, not pages. Bookings, vehicles, properties, files, orders, users — objects that change state and have to stay consistent."
+                  data-fr="Des données, pas des pages. Réservations, véhicules, biens, dossiers, commandes, utilisateurs — des objets qui changent d'état et doivent rester cohérents."
+                  data-ar="بيانات، لا صفحات. حجوزات ومركبات وعقارات وملفات وطلبات ومستخدمون — كائنات تتغير حالتها ويجب أن تبقى متسقة.">Des données, pas des pages. Réservations, véhicules, biens, dossiers, commandes, utilisateurs — des objets qui changent d'état et doivent rester cohérents.</span>
+          </li>
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-en="Business rules written in code. Availability, pricing tiers, deposits, cancellation windows, who is allowed to see what — the logic that no off-the-shelf tool gets exactly right for you."
+                  data-fr="Des règles métier écrites dans le code. Disponibilité, grilles tarifaires, cautions, délais d'annulation, qui a le droit de voir quoi — la logique qu'aucun outil générique ne reproduit exactement pour vous."
+                  data-ar="قواعد مهنية مكتوبة في الشيفرة. التوفر، شبكات الأسعار، الضمانات، آجال الإلغاء، من يحق له رؤية ماذا — المنطق الذي لا تعيده أي أداة جاهزة بدقة.">Des règles métier écrites dans le code. Disponibilité, grilles tarifaires, cautions, délais d'annulation, qui a le droit de voir quoi — la logique qu'aucun outil générique ne reproduit exactement pour vous.</span>
+          </li>
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-en="Roles and accounts. An admin back office on one side, a client area on the other, each seeing only what it should."
+                  data-fr="Des rôles et des comptes. Un back-office administrateur d'un côté, un espace client de l'autre, chacun ne voyant que ce qu'il doit voir."
+                  data-ar="أدوار وحسابات. لوحة إدارة من جهة، وفضاء عملاء من جهة أخرى، كلٌّ يرى ما يخصّه فقط.">Des rôles et des comptes. Un back-office administrateur d'un côté, un espace client de l'autre, chacun ne voyant que ce qu'il doit voir.</span>
+          </li>
+          <li>
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-en="Success is measured in hours saved and errors avoided, not only in leads. The tool replaces a spreadsheet, a notebook, or a chain of WhatsApp messages."
+                  data-fr="Le succès se mesure en heures gagnées et en erreurs évitées, pas seulement en demandes reçues. L'outil remplace un tableur, un cahier, ou une chaîne de messages WhatsApp."
+                  data-ar="يُقاس النجاح بالساعات الموفَّرة والأخطاء المتجنَّبة، لا بعدد الطلبات فقط. الأداة تعوّض جدول بيانات أو دفتراً أو سلسلة رسائل واتساب.">Le succès se mesure en heures gagnées et en erreurs évitées, pas seulement en demandes reçues. L'outil remplace un tableur, un cahier, ou une chaîne de messages WhatsApp.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="svc-band-note reveal"
+      data-en="Not sure which side you are on? That is normal, and it is exactly what the scoping call is for. If it turns out a showcase site does the job, we will say so — see <a href='/creation-site-web-maroc'>website design in Morocco</a>."
+      data-fr="Vous ne savez pas de quel côté vous êtes ? C'est normal, et c'est précisément à cela que sert le cadrage. Si un site vitrine suffit, nous vous le dirons — voir <a href='/creation-site-web-maroc'>création de site web au Maroc</a>."
+      data-ar="لا تعرف إلى أي جانب تنتمي؟ هذا طبيعي، ولهذا يوجد التأطير. إن كان الموقع التعريفي كافياً، سنقول لك ذلك — انظر <a href='/creation-site-web-maroc'>إنشاء موقع ويب في المغرب</a>.">Vous ne savez pas de quel côté vous êtes ? C'est normal, et c'est précisément à cela que sert le cadrage. Si un site vitrine suffit, nous vous le dirons — voir <a href="/creation-site-web-maroc">création de site web au Maroc</a>.</p>
+  </div>
+</section>
+
+<!-- ════ PROJECT TYPES ════ -->
+<section class="svc-section svc-section--tint" id="types">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Project types" data-fr="Types de projets" data-ar="أنواع المشاريع">Types de projets</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="Four kinds of tools we <em>build</em>"
+      data-fr="Quatre types d'outils que nous <em>construisons</em>"
+      data-ar="أربعة أنواع من الأدوات <em>نبنيها</em>">Quatre types d'outils que nous <em>construisons</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Most custom projects we are asked about in Morocco land in one of these four. They combine often — a booking platform usually ships with its own dashboard."
+      data-fr="La plupart des projets sur-mesure qu'on nous soumet au Maroc entrent dans l'une de ces quatre familles. Elles se combinent souvent : une plateforme de réservation arrive rarement sans son dashboard."
+      data-ar="معظم المشاريع حسب الطلب التي تُعرض علينا في المغرب تندرج في إحدى هذه العائلات الأربع. وغالباً ما تتداخل: منصة الحجز نادراً ما تأتي دون لوحة معلوماتها.">La plupart des projets sur-mesure qu'on nous soumet au Maroc entrent dans l'une de ces quatre familles. Elles se combinent souvent : une plateforme de réservation arrive rarement sans son dashboard.</p>
+
+    <div class="svc-grid svc-grid--4 svc-grid--numbered">
+      <div class="svc-card reveal">
+        <span class="svc-num" aria-hidden="true">01</span>
+        <h3 class="svc-card-title" data-en="Business applications" data-fr="Applications métier" data-ar="تطبيقات مهنية">Applications métier</h3>
+        <p class="svc-card-desc"
+          data-en="The internal tool that replaces the shared spreadsheet: files, stock, planning, quotes, tracking. Built around the way your team already works, with the fields you actually fill in — not the twenty a generic SaaS forces on you."
+          data-fr="L'outil interne qui remplace le tableur partagé : dossiers, stock, planning, devis, suivi. Construit autour de la façon dont votre équipe travaille déjà, avec les champs que vous remplissez réellement — pas les vingt qu'un SaaS générique vous impose."
+          data-ar="الأداة الداخلية التي تعوّض جدول البيانات المشترك: ملفات، مخزون، جدولة، عروض أسعار، تتبّع. مبنية حول طريقة عمل فريقك فعلاً، بالحقول التي تملؤها حقاً — لا بالعشرين التي يفرضها برنامج جاهز.">L'outil interne qui remplace le tableur partagé : dossiers, stock, planning, devis, suivi. Construit autour de la façon dont votre équipe travaille déjà, avec les champs que vous remplissez réellement — pas les vingt qu'un SaaS générique vous impose.</p>
+      </div>
+
+      <div class="svc-card reveal" style="transition-delay:.06s">
+        <span class="svc-num" aria-hidden="true">02</span>
+        <h3 class="svc-card-title" data-en="Booking platforms" data-fr="Plateformes de réservation" data-ar="منصات الحجز">Plateformes de réservation</h3>
+        <p class="svc-card-desc"
+          data-en="Real-time availability, calendars, pricing rules, deposits, confirmation emails and admin validation. The hard part is never the form — it is making sure the same slot cannot be sold twice and that a cancellation puts it back on the market."
+          data-fr="Disponibilité en temps réel, calendriers, règles tarifaires, acomptes, e-mails de confirmation et validation côté admin. La difficulté n'est jamais le formulaire : c'est de garantir qu'un même créneau ne peut pas être vendu deux fois, et qu'une annulation le remet en circulation."
+          data-ar="توفر لحظي، تقويمات، قواعد تسعير، عرابين، رسائل تأكيد وتحقق من طرف الإدارة. الصعوبة ليست في الاستمارة أبداً، بل في ضمان ألا يُباع الموعد نفسه مرتين، وأن يعيده الإلغاء إلى التداول.">Disponibilité en temps réel, calendriers, règles tarifaires, acomptes, e-mails de confirmation et validation côté admin. La difficulté n'est jamais le formulaire : c'est de garantir qu'un même créneau ne peut pas être vendu deux fois, et qu'une annulation le remet en circulation.</p>
+      </div>
+
+      <div class="svc-card reveal" style="transition-delay:.12s">
+        <span class="svc-num" aria-hidden="true">03</span>
+        <h3 class="svc-card-title" data-en="Dashboards & client areas" data-fr="Dashboards & espaces client" data-ar="لوحات المعلومات وفضاءات العملاء">Dashboards &amp; espaces client</h3>
+        <p class="svc-card-desc"
+          data-en="Two views of the same data. Your side: figures that are actually decided on, filters, exports. Their side: an account where clients follow their order, download a document or update their details — and stop calling you to ask."
+          data-fr="Deux vues sur les mêmes données. Côté vous : des chiffres sur lesquels on décide vraiment, des filtres, des exports. Côté eux : un compte où vos clients suivent leur commande, téléchargent un document ou mettent à jour leurs informations — et arrêtent de vous appeler pour le demander."
+          data-ar="رؤيتان للبيانات نفسها. من جهتك: أرقام يُبنى عليها القرار، ومرشّحات، وتصدير. من جهتهم: حساب يتابع فيه العميل طلبه، ويحمّل وثيقة، أو يحدّث معلوماته — ويتوقف عن الاتصال بك لأجل ذلك.">Deux vues sur les mêmes données. Côté vous : des chiffres sur lesquels on décide vraiment, des filtres, des exports. Côté eux : un compte où vos clients suivent leur commande, téléchargent un document ou mettent à jour leurs informations — et arrêtent de vous appeler pour le demander.</p>
+      </div>
+
+      <div class="svc-card reveal" style="transition-delay:.18s">
+        <span class="svc-num" aria-hidden="true">04</span>
+        <h3 class="svc-card-title" data-en="Integrations & automations" data-fr="Intégrations & automatisations" data-ar="التكاملات والأتمتة">Intégrations &amp; automatisations</h3>
+        <p class="svc-card-desc"
+          data-en="Connecting what you already use: payment gateways, invoicing, CRM, Google Sheets, transactional emails, WhatsApp notifications. Anything typed twice by hand today is a candidate — provided the other system exposes an API we can rely on."
+          data-fr="Relier ce que vous utilisez déjà : passerelles de paiement, facturation, CRM, Google Sheets, e-mails transactionnels, notifications WhatsApp. Tout ce qui est aujourd'hui saisi deux fois à la main est un candidat — à condition que l'autre système expose une API sur laquelle on puisse s'appuyer."
+          data-ar="ربط ما تستعمله أصلاً: بوابات الدفع، الفوترة، إدارة العملاء، Google Sheets، الرسائل التلقائية، إشعارات واتساب. كل ما يُدخل يدوياً مرتين اليوم هو مرشّح — شرط أن يوفّر النظام الآخر واجهة برمجية يمكن الاعتماد عليها.">Relier ce que vous utilisez déjà : passerelles de paiement, facturation, CRM, Google Sheets, e-mails transactionnels, notifications WhatsApp. Tout ce qui est aujourd'hui saisi deux fois à la main est un candidat — à condition que l'autre système expose une API sur laquelle on puisse s'appuyer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTIAL:stack-section:START -->
+<!-- ════ TECH STACK ════ -->
+<section class="svc-section svc-section--tint" id="stack">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Our stack" data-fr="Notre stack" data-ar="أدواتنا">Notre stack</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="The tools your site is <em>built</em> with"
+      data-fr="Les outils avec lesquels votre site est <em>construit</em>"
+      data-ar="الأدوات التي <em>يُبنى</em> بها موقعك">Les outils avec lesquels votre site est <em>construit</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Standard, widely used tools rather than exotic ones. Any developer can pick your site up later, which is the point."
+      data-fr="Des outils standards et largement utilisés, pas des technologies exotiques. N'importe quel développeur peut reprendre votre site plus tard, et c'est bien l'objectif."
+      data-ar="أدوات معيارية وواسعة الاستعمال، لا تقنيات غريبة. أي مطوّر يمكنه استلام موقعك لاحقاً، وهذا هو المقصود.">Des outils standards et largement utilisés, pas des technologies exotiques. N'importe quel développeur peut reprendre votre site plus tard, et c'est bien l'objectif.</p>
+
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-items:start;text-align:left;">
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Frontend" data-fr="Frontend" data-ar="الواجهة الأمامية">Frontend</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/nextjs.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Next.js</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="React framework" data-fr="Framework React" data-ar="إطار عمل React">Framework React</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/react.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">React</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="UI library" data-fr="Bibliothèque d'interface" data-ar="مكتبة الواجهات">Bibliothèque d'interface</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/typescript.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">TypeScript</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Type safety" data-fr="Typage statique" data-ar="أمان الأنواع">Typage statique</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/tailwind.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Tailwind CSS</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Styling" data-fr="Styles" data-ar="الأنماط">Styles</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/framer.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Framer Motion</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Animations" data-fr="Animations" data-ar="الحركات">Animations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Backend and CMS" data-fr="Backend et CMS" data-ar="الخلفية ونظام المحتوى">Backend et CMS</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/strapi.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Strapi</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Headless CMS" data-fr="CMS headless" data-ar="نظام محتوى بلا واجهة">CMS headless</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/wordpress.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">WordPress</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Takeovers and migrations" data-fr="Reprises et migrations" data-ar="الاستلام والترحيل">Reprises et migrations</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/postgresql.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">PostgreSQL</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Database" data-fr="Base de données" data-ar="قاعدة البيانات">Base de données</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/nodejs.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Node.js</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Blog generation" data-fr="Génération du blog" data-ar="توليد المدونة">Génération du blog</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/prisma.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Prisma</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="ORM" data-fr="ORM" data-ar="ORM">ORM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Tools and analytics" data-fr="Outils et analytics" data-ar="الأدوات والتحليلات">Outils et analytics</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/figma.png" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Figma</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Mockups and design system" data-fr="Maquettes et design system" data-ar="النماذج ونظام التصميم">Maquettes et design system</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/google-analytics.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Google Analytics 4</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Analytics" data-fr="Analytics" data-ar="التحليلات">Analytics</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/google-tag-manager.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Google Tag Manager</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Tracking" data-fr="Tracking" data-ar="التتبع">Tracking</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/search-console.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Search Console</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="SEO monitoring" data-fr="Suivi SEO" data-ar="متابعة تحسين البحث">Suivi SEO</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/semrush.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Semrush</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="SEO tools" data-fr="Outils SEO" data-ar="أدوات SEO">Outils SEO</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="solo-card-h" style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);" data-en="Infrastructure" data-fr="Infrastructure" data-ar="البنية التحتية">Infrastructure</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 0l12 20.785H0L12 0z"/></svg></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Vercel</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Hosting and deployment" data-fr="Hébergement et déploiement" data-ar="الاستضافة والنشر">Hébergement et déploiement</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img class="stack-logo--invert" src="./assets/images/stack/github.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">GitHub</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Version control and CI" data-fr="Versioning et déploiement continu" data-ar="إدارة الإصدارات والنشر المستمر">Versioning et déploiement continu</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/cloudflare.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Cloudflare</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="CDN and security" data-fr="CDN et sécurité" data-ar="شبكة توصيل وأمان">CDN et sécurité</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/aws.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">AWS</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Cloud services" data-fr="Services cloud" data-ar="خدمات سحابية">Services cloud</p>
+            </div>
+          </div>
+          <div class="benefit-item" style="padding:14px 16px;gap:12px;">
+            <span class="svc-feature-icon" style="width:34px;height:34px;border-radius:10px;margin-top:0;background:var(--card);border:1px solid var(--border);"><img src="./assets/images/stack/docker.svg" alt="" width="20" height="20" loading="lazy" style="display:block;width:20px;height:20px;object-fit:contain;"></span>
+            <div style="flex:1;min-width:0;">
+              <span class="budget-item-t" style="font-size:14.5px;margin-bottom:2px;">Docker</span>
+              <p class="budget-item-d" style="font-size:12.5px;" data-en="Containers" data-fr="Conteneurs" data-ar="الحاويات">Conteneurs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-card reveal" style="margin-top:34px;padding:24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span class="svc-feature-icon" style="width:44px;height:44px;border-radius:12px;margin-top:0;background:var(--blue);"><svg style="color:#fff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+        <div style="flex:1;min-width:0;">
+          <span class="budget-item-t" style="font-size:17px;margin-bottom:6px;"
+            data-en="Why this matters to you" data-fr="Pourquoi cela vous concerne" data-ar="لماذا يهمك هذا">Pourquoi cela vous concerne</span>
+          <p class="budget-item-d" style="font-size:14px;"
+            data-en="We pick the foundation that suits the project, then configure it ourselves rather than filling in a theme as it comes. That is what keeps pages light, keeps the SEO structure under our control, and spares you surprises after launch."
+            data-fr="Nous choisissons la fondation qui convient au projet, puis nous la configurons nous-mêmes plutôt que de remplir un thème tel quel. C'est ce qui garde les pages légères, la structure SEO sous notre contrôle, et vous évite les mauvaises surprises après la livraison."
+            data-ar="نختار الأساس المناسب للمشروع ثم نضبطه بأنفسنا بدل ملء قالب كما هو. هذا ما يبقي الصفحات خفيفة وبنية SEO تحت سيطرتنا، ويجنّبك المفاجآت بعد التسليم.">Nous choisissons la fondation qui convient au projet, puis nous la configurons nous-mêmes plutôt que de remplir un thème tel quel. C'est ce qui garde les pages légères, la structure SEO sous notre contrôle, et vous évite les mauvaises surprises après la livraison.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- PARTIAL:stack-section:END -->
+
+<!-- ════ PROCESS ════ -->
+<section class="svc-section svc-section--tint" id="process">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="From scoping to <em>handover</em>"
+      data-fr="Du cadrage à la <em>livraison</em>"
+      data-ar="من التأطير إلى <em>التسليم</em>">Du cadrage à la <em>livraison</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="A custom build goes wrong when nobody agrees on what it should do. So we spend the first phase writing that down, before a single component is coded."
+      data-fr="Un projet sur-mesure dérape quand personne n'est d'accord sur ce qu'il doit faire. Nous passons donc la première phase à l'écrire noir sur blanc, avant qu'un seul composant ne soit codé."
+      data-ar="مشروع حسب الطلب ينحرف حين لا يتفق أحد على ما يجب أن يفعله. لذا نقضي المرحلة الأولى في كتابة ذلك بوضوح، قبل برمجة أي مكوّن.">Un projet sur-mesure dérape quand personne n'est d'accord sur ce qu'il doit faire. Nous passons donc la première phase à l'écrire noir sur blanc, avant qu'un seul composant ne soit codé.</p>
+
+    <div class="step-grid">
+      <div class="step-card reveal">
+        <span class="step-n" aria-hidden="true">1</span>
+        <span class="step-t" data-en="Scoping the need" data-fr="Cadrage du besoin" data-ar="تأطير الحاجة">Cadrage du besoin</span>
+        <p class="step-d"
+          data-en="A call to map what actually happens today: who does what, in which order, and where the time is lost. We come back with a written scope — features, roles, data, and what is deliberately left out of version one. Free, and yours to keep."
+          data-fr="Un appel pour cartographier ce qui se passe réellement aujourd'hui : qui fait quoi, dans quel ordre, et où le temps se perd. Nous revenons avec un cadrage écrit — fonctionnalités, rôles, données, et ce qui est volontairement écarté de la version 1. Gratuit, et il vous reste acquis."
+          data-ar="مكالمة لرسم ما يحدث فعلاً اليوم: من يفعل ماذا، وبأي ترتيب، وأين يضيع الوقت. نعود بتأطير مكتوب — الميزات والأدوار والبيانات، وما نستبعده عمداً من النسخة الأولى. مجاني، ويبقى ملكاً لك.">Un appel pour cartographier ce qui se passe réellement aujourd'hui : qui fait quoi, dans quel ordre, et où le temps se perd. Nous revenons avec un cadrage écrit — fonctionnalités, rôles, données, et ce qui est volontairement écarté de la version 1. Gratuit, et il vous reste acquis.</p>
+      </div>
+
+      <div class="step-card reveal" style="transition-delay:.06s">
+        <span class="step-n" aria-hidden="true">2</span>
+        <span class="step-t" data-en="Functional mockup" data-fr="Maquette fonctionnelle" data-ar="نموذج وظيفي">Maquette fonctionnelle</span>
+        <p class="step-d"
+          data-en="Every real screen designed in Figma and linked together — booking flow, admin back office, client area. You click through the tool before it exists. Changing a rule at this stage costs a conversation, not a sprint."
+          data-fr="Chaque écran réel dessiné dans Figma et relié aux autres — parcours de réservation, back-office admin, espace client. Vous cliquez dans l'outil avant qu'il n'existe. Changer une règle à ce stade coûte une conversation, pas un sprint."
+          data-ar="كل شاشة حقيقية مرسومة في Figma ومربوطة بغيرها — مسار الحجز، لوحة الإدارة، فضاء العميل. تتنقل داخل الأداة قبل وجودها. تغيير قاعدة في هذه المرحلة يكلّف محادثة، لا دورة عمل.">Chaque écran réel dessiné dans Figma et relié aux autres — parcours de réservation, back-office admin, espace client. Vous cliquez dans l'outil avant qu'il n'existe. Changer une règle à ce stade coûte une conversation, pas un sprint.</p>
+      </div>
+
+      <div class="step-card reveal" style="transition-delay:.12s">
+        <span class="step-n" aria-hidden="true">3</span>
+        <span class="step-t" data-en="Iterative development" data-fr="Développement itératif" data-ar="تطوير تدريجي">Développement itératif</span>
+        <p class="step-d"
+          data-en="Delivered in slices, each on its own preview URL. You test the booking flow while the dashboard is still being built, and adjust as you go — instead of discovering the whole thing at the end."
+          data-fr="Livré par lots, chacun sur sa propre URL de prévisualisation. Vous testez le parcours de réservation pendant que le dashboard se construit encore, et vous ajustez en cours de route — au lieu de tout découvrir à la fin."
+          data-ar="يُسلَّم على دفعات، كل واحدة على رابط معاينة خاص بها. تختبر مسار الحجز بينما لا تزال لوحة المعلومات قيد البناء، وتعدّل أثناء الطريق — بدل اكتشاف كل شيء في النهاية.">Livré par lots, chacun sur sa propre URL de prévisualisation. Vous testez le parcours de réservation pendant que le dashboard se construit encore, et vous ajustez en cours de route — au lieu de tout découvrir à la fin.</p>
+      </div>
+
+      <div class="step-card reveal" style="transition-delay:.18s">
+        <span class="step-n" aria-hidden="true">4</span>
+        <span class="step-t" data-en="Handover & training" data-fr="Livraison & formation" data-ar="التسليم والتكوين">Livraison &amp; formation</span>
+        <p class="step-d"
+          data-en="Domain, hosting, database and code repository registered in your name and handed over, with a training session for the people who will use the tool daily. Then we stay reachable on WhatsApp for what comes next."
+          data-fr="Domaine, hébergement, base de données et dépôt de code enregistrés à votre nom et remis, avec une session de formation pour les personnes qui utiliseront l'outil au quotidien. Ensuite, nous restons joignables sur WhatsApp pour la suite."
+          data-ar="النطاق والاستضافة وقاعدة البيانات ومستودع الشيفرة تُسجَّل باسمك وتُسلَّم، مع جلسة تكوين لمن سيستعملون الأداة يومياً. بعدها نبقى متاحين على واتساب لما يأتي.">Domaine, hébergement, base de données et dépôt de code enregistrés à votre nom et remis, avec une session de formation pour les personnes qui utiliseront l'outil au quotidien. Ensuite, nous restons joignables sur WhatsApp pour la suite.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ OFF-THE-SHELF vs CUSTOM ════ -->
+<section class="svc-section" id="comparatif">
+  <div class="container">
+    <div class="vs-badge-wrap reveal">
+      <span class="vs-badge">
+        <span class="vs-badge-dot"></span>
+        <span data-en="Comparison" data-fr="Comparatif" data-ar="مقارنة">Comparatif</span>
+      </span>
+    </div>
+    <h2 class="svc-band-title svc-band-title--wide reveal"
+      data-en="An off-the-shelf tool, <em>or</em> this"
+      data-fr="Une solution toute faite, <em>ou</em> ceci"
+      data-ar="حل جاهز، <em>أو</em> هذا">Une solution toute faite, <em>ou</em> ceci</h2>
+    <p class="svc-band-sub reveal"
+      data-en="An off-the-shelf platform is the right answer more often than people admit — it is cheap to start and instant to deploy. It stops being the right answer the day your process no longer fits inside it."
+      data-fr="Une plateforme toute faite est plus souvent la bonne réponse qu'on ne l'admet : peu chère à démarrer, disponible immédiatement. Elle cesse de l'être le jour où votre process ne rentre plus dedans."
+      data-ar="المنصة الجاهزة هي الجواب الصحيح أكثر مما يُعترف به: رخيصة البداية ومتاحة فوراً. تتوقف عن كونها كذلك يوم لا يعود مسارك يتّسع داخلها.">Une plateforme toute faite est plus souvent la bonne réponse qu'on ne l'admet : peu chère à démarrer, disponible immédiatement. Elle cesse de l'être le jour où votre process ne rentre plus dedans.</p>
+
+    <div class="vs-table-wrap reveal">
+      <div class="vs-table">
+
+        <div class="vs-row-label" aria-hidden="true"></div>
+        <div class="vs-cell vs-head1">
+          <span class="vs-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M14 6l-8 8" stroke="#f87171" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span data-en="Off-the-shelf solution" data-fr="Solution toute faite" data-ar="حل جاهز">Solution toute faite</span>
+        </div>
+        <div class="vs-cell vs-head2">
+          <span class="vs-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span data-en="Custom build" data-fr="Développement sur-mesure" data-ar="تطوير حسب الطلب">Développement sur-mesure</span>
+        </div>
+
+        <div class="vs-row-label" data-en="Business rules" data-fr="Règles métier" data-ar="القواعد المهنية">Règles métier</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="You adapt to the tool" data-fr="Vous vous adaptez à l'outil" data-ar="أنت تتكيّف مع الأداة">Vous vous adaptez à l'outil</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="The tool follows your process" data-fr="L'outil suit votre process" data-ar="الأداة تتبع مسارك">L'outil suit votre process</span></div>
+
+        <div class="vs-row-label" data-en="Cost over time" data-fr="Coût dans le temps" data-ar="التكلفة عبر الزمن">Coût dans le temps</div>
+        <div class="vs-cell vs-val1 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Monthly per user, forever" data-fr="Abonnement mensuel par utilisateur, à vie" data-ar="اشتراك شهري لكل مستخدم، إلى الأبد">Abonnement mensuel par utilisateur, à vie</span></div>
+        <div class="vs-cell vs-val2 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="One build, then hosting only" data-fr="Un développement, puis l'hébergement seul" data-ar="تطوير واحد، ثم الاستضافة فقط">Un développement, puis l'hébergement seul</span></div>
+
+        <div class="vs-row-label" data-en="Data" data-fr="Données" data-ar="البيانات">Données</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="On someone else's server, export limited" data-fr="Sur le serveur d'un tiers, export limité" data-ar="على خادم طرف آخر، تصدير محدود">Sur le serveur d'un tiers, export limité</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Your database, exportable at any time" data-fr="Votre base, exportable à tout moment" data-ar="قاعدتك، قابلة للتصدير في أي وقت">Votre base, exportable à tout moment</span></div>
+
+        <div class="vs-row-label" data-en="Integrations" data-fr="Intégrations" data-ar="التكاملات">Intégrations</div>
+        <div class="vs-cell vs-val1 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Only those on the vendor's list" data-fr="Uniquement celles prévues par l'éditeur" data-ar="فقط ما يقرره المزوّد">Uniquement celles prévues par l'éditeur</span></div>
+        <div class="vs-cell vs-val2 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Any system with an API" data-fr="Tout système exposant une API" data-ar="أي نظام يوفّر واجهة برمجية">Tout système exposant une API</span></div>
+
+        <div class="vs-row-label" data-en="Interface" data-fr="Interface" data-ar="الواجهة">Interface</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Generic, twenty fields you never fill" data-fr="Générique, vingt champs jamais remplis" data-ar="عامة، عشرون حقلاً لا تُملأ أبداً">Générique, vingt champs jamais remplis</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Only the screens your team needs" data-fr="Seulement les écrans utiles à votre équipe" data-ar="فقط الشاشات التي يحتاجها فريقك">Seulement les écrans utiles à votre équipe</span></div>
+
+        <div class="vs-row-label" data-en="Time to start" data-fr="Délai de démarrage" data-ar="مدة الانطلاق">Délai de démarrage</div>
+        <div class="vs-cell vs-val1 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Immediate — its real advantage" data-fr="Immédiat — son vrai avantage" data-ar="فوري — ميزته الحقيقية">Immédiat — son vrai avantage</span></div>
+        <div class="vs-cell vs-val2 vs-alt"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 2.6v3.8M6 8.8v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.1"/></svg><span data-en="Weeks of scoping and building" data-fr="Plusieurs semaines de cadrage et de build" data-ar="أسابيع من التأطير والبناء">Plusieurs semaines de cadrage et de build</span></div>
+
+        <div class="vs-row-label" data-en="Scalability" data-fr="Évolutivité" data-ar="قابلية التطور">Évolutivité</div>
+        <div class="vs-cell vs-val1"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="Capped by the vendor's roadmap" data-fr="Plafonnée par la roadmap de l'éditeur" data-ar="مقيّدة بخارطة طريق المزوّد">Plafonnée par la roadmap de l'éditeur</span></div>
+        <div class="vs-cell vs-val2"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="A feature to write, whenever you need it" data-fr="Une fonctionnalité à écrire, quand vous en avez besoin" data-ar="ميزة تُكتب، متى احتجتها">Une fonctionnalité à écrire, quand vous en avez besoin</span></div>
+
+        <div class="vs-row-label" data-en="Ownership" data-fr="Propriété" data-ar="الملكية">Propriété</div>
+        <div class="vs-cell vs-val1 vs-alt vs-last"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="You rent access; stop paying, lose the tool" data-fr="Vous louez l'accès ; arrêtez de payer, l'outil s'arrête" data-ar="أنت تستأجر الوصول؛ توقّف عن الدفع، تتوقف الأداة">Vous louez l'accès ; arrêtez de payer, l'outil s'arrête</span></div>
+        <div class="vs-cell vs-val2 vs-alt vs-last"><svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Code, domain and data in your name" data-fr="Code, domaine et données à votre nom" data-ar="الشيفرة والنطاق والبيانات باسمك">Code, domaine et données à votre nom</span></div>
+
+      </div>
+    </div>
+
+    <p class="svc-band-note reveal"
+      data-en="If the honest answer is a showcase site plus an off-the-shelf tool, we will tell you at the first call rather than halfway through."
+      data-fr="Si la réponse honnête est un site vitrine plus un outil du marché, nous vous le dirons au premier appel plutôt qu'à mi-parcours."
+      data-ar="إن كان الجواب الصادق هو موقع تعريفي مع أداة جاهزة، سنقول لك ذلك في المكالمة الأولى لا في منتصف الطريق.">Si la réponse honnête est un site vitrine plus un outil du marché, nous vous le dirons au premier appel plutôt qu'à mi-parcours.</p>
+  </div>
+</section>
+
+<!-- ════ SELECTED WORK ════ -->
+<section class="svc-section svc-section--tint" id="realisations">
+  <div class="container">
+    <div class="section-label section-label--center reveal" style="justify-content:center;">
+      <span class="section-label-dot"></span>
+      <span data-en="Selected projects" data-fr="Projets sélectionnés" data-ar="مشاريع مختارة">Projets sélectionnés</span>
+    </div>
+    <h2 class="svc-band-title reveal"
+      data-en="Platforms we have <em>built</em>"
+      data-fr="Des plateformes que nous avons <em>livrées</em>"
+      data-ar="منصات قمنا <em>بتسليمها</em>">Des plateformes que nous avons <em>livrées</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="Projects with a booking engine, a back office or a multilingual catalogue behind them — not just a homepage."
+      data-fr="Des projets avec un moteur de réservation, un back-office ou un catalogue multilingue derrière — pas seulement une page d'accueil."
+      data-ar="مشاريع خلفها محرك حجز أو لوحة إدارة أو كتالوج متعدد اللغات — لا مجرد صفحة رئيسية.">Des projets avec un moteur de réservation, un back-office ou un catalogue multilingue derrière — pas seulement une page d'accueil.</p>
+
+    <div class="cs-proj-grid">
+      <a href="/adventure-keys" class="cs-proj-card reveal">
+        <div class="cs-proj-card-img">
+          <img src="./assets/images/projects/adventue-keys/1.webp" alt="Adventure Keys" loading="lazy">
+          <img class="cs-proj-hover-img" src="./assets/images/projects/adventue-keys/2.webp" alt="" loading="lazy">
+        </div>
+        <div class="cs-proj-card-info">
+          <div>
+            <div class="cs-proj-card-cat" data-en="Booking engine · Tourism" data-fr="Moteur de réservation · Tourisme" data-ar="محرك حجز · سياحة">Moteur de réservation · Tourisme</div>
+            <div class="cs-proj-card-name">Adventure Keys</div>
+            <div class="cs-proj-card-sub" data-en="Full booking system with availability and confirmation flow" data-fr="Système de réservation complet, disponibilités et confirmations" data-ar="نظام حجز كامل بالتوفر والتأكيدات">Système de réservation complet, disponibilités et confirmations</div>
+          </div>
+          <div class="cs-proj-card-btn">
+            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span data-en="See the case study" data-fr="Voir l'étude de cas" data-ar="شاهد دراسة الحالة">Voir l'étude de cas</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="/el-majdoub" class="cs-proj-card reveal" style="transition-delay:.08s">
+        <div class="cs-proj-card-img">
+          <img src="./assets/images/majdoub project.webp" alt="El Majdoub Immobilier" loading="lazy">
+          <img class="cs-proj-hover-img" src="./assets/images/majdoiub project hover.webp" alt="" loading="lazy">
+        </div>
+        <div class="cs-proj-card-info">
+          <div>
+            <div class="cs-proj-card-cat" data-en="Back office · Rental" data-fr="Back-office · Location" data-ar="لوحة إدارة · تأجير">Back-office · Location</div>
+            <div class="cs-proj-card-name">El Majdoub Immobilier</div>
+            <div class="cs-proj-card-sub" data-en="Dynamic property management, listings driven from a back office" data-fr="Gestion de biens dynamique, annonces pilotées depuis un back-office" data-ar="إدارة عقارات ديناميكية، إعلانات تُدار من لوحة تحكم">Gestion de biens dynamique, annonces pilotées depuis un back-office</div>
+          </div>
+          <div class="cs-proj-card-btn">
+            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span data-en="See the case study" data-fr="Voir l'étude de cas" data-ar="شاهد دراسة الحالة">Voir l'étude de cas</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="/agadir-transfer" class="cs-proj-card reveal" style="transition-delay:.16s">
+        <div class="cs-proj-card-img">
+          <img src="./assets/images/projects/agadir-transfer/1.webp" alt="Agadir Transfer" loading="lazy">
+          <img class="cs-proj-hover-img" src="./assets/images/projects/agadir-transfer/2.webp" alt="" loading="lazy">
+        </div>
+        <div class="cs-proj-card-info">
+          <div>
+            <div class="cs-proj-card-cat" data-en="Online booking · Transport" data-fr="Réservation en ligne · Transport" data-ar="حجز إلكتروني · نقل">Réservation en ligne · Transport</div>
+            <div class="cs-proj-card-name">Agadir Transfer</div>
+            <div class="cs-proj-card-sub" data-en="Airport transfer booking, routes and pricing rules" data-fr="Réservation de transferts aéroport, trajets et règles tarifaires" data-ar="حجز نقل المطار، المسارات وقواعد التسعير">Réservation de transferts aéroport, trajets et règles tarifaires</div>
+          </div>
+          <div class="cs-proj-card-btn">
+            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span data-en="See the case study" data-fr="Voir l'étude de cas" data-ar="شاهد دراسة الحالة">Voir l'étude de cas</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-cta-bar reveal">
+      <a href="/projects" class="btn-primary" data-en="View all projects" data-fr="Voir tous les projets" data-ar="عرض كل المشاريع">Voir tous les projets</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+  <div class="faq-inner">
+
+    <div class="faq-left reveal">
+      <div class="faq-label"><span class="faq-label-dot"></span> <span data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</span></div>
+      <h2 class="faq-title"
+        data-en="Before you <em>scope</em>"
+        data-fr="Avant de <em>cadrer</em>"
+        data-ar="قبل أن <em>تؤطّر</em>">Avant de <em>cadrer</em></h2>
+      <p class="faq-subtitle"
+        data-en="The questions we are asked most often about custom development in Morocco."
+        data-fr="Les questions qu'on nous pose le plus souvent sur le développement sur-mesure au Maroc."
+        data-ar="الأسئلة الأكثر تكراراً حول التطوير حسب الطلب في المغرب.">Les questions qu'on nous pose le plus souvent sur le développement sur-mesure au Maroc.</p>
+    </div>
+
+    <div class="faq-list reveal" id="faqList">
+      <div class="faq-item open">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="What is the difference between a showcase site and a custom application?"
+            data-fr="Quelle est la différence entre un site vitrine et une application sur mesure ?"
+            data-ar="ما الفرق بين موقع تعريفي وتطبيق حسب الطلب؟">Quelle est la différence entre un site vitrine et une application sur mesure ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="A showcase site presents your business: it informs and triggers a call or a message. A custom application runs your business: it records bookings, tracks stock or files, computes availability, sends confirmations and gives clients a place to follow their order. The first is a communication asset — see &lt;a class='inline-link' href='/creation-site-web-maroc'&gt;website design in Morocco&lt;/a&gt; — the second is a working tool."
+            data-fr="Un site vitrine présente votre activité : il informe et déclenche un appel ou un message. Une application sur mesure fait tourner votre activité : elle enregistre des réservations, suit des stocks ou des dossiers, calcule des disponibilités, envoie des confirmations et donne à vos clients un endroit où suivre leur commande. Le premier est un support de communication — voir &lt;a class='inline-link' href='/creation-site-web-maroc'&gt;création de site web au Maroc&lt;/a&gt; — le second est un outil de travail."
+            data-ar="الموقع التعريفي يعرض نشاطك: يُعلم ويثير مكالمة أو رسالة. أما التطبيق حسب الطلب فيشغّل نشاطك: يسجّل الحجوزات ويتابع المخزون أو الملفات ويحسب التوفر ويرسل التأكيدات ويمنح عملاءك مكاناً لمتابعة طلبهم. الأول وسيلة تواصل — انظر &lt;a class='inline-link' href='/creation-site-web-maroc'&gt;إنشاء موقع ويب في المغرب&lt;/a&gt; — والثاني أداة عمل.">Un site vitrine présente votre activité : il informe et déclenche un appel ou un message. Une application sur mesure fait tourner votre activité : elle enregistre des réservations, suit des stocks ou des dossiers, calcule des disponibilités, envoie des confirmations et donne à vos clients un endroit où suivre leur commande. Le premier est un support de communication — voir <a class="inline-link" href="/creation-site-web-maroc">création de site web au Maroc</a> — le second est un outil de travail.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="How long does a custom development project take?"
+            data-fr="Combien de temps prend un projet de développement sur mesure ?"
+            data-ar="كم يستغرق مشروع تطوير حسب الطلب؟">Combien de temps prend un projet de développement sur mesure ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="A first usable version of a focused business tool generally takes 4 to 8 weeks, scoping included. A full platform with payment, back office and a client area takes longer. We deliberately split the project into slices delivered as we go, so you can test early instead of discovering everything at the end."
+            data-fr="Une première version utilisable d'un outil métier ciblé prend en général 4 à 8 semaines, cadrage compris. Une plateforme complète avec paiement, back-office et espace client demande davantage. Nous découpons volontairement le projet en lots livrés au fur et à mesure, pour que vous puissiez tester tôt plutôt que découvrir l'ensemble à la fin."
+            data-ar="النسخة الأولى القابلة للاستعمال من أداة مهنية محددة تستغرق عادة من 4 إلى 8 أسابيع، بما في ذلك التأطير. أما المنصة الكاملة بالدفع ولوحة الإدارة وفضاء العميل فتتطلب أكثر. نقسّم المشروع عمداً إلى دفعات تُسلَّم تباعاً، لتختبر مبكراً بدل اكتشاف كل شيء في النهاية.">Une première version utilisable d'un outil métier ciblé prend en général 4 à 8 semaines, cadrage compris. Une plateforme complète avec paiement, back-office et espace client demande davantage. Nous découpons volontairement le projet en lots livrés au fur et à mesure, pour que vous puissiez tester tôt plutôt que découvrir l'ensemble à la fin.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Which technologies do you develop with?"
+            data-fr="Avec quelles technologies développez-vous ?"
+            data-ar="بأي تقنيات تطوّرون؟">Avec quelles technologies développez-vous ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Next.js and React with TypeScript for applications, a headless CMS when content has to stay editable, and Vercel hosting with HTTPS and automatic deployments. We favour widely used, well documented technology: if you ever change provider, any React developer can pick up the code."
+            data-fr="Next.js et React avec TypeScript pour les applications, un CMS découplé quand le contenu doit rester éditable, et un hébergement Vercel avec HTTPS et déploiements automatiques. Nous privilégions des technologies répandues et documentées : si un jour vous changez de prestataire, n'importe quel développeur React peut reprendre le code."
+            data-ar="Next.js وReact مع TypeScript للتطبيقات، ونظام محتوى منفصل حين يجب أن يبقى المحتوى قابلاً للتحرير، واستضافة Vercel مع HTTPS ونشر تلقائي. نفضّل تقنيات منتشرة وموثّقة: إن غيّرت المزوّد يوماً، يستطيع أي مطوّر React متابعة الشيفرة.">Next.js et React avec TypeScript pour les applications, un CMS découplé quand le contenu doit rester éditable, et un hébergement Vercel avec HTTPS et déploiements automatiques. Nous privilégions des technologies répandues et documentées : si un jour vous changez de prestataire, n'importe quel développeur React peut reprendre le code.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Can you connect the tool to my existing systems?"
+            data-fr="Pouvez-vous connecter l'outil à mes systèmes existants ?"
+            data-ar="هل يمكنكم ربط الأداة بأنظمتي الحالية؟">Pouvez-vous connecter l'outil à mes systèmes existants ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes, as long as the system exposes an API or allows a usable export: payment gateways, invoicing or accounting tools, CRM, Google Sheets, transactional emails or WhatsApp notifications. We check each integration is feasible during scoping, before it goes into the quote."
+            data-fr="Oui, dès lors que le système expose une API ou permet un export exploitable : passerelles de paiement, outils de facturation ou de comptabilité, CRM, Google Sheets, e-mails transactionnels ou notifications WhatsApp. Nous vérifions la faisabilité de chaque intégration pendant le cadrage, avant de l'inscrire au devis."
+            data-ar="نعم، ما دام النظام يوفّر واجهة برمجية أو تصديراً قابلاً للاستعمال: بوابات الدفع، أدوات الفوترة أو المحاسبة، إدارة العملاء، Google Sheets، الرسائل التلقائية أو إشعارات واتساب. نتحقق من جدوى كل تكامل أثناء التأطير قبل إدراجه في عرض السعر.">Oui, dès lors que le système expose une API ou permet un export exploitable : passerelles de paiement, outils de facturation ou de comptabilité, CRM, Google Sheets, e-mails transactionnels ou notifications WhatsApp. Nous vérifions la faisabilité de chaque intégration pendant le cadrage, avant de l'inscrire au devis.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text"
+            data-en="Do I own the code and the data?"
+            data-fr="Le code et les données m'appartiennent-ils ?"
+            data-ar="هل الشيفرة والبيانات ملك لي؟">Le code et les données m'appartiennent-ils ?</span>
+          <span class="faq-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner"
+            data-en="Yes. The code repository, the domain name, the hosting and the database are registered in your name and handed over at delivery, together with a training session. You are not tied to us by any closed proprietary system."
+            data-fr="Oui. Le dépôt de code, le nom de domaine, l'hébergement et la base de données sont enregistrés à votre nom et vous sont remis à la livraison, avec une session de formation. Vous n'êtes lié à nous par aucun système propriétaire fermé."
+            data-ar="نعم. مستودع الشيفرة واسم النطاق والاستضافة وقاعدة البيانات تُسجَّل باسمك وتُسلَّم إليك عند التسليم، مع جلسة تكوين. لا يربطك بنا أي نظام مغلق.">Oui. Le dépôt de code, le nom de domaine, l'hébergement et la base de données sont enregistrés à votre nom et vous sont remis à la livraison, avec une session de formation. Vous n'êtes lié à nous par aucun système propriétaire fermé.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- ════ CLOSING CTA ════ -->
+<section class="city-cta-band">
+  <div class="container">
+    <h2 class="svc-band-title reveal"
+      data-en="Tell us what you need to <em>automate</em>"
+      data-fr="Dites-nous ce que vous voulez <em>automatiser</em>"
+      data-ar="أخبرنا بما تريد <em>أتمتته</em>">Dites-nous ce que vous voulez <em>automatiser</em></h2>
+    <p class="svc-band-sub reveal"
+      data-en="A free scoping call, then a written scope and a quote — including a straight answer when an off-the-shelf tool would serve you better."
+      data-fr="Un cadrage gratuit, puis un périmètre écrit et un devis — y compris une réponse franche quand un outil du marché vous servirait mieux."
+      data-ar="تأطير مجاني، ثم نطاق مكتوب وعرض سعر — بما في ذلك جواب صريح حين تكون أداة جاهزة أنسب لك.">Un cadrage gratuit, puis un périmètre écrit et un devis — y compris une réponse franche quand un outil du marché vous servirait mieux.</p>
+
+    <div class="city-cta-actions reveal">
+      <a href="https://wa.me/212716490397?text=Bonjour%2C%20j%27aimerais%20un%20cadrage%20pour%20un%20projet%20sur-mesure." data-wa-type="generic" class="btn-primary" target="_blank" rel="noopener"
+        data-en="Book a free scoping call" data-fr="Demander un cadrage gratuit" data-ar="اطلب جلسة تأطير مجانية">Demander un cadrage gratuit</a>
+      <a href="/contact" class="btn-secondary"
+        data-en="Contact us" data-fr="Nous contacter" data-ar="تواصل معنا">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<!-- PARTIAL:footer:START -->
+<footer class="footer-section">
+  <div class="glow-circle glow-c" style="opacity:0.13; width:800px; height:800px; --glow-peak:0.865; --glow-k:2.50;"></div>
+  <div class="container">
+    <div class="footer-top reveal" style="padding-bottom:48px; border-bottom:1px solid rgba(38,38,38,0.6); margin-bottom:48px;">
+      <div class="footer-cta-h" style="font-family:'Satoshi','Inter',sans-serif; font-size:clamp(36px,6.5vw,72px); font-weight:700; letter-spacing:-0.033em; line-height:1.333;" data-en="Let's Start Your Project" data-fr="Prêt à lancer votre projet ?" data-ar="لنبدأ مشروعك">Prêt à lancer votre projet ?</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a href="/contact#cal-embed" class="btn-primary" data-en="Contact Us" data-fr="Nous Contacter" data-ar="تواصل معنا">Nous Contacter</a>
+      </div>
+    </div>
+
+    <div class="footer-grid reveal">
+
+      <!-- Col 1: brand -->
+      <div class="footer-col">
+        <a href="/" class="logo">
+          <img src="logo.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-dark">
+          <img src="logo-black.png" alt="Louiss Web Studio" style="height:32px;width:auto;display:block;" class="logo-img-light">
+        </a>
+        <p class="footer-brand-tagline"
+          data-en="Premium websites that work for you, while you run your business."
+          data-fr="Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise."
+          data-ar="استوديو ويب بطنجة: مواقع عصرية وسريعة مصممة لتحويل الزوار إلى عملاء.">Des sites web premium qui travaillent pour vous, pendant que vous gérez votre entreprise.</p>
+        <p style="font-size:13px; font-weight:600; color:var(--muted); margin:-10px 0 20px;"
+          data-en="50+ projects delivered across Morocco"
+          data-fr="50+ projets livrés à travers le Maroc"
+          data-ar="أكثر من 50 مشروعًا تم إنجازه في جميع أنحاء المغرب">50+ projets livrés à travers le Maroc</p>
+        <div class="footer-socials" style="display:flex; gap:10px; margin-bottom:20px;">
+          <a href="https://dribbble.com/kuro3245" class="footer-social-btn" aria-label="Dribbble" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/louiss.webstudio/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--muted);">
+          <a href="tel:+212716490397" style="color:inherit; text-decoration:none;">+212 7 16 49 03 97</a>
+          <a href="mailto:contact@louisswebstudio.com" style="color:inherit; text-decoration:none;">contact@louisswebstudio.com</a>
+          <span data-en="Tanger, Morocco" data-fr="Tanger, Maroc" data-ar="طنجة، المغرب">Tanger, Maroc</span>
+        </div>
+      </div>
+
+      <!-- Col 2: services -->
+      <div class="footer-col">
+        <a href="/services" class="footer-col-title" style="display:block; color:inherit; text-decoration:none;" data-en="Services" data-fr="Services" data-ar="خدماتنا">Services</a>
+        <div class="footer-col-links">
+          <a href="/creation-site-e-commerce-maroc" data-en="E-commerce website Morocco" data-fr="Création site e-commerce Maroc" data-ar="إنشاء متجر إلكتروني بالمغرب">Création site e-commerce Maroc</a>
+          <a href="/creation-site-vitrine-maroc" data-en="Showcase website Morocco" data-fr="Création site vitrine Maroc" data-ar="إنشاء موقع تعريفي بالمغرب">Création site vitrine Maroc</a>
+          <a href="/real-estate-web-design" data-en="Real Estate" data-fr="Immobilier" data-ar="عقارات">Immobilier</a>
+          <a href="/tourism-web-design" data-en="Tourism" data-fr="Tourisme" data-ar="سياحة">Tourisme</a>
+          <a href="/international-web-design" data-en="International" data-fr="International" data-ar="دولي">International</a>
+          <a href="/tarifs" data-en="Packages" data-fr="Packages" data-ar="الأسعار">Packages</a>
+          <!-- Add here once the page exists: <a href="/referencement-seo-maroc" data-en="SEO & Development" data-fr="Référencement SEO & Développement" data-ar="تحسين محركات البحث والتطوير">Référencement SEO & Développement</a> -->
+        </div>
+      </div>
+
+      <!-- Col 3: cities -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Cities" data-fr="Villes" data-ar="المدن">Villes</div>
+        <div class="footer-col-links">
+          <a href="/creation-site-web-maroc" data-en="Website design Morocco" data-fr="Création site web Maroc" data-ar="إنشاء موقع ويب بالمغرب">Création site web Maroc</a>
+          <a href="/creation-site-web-casablanca" data-en="Website design Casablanca" data-fr="Création site web Casablanca" data-ar="تصميم مواقع الويب بالدار البيضاء">Création site web Casablanca</a>
+          <a href="/creation-site-web-rabat" data-en="Website design Rabat" data-fr="Création site web Rabat" data-ar="تصميم مواقع الويب بالرباط">Création site web Rabat</a>
+          <a href="/creation-site-web-marrakech" data-en="Website design Marrakech" data-fr="Création site web Marrakech" data-ar="تصميم مواقع الويب بمراكش">Création site web Marrakech</a>
+          <a href="/creation-site-web-tanger" data-en="Website design Tanger" data-fr="Création site web Tanger" data-ar="تصميم مواقع الويب بطنجة">Création site web Tanger</a>
+          <a href="/locations" data-en="See all cities →" data-fr="Voir toutes les villes →" data-ar="مشاهدة كل المدن ←">Voir toutes les villes →</a>
+        </div>
+      </div>
+
+      <!-- Col 4: studio -->
+      <div class="footer-col">
+        <div class="footer-col-title" data-en="Studio" data-fr="Studio" data-ar="الاستوديو">Studio</div>
+        <div class="footer-col-links">
+          <a href="/projects" data-en="Projects" data-fr="Projets" data-ar="مشاريعنا">Projets</a>
+          <a href="/blog/" data-en="Blog" data-fr="Blog" data-ar="المدونة">Blog</a>
+          <a href="/faq" data-en="FAQ" data-fr="FAQ" data-ar="الأسئلة الشائعة">FAQ</a>
+          <a href="/contact" data-en="Contact" data-fr="Contact" data-ar="تواصل معنا">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom reveal" style="display:flex; align-items:center; justify-content:space-between; padding-top:24px; border-top:1px solid rgba(38,38,38,0.4); flex-wrap:wrap; gap:12px;">
+      <p class="footer-copy" data-en="© 2026 Louiss Web Studio. All rights reserved." data-fr="© 2026 Louiss Web Studio. Tous droits réservés." data-ar="© 2026 Louiss Web Studio. جميع الحقوق محفوظة.">© 2026 Louiss Web Studio. Tous droits réservés.</p>
+      <div class="footer-legal" style="display:flex; gap:24px;">
+        <a href="/privacy" data-en="Privacy Policy" data-fr="Politique de Confidentialité" data-ar="سياسة الخصوصية">Politique de Confidentialité</a>
+        <a href="/terms" data-en="Terms of Service" data-fr="Conditions d'Utilisation" data-ar="شروط الخدمة">Conditions d'Utilisation</a>
+        <a href="/sitemap" data-en="Sitemap" data-fr="Sitemap" data-ar="خريطة الموقع">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- PARTIAL:footer:END -->
+
+<!-- ════ WA FLOAT ════ -->
+<a href="https://wa.me/212716490397" data-wa-type="generic" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-float-label" data-en="Free scoping call" data-fr="Cadrage Gratuit" data-ar="تأطير مجاني">Cadrage Gratuit</span>
+  <div class="wa-float-btn">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.1 1.519 5.832L0 24l6.335-1.493A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.359-.214-3.72.876.893-3.619-.234-.372A9.818 9.818 0 1112 21.818z"/></svg>
+  </div>
+</a>
+
+<script>
+/* ══ FAQ accordion — one open at a time (mirrors index-main.js) ══ */
+document.querySelectorAll('.faq-question').forEach(function (q) {
+  q.addEventListener('click', function () {
+    var item = q.closest('.faq-item');
+    if (!item) return;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function (el) { el.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+
+<script defer src="assets/site-chrome.js"></script>
+<script defer src="assets/starfield.js"></script>
+
+<!-- Theme switch. Deferred: the initial theme is already applied pre-paint
+     by assets/theme-init.js. -->
+<script defer src="assets/theme-toggle.js"></script>
+</body>
+</html>
