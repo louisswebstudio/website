@@ -48,6 +48,15 @@ const esc = (s = '') =>
 
 const attr = (s = '') => esc(s).replace(/'/g, '&#39;');
 
+// Renders width/height attrs for an image scaled to targetWidth, using the
+// source asset's aspect ratio (from Sanity metadata) to avoid layout shift.
+const sizeAttrs = (image, targetWidth) => {
+  const dims = image?.asset?.metadata?.dimensions;
+  if (!dims?.width || !dims?.height) return '';
+  const h = Math.round((targetWidth * dims.height) / dims.width);
+  return ` width="${targetWidth}" height="${h}"`;
+};
+
 // Keeps meta descriptions within Google's ~150-char snippet width so Sanity
 // copy that runs long doesn't get truncated mid-word in search results.
 const truncateDesc = (s = '', max = 150) => {
@@ -76,8 +85,8 @@ const ptComponents = {
   types: {
     image: ({ value }) => {
       if (!value?.asset) return '';
-      const src = urlFor(value).width(1200).fit('max').auto('format').url();
-      return `<img src="${esc(src)}" alt="${attr(value.alt || '')}" loading="lazy" />`;
+      const src = urlFor(value).width(1200).fit('max').format('webp').quality(75).url();
+      return `<img src="${esc(src)}" alt="${attr(value.alt || '')}"${sizeAttrs(value, 1200)} loading="lazy" />`;
     },
   },
   block: {
@@ -645,8 +654,8 @@ export function listingPage(posts) {
       const href = `/blog/${p.slug}/`;
       const img = p.mainImage?.asset
         ? `<div class="blog-thumb"><img src="${esc(
-            urlFor(p.mainImage).width(800).height(500).fit('crop').auto('format').url()
-          )}" alt="${attr(p.mainImage.alt || p.title || '')}" loading="lazy"></div>`
+            urlFor(p.mainImage).width(800).height(500).fit('crop').format('webp').quality(75).url()
+          )}" alt="${attr(p.mainImage.alt || p.title || '')}" width="800" height="500" loading="lazy"></div>`
         : `<div class="blog-thumb"></div>`;
       const cat = p.category?.title
         ? `<span class="blog-pill">${esc(p.category.title)}</span>`
@@ -774,12 +783,12 @@ export function postPage(p) {
   const title = p.seoTitle || p.title || '';
   const desc = truncateDesc(p.metaDescription || p.excerpt || '');
   const ogImage = p.mainImage?.asset
-    ? urlFor(p.mainImage).width(1200).height(630).fit('crop').auto('format').url()
+    ? urlFor(p.mainImage).width(1200).height(630).fit('crop').format('webp').quality(75).url()
     : LOGO_URL;
   const heroImg = p.mainImage?.asset
     ? `<img class="article-hero-img" src="${esc(
-        urlFor(p.mainImage).width(1200).fit('max').auto('format').url()
-      )}" alt="${attr(p.mainImage.alt || p.title || '')}" fetchpriority="high">`
+        urlFor(p.mainImage).width(1200).fit('max').format('webp').quality(75).url()
+      )}" alt="${attr(p.mainImage.alt || p.title || '')}"${sizeAttrs(p.mainImage, 1200)} fetchpriority="high">`
     : '';
   const cat = p.category?.title
     ? `<span class="article-cat-badge">${esc(p.category.title)}</span>`
@@ -905,7 +914,9 @@ async function updateSitemap(posts) {
 async function main() {
   const query = `*[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc){
     _id, _updatedAt, title, "slug": slug.current, excerpt, publishedAt, seoTitle, metaDescription,
-    mainImage, "category": category->{title, "slug": slug.current}, body
+    mainImage{..., asset->{_id, metadata{dimensions}}},
+    "category": category->{title, "slug": slug.current},
+    body[]{..., asset->{_id, metadata{dimensions}}}
   }`;
 
   let posts = [];
