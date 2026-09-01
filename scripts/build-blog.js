@@ -48,6 +48,15 @@ const esc = (s = '') =>
 
 const attr = (s = '') => esc(s).replace(/'/g, '&#39;');
 
+// Keeps meta descriptions within Google's ~150-char snippet width so Sanity
+// copy that runs long doesn't get truncated mid-word in search results.
+const truncateDesc = (s = '', max = 150) => {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${cut.slice(0, lastSpace > 0 ? lastSpace : max - 1)}…`;
+};
+
 // French long-form date, e.g. "2 juillet 2026"
 const frDate = (iso) => {
   if (!iso) return '';
@@ -672,17 +681,17 @@ ${gtmHead(R)}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Blog : Conseils Web pour les Entreprises au Maroc · Louiss Web Studio</title>
+<title>Blog Web & SEO Maroc | Louiss Web Studio</title>
 <link rel="canonical" href="${SITE}/blog/">
 <meta name="description" content="${attr(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Louiss Web Studio">
 <meta property="og:url" content="${SITE}/blog/">
-<meta property="og:title" content="Blog : Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta property="og:title" content="Blog Web & SEO Maroc | Louiss Web Studio">
 <meta property="og:description" content="${attr(desc)}">
 <meta property="og:image" content="${LOGO_URL}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Blog : Conseils Web pour les Entreprises au Maroc · Louiss Web Studio">
+<meta name="twitter:title" content="Blog Web & SEO Maroc | Louiss Web Studio">
 <meta name="twitter:description" content="${attr(desc)}">
 <meta name="twitter:image" content="${LOGO_URL}">
 ${favicons(R)}${themeHead(R)}
@@ -763,7 +772,7 @@ export function postPage(p) {
   const R = '../../';
   const url = `${SITE}/blog/${p.slug}/`;
   const title = p.seoTitle || p.title || '';
-  const desc = p.metaDescription || p.excerpt || '';
+  const desc = truncateDesc(p.metaDescription || p.excerpt || '');
   const ogImage = p.mainImage?.asset
     ? urlFor(p.mainImage).width(1200).height(630).fit('crop').auto('format').url()
     : LOGO_URL;
