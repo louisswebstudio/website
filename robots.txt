@@ -1,58 +1,51 @@
 # robots.txt — Louiss Web Studio
 # All standard crawlers are welcome.
+#
+# Rule order note: every group below lists Disallow before Allow. Modern
+# crawlers (RFC 9309) pick the longest matching rule, so order is irrelevant
+# to them, but simpler order-based parsers return the first match — and with
+# "Allow: /" first those would treat /casestudy/ as crawlable. Disallow-first
+# gives the same answer under both interpretations.
 User-agent: *
-Allow: /
 # Internal case-study template/demo tool — not a real page, not in the sitemap.
 Disallow: /casestudy/
+Allow: /
 
 # ── AI / LLM crawlers explicitly allowed ──
 # We want Louiss Web Studio to be discoverable and citable by AI search
 # engines and assistants. See /llms.txt for a plain-text company summary.
+#
+# Both groups below carry an IDENTICAL rule set, and each is written as one
+# group with many User-agent lines rather than one block per bot. A named bot
+# obeys only its own group and ignores "User-agent: *", so per-bot blocks are
+# what let policies drift apart and get flagged as inconsistent. Sharing a
+# single rule set makes divergence structurally impossible: to change the AI
+# policy, edit one Disallow/Allow pair.
+
+# Training / indexing crawlers.
 User-agent: GPTBot
-Allow: /
-Disallow: /casestudy/
-
-User-agent: OAI-SearchBot
-Allow: /
-Disallow: /casestudy/
-
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /casestudy/
-
 User-agent: ClaudeBot
-Allow: /
-Disallow: /casestudy/
-
+User-agent: anthropic-ai
 User-agent: Claude-Web
-Allow: /
-Disallow: /casestudy/
-
-User-agent: Claude-User
-Allow: /
-Disallow: /casestudy/
-
-User-agent: Claude-SearchBot
-Allow: /
-Disallow: /casestudy/
-
 User-agent: PerplexityBot
-Allow: /
-Disallow: /casestudy/
-
-User-agent: Perplexity-User
-Allow: /
-Disallow: /casestudy/
-
 User-agent: Google-Extended
-Allow: /
-Disallow: /casestudy/
-
 User-agent: CCBot
-Allow: /
 Disallow: /casestudy/
+Allow: /
+
+# User-triggered fetch and AI-search agents (retrieve a page because a person
+# asked, or to answer a live query). Same policy as above, by design.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: Perplexity-User
+Disallow: /casestudy/
+Allow: /
 
 Sitemap: https://www.louisswebstudio.com/sitemap.xml
 
-# LLMs.txt
-Sitemap: https://www.louisswebstudio.com/llms.txt
+# Plain-text company summary for AI crawlers. NOT declared with a "Sitemap:"
+# directive: that directive is for XML sitemaps only, and pointing it at a
+# Markdown file makes auditors fetch it as a sitemap and report a format error.
+# https://www.louisswebstudio.com/llms.txt
