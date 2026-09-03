@@ -1,6 +1,6 @@
 # Louiss Web Studio
 
-> Web design and development studio based in Tangier, Morocco, building fast, conversion-focused websites for local and regional businesses.
+> Web design and development studio based in Tangier, Morocco, building fast, conversion-focused websites for local and regional businesses. Pages are published in French (the indexed language) with English and Arabic available on the same URL via a runtime language switcher.
 
 ## Services
 Design-first web development: Figma to production, or a full build from scratch.
@@ -8,35 +8,65 @@ Design-first web development: Figma to production, or a full build from scratch.
 - For agencies: pixel-accurate implementation from Figma files, fast turnaround for client deadlines, clean handoff with documented code, white-label delivery available.
 - For international clients: multilingual builds in French, English and Arabic (RTL included); custom UI/UX and full-stack development, never a template; remote collaboration with clear deliverables.
 
+## Key pages
+- [Homepage](https://www.louisswebstudio.com/) — premium websites for businesses in Morocco
+- [Services](https://www.louisswebstudio.com/services) — full-stack development for direct clients and agencies
+- [Projects](https://www.louisswebstudio.com/projects) — portfolio of delivered work
+- [Pricing](https://www.louisswebstudio.com/tarifs) — packages and real price ranges, no hidden fees
+- [Contact](https://www.louisswebstudio.com/contact) — WhatsApp, email, or book a 15-minute call
+- [FAQ](https://www.louisswebstudio.com/faq) — timelines, pricing, revisions, maintenance and support
+- [Blog](https://www.louisswebstudio.com/blog/) — practical web and SEO advice for Moroccan businesses
+- [Locations](https://www.louisswebstudio.com/locations) — every city the studio covers
+- [Sitemap](https://www.louisswebstudio.com/sitemap) — full page index
+
+## What we build
+- [Website design in Morocco](https://www.louisswebstudio.com/creation-site-web-maroc) — nationwide overview, parent of the city pages below
+- [Showcase / brochure sites](https://www.louisswebstudio.com/creation-site-vitrine-maroc) — custom design, built-in SEO, direct WhatsApp contact, live in 7 to 14 days
+- [E-commerce sites](https://www.louisswebstudio.com/creation-site-e-commerce-maroc) — online stores with CMI and cash-on-delivery payment, self-service back office
+- [Custom / bespoke development](https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc) — business applications, booking systems, dashboards and client portals in Next.js
+
+## Specialist pages
+- [Real estate web design](https://www.louisswebstudio.com/real-estate-web-design) — listings, neighbourhood search, self-managed CMS
+- [Tourism and travel web design](https://www.louisswebstudio.com/tourism-web-design) — tour operators, surf camps, hotels, riads and transfers
+- [International web design and development](https://www.louisswebstudio.com/international-web-design) — multilingual builds for clients outside Morocco
+
 ## Cities served
 - [Morocco — nationwide overview](https://www.louisswebstudio.com/creation-site-web-maroc)
 - [Tanger](https://www.louisswebstudio.com/creation-site-web-tanger)
 - [Casablanca](https://www.louisswebstudio.com/creation-site-web-casablanca)
 - [Rabat](https://www.louisswebstudio.com/creation-site-web-rabat)
-- [Agadir](https://www.louisswebstudio.com/creation-site-web-agadir)
 - [Marrakech](https://www.louisswebstudio.com/creation-site-web-marrakech)
+- [Agadir](https://www.louisswebstudio.com/creation-site-web-agadir)
 - [Fès](https://www.louisswebstudio.com/creation-site-web-fes)
 - [Essaouira](https://www.louisswebstudio.com/creation-site-web-essaouira)
 - [Kénitra](https://www.louisswebstudio.com/creation-site-web-kenitra)
 - [Oujda](https://www.louisswebstudio.com/creation-site-web-oujda)
 
-## Contact
-- WhatsApp: +212 716490397
-- Website: https://www.louisswebstudio.com
-
-## Key pages
-- Homepage: https://www.louisswebstudio.com
-- Portfolio/Projects: https://www.louisswebstudio.com/projects
-- Pricing: https://www.louisswebstudio.com/tarifs
-- Blog: https://www.louisswebstudio.com/blog/
-
-## Specialist pages
-- [Real estate web design](https://www.louisswebstudio.com/real-estate-web-design)
-- [Tourism and travel web design](https://www.louisswebstudio.com/tourism-web-design)
-- [International web design and development](https://www.louisswebstudio.com/international-web-design)
-
-## Notable projects
-- [Adventure Keys](https://www.louisswebstudio.com/adventure-keys) — website redesign for a travel agency, built to turn visitors into bookings
+## Case studies
+- [Adventure Keys](https://www.louisswebstudio.com/adventure-keys) — website redesign for a travel and surf agency, built to turn visitors into bookings
 - [Maison Monchef](https://www.louisswebstudio.com/maison-monchef) — multilingual (French, English, Arabic) real estate platform for a Dubai-based client, built with Next.js and Sanity CMS
 - [El Majdoub Immobilier](https://www.louisswebstudio.com/el-majdoub) — real estate rental platform connecting owners and qualified tenants in Agadir
+- [Agadir Transfer](https://www.louisswebstudio.com/agadir-transfer) — airport transfer service, rebuilt around a clear booking flow
+- [Supreme Toiture](https://www.louisswebstudio.com/supreme-toiture) — roofing contractor site structured to generate qualified quote requests
 - [Digiseo](https://www.louisswebstudio.com/digiseo) — website redesign for an SEO and digital marketing agency
+
+## Blog
+Practical guidance for small and mid-sized businesses in Morocco. All articles are in French.
+- [How to choose a web agency in Morocco](https://www.louisswebstudio.com/blog/creation-site-web-maroc/) — criteria to check and questions to ask before signing
+- [What a website costs in Morocco in 2026](https://www.louisswebstudio.com/blog/prix-creation-site-web-maroc/) — real price ranges, what is included, and the traps to avoid
+- [How long it takes to build a website](https://www.louisswebstudio.com/blog/delai-creation-site-web-maroc/) — a brochure site in days, a full multi-page site in 2 to 4 weeks
+- [Google Business Profile in Morocco](https://www.louisswebstudio.com/blog/fiche-google-business-maroc/) — creating and optimising a listing, appearing on Maps, handling reviews
+- [Website or Instagram for your business](https://www.louisswebstudio.com/blog/site-web-ou-instagram-business-maroc/) — the difference, and the risk of depending on a rented audience
+- [Real estate agency websites](https://www.louisswebstudio.com/blog/site-web-agence-immobiliere-maroc/) — how up-to-date listings attract buyers, tenants and owners
+- [Riads: cutting Booking.com and Airbnb commission](https://www.louisswebstudio.com/blog/reservation-directe-riad-maroc-sans-booking/) — capturing direct reservations instead
+- [Car rental agencies losing bookings](https://www.louisswebstudio.com/blog/site-web-location-voiture-maroc/) — why bookings are lost on Google every day
+- [Restaurants: more customers through Google](https://www.louisswebstudio.com/blog/site-web-restaurant-maroc-plus-de-clients/) — photos, listings and online presence that fill tables
+- [Dental practices: ranking on Google in Morocco](https://www.louisswebstudio.com/blog/referencement-google-cabinet-dentaire-maroc/) — local SEO for clinics
+- [Hair and beauty salons](https://www.louisswebstudio.com/blog/site-web-salon-coiffure-esthetique-maroc/) — online booking, photos and reviews that fill the chair
+
+## Contact
+- Email: louiss.webstudio@gmail.com
+- WhatsApp: +212 716490397
+- Based in: Tanger, Morocco (Tanger-Tétouan-Al Hoceïma)
+- Website: https://www.louisswebstudio.com
+- Sitemap (XML): https://www.louisswebstudio.com/sitemap.xml
