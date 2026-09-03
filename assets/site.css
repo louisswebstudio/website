@@ -3836,6 +3836,24 @@ html[dir="rtl"] .testimonials-heading { text-align: center; }
   max-width: 495px;
   margin: 0 auto;
 }
+/* Inline link inside the hero subtitle. Deliberately quiet: it keeps the
+   subtitle's own colour and uses a dimmed underline, so it reads as part of
+   the sentence rather than competing with the two hero CTAs below it.
+   Everything derives from currentColor so it holds in both themes — a fixed
+   light-grey underline disappears against the dark text of the light theme. */
+.hero .hero-desc a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: currentColor; /* fallback where color-mix is absent */
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color .2s;
+}
+.hero .hero-desc a:hover,
+.hero .hero-desc a:focus-visible {
+  text-decoration-color: currentColor;
+}
 @media (max-width: 700px) {
   .hero .hero-desc { font-size: 15px; line-height: 1.65; }
   .hero .hero-ctas { margin-top: 36px; }

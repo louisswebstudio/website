@@ -768,6 +768,10 @@ const RELATED_PAGE = {
     href: '/services',
     label: 'nos services de création et de développement web',
   },
+  'delai-creation-site-web-maroc': {
+    href: '/developpement-web-sur-mesure-maroc',
+    label: 'comment nous menons un développement web sur-mesure',
+  },
 };
 
 const relatedLine = (slug) => {

@@ -88,6 +88,14 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Niche page under the pillar: custom / bespoke development -->
+  <url>
+    <loc>https://www.louisswebstudio.com/developpement-web-sur-mesure-maroc</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Hub page listing every city landing page (linked from the footer) -->
   <url>
     <loc>https://www.louisswebstudio.com/locations</loc>
